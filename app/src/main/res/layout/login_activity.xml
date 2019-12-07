@@ -6,10 +6,41 @@
         type="com.example.indonesiainvestorclub.viewModels.LoginViewModel"
         />
   </data>
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        >
+
+      <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/edtUsername"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          />
+
+      <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/edtPassword"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          />
+
+      <Button
+          android:id="@+id/btnLogin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/label_login"
+          />
+
+    </LinearLayout>
+
+  </FrameLayout>
 </layout>
