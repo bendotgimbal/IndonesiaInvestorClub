@@ -12,80 +12,75 @@ import com.example.indonesiainvestorclub.R;
 
 public class SplashActivity extends Activity {
 
-    private int mProgressStatus = 0;
-    private ProgressBar mProgressBar;
-    private TextView mTextView;
-    private int i = 0;
-    private Handler hdlr = new Handler();
+  private int mProgressStatus = 0;
+  private ProgressBar mProgressBar;
+  private TextView mTextView;
+  private int i = 0;
+  private Handler hdlr = new Handler();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_activity);
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.splash_activity);
 
-        mTextView = (TextView) findViewById(R.id.textView);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        i = mProgressBar.getProgress();
-        ProgressDialog();
-    }
+    mTextView = findViewById(R.id.textView);
+    mProgressBar = findViewById(R.id.progressBar);
+    i = mProgressBar.getProgress();
+    ProgressDialog();
+  }
 
-    private void ProgressDialog() {
-        i = mProgressBar.getProgress();
-        new Thread(new Runnable() {
-            public void run() {
-                while (i < 100) {
-                    i += 1;
-                    // Update the progress bar and display the current value in text view
-                    hdlr.post(new Runnable() {
-                        public void run() {
-                            mProgressBar.setProgress(i);
-//                            mTextView.setText(i+"/"+mProgressBar.getMax());
-                            mTextView.setText(i+" %");
-                            Log.w("Debug","Loading " +i+" %");
+  private void ProgressDialog() {
+    i = mProgressBar.getProgress();
+    new Thread(() -> {
+      while (i < 100) {
+        i += 1;
+        // Update the progress bar and display the current value in text view
+        hdlr.post(() -> {
+          mProgressBar.setProgress(i);
+          // mTextView.setText(i+"/"+mProgressBar.getMax());
+          mTextView.setText(i + " %");
+          Log.w("Debug", "Loading " + i + " %");
 
-//                            if (i == 50){
-//                                NextProgressDialog();
-//                            }
-                        }
-                    });
-                    try {
-                        // Sleep for 100 milliseconds to show the progress slowly.
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
-
-    private void NextProgressDialog() {
-        mProgressStatus = 50;
-        while(mProgressStatus<100){
-            try{
-
-                mProgressStatus++;
-
-                /** Invokes the callback method onProgressUpdate */
-                publishProgress(mProgressStatus);
-
-                /** Sleeps this thread for 100ms */
-                Thread.sleep(100);
-
-            }catch(Exception e){
-                Log.d("Exception", e.toString());
-            }
+          // if (i == 50){
+          //    NextProgressDialog();
+          // }
+        });
+        try {
+          // Sleep for 100 milliseconds to show the progress slowly.
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+      }
+    }).start();
+  }
+
+  private void NextProgressDialog() {
+    mProgressStatus = 50;
+    while (mProgressStatus < 100) {
+      try {
+
+        mProgressStatus++;
+
+        /** Invokes the callback method onProgressUpdate */
+        publishProgress(mProgressStatus);
+
+        /** Sleeps this thread for 100ms */
+        Thread.sleep(100);
+      } catch (Exception e) {
+        Log.d("Exception", e.toString());
+      }
+    }
+  }
+
+  private void publishProgress(Integer... progress) {
+    mTextView.setText("" + progress[0] + " %");
+    Log.w("Debug", "Loading Connection Server " + progress[0] + " %");
+
+    if (progress[0] == 80) {
+      Toast.makeText(SplashActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
     }
 
-    private void publishProgress(Integer... progress) {
-        mTextView.setText(""+progress[0] + " %");
-        Log.w("Debug","Loading Connection Server " +progress[0]+" %");
-
-        if(progress[0] == 80){
-            Toast.makeText(SplashActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
-        }
-
-        mProgressBar.setProgress(progress[0]);
-    }
+    mProgressBar.setProgress(progress[0]);
+  }
 }
