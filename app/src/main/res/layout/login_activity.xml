@@ -6,44 +6,37 @@
         type="com.example.indonesiainvestorclub.viewModels.LoginViewModel"
         />
   </data>
-  <FrameLayout
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="20dp"
+      android:orientation="vertical"
       >
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginBottom="10dp"
+        android:text="@={viewModel.username}"
+        />
 
-      <androidx.appcompat.widget.AppCompatEditText
-          android:id="@+id/edtUsername"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@={viewModel.username}"
-          android:layout_marginBottom="10dp"
-          />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@={viewModel.password}"
+        />
 
-      <androidx.appcompat.widget.AppCompatEditText
-          android:id="@+id/edtPassword"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@={viewModel.password}"
-          android:layout_marginBottom="10dp"
-          />
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{viewModel::onClickLogin}"
+        android:text="@string/label_login"
+        />
 
-      <Button
-          android:id="@+id/btnLogin"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:onClick="@={viewModel.onClickLogin()}"
-          android:text="@string/label_login"
-          />
-
-    </LinearLayout>
-
-  </FrameLayout>
+  </LinearLayout>
 </layout>

@@ -1,6 +1,7 @@
 package com.example.indonesiainvestorclub.views;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,31 +32,38 @@ public class SplashActivity extends Activity {
 
   private void ProgressDialog() {
     i = mProgressBar.getProgress();
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        while (i < 100) {
-          i += 1;
-          // Update the progress bar and display the current value in text view
-          hdlr.post(() -> {
-            mProgressBar.setProgress(i);
-            // mTextView.setText(i+"/"+mProgressBar.getMax());
-            mTextView.setText(i + " %");
-            Log.w("Debug", "Loading " + i + " %");
+    new Thread(() -> {
+      while (i < 100) {
+        i += 1;
+        // Update the progress bar and display the current value in text view
+        hdlr.post(() -> {
+          mProgressBar.setProgress(i);
+          // mTextView.setText(i+"/"+mProgressBar.getMax());
+          mTextView.setText(i + " %");
+          Log.w("Debug", "Loading " + i + " %");
 
-            // if (i == 50){
-            //    NextProgressDialog();
-            // }
-          });
-          try {
-            // Sleep for 100 milliseconds to show the progress slowly.
-            Thread.sleep(100);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
+          // if (i == 50){
+          //    NextProgressDialog();
+          // }
+
+          if (i == 100){
+            doneProgress();
           }
+        });
+        try {
+          // Sleep for 100 milliseconds to show the progress slowly.
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
       }
     }).start();
+  }
+
+  private void doneProgress(){
+    Intent i = new Intent(this, MainActivity.class);
+    startActivity(i);
+    finish();
   }
 
   private void NextProgressDialog() {
@@ -65,10 +73,10 @@ public class SplashActivity extends Activity {
 
         mProgressStatus++;
 
-        /** Invokes the callback method onProgressUpdate */
+        //Invokes the callback method onProgressUpdate
         publishProgress(mProgressStatus);
 
-        /** Sleeps this thread for 100ms */
+        //Sleeps this thread for 100ms
         Thread.sleep(100);
       } catch (Exception e) {
         Log.d("Exception", e.toString());
