@@ -1,4 +1,9 @@
 <resources>
   <string name="app_name">Indonesia Investor Club</string>
+  <string name="email_support">support@investorclub.id</string>
+  <string name="website">https://www.investorclub.id</string>
+
   <string name="label_login">Login</string>
+  <string name="label_email">Email</string>
+  <string name="label_website">Website</string>
 </resources>

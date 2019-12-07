@@ -1,7 +1,7 @@
 package com.example.indonesiainvestorclub.services;
 
 import androidx.annotation.NonNull;
-import com.example.indonesiainvestorclub.BuildConfig;
+import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -11,7 +11,8 @@ public class DefaultInterceptor implements Interceptor {
   public Response intercept(@NonNull Interceptor.Chain chain) {
     Request originalRequest = chain.request();
     Request.Builder requestBuilder = originalRequest.newBuilder()
-        .header("App-Version", String.valueOf(BuildConfig.VERSION_CODE))
+        .header("X-API-KEY", SharedPreferenceHelper.getToken())
+        .header("Content", "")
         .method(originalRequest.method(), originalRequest.body());
 
     Request request = requestBuilder.build();

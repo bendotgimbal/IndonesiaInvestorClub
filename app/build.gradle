@@ -12,6 +12,9 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled true
+
+    buildConfigField 'String', 'BASE_URL', BASE_URL
+    buildConfigField 'String', 'PUBLIC_TOKEN', BASE_PUBLIC_TOKEN
   }
   buildTypes {
     release {

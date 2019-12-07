@@ -18,7 +18,7 @@ public class ServiceGenerator {
   public static InvestorClubService service;
 
   private static Retrofit.Builder retrofitBuilder =
-      new Retrofit.Builder().baseUrl("https://www.investorclub.id/api/")
+      new Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create());
   private static HttpLoggingInterceptor loggingInterceptor =

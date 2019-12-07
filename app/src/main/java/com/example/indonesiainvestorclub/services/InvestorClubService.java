@@ -11,6 +11,6 @@ import retrofit2.http.POST;
 public interface InvestorClubService {
 
     @FormUrlEncoded
-    @POST("login/{username}/{password}")
+    @POST("/login")
     Observable<Response<Login>> loginRequest(@Field("username") String username, @Field("password") String password);
 }
