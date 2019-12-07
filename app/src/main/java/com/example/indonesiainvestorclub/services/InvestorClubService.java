@@ -1,6 +1,6 @@
 package com.example.indonesiainvestorclub.services;
 
-import com.example.indonesiainvestorclub.viewModels.Login;
+import com.example.indonesiainvestorclub.models.Login;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
