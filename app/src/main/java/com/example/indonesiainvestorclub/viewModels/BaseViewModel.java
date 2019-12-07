@@ -13,4 +13,8 @@ public class BaseViewModel {
   public Context getContext() {
     return context;
   }
+
+  public void destroySelf() {
+    context = null;
+  }
 }
