@@ -31,25 +31,28 @@ public class SplashActivity extends Activity {
 
   private void ProgressDialog() {
     i = mProgressBar.getProgress();
-    new Thread(() -> {
-      while (i < 100) {
-        i += 1;
-        // Update the progress bar and display the current value in text view
-        hdlr.post(() -> {
-          mProgressBar.setProgress(i);
-          // mTextView.setText(i+"/"+mProgressBar.getMax());
-          mTextView.setText(i + " %");
-          Log.w("Debug", "Loading " + i + " %");
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        while (i < 100) {
+          i += 1;
+          // Update the progress bar and display the current value in text view
+          hdlr.post(() -> {
+            mProgressBar.setProgress(i);
+            // mTextView.setText(i+"/"+mProgressBar.getMax());
+            mTextView.setText(i + " %");
+            Log.w("Debug", "Loading " + i + " %");
 
-          // if (i == 50){
-          //    NextProgressDialog();
-          // }
-        });
-        try {
-          // Sleep for 100 milliseconds to show the progress slowly.
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
+            // if (i == 50){
+            //    NextProgressDialog();
+            // }
+          });
+          try {
+            // Sleep for 100 milliseconds to show the progress slowly.
+            Thread.sleep(100);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
         }
       }
     }).start();
