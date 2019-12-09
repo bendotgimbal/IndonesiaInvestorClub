@@ -48,8 +48,9 @@ public class LoginViewModel extends BaseViewModelWithCallback{
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeWith(new CallbackWrapper<Response<LoginRes>>(this, () -> onClickLogin(view)) {
-          @Override protected void onSuccess(Response<LoginRes> loginResponse) {
-           onSuccessLogin(loginResponse.body());
+          @Override
+          protected void onSuccess(Response<LoginRes> loginResponse) {
+            onSuccessLogin(loginResponse.body());
           }
         });
     compositeDisposable.add(disposable);
@@ -60,7 +61,7 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       SharedPreferenceHelper.setLogin(true);
       SharedPreferenceHelper.setToken(loginRes.getToken());
 
-      Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk " + SharedPreferenceHelper.getToken(), Toast.LENGTH_SHORT).show();
     }
   }
 
