@@ -1,7 +1,13 @@
 package com.example.indonesiainvestorclub.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.example.indonesiainvestorclub.R;
+
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,12 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     NavigationView navigationView = findViewById(R.id.nav_view);
-    mAppBarConfiguration = new AppBarConfiguration.Builder()
+    mAppBarConfiguration = new AppBarConfiguration.Builder(
+            R.id.nav_home, R.id.nav_gallery
+    )
         .setDrawerLayout(drawer)
         .build();
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
     NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
     NavigationUI.setupWithNavController(navigationView, navController);
+
+    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+      @Override
+      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id)
+        {
+          case R.id.nav_home:
+            Toast.makeText(MainActivity.this, "MainActivity", Toast.LENGTH_SHORT).show();
+          case R.id.nav_gallery:
+            Toast.makeText(MainActivity.this,"LoginActivity",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+        return true;
+      }
+    });
   }
 
   @Override
