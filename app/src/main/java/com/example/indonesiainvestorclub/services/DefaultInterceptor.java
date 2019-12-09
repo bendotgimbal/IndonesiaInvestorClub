@@ -12,7 +12,6 @@ public class DefaultInterceptor implements Interceptor {
     Request originalRequest = chain.request();
     Request.Builder requestBuilder = originalRequest.newBuilder()
         .header("X-API-KEY", SharedPreferenceHelper.getToken())
-        .header("Content", "")
         .method(originalRequest.method(), originalRequest.body());
 
     Request request = requestBuilder.build();

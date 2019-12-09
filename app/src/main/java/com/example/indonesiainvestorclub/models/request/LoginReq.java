@@ -1,13 +1,10 @@
-package com.example.indonesiainvestorclub.models;
+package com.example.indonesiainvestorclub.models.request;
 
-public class Login {
+public class LoginReq {
   private String username;
   private String password;
 
-  public Login() {
-  }
-
-  public Login(String username, String password) {
+  public LoginReq(String username, String password) {
     this.username = username;
     this.password = password;
   }
