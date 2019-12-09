@@ -9,12 +9,12 @@ import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 
 public class PerformanceViewModel extends BaseViewModelWithCallback {
 
-    private PerformanceActivityBinding binding;
+//    private PerformanceActivityBinding binding;
     private LiveData<PerformanceRes> performanceResponseLiveData;
 
     public PerformanceViewModel(Context context, PerformanceActivityBinding binding) {
         super(context);
-        this.binding = binding;
+//        this.binding = binding;
     }
 
     public LiveData<PerformanceRes> getPerformanceResponseLiveData() {
