@@ -12,6 +12,8 @@ import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 
 public class LoginViewModel extends BaseViewModelWithCallback{
@@ -39,8 +41,10 @@ public class LoginViewModel extends BaseViewModelWithCallback{
 
   @SuppressWarnings("unused")
   public void onClickLogin(View view){
-    //LoginReq loginReq = new LoginReq(getUsername(), getPassword());
-    Disposable disposable = ServiceGenerator.service.loginRequest(getUsername(), getPassword())
+    RequestBody username = RequestBody.create(MediaType.parse("text/plain"), getUsername());
+    RequestBody password = RequestBody.create(MediaType.parse("text/plain"), getPassword());
+
+    Disposable disposable = ServiceGenerator.service.loginRequest(username, password)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeWith(new CallbackWrapper<Response<LoginRes>>(this, () -> onClickLogin(view)) {
