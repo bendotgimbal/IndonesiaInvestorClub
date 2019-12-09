@@ -2,25 +2,23 @@ package com.example.indonesiainvestorclub.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.indonesiainvestorclub.R;
-
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import com.example.indonesiainvestorclub.viewModels.MainViewModel;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
   private AppBarConfiguration mAppBarConfiguration;
+  //private MainActivityBinding binding;
+  private MainViewModel viewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     NavigationView navigationView = findViewById(R.id.nav_view);
     mAppBarConfiguration = new AppBarConfiguration.Builder(
-            R.id.nav_home, R.id.nav_gallery
+        R.id.nav_home, R.id.nav_gallery
     )
         .setDrawerLayout(drawer)
         .build();
@@ -40,21 +38,22 @@ public class MainActivity extends AppCompatActivity {
     NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
     NavigationUI.setupWithNavController(navigationView, navController);
 
-    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-        switch (id)
-        {
-          case R.id.nav_home:
-            Toast.makeText(MainActivity.this, "MainActivity", Toast.LENGTH_SHORT).show();
-          case R.id.nav_gallery:
-            Toast.makeText(MainActivity.this,"LoginActivity",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-        return true;
+    navigationView.setNavigationItemSelectedListener(menuItem -> {
+      int id = menuItem.getItemId();
+      switch (id) {
+        case R.id.nav_home:
+          Toast.makeText(MainActivity.this, "MainActivity", Toast.LENGTH_SHORT).show();
+        case R.id.nav_gallery:
+          Toast.makeText(MainActivity.this, "LoginActivity", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(MainActivity.this, LoginActivity.class));
       }
+      return true;
     });
+  }
+
+  @Override
+  public void initDataBinding() {
+
   }
 
   @Override

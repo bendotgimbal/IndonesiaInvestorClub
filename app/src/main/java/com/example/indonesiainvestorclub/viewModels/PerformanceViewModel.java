@@ -5,19 +5,19 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 
 import com.example.indonesiainvestorclub.databinding.PerformanceActivityBinding;
-import com.example.indonesiainvestorclub.models.response.Performance;
+import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 
 public class PerformanceViewModel extends BaseViewModelWithCallback {
 
     private PerformanceActivityBinding binding;
-    private LiveData<Performance> performanceResponseLiveData;
+    private LiveData<PerformanceRes> performanceResponseLiveData;
 
     public PerformanceViewModel(Context context, PerformanceActivityBinding binding) {
         super(context);
         this.binding = binding;
     }
 
-    public LiveData<Performance> getPerformanceResponseLiveData() {
+    public LiveData<PerformanceRes> getPerformanceResponseLiveData() {
         return performanceResponseLiveData;
     }
 }
