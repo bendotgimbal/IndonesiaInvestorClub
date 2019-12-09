@@ -3,11 +3,8 @@ package com.example.indonesiainvestorclub.models.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Login {
-    @SerializedName("X-API-KEY")
+public class Performance {
+    @SerializedName("Performances")
     @Expose
-    private String api_key;
-    @SerializedName("username")
-    @Expose
-    private String username;
+    private Integer Performances;
 }
