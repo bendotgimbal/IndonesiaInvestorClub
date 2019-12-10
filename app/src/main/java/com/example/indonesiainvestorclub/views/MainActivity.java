@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity {
       switch (id) {
         case R.id.nav_home:
           Toast.makeText(MainActivity.this, "MainActivity", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(MainActivity.this, PerformanceActivity.class));
         case R.id.nav_gallery:
           Toast.makeText(MainActivity.this, "LoginActivity", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(MainActivity.this, LoginActivity.class));
