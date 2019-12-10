@@ -55,6 +55,7 @@
       </intent-filter>
     </activity>
     <activity android:name=".views.LoginActivity" />
+    <activity android:name=".views.PerformanceActivity" />
   </application>
 
 </manifest>
