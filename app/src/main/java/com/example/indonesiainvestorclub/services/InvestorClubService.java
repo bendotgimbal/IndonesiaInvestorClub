@@ -4,6 +4,7 @@ import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.models.response.LogoutRes;
 import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 
+import com.example.indonesiainvestorclub.models.response.ProfileRes;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
@@ -17,6 +18,9 @@ public interface InvestorClubService {
   @Multipart
   @POST("login")
   Observable<Response<LoginRes>> loginRequest(@Part("username") RequestBody username, @Part("password") RequestBody password);
+
+  @GET("profile")
+  Observable<Response<ProfileRes>> profileRequest();
 
   @GET("public/performance")
   Observable<Response<PerformanceRes>> performanceRequest();

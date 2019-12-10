@@ -10,19 +10,19 @@
         android:name="com.example.indonesiainvestorclub.views.MainActivity"
         android:label="@string/menu_home"/>
 
-    <activity
-        android:id="@+id/nav_login"
-        android:name="com.example.indonesiainvestorclub.views.LoginActivity"
-        android:label="@string/menu_login"/>
+<!--    <activity-->
+<!--        android:id="@+id/nav_login"-->
+<!--        android:name="com.example.indonesiainvestorclub.views.LoginActivity"-->
+<!--        android:label="@string/menu_login"/>-->
 
-    <activity
-        android:id="@+id/nav_profile"
-        android:name="com.example.indonesiainvestorclub.views.ProfileActivity"
-        android:label="@string/menu_profile"/>
+<!--    <activity-->
+<!--        android:id="@+id/nav_profile"-->
+<!--        android:name="com.example.indonesiainvestorclub.views.ProfileActivity"-->
+<!--        android:label="@string/menu_profile"/>-->
 
     <activity
         android:id="@+id/nav_portofolio"
-        android:name="com.example.indonesiainvestorclub.views.PortofolioActivity"
+        android:name="com.example.indonesiainvestorclub.views.NetworkFragment"
         android:label="@string/menu_portofolio"/>
 
 </navigation>

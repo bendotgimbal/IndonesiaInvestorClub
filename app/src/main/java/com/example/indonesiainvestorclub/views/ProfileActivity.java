@@ -23,6 +23,5 @@ public class ProfileActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.profile_activity);
         viewModel = new ProfileViewModel(this, binding);
         binding.setViewModel(viewModel);
-
     }
 }
