@@ -1,6 +1,7 @@
 package com.example.indonesiainvestorclub.services;
 
 import com.example.indonesiainvestorclub.models.response.LoginRes;
+import com.example.indonesiainvestorclub.models.response.LogoutRes;
 import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 
 import io.reactivex.Observable;
@@ -19,4 +20,7 @@ public interface InvestorClubService {
 
   @GET("public/performance")
   Observable<Response<PerformanceRes>> performanceRequest();
+
+  @GET("logout")
+  Observable<Response<LogoutRes>> logoutRequest();
 }
