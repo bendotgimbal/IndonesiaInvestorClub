@@ -51,8 +51,8 @@ public class MainActivity extends BaseActivity {
           Toast.makeText(MainActivity.this, "ProfileActivity", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(MainActivity.this, ProfileActivity.class));
         case R.id.nav_portofolio:
-          Toast.makeText(MainActivity.this, "AgreementActivity", Toast.LENGTH_SHORT).show();
-          startActivity(new Intent(MainActivity.this, AgreementActivity.class));
+          Toast.makeText(MainActivity.this, "PortofolioActivity", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(MainActivity.this, PortofolioActivity.class));
       }
       return true;
     });
