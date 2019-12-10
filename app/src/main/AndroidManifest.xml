@@ -56,6 +56,8 @@
         android:theme="@style/AppTheme.NoActionBar"></activity>
     <activity android:name=".views.LoginActivity" />
     <activity android:name=".views.PerformanceActivity" />
+    <activity android:name=".views.ProfileActivity" />
+    <activity android:name=".views.PortofolioActivity" />
   </application>
 
 </manifest>

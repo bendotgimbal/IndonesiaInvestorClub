@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     NavigationView navigationView = findViewById(R.id.nav_view);
     mAppBarConfiguration = new AppBarConfiguration.Builder(
-        R.id.nav_home, R.id.nav_gallery
+        R.id.nav_home, R.id.nav_login, R.id.nav_profile, R.id.nav_portofolio
     )
         .setDrawerLayout(drawer)
         .build();
@@ -44,9 +44,15 @@ public class MainActivity extends BaseActivity {
         case R.id.nav_home:
           Toast.makeText(MainActivity.this, "MainActivity", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(MainActivity.this, PerformanceActivity.class));
-        case R.id.nav_gallery:
+        case R.id.nav_login:
           Toast.makeText(MainActivity.this, "LoginActivity", Toast.LENGTH_SHORT).show();
           startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        case R.id.nav_profile:
+          Toast.makeText(MainActivity.this, "ProfileActivity", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+        case R.id.nav_portofolio:
+          Toast.makeText(MainActivity.this, "AgreementActivity", Toast.LENGTH_SHORT).show();
+          startActivity(new Intent(MainActivity.this, AgreementActivity.class));
       }
       return true;
     });
