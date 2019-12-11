@@ -17,7 +17,9 @@ public abstract class CallbackWrapper<T extends Response> extends DisposableObse
   protected abstract void onSuccess(T t);
 
   @Override public void onNext(T t) {
-
+    if (t.isSuccessful()) {
+      onSuccess(t);
+    }
   }
 
   @Override public void onError(Throwable e) {

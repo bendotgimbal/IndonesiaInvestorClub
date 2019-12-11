@@ -1,42 +1,50 @@
 package com.example.indonesiainvestorclub.views;
 
 import android.os.Bundle;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.databinding.DataBindingUtil;
 import com.example.indonesiainvestorclub.R;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.navigation.NavigationView;
-import androidx.drawerlayout.widget.DrawerLayout;
+import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
+import com.example.indonesiainvestorclub.viewModels.MainViewModel;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-  private AppBarConfiguration mAppBarConfiguration;
+  private ActivityMainBinding binding;
+  private MainViewModel viewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+    setSupportActionBar(binding.appbar.toolbar);
+    initDrawerIcon();
+  }
 
-    DrawerLayout drawer = findViewById(R.id.drawer_layout);
-    NavigationView navigationView = findViewById(R.id.nav_view);
-    mAppBarConfiguration = new AppBarConfiguration.Builder()
-        .setDrawerLayout(drawer)
-        .build();
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-    NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-    NavigationUI.setupWithNavController(navigationView, navController);
+  private void initDrawerIcon() {
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setHomeButtonEnabled(true);
+      ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+          binding.drawerLayout,
+          binding.appbar.toolbar,
+          R.string.navigation_drawer_open,
+          R.string.navigation_drawer_close);
+      binding.drawerLayout.addDrawerListener(toggle);
+      toggle.syncState();
+    }
   }
 
   @Override
-  public boolean onSupportNavigateUp() {
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-    return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-        || super.onSupportNavigateUp();
+  public void initDataBinding() {
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    viewModel = new MainViewModel(this, binding);
+    binding.setViewModel(viewModel);
+  }
+
+  @Override public void onBackPressed() {
+    if (viewModel.isDrawerOpen()) {
+      viewModel.closeDrawer();
+      return;
+    }
+    super.onBackPressed();
   }
 }

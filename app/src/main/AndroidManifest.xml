@@ -25,10 +25,6 @@
       android:usesCleartextTraffic="true"
       tools:targetApi="m">
     <activity
-        android:name=".views.MainActivity"
-        android:label="@string/title_activity_main"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
-    <activity
         android:name=".views.SplashActivity"
         android:configChanges="keyboard"
         android:launchMode="singleTop"
@@ -49,12 +45,21 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
       <intent-filter>
-        <action android:name="com.alfacart.alfamikroapp.login" />
+        <action android:name="com.alfacart.alfamikroapp.loginReq" />
 
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity
+        android:name=".views.MainActivity"
+        android:label="@string/title_activity_main"
+        android:theme="@style/AppTheme.NoActionBar" />
     <activity android:name=".views.LoginActivity" />
+    <activity android:name=".views.PerformanceActivity" />
+    <activity android:name=".views.ProfileActivity" />
+    <activity android:name=".views.PortofolioActivity" />
+    <activity android:name=".views.AgreementActivity" />
+    <activity android:name=".views.NetworkFragment" />
   </application>
 
 </manifest>
