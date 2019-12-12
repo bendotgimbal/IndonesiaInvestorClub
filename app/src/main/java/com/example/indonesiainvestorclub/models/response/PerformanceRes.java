@@ -1,10 +1,16 @@
 package com.example.indonesiainvestorclub.models.response;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.indonesiainvestorclub.models.Performance;
+import java.util.List;
 
 public class PerformanceRes {
-    @SerializedName("Performances")
-    @Expose
-    private Integer Performances;
+  private List<Performance> performances;
+
+  public List<Performance> getPerformances() {
+    return performances;
+  }
+
+  public void setPerformances(List<Performance> performances) {
+    this.performances = performances;
+  }
 }

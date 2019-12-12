@@ -2,9 +2,8 @@ package com.example.indonesiainvestorclub.services;
 
 import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.models.response.LogoutRes;
-import com.example.indonesiainvestorclub.models.response.PerformanceRes;
-
 import com.example.indonesiainvestorclub.models.response.ProfileRes;
+import com.google.gson.JsonElement;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
@@ -23,7 +22,7 @@ public interface InvestorClubService {
   Observable<Response<ProfileRes>> profileRequest();
 
   @GET("public/performance")
-  Observable<Response<PerformanceRes>> performanceRequest();
+  Observable<Response<JsonElement>> performanceRequest();
 
   @GET("logout")
   Observable<Response<LogoutRes>> logoutRequest();

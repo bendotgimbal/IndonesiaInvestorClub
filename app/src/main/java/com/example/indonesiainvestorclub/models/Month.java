@@ -17,6 +17,25 @@ public class Month {
     private String dec;
     private String ytd;
 
+    public Month(String year, String jan, String feb, String mar, String apr, String may,
+        String jun, String jul, String aug, String sep, String oct, String nov, String dec,
+        String ytd) {
+        this.year = year;
+        this.jan = jan;
+        this.feb = feb;
+        this.mar = mar;
+        this.apr = apr;
+        this.may = may;
+        this.jun = jun;
+        this.jul = jul;
+        this.aug = aug;
+        this.sep = sep;
+        this.oct = oct;
+        this.nov = nov;
+        this.dec = dec;
+        this.ytd = ytd;
+    }
+
     public String getYear() {
         return year;
     }
