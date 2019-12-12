@@ -2,6 +2,7 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -47,60 +48,69 @@ public class MainViewModel extends BaseViewModelWithCallback {
         .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getPerformance) {
           @Override
           protected void onSuccess(Response<JsonElement> response) {
-            if (response.body() != null){
-              JSONObject jsonObject;
-              try {
-                PerformanceRes performanceRes = null;
-
-                jsonObject = new JSONObject(response.body().toString());
-                JSONObject object = jsonObject.getJSONObject("Performances");
-                List<Performance> performances = new ArrayList<>();
-                for (int i = 1; i <= object.length(); i++){
-                  JSONObject obj = object.getJSONObject(i+"");
-                  Performance performance = null;
-
-                  String name = obj.getString("Name");
-                  JSONObject datas = obj.getJSONObject("Datas");
-
-                  List<Datas> datasList = new ArrayList<>();
-                  for (int o = 1; o <= datas.length(); o++){
-                    JSONObject obj1 = datas.getJSONObject(i+"");
-
-                    Datas datasL = null;
-                    List<Month> monthList = new ArrayList<>();
-                    for (int p = 1; p <= obj1.length(); p++){
-                      JSONObject obj2 = obj1.getJSONObject(p+"");
-
-                      Month month = new Month(
-                          obj2.getJSONObject("YEAR").toString(),
-                          obj2.getJSONObject("Jan").toString(),
-                          obj2.getJSONObject("Feb").toString(),
-                          obj2.getJSONObject("Mar").toString(),
-                          obj2.getJSONObject("Apr").toString(),
-                          obj2.getJSONObject("May").toString(),
-                          obj2.getJSONObject("Jun").toString(),
-                          obj2.getJSONObject("Jul").toString(),
-                          obj2.getJSONObject("Aug").toString(),
-                          obj2.getJSONObject("Sep").toString(),
-                          obj2.getJSONObject("Oct").toString(),
-                          obj2.getJSONObject("Nov").toString(),
-                          obj2.getJSONObject("Dec").toString(),
-                          obj2.getJSONObject("YTD").toString()
-                      );
-
-                      monthList.add(month);
-                    }
-                    datasL.setMonths(monthList);
-                    datasList.add(datasL);
-                  }
-                }
-              } catch (JSONException e) {
-                e.printStackTrace();
-              }
+            if (response.body() != null) {
+              readPerformancesJSON(response.body());
             }
           }
         });
     compositeDisposable.add(disposable);
+  }
+
+  private void readPerformancesJSON(JsonElement response){
+    JSONObject jsonObject;
+    try {
+      PerformanceRes performanceRes = new PerformanceRes();
+
+      jsonObject = new JSONObject(response.toString());
+      JSONObject object = jsonObject.getJSONObject("Performances");
+
+      List<Performance> performances = new ArrayList<>();
+      List<Datas> datasList = new ArrayList<>();
+      List<Month> monthList = new ArrayList<>();
+
+      for (int i = 1; i <= object.length(); i++) {
+        JSONObject obj = object.getJSONObject(i + "");
+        Performance performance;
+        Datas data;
+
+        String name = obj.getString("Name");
+        JSONObject datas = obj.getJSONObject("Datas");
+
+        for (int o = 1; o <= datas.length(); o++) {
+          JSONObject obj1 = datas.getJSONObject(o + "");
+
+          obj1.getString("YEAR");
+
+          Month month = new Month(
+              obj1.getString("YEAR"),
+              obj1.getString("Jan"),
+              obj1.getString("Feb"),
+              obj1.getString("Mar"),
+              obj1.getString("Apr"),
+              obj1.getString("May"),
+              obj1.getString("Jun"),
+              obj1.getString("Jul"),
+              obj1.getString("Aug"),
+              obj1.getString("Sep"),
+              obj1.getString("Oct"),
+              obj1.getString("Nov"),
+              obj1.getString("Dec"),
+              obj1.getString("YTD")
+          );
+          monthList.add(month);
+        }
+
+        data = new Datas(monthList);
+        datasList.add(data);
+
+        performance = new Performance(name, datasList);
+        performances.add(performance);
+      }
+
+      performanceRes.setPerformances(performances);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
   }
 
   //NAVIGATION LINE
