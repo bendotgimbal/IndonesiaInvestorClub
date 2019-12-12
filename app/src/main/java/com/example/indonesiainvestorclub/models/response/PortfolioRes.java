@@ -1,4 +1,4 @@
 package com.example.indonesiainvestorclub.models.response;
 
-public class PortofolioRes {
+public class PortfolioRes {
 }
