@@ -18,20 +18,16 @@ import com.example.indonesiainvestorclub.viewModels.NetworkViewModel;
 
 public class NetworkFragment extends Fragment {
 
-    private NetworkFragmentBinding binding;
-    private NetworkViewModel viewModel;
+  private NetworkFragmentBinding binding;
+  private NetworkViewModel viewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this).get(NetworkViewModel.class);
-        View rootView = inflater.inflate(R.layout.network_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return rootView;
-    }
+    viewModel = ViewModelProviders.of(this).get(NetworkViewModel.class);
+    View rootView = inflater.inflate(R.layout.network_fragment, container, false);
+    final TextView textView = rootView.findViewById(R.id.text_network);
+    viewModel.getText().observe(this, textView::setText);
+    return rootView;
+  }
 }
