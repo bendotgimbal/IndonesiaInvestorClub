@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.example.indonesiainvestorclub.views.AgreementActivity;
+import com.example.indonesiainvestorclub.views.InvestFragment;
 import com.example.indonesiainvestorclub.views.LoginActivity;
 import com.example.indonesiainvestorclub.views.NetworkFragment;
 import com.example.indonesiainvestorclub.views.PerformanceActivity;
 import com.example.indonesiainvestorclub.views.ProfileActivity;
+import com.example.indonesiainvestorclub.views.TransactionsFragment;
 
 public class MainViewModel extends BaseViewModel {
 
@@ -60,6 +62,14 @@ public class MainViewModel extends BaseViewModel {
         case R.id.menu_network:
           fragment = new NetworkFragment();
           Toast.makeText(context, "NetworkFragment is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_transactions:
+          fragment = new TransactionsFragment();
+          Toast.makeText(context, "TransactionsFragment is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_invest:
+          fragment = new InvestFragment();
+          Toast.makeText(context, "InvestmentFragment is clicked", Toast.LENGTH_SHORT).show();
           break;
       }
       return true;
