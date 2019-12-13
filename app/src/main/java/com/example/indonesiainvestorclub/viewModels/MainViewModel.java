@@ -12,6 +12,7 @@ import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.example.indonesiainvestorclub.views.AgreementActivity;
 import com.example.indonesiainvestorclub.views.InvestFragment;
 import com.example.indonesiainvestorclub.views.LoginActivity;
+import com.example.indonesiainvestorclub.views.LogoutFragment;
 import com.example.indonesiainvestorclub.views.NetworkFragment;
 import com.example.indonesiainvestorclub.views.PerformanceActivity;
 import com.example.indonesiainvestorclub.views.ProfileActivity;
@@ -70,6 +71,14 @@ public class MainViewModel extends BaseViewModel {
         case R.id.menu_invest:
           fragment = new InvestFragment();
           Toast.makeText(context, "InvestmentFragment is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_login:
+          goToMenu(LoginActivity.class);
+          Toast.makeText(context, "LoginActivity is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_logout:
+          fragment = new LogoutFragment();
+          Toast.makeText(context, "LogoutFragment is clicked", Toast.LENGTH_SHORT).show();
           break;
       }
       return true;

@@ -21,6 +21,7 @@
   <string name="menu_share">Share</string>
   <string name="menu_send">Send</string>
   <string name="menu_login">Login</string>
+  <string name="menu_logout">Logout</string>
   <string name="menu_profile">Profile</string>
   <string name="menu_agreement">Agreement</string>
   <string name="menu_network">Network</string>

@@ -28,6 +28,14 @@
             android:id="@+id/menu_invest"
             android:icon="@drawable/ic_investment"
             android:title="@string/menu_invest" />
+        <item
+            android:id="@+id/menu_login"
+            android:icon="@drawable/ic_login"
+            android:title="@string/menu_login" />
+        <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/menu_logout" />
     </group>
 
 
