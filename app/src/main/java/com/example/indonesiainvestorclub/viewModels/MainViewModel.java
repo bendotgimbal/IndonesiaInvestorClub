@@ -2,7 +2,6 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -30,7 +29,7 @@ import retrofit2.Response;
 
 public class MainViewModel extends BaseViewModelWithCallback {
 
-  private static final String TAG = MainViewModel.class.getCanonicalName();
+  //private static final String TAG = MainViewModel.class.getCanonicalName();
   private ActivityMainBinding binding;
 
   public MainViewModel(Context context, ActivityMainBinding binding) {
@@ -79,8 +78,6 @@ public class MainViewModel extends BaseViewModelWithCallback {
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
 
-          obj1.getString("YEAR");
-
           Month month = new Month(
               obj1.getString("YEAR"),
               obj1.getString("Jan"),
@@ -120,8 +117,8 @@ public class MainViewModel extends BaseViewModelWithCallback {
       Fragment fragment = null;
       switch (id) {
         case R.id.nav_home:
-          goToMenu(PerformanceActivity.class);
-          Toast.makeText(context, "PerformanceActivity is clicked", Toast.LENGTH_SHORT).show();
+          context.startActivity(new Intent(context, PerformanceActivity.class));
+          closeDrawer();
           break;
         case R.id.menu_network:
           fragment = new NetworkFragment();
@@ -138,34 +135,6 @@ public class MainViewModel extends BaseViewModelWithCallback {
       }
       return true;
     });
-  }
-
-  //  private void initNavMenu() {
-  //    binding.navView.setNavigationItemSelectedListener(menuItem -> {
-  //      int id = menuItem.getItemId();
-  //      Fragment fragment = null;
-  //      switch (id) {
-  //        case R.id.nav_home:
-  //          goToMenu(PerformanceActivity.class);
-  //          break;
-  //        case R.id.nav_login:
-  //          goToMenu(LoginActivity.class);
-  //          break;
-  //        case R.id.nav_profile:
-  //          goToMenu(ProfileActivity.class);
-  //          break;
-  //        case R.id.menu_network:
-  ////          goToMenu(AgreementActivity.class);
-  //          fragment = new NetworkFragment();
-  //          break;
-  //      }
-  //      return true;
-  //    });
-  //  }
-
-  private void goToMenu(Class activity) {
-    closeDrawer();
-    context.startActivity(new Intent(context, activity));
   }
 
   @SuppressWarnings("unused")
