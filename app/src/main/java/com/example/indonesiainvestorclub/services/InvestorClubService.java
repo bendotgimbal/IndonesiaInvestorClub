@@ -7,14 +7,12 @@ import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.models.response.LogoutRes;
 import com.example.indonesiainvestorclub.models.response.LoungeRes;
 import com.example.indonesiainvestorclub.models.response.NetworkRes;
-import com.example.indonesiainvestorclub.models.response.PerformanceRes;
-
 import com.example.indonesiainvestorclub.models.response.PortfolioRes;
 import com.example.indonesiainvestorclub.models.response.ProfileRes;
 import com.example.indonesiainvestorclub.models.response.ProfileUpdateRes;
 import com.example.indonesiainvestorclub.models.response.SignUpRes;
 import com.example.indonesiainvestorclub.models.response.TransactionsRes;
-
+import com.google.gson.JsonElement;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
@@ -41,7 +39,7 @@ public interface InvestorClubService {
   Observable<Response<ProfileRes>> profileRequest();
 
   @GET("public/performance")
-  Observable<Response<PerformanceRes>> performanceRequest();
+  Observable<Response<JsonElement>> performanceRequest();
 
   @GET("invest")
   Observable<Response<InvestRes>> investRequest();
