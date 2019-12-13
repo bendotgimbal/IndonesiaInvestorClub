@@ -19,14 +19,14 @@ import com.example.indonesiainvestorclub.viewModels.FundsViewModel;
 public class FundsFragment extends Fragment {
 
     private FundsFragmentBinding binding;
-    private FundsViewModel viewModel;
+    private FundsViewModel fundsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        viewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
+        fundsViewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
         View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
+        final TextView textView = rootView.findViewById(R.id.text_funds);
+        fundsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

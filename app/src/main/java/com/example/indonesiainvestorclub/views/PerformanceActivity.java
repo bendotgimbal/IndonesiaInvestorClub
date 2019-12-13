@@ -14,7 +14,7 @@ import com.example.indonesiainvestorclub.viewModels.PerformanceViewModel;
 public class PerformanceActivity extends BaseActivity {
 
     private PerformanceActivityBinding binding;
-    private PerformanceViewModel viewModel;
+    private PerformanceViewModel performanceViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class PerformanceActivity extends BaseActivity {
     @Override
     public void initDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.performance_activity);
-        viewModel = new PerformanceViewModel(this, binding);
-        binding.setViewModel(viewModel);
+        performanceViewModel = new PerformanceViewModel(this, binding);
+        binding.setViewModel(performanceViewModel);
     }
 }
