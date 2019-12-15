@@ -47,4 +47,10 @@ public class MainActivity extends BaseActivity {
     }
     super.onBackPressed();
   }
+
+  @Override
+  protected void onResume() {
+    viewModel = new MainViewModel(this, binding);
+    super.onResume();
+  }
 }

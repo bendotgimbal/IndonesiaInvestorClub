@@ -13,9 +13,11 @@ import com.example.indonesiainvestorclub.models.Performance;
 import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
+import com.example.indonesiainvestorclub.views.AgreementFragment;
 import com.example.indonesiainvestorclub.views.InvestFragment;
 import com.example.indonesiainvestorclub.views.LoginActivity;
 import com.example.indonesiainvestorclub.views.LogoutFragment;
+import com.example.indonesiainvestorclub.views.LoungeFragment;
 import com.example.indonesiainvestorclub.views.NetworkFragment;
 import com.example.indonesiainvestorclub.views.PerformanceActivity;
 import com.example.indonesiainvestorclub.views.TransactionsFragment;
@@ -120,6 +122,14 @@ public class MainViewModel extends BaseViewModelWithCallback {
         case R.id.nav_home:
           goToMenu(PerformanceActivity.class);
           Toast.makeText(context, "PerformanceActivity is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_lounge:
+          fragment = new LoungeFragment();
+          Toast.makeText(context, "LoungeFragment is clicked", Toast.LENGTH_SHORT).show();
+          break;
+        case R.id.menu_agreement:
+          fragment = new AgreementFragment();
+          Toast.makeText(context, "AgreementFragment is clicked", Toast.LENGTH_SHORT).show();
           break;
         case R.id.menu_network:
           fragment = new NetworkFragment();

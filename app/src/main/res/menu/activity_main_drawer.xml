@@ -17,6 +17,14 @@
 <!--            android:icon="@drawable/ic_menu_send"-->
 <!--            android:title="@string/menu_profile" />-->
         <item
+            android:id="@+id/menu_lounge"
+            android:icon="@drawable/ic_lounge"
+            android:title="@string/menu_lounge" />
+        <item
+            android:id="@+id/menu_agreement"
+            android:icon="@drawable/ic_agreement"
+            android:title="@string/menu_agreement" />
+        <item
             android:id="@+id/menu_network"
             android:icon="@drawable/ic_network"
             android:title="@string/menu_network" />
