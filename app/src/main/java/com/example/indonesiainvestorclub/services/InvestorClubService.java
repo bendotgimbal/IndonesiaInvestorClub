@@ -54,7 +54,7 @@ public interface InvestorClubService {
   Observable<Response<JsonElement>> agreementRequest();
 
   @GET("lounge")
-  Observable<Response<LoungeRes>> loungeRequest();
+  Observable<Response<JsonElement>> loungeRequest();
 
   @GET("network")
   Observable<Response<NetworkRes>> networkRequest();
