@@ -58,7 +58,7 @@
     <activity android:name=".views.PerformanceActivity" />
     <activity android:name=".views.ProfileActivity" />
     <activity android:name=".views.PortofolioActivity" />
-    <activity android:name=".views.AgreementActivity" />
+    <activity android:name=".views.AgreementFragment" />
     <activity android:name=".views.NetworkFragment" />
   </application>
 

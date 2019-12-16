@@ -19,14 +19,14 @@ import com.example.indonesiainvestorclub.viewModels.LogoutViewModel;
 public class LogoutFragment extends Fragment {
 
     private LogoutFragmentBinding binding;
-    private LogoutViewModel viewModel;
+    private LogoutViewModel logoutViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        viewModel = ViewModelProviders.of(this).get(LogoutViewModel.class);
+        logoutViewModel = ViewModelProviders.of(this).get(LogoutViewModel.class);
         View rootView = inflater.inflate(R.layout.logout_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
+        final TextView textView = rootView.findViewById(R.id.text_logout);
+        logoutViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

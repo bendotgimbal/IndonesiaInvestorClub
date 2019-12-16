@@ -19,15 +19,15 @@ import com.example.indonesiainvestorclub.viewModels.NetworkViewModel;
 public class NetworkFragment extends Fragment {
 
   private NetworkFragmentBinding binding;
-  private NetworkViewModel viewModel;
+  private NetworkViewModel networkViewModel;
 
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    viewModel = ViewModelProviders.of(this).get(NetworkViewModel.class);
+    networkViewModel = ViewModelProviders.of(this).get(NetworkViewModel.class);
     View rootView = inflater.inflate(R.layout.network_fragment, container, false);
     final TextView textView = rootView.findViewById(R.id.text_network);
-    viewModel.getText().observe(this, textView::setText);
+    networkViewModel.getText().observe(this, textView::setText);
     return rootView;
   }
 }

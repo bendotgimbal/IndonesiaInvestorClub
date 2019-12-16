@@ -19,14 +19,14 @@ import com.example.indonesiainvestorclub.viewModels.TransactionsViewModel;
 public class TransactionsFragment extends Fragment {
 
     private TransactionsFragmentBinding binding;
-    private TransactionsViewModel viewModel;
+    private TransactionsViewModel transactionsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        viewModel = ViewModelProviders.of(this).get(TransactionsViewModel.class);
+        transactionsViewModel = ViewModelProviders.of(this).get(TransactionsViewModel.class);
         View rootView = inflater.inflate(R.layout.transactions_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
+        final TextView textView = rootView.findViewById(R.id.text_transactions);
+        transactionsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
