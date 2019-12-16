@@ -12,6 +12,18 @@
         tools:layout="@layout/home_fragment"/>
 
     <fragment
+        android:id="@+id/nav_lounge"
+        android:name="com.example.indonesiainvestorclub.views.LoungeFragment"
+        android:label="@string/menu_lounge"
+        tools:layout="@layout/lounge_fragment"/>
+
+    <fragment
+        android:id="@+id/nav_agreement"
+        android:name="com.example.indonesiainvestorclub.views.AgreementFragment"
+        android:label="@string/menu_agreement"
+        tools:layout="@layout/agreement_fragment"/>
+
+    <fragment
         android:id="@+id/nav_network"
         android:name="com.example.indonesiainvestorclub.views.NetworkFragment"
         android:label="@string/menu_network"
@@ -24,10 +36,16 @@
         tools:layout="@layout/transactions_fragment"/>
 
     <fragment
-        android:id="@+id/nav_invest"
-        android:name="com.example.indonesiainvestorclub.views.InvestFragment"
+        android:id="@+id/nav_funds"
+        android:name="com.example.indonesiainvestorclub.views.FundsFragment"
         android:label="@string/menu_funds"
-        tools:layout="@layout/invest_fragment"/>
+        tools:layout="@layout/funds_fragment"/>
+
+    <activity
+        android:id="@+id/nav_login"
+        android:name="com.example.indonesiainvestorclub.views.LoginActivity"
+        android:label="@string/menu_login"
+        tools:layout="@layout/login_activity"/>
 
 
 </navigation>

@@ -29,8 +29,8 @@ public class MainActivity extends BaseActivity {
 
   private void initAppBarConfiguration() {
     appBarConfiguration =
-        new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_network, R.id.nav_transaction,
-            R.id.nav_invest).setDrawerLayout(binding.drawerLayout).build();
+        new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_lounge, R.id.nav_transaction,
+            R.id.nav_funds).setDrawerLayout(binding.drawerLayout).build();
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     NavigationUI.setupWithNavController(binding.navView, navController);

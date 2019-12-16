@@ -17,6 +17,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -54,6 +55,7 @@ public interface InvestorClubService {
   Observable<Response<JsonElement>> agreementRequest();
 
   @GET("lounge")
+//  Observable<Response<JsonElement>> loungeRequest(@Header("X-API-KEY") String token);
   Observable<Response<JsonElement>> loungeRequest();
 
   @GET("network")

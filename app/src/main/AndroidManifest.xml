@@ -60,6 +60,8 @@
     <activity android:name=".views.PortofolioActivity" />
     <activity android:name=".views.AgreementFragment" />
     <activity android:name=".views.NetworkFragment" />
+    <activity android:name=".views.TransactionsFragment" />
+    <activity android:name=".views.InvestFragment" />
   </application>
 
 </manifest>
