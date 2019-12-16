@@ -1,5 +1,7 @@
 package com.example.indonesiainvestorclub.models;
 
+import java.util.List;
+
 public class Funds {
     private String name;
     private String type;
@@ -9,6 +11,7 @@ public class Funds {
     private String slots;
     private String compounding;
     private String roi;
+    List<Meta> meta;
 
     public Funds(String name, String type, String manager, String invested, String equity, String slots, String compounding, String roi) {
         this.name = name;
@@ -83,5 +86,13 @@ public class Funds {
 
     public void setROI(String roi) {
         this.roi = roi;
+    }
+
+    public List<Meta> getMeta() {
+        return meta;
+    }
+
+    public void setMeta(List<Meta> meta) {
+        this.meta = meta;
     }
 }
