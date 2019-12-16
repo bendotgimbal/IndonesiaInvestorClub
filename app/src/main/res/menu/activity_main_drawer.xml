@@ -8,34 +8,18 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_investment"
             android:title="@string/menu_home" />
-<!--        <item-->
-<!--            android:id="@+id/nav_login"-->
-<!--            android:icon="@drawable/ic_menu_gallery"-->
-<!--            android:title="@string/menu_login" />-->
-<!--        <item-->
-<!--            android:id="@+id/nav_profile"-->
-<!--            android:icon="@drawable/ic_menu_send"-->
-<!--            android:title="@string/menu_profile" />-->
         <item
-            android:id="@+id/menu_network"
+            android:id="@+id/nav_network"
             android:icon="@drawable/ic_network"
             android:title="@string/menu_network" />
         <item
-            android:id="@+id/menu_transactions"
+            android:id="@+id/nav_transaction"
             android:icon="@drawable/ic_transactions"
             android:title="@string/menu_transactions" />
         <item
-            android:id="@+id/menu_invest"
+            android:id="@+id/nav_invest"
             android:icon="@drawable/ic_investment"
             android:title="@string/menu_invest" />
-        <item
-            android:id="@+id/menu_login"
-            android:icon="@drawable/ic_login"
-            android:title="@string/menu_login" />
-        <item
-            android:id="@+id/menu_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/menu_logout" />
     </group>
 
 

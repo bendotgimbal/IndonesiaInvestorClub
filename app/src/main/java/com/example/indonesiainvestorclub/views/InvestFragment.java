@@ -26,12 +26,7 @@ public class InvestFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(InvestViewModel.class);
         View rootView = inflater.inflate(R.layout.invest_fragment, container, false);
         final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        viewModel.getText().observe(this, textView::setText);
         return rootView;
     }
 }

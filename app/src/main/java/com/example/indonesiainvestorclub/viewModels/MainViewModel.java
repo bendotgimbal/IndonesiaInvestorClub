@@ -2,23 +2,20 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+import android.view.View;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import com.example.indonesiainvestorclub.R;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
+import com.example.indonesiainvestorclub.databinding.NavHeaderMainBinding;
+import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Month;
 import com.example.indonesiainvestorclub.models.Performance;
 import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
-import com.example.indonesiainvestorclub.views.InvestFragment;
 import com.example.indonesiainvestorclub.views.LoginActivity;
-import com.example.indonesiainvestorclub.views.LogoutFragment;
-import com.example.indonesiainvestorclub.views.NetworkFragment;
-import com.example.indonesiainvestorclub.views.PerformanceActivity;
-import com.example.indonesiainvestorclub.views.TransactionsFragment;
 import com.google.gson.JsonElement;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -31,13 +28,37 @@ import retrofit2.Response;
 
 public class MainViewModel extends BaseViewModelWithCallback {
 
-  private ActivityMainBinding binding;
+  private static final String TAG = MainViewModel.class.getCanonicalName();
 
-  public MainViewModel(Context context, ActivityMainBinding binding) {
+  private ActivityMainBinding binding;
+  private NavHeaderMainBinding navHeaderMainBinding;
+  public ObservableBoolean loginState;
+  public ObservableField<String> email;
+
+  public MainViewModel(Context context, ActivityMainBinding binding,
+      NavHeaderMainBinding navHeaderMainBinding) {
     super(context);
     this.binding = binding;
-    initNavMenu();
+    this.navHeaderMainBinding = navHeaderMainBinding;
+
+    loginState = new ObservableBoolean(false);
+    email = new ObservableField<>("");
+
+    start();
+  }
+
+  public void start() {
+    if (SharedPreferenceHelper.getLoginState()) {
+      loginState.set(true);
+      email.set(SharedPreferenceHelper.getUserName());
+    }
+
     getPerformance();
+  }
+
+  public void loginScreen(View view) {
+    Intent i = new Intent(context, LoginActivity.class);
+    context.startActivity(i);
   }
 
   //API CALL
@@ -56,7 +77,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
     compositeDisposable.add(disposable);
   }
 
-  private void readPerformancesJSON(JsonElement response){
+  private void readPerformancesJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
       PerformanceRes performanceRes = new PerformanceRes();
@@ -111,46 +132,6 @@ public class MainViewModel extends BaseViewModelWithCallback {
     }
   }
 
-  //NAVIGATION LINE
-  private void initNavMenu() {
-    binding.navView.setNavigationItemSelectedListener(menuItem -> {
-      int id = menuItem.getItemId();
-      Fragment fragment = null;
-      switch (id) {
-        case R.id.nav_home:
-          goToMenu(PerformanceActivity.class);
-          Toast.makeText(context, "PerformanceActivity is clicked", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.menu_network:
-          fragment = new NetworkFragment();
-          Toast.makeText(context, "NetworkFragment is clicked", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.menu_transactions:
-          fragment = new TransactionsFragment();
-          Toast.makeText(context, "TransactionsFragment is clicked", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.menu_invest:
-          fragment = new InvestFragment();
-          Toast.makeText(context, "InvestmentFragment is clicked", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.menu_login:
-          goToMenu(LoginActivity.class);
-          Toast.makeText(context, "LoginActivity is clicked", Toast.LENGTH_SHORT).show();
-          break;
-        case R.id.menu_logout:
-          fragment = new LogoutFragment();
-          Toast.makeText(context, "LogoutFragment is clicked", Toast.LENGTH_SHORT).show();
-          break;
-      }
-      return true;
-    });
-  }
-
-  private void goToMenu(Class activity){
-    closeDrawer();
-    context.startActivity(new Intent(context, activity));
-  }
-
   @SuppressWarnings("unused")
   public void openDrawer() {
     binding.drawerLayout.isDrawerOpen(GravityCompat.START);
@@ -160,7 +141,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
     binding.drawerLayout.closeDrawer(GravityCompat.START, true);
   }
 
-  public boolean isDrawerOpen(){
+  public boolean isDrawerOpen() {
     return binding.drawerLayout.isDrawerOpen(GravityCompat.START);
   }
 }

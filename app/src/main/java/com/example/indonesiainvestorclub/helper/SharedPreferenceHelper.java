@@ -15,6 +15,8 @@ public class SharedPreferenceHelper {
   //CHILD
   private static final String LOGIN_STATE = "login_state";
   private static final String TOKEN = "token";
+  private static final String USER_NAME = "user_name";
+  private static final String USER_KEY = "user_key";
 
   @Nullable
   private static SharedPreferences getUserPreferences() {
@@ -47,5 +49,26 @@ public class SharedPreferenceHelper {
     return getUserPreferences() != null && getUserPreferences().getBoolean(LOGIN_STATE, false);
   }
 
+  //USERNAME
+  public static void setUserName(String email){
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putString(USER_NAME,  email).apply();
+  }
+
+  public static String getUserName(){
+    if (getUserPreferences() == null) return null;
+    return getUserPreferences().getString(USER_NAME, "");
+  }
+
+  //PASSWORD
+  public static void setUserKey(String key){
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putString(USER_KEY, key).apply();
+  }
+
+  public static String getUserKey(){
+    if (getUserPreferences() == null) return null;
+    return getUserPreferences().getString(USER_KEY, "");
+  }
 
 }

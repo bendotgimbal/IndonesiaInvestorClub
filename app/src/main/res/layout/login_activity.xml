@@ -1,42 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
   <data>
     <variable
         name="viewModel"
         type="com.example.indonesiainvestorclub.viewModels.LoginViewModel"
         />
+
+    <import type="android.view.View"/>
   </data>
-  <LinearLayout
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_margin="20dp"
-      android:orientation="vertical"
+      android:layout_height="match_parent"
       >
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtUsername"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@={viewModel.username}"
-        />
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        >
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtPassword"
+      <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/edtUsername"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          android:hint="@string/label_username"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.username}"
+          />
+
+      <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/edtPassword"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          android:hint="@string/label_password"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.password}"
+          />
+
+      <Button
+          android:id="@+id/btnLogin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:onClick="@{viewModel::onClickLogin}"
+          android:text="@string/label_login"
+          />
+
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@={viewModel.password}"
-        />
+        android:layout_height="match_parent"
+        android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
+        >
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{viewModel::onClickLogin}"
-        android:text="@string/label_login"
-        />
+      <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:srcCompat="@color/black_transparent"
+          />
 
-  </LinearLayout>
+      <androidx.core.widget.ContentLoadingProgressBar
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          style="?android:attr/progressBarStyle"/>
+
+    </FrameLayout>
+
+  </FrameLayout>
 </layout>

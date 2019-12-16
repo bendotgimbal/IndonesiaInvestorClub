@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.indonesiainvestorclub.views.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/home_fragment"/>
+
+    <fragment
+        android:id="@+id/nav_network"
+        android:name="com.example.indonesiainvestorclub.views.NetworkFragment"
+        android:label="@string/menu_network"
+        tools:layout="@layout/network_fragment"/>
+
+    <fragment
+        android:id="@+id/nav_transaction"
+        android:name="com.example.indonesiainvestorclub.views.TransactionsFragment"
+        android:label="@string/menu_transactions"
+        tools:layout="@layout/transactions_fragment"/>
+
+    <fragment
+        android:id="@+id/nav_invest"
+        android:name="com.example.indonesiainvestorclub.views.InvestFragment"
+        android:label="@string/menu_funds"
+        tools:layout="@layout/invest_fragment"/>
+
+
+</navigation>

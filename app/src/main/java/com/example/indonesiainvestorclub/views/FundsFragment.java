@@ -4,34 +4,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
+import androidx.databinding.DataBindingUtil;
 import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
 import com.example.indonesiainvestorclub.viewModels.FundsViewModel;
 
-public class FundsFragment extends Fragment {
+public class FundsFragment extends BaseFragment {
 
-    private FundsFragmentBinding binding;
-    private FundsViewModel viewModel;
+  private FundsFragmentBinding binding;
+  private FundsViewModel viewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
-        viewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
-        View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_network);
-        viewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return rootView;
-    }
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    super.onCreateView(inflater, container, savedInstanceState);
+    binding = DataBindingUtil.inflate(inflater, R.layout.funds_fragment, container, false);
+    return binding.getRoot();
+  }
+
+  @Override
+  protected void initDataBinding() {
+    viewModel = new FundsViewModel(this.getContext(), binding);
+    binding.setViewModel(viewModel);
+  }
 }
