@@ -69,12 +69,13 @@ public class LoungeViewModel extends ViewModel {
     }
 
     private void readLoungeJSON(JsonElement response){
-        JSONObject jsonObject;
+        JSONObject jsonObjectTweets;
+        JSONObject jsonObjectCharts;
         try {
             LoungeRes loungeRes = new LoungeRes();
 
-            jsonObject = new JSONObject(response.toString());
-            JSONObject objectTweets = jsonObject.getJSONObject("Tweets");
+            jsonObjectTweets = new JSONObject(response.toString());
+            JSONObject objectTweets = jsonObjectTweets.getJSONObject("Tweets");
 
             List<Tweets> tweetslist = new ArrayList<>();
             for (int i = 1; i <= objectTweets.length(); i++) {
@@ -90,8 +91,8 @@ public class LoungeViewModel extends ViewModel {
             }
             loungeRes.setTweets(tweetslist);
 
-            jsonObject = new JSONObject(response.toString());
-            JSONObject objectCharts = jsonObject.getJSONObject("Charts");
+            jsonObjectCharts = new JSONObject(response.toString());
+            JSONObject objectCharts = jsonObjectCharts.getJSONObject("Charts");
 
             List<Charts> chartslist = new ArrayList<>();
             for (int i = 1; i <= objectCharts.length(); i++) {
