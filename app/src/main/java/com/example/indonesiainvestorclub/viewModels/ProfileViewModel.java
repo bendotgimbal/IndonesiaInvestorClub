@@ -32,4 +32,8 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
         });
     compositeDisposable.add(disposable);
   }
+
+  @Override public void hideLoading() {
+
+  }
 }

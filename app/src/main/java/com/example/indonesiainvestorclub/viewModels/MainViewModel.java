@@ -2,6 +2,7 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableBoolean;
@@ -33,6 +34,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
   private ActivityMainBinding binding;
   private NavHeaderMainBinding navHeaderMainBinding;
   public ObservableBoolean loginState;
+  public ObservableBoolean loadingState;
   public ObservableField<String> email;
 
   public MainViewModel(Context context, ActivityMainBinding binding,
@@ -42,15 +44,21 @@ public class MainViewModel extends BaseViewModelWithCallback {
     this.navHeaderMainBinding = navHeaderMainBinding;
 
     loginState = new ObservableBoolean(false);
+    loadingState = new ObservableBoolean(false);
     email = new ObservableField<>("");
+  }
 
-    start();
+  private void loading(boolean load) {
+    loadingState.set(load);
   }
 
   public void start() {
     if (SharedPreferenceHelper.getLoginState()) {
       loginState.set(true);
       email.set(SharedPreferenceHelper.getUserName());
+    }else {
+      loginState.set(false);
+      email.set("");
     }
 
     getPerformance();
@@ -63,6 +71,8 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   //API CALL
   private void getPerformance() {
+    loading(true);
+
     Disposable disposable = ServiceGenerator.service.performanceRequest()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -127,8 +137,11 @@ public class MainViewModel extends BaseViewModelWithCallback {
       }
 
       performanceRes.setPerformances(performances);
+
+      hideLoading();
     } catch (JSONException e) {
-      e.printStackTrace();
+      Log.e(TAG, e.toString());
+      hideLoading();
     }
   }
 
@@ -143,5 +156,10 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   public boolean isDrawerOpen() {
     return binding.drawerLayout.isDrawerOpen(GravityCompat.START);
+  }
+
+  @Override
+  public void hideLoading() {
+    loading(false);
   }
 }

@@ -23,6 +23,8 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
     public AgreementViewModel(Context context, AgreementFragmentBinding binding) {
         super(context);
         this.binding = binding;
+
+        getAgreement();
     }
 
     //API CALL
@@ -52,5 +54,9 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override public void hideLoading() {
+
     }
 }

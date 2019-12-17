@@ -20,4 +20,8 @@ public class PerformanceViewModel extends BaseViewModelWithCallback {
     public LiveData<PerformanceRes> getPerformanceResponseLiveData() {
         return performanceResponseLiveData;
     }
+
+    @Override public void hideLoading() {
+
+    }
 }

@@ -27,11 +27,15 @@ public class SharedPreferenceHelper {
   @Nullable
   private static SharedPreferences getApplicationPreferences() {
     if (IndonesiaInvestorClub.getApplication() == null) return null;
-    return IndonesiaInvestorClub.getApplication().getSharedPreferences(APPLICATION, Context.MODE_PRIVATE);
+    return IndonesiaInvestorClub.getApplication()
+        .getSharedPreferences(APPLICATION, Context.MODE_PRIVATE);
   }
 
   public static void setToken(String token) {
     if (getUserPreferences() == null) return;
+    if (token.isEmpty()) {
+      token = BuildConfig.PUBLIC_TOKEN;
+    }
     getUserPreferences().edit().putString(TOKEN, token).apply();
   }
 
@@ -50,25 +54,24 @@ public class SharedPreferenceHelper {
   }
 
   //USERNAME
-  public static void setUserName(String email){
+  public static void setUserName(String email) {
     if (getUserPreferences() == null) return;
-    getUserPreferences().edit().putString(USER_NAME,  email).apply();
+    getUserPreferences().edit().putString(USER_NAME, email).apply();
   }
 
-  public static String getUserName(){
+  public static String getUserName() {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(USER_NAME, "");
   }
 
   //PASSWORD
-  public static void setUserKey(String key){
+  public static void setUserKey(String key) {
     if (getUserPreferences() == null) return;
     getUserPreferences().edit().putString(USER_KEY, key).apply();
   }
 
-  public static String getUserKey(){
+  public static String getUserKey() {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(USER_KEY, "");
   }
-
 }

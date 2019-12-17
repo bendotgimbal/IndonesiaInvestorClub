@@ -76,12 +76,17 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       SharedPreferenceHelper.setLogin(true);
       SharedPreferenceHelper.setToken(loginRes.getToken());
       SharedPreferenceHelper.setUserName(loginRes.getUsername());
+
       //TODO encode before saving to shared preference
-      //SharedPreferenceHelper.setUserKey(getPassword());
+      SharedPreferenceHelper.setUserKey(getPassword());
 
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
       ((LoginActivity)context).finish();
     }
   }
 
+  @Override
+  public void hideLoading() {
+    loading(false);
+  }
 }

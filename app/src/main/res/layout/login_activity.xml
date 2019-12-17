@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
   <data>
     <variable
@@ -29,8 +30,7 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="10dp"
           android:hint="@string/label_username"
-          android:lines="1"
-          android:maxLines="1"
+          android:singleLine="true"
           android:text="@={viewModel.username}"
           />
 
@@ -40,8 +40,7 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="10dp"
           android:hint="@string/label_password"
-          android:lines="1"
-          android:maxLines="1"
+          android:singleLine="true"
           android:text="@={viewModel.password}"
           />
 
@@ -59,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
-        >
+        tools:visibility="gone">
 
       <androidx.appcompat.widget.AppCompatImageView
           android:layout_width="match_parent"

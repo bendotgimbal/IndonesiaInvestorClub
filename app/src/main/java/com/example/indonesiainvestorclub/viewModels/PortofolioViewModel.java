@@ -12,4 +12,8 @@ public class PortofolioViewModel extends BaseViewModelWithCallback {
         super(context);
         this.binding = binding;
     }
+
+    @Override public void hideLoading() {
+
+    }
 }

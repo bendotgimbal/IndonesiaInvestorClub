@@ -2,14 +2,33 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/menu_navigation"
     app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.indonesiainvestorclub.views.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/home_fragment"/>
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_nav_home_to_nav_lounge2"
+            app:destination="@id/nav_lounge" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_agreement"
+            app:destination="@id/nav_agreement" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_network"
+            app:destination="@id/nav_network" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_transaction"
+            app:destination="@id/nav_transaction" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_funds"
+            app:destination="@id/nav_funds" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_logout"
+            app:destination="@id/nav_logout" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_lounge"
@@ -42,10 +61,10 @@
         tools:layout="@layout/funds_fragment"/>
 
     <activity
-        android:id="@+id/nav_login"
-        android:name="com.example.indonesiainvestorclub.views.LoginActivity"
-        android:label="@string/menu_login"
-        tools:layout="@layout/login_activity"/>
+        android:id="@+id/nav_logout"
+        android:name="com.example.indonesiainvestorclub.views.LogoutActivity"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/logout_activity" />
 
 
 </navigation>

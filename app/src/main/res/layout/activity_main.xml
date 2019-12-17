@@ -8,6 +8,8 @@
         name="viewModel"
         type="com.example.indonesiainvestorclub.viewModels.MainViewModel"
         />
+
+    <import type="android.view.View"/>
   </data>
 
   <androidx.drawerlayout.widget.DrawerLayout
@@ -34,6 +36,27 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
         />
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"-->
+<!--        >-->
+
+<!--      <androidx.appcompat.widget.AppCompatImageView-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="match_parent"-->
+<!--          app:srcCompat="@color/black_transparent"-->
+<!--          />-->
+
+<!--      <androidx.core.widget.ContentLoadingProgressBar-->
+<!--          style="?android:attr/progressBarStyle"-->
+<!--          android:layout_width="wrap_content"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_gravity="center"-->
+<!--          />-->
+
+<!--    </FrameLayout>-->
 
   </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

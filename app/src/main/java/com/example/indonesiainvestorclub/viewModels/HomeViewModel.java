@@ -11,4 +11,8 @@ public class HomeViewModel extends BaseViewModelWithCallback {
     super(context);
     this.binding = binding;
   }
+
+  @Override public void hideLoading() {
+
+  }
 }
