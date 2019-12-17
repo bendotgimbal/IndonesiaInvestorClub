@@ -47,7 +47,7 @@ public interface InvestorClubService {
   Observable<Response<PortfolioRes>> portfolioRequest();
 
   @GET("funds")
-  Observable<Response<FundsRes>> fundsRequest();
+  Observable<Response<JsonElement>> fundsRequest();
 
   @GET("agreement")
   Observable<Response<JsonElement>> agreementRequest();

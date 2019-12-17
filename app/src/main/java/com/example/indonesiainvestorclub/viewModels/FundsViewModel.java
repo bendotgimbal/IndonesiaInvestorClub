@@ -1,16 +1,22 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+
+import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
+import com.example.indonesiainvestorclub.databinding.LoungeFragmentBinding;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Funds;
 import com.example.indonesiainvestorclub.models.Meta;
+import com.example.indonesiainvestorclub.models.Metalist;
 import com.example.indonesiainvestorclub.models.response.FundsRes;
+import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
+import com.google.gson.JsonElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,23 +30,32 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class FundsViewModel extends ViewModel {
+public class FundsViewModel extends BaseViewModelWithCallback {
 
   private FundsFragmentBinding binding;
-  private CompositeDisposable compositeDisposable;
-  private MutableLiveData<String> mText;
+  public ObservableBoolean loadingState;
 
-  public FundsViewModel() {
-    mText = new MutableLiveData<>();
-    mText.setValue("This is Funds fragment");
+  public FundsViewModel(Context context, FundsFragmentBinding binding) {
+    super(context);
+    this.binding = binding;
+
+    loadingState = new ObservableBoolean(false);
+
+    start();
   }
 
-  public LiveData<String> getText() {
-    return mText;
+  private void start() {
+    getFunds();
+  }
+
+  private void loading(boolean load) {
+    loadingState.set(load);
   }
 
   //API CALL
   private void getFunds() {
+    loading(true);
+
     Disposable disposable = ServiceGenerator.service.fundsRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -48,14 +63,14 @@ public class FundsViewModel extends ViewModel {
     compositeDisposable.add(disposable);
   }
 
-  protected void onSuccess(Response<FundsRes> response) {
+  protected void onSuccess(Response<JsonElement> response) {
     if (response.body() != null) {
       readFundsJSON(response.body());
     }
   }
 
 
-  private void readFundsJSON(FundsRes response){
+  private void readFundsJSON(JsonElement response){
     JSONObject jsonObject;
     try {
       FundsRes fundsRes = new FundsRes();
@@ -63,12 +78,13 @@ public class FundsViewModel extends ViewModel {
       jsonObject = new JSONObject(response.toString());
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
 
-      List<Funds> fundslist = new ArrayList<>();
-      List<Meta> metalist = new ArrayList<>();
+      List<Funds> funds = new ArrayList<>();
+      List<Meta> meta = new ArrayList<>();
+      List<Metalist> metalist = new ArrayList<>();
 
       for (int i = 1; i <= objectFunds.length(); i++) {
         JSONObject objFunds = objectFunds.getJSONObject(i + "");
-        Funds funds;
+        Meta fundslist;
         Datas data;
 
         String name = objFunds.getString("Name");
@@ -84,18 +100,24 @@ public class FundsViewModel extends ViewModel {
         for (int o = 1; o <= metaObject.length(); o++) {
           JSONObject objMeta = metaObject.getJSONObject(o + "");
 
-          Meta meta = new Meta(
+          Metalist metaList = new Metalist(
                   objMeta.getString("AccNo"),
                   objMeta.getString("InvestorPass"),
                   objMeta.getString("Server")
           );
-          metalist.add(meta);
+          metalist.add(metaList);
         }
-
+        fundslist = new Meta(metalist);
+        meta.add(fundslist);
       }
 
     } catch (JSONException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void hideLoading() {
+    loading(false);
   }
 }

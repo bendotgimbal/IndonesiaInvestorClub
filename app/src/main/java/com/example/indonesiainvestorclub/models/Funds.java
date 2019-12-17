@@ -24,6 +24,10 @@ public class Funds {
         this.roi = roi;
     }
 
+    public Funds(List<Meta> meta) {
+        this.meta = meta;
+    }
+
     public String getName() {
         return name;
     }
