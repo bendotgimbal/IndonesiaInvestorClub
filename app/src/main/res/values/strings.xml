@@ -3,7 +3,8 @@
   <string name="email_support">support@investorclub.id</string>
   <string name="website">https://www.investorclub.id</string>
 
-  <string name="label_login">Login</string>
+  <string name="label_login">Sign in</string>
+  <string name="label_register">Sign up</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>
   <string name="title_activity_main">MainActivity</string>
@@ -22,6 +23,7 @@
   <string name="menu_send">Send</string>
   <string name="menu_login">Login</string>
   <string name="menu_logout">Logout</string>
+  <string name="menu_lounge">Lounge</string>
   <string name="menu_profile">Profile</string>
   <string name="menu_agreement">Agreement</string>
   <string name="menu_network">Network</string>
@@ -30,4 +32,7 @@
   <string name="menu_invest">Invest</string>
   <string name="menu_funds">Funds</string>
   <string name="menu_transactions">Transactions</string>
+
+  <string name="label_username">Username</string>
+  <string name="label_password">Password</string>
 </resources>

@@ -11,13 +11,6 @@ public class NetworkViewModel extends ViewModel {
   private NetworkFragmentBinding binding;
   private MutableLiveData<String> mText;
 
-  //    public NetworkViewModel(Context context, NetworkFragmentBinding binding){
-  //        super(context);
-  //        this.binding = binding;
-  //        mText = new MutableLiveData<>();
-  //        mText.setValue("This is Network fragment");
-  //    }
-
   public NetworkViewModel() {
     mText = new MutableLiveData<>();
     mText.setValue("This is Network fragment");

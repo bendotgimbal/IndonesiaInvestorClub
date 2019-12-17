@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_investment"
-            android:title="@string/menu_home" />
-<!--        <item-->
-<!--            android:id="@+id/nav_login"-->
-<!--            android:icon="@drawable/ic_menu_gallery"-->
-<!--            android:title="@string/menu_login" />-->
-<!--        <item-->
-<!--            android:id="@+id/nav_profile"-->
-<!--            android:icon="@drawable/ic_menu_send"-->
-<!--            android:title="@string/menu_profile" />-->
-        <item
-            android:id="@+id/menu_network"
-            android:icon="@drawable/ic_network"
-            android:title="@string/menu_network" />
-        <item
-            android:id="@+id/menu_transactions"
-            android:icon="@drawable/ic_transactions"
-            android:title="@string/menu_transactions" />
-        <item
-            android:id="@+id/menu_invest"
-            android:icon="@drawable/ic_investment"
-            android:title="@string/menu_invest" />
-        <item
-            android:id="@+id/menu_login"
-            android:icon="@drawable/ic_login"
-            android:title="@string/menu_login" />
-        <item
-            android:id="@+id/menu_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/menu_logout" />
-    </group>
+  <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_investment"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/nav_lounge"
+        android:icon="@drawable/ic_lounge"
+        android:title="@string/menu_lounge" />
+    <item
+        android:id="@+id/nav_agreement"
+        android:icon="@drawable/ic_agreement"
+        android:title="@string/menu_agreement" />
+    <item
+        android:id="@+id/nav_network"
+        android:icon="@drawable/ic_network"
+        android:title="@string/menu_network" />
+    <item
+        android:id="@+id/nav_transaction"
+        android:icon="@drawable/ic_transactions"
+        android:title="@string/menu_transactions" />
+    <item
+        android:id="@+id/nav_funds"
+        android:icon="@drawable/ic_funds"
+        android:title="@string/menu_funds" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/menu_logout" />
+  </group>
 
 
 </menu>

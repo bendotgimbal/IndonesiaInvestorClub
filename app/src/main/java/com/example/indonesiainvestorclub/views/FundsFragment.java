@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.indonesiainvestorclub.R;
@@ -18,20 +18,15 @@ import com.example.indonesiainvestorclub.viewModels.FundsViewModel;
 
 public class FundsFragment extends Fragment {
 
-    private FundsFragmentBinding binding;
-    private FundsViewModel fundsViewModel;
+  private FundsFragmentBinding binding;
+  private FundsViewModel fundsviewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
-        fundsViewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
-        View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-        final TextView textView = rootView.findViewById(R.id.text_funds);
-        fundsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return rootView;
-    }
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    fundsviewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
+    View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
+    final TextView textView = rootView.findViewById(R.id.text_funds);
+    fundsviewModel.getText().observe(this, textView::setText);
+    return rootView;
+  }
 }

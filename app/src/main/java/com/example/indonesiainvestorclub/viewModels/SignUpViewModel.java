@@ -1,4 +1,14 @@
 package com.example.indonesiainvestorclub.viewModels;
 
-public class SignUpViewModel {
+import android.content.Context;
+
+public class SignUpViewModel extends BaseViewModelWithCallback {
+
+  public SignUpViewModel(Context context) {
+    super(context);
+  }
+
+  @Override public void hideLoading() {
+
+  }
 }

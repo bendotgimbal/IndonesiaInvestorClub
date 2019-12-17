@@ -1,16 +1,22 @@
 package com.example.indonesiainvestorclub.models.response;
 
-import com.google.gson.annotations.SerializedName;
-
 public class LogoutRes {
-    @SerializedName("X-API-KEY")
-    private String token;
+    private boolean status;
+    private String message;
 
-    public String getToken() {
-        return token;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

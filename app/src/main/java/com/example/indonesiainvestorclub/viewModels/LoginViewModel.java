@@ -1,14 +1,18 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.LoginActivityBinding;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
+import com.example.indonesiainvestorclub.helper.StringHelper;
 import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
+import com.example.indonesiainvestorclub.views.LoginActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -21,12 +25,18 @@ public class LoginViewModel extends BaseViewModelWithCallback{
   private LoginActivityBinding binding;
   public ObservableField<String> username;
   public ObservableField<String> password;
+  public ObservableBoolean loadingState;
 
   public LoginViewModel(Context context, LoginActivityBinding binding) {
     super(context);
     this.binding = binding;
     username = new ObservableField<>("");
     password = new ObservableField<>("");
+    loadingState = new ObservableBoolean(false);
+  }
+
+  private void loading(boolean load){
+    loadingState.set(load);
   }
 
   private String getUsername(){
@@ -41,6 +51,8 @@ public class LoginViewModel extends BaseViewModelWithCallback{
 
   @SuppressWarnings("unused")
   public void onClickLogin(View view){
+    loading(true);
+
     RequestBody username = RequestBody.create(MediaType.parse("text/plain"), getUsername());
     RequestBody password = RequestBody.create(MediaType.parse("text/plain"), getPassword());
 
@@ -51,6 +63,13 @@ public class LoginViewModel extends BaseViewModelWithCallback{
           @Override
           protected void onSuccess(Response<LoginRes> loginResponse) {
             onSuccessLogin(loginResponse.body());
+            String cookie = loginResponse.headers().get("Set-Cookie");
+            StringHelper.getCookie(cookie);
+          }
+
+          @Override public void onNext(Response<LoginRes> loginResResponse) {
+            super.onNext(loginResResponse);
+            loading(false);
           }
         });
     compositeDisposable.add(disposable);
@@ -60,9 +79,18 @@ public class LoginViewModel extends BaseViewModelWithCallback{
     if (loginRes != null){
       SharedPreferenceHelper.setLogin(true);
       SharedPreferenceHelper.setToken(loginRes.getToken());
+      SharedPreferenceHelper.setUserName(loginRes.getUsername());
 
-      Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk " + SharedPreferenceHelper.getToken(), Toast.LENGTH_SHORT).show();
+      //TODO encode before saving to shared preference
+      SharedPreferenceHelper.setUserKey(getPassword());
+
+      Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
+      ((LoginActivity)context).finish();
     }
   }
 
+  @Override
+  public void hideLoading() {
+    loading(false);
+  }
 }

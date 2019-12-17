@@ -1,11 +1,9 @@
 package com.example.indonesiainvestorclub.services;
 
-import com.example.indonesiainvestorclub.models.response.AgreementRes;
 import com.example.indonesiainvestorclub.models.response.FundsRes;
 import com.example.indonesiainvestorclub.models.response.InvestRes;
 import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.models.response.LogoutRes;
-import com.example.indonesiainvestorclub.models.response.LoungeRes;
 import com.example.indonesiainvestorclub.models.response.NetworkRes;
 import com.example.indonesiainvestorclub.models.response.PortfolioRes;
 import com.example.indonesiainvestorclub.models.response.ProfileRes;
@@ -17,6 +15,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -51,10 +50,10 @@ public interface InvestorClubService {
   Observable<Response<FundsRes>> fundsRequest();
 
   @GET("agreement")
-  Observable<Response<AgreementRes>> agreementRequest();
+  Observable<Response<JsonElement>> agreementRequest();
 
   @GET("lounge")
-  Observable<Response<LoungeRes>> loungeRequest();
+  Observable<Response<JsonElement>> loungeRequest();
 
   @GET("network")
   Observable<Response<NetworkRes>> networkRequest();
