@@ -3,6 +3,7 @@ package com.example.indonesiainvestorclub.viewModels;
 import android.content.Context;
 
 import com.example.indonesiainvestorclub.databinding.AgreementFragmentBinding;
+import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.models.response.AgreementRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;

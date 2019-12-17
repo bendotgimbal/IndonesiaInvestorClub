@@ -1,12 +1,14 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.LoginActivityBinding;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
+import com.example.indonesiainvestorclub.helper.StringHelper;
 import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
@@ -61,6 +63,8 @@ public class LoginViewModel extends BaseViewModelWithCallback{
           @Override
           protected void onSuccess(Response<LoginRes> loginResponse) {
             onSuccessLogin(loginResponse.body());
+            String cookie = loginResponse.headers().get("Set-Cookie");
+            StringHelper.getCookie(cookie);
           }
 
           @Override public void onNext(Response<LoginRes> loginResResponse) {

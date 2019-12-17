@@ -15,6 +15,7 @@ public class SharedPreferenceHelper {
   //CHILD
   private static final String LOGIN_STATE = "login_state";
   private static final String TOKEN = "token";
+  private static final String COOKIE = "cookie";
   private static final String USER_NAME = "user_name";
   private static final String USER_KEY = "user_key";
 
@@ -42,6 +43,16 @@ public class SharedPreferenceHelper {
   public static String getToken() {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(TOKEN, BuildConfig.PUBLIC_TOKEN);
+  }
+
+  public static void setCookie(String cookie) {
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putString(COOKIE, cookie).apply();
+  }
+
+  public static String getCookie() {
+    if (getUserPreferences() == null) return null;
+    return getUserPreferences().getString(COOKIE, "");
   }
 
   public static void setLogin(boolean loggedIn) {

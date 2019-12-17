@@ -3,6 +3,7 @@ package com.example.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import androidx.databinding.ObservableBoolean;
 import com.example.indonesiainvestorclub.databinding.LoungeFragmentBinding;
+import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.models.Charts;
 import com.example.indonesiainvestorclub.models.Tweets;
 import com.example.indonesiainvestorclub.models.response.LoungeRes;

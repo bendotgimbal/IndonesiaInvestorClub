@@ -3,6 +3,7 @@ package com.example.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import android.widget.Toast;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
+import com.example.indonesiainvestorclub.helper.StringHelper;
 import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.models.response.LogoutRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
@@ -50,6 +51,9 @@ public abstract class BaseViewModelWithCallback extends BaseViewModel {
             if (loginResponse.body() != null) {
               hideLoading();
               SharedPreferenceHelper.setToken(loginResponse.body().getToken());
+              String cookie = loginResponse.headers().get("Set-Cookie");
+              StringHelper.getCookie(cookie);
+
               function.run();
             }
           }

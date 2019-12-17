@@ -13,6 +13,7 @@ public class DefaultInterceptor implements Interceptor {
     Request originalRequest = chain.request();
     Request.Builder requestBuilder = originalRequest.newBuilder()
         .header("X-API-KEY", Objects.requireNonNull(SharedPreferenceHelper.getToken()))
+        .header("Cookie", Objects.requireNonNull(SharedPreferenceHelper.getCookie()))
         .method(originalRequest.method(), originalRequest.body());
 
     Request request = requestBuilder.build();

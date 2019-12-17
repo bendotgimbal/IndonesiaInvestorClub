@@ -49,6 +49,7 @@ public class LogoutViewModel extends BaseViewModelWithCallback {
                 SharedPreferenceHelper.setToken("");
                 SharedPreferenceHelper.setUserKey("");
                 SharedPreferenceHelper.setUserKey("");
+                SharedPreferenceHelper.setCookie("");
 
                 hideLoading();
                 ((LogoutActivity)getContext()).finish();
