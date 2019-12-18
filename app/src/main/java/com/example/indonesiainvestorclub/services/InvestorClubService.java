@@ -35,7 +35,7 @@ public interface InvestorClubService {
   Observable<Response<SignUpRes>> signUpRequest();
 
   @GET("profile")
-  Observable<Response<ProfileRes>> profileRequest();
+  Observable<Response<JsonElement>> profileRequest();
 
   @GET("public/performance")
   Observable<Response<JsonElement>> performanceRequest();

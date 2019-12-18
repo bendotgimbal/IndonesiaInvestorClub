@@ -11,7 +11,10 @@
         android:label="@string/menu_home"
         tools:layout="@layout/home_fragment">
         <action
-            android:id="@+id/action_nav_home_to_nav_lounge2"
+            android:id="@+id/action_nav_profile"
+            app:destination="@id/nav_profile" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_lounge"
             app:destination="@id/nav_lounge" />
         <action
             android:id="@+id/action_nav_home_to_nav_agreement"
@@ -29,6 +32,12 @@
             android:id="@+id/action_nav_home_to_nav_logout"
             app:destination="@id/nav_logout" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.indonesiainvestorclub.views.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/profile_fragment"/>
 
     <fragment
         android:id="@+id/nav_lounge"
