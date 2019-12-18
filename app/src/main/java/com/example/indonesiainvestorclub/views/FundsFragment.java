@@ -16,17 +16,26 @@ import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
 import com.example.indonesiainvestorclub.viewModels.FundsViewModel;
 
-public class FundsFragment extends Fragment {
+public class FundsFragment extends BaseFragment {
 
   private FundsFragmentBinding binding;
   private FundsViewModel fundsviewModel;
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
+
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    fundsviewModel = ViewModelProviders.of(this).get(FundsViewModel.class);
-    View rootView = inflater.inflate(R.layout.funds_fragment, container, false);
-    final TextView textView = rootView.findViewById(R.id.text_funds);
-    fundsviewModel.getText().observe(this, textView::setText);
-    return rootView;
+    super.onCreateView(inflater, container, savedInstanceState);
+    binding = DataBindingUtil.inflate(inflater, R.layout.funds_fragment, container, false);
+    return binding.getRoot();
+  }
+
+  @Override
+  protected void initDataBinding() {
+    fundsviewModel = new FundsViewModel(this.getContext(), binding);
+    binding.setViewModel(fundsviewModel);
   }
 }
