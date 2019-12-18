@@ -59,14 +59,16 @@ public class FundsViewModel extends BaseViewModelWithCallback {
     Disposable disposable = ServiceGenerator.service.fundsRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::onSuccess);
+            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getFunds) {
+              @Override
+              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+                if (jsonElementResponse.body() != null) {
+                  loading(false);
+                  readFundsJSON(jsonElementResponse.body());
+                }
+              }
+            });
     compositeDisposable.add(disposable);
-  }
-
-  protected void onSuccess(Response<JsonElement> response) {
-    if (response.body() != null) {
-      readFundsJSON(response.body());
-    }
   }
 
 
