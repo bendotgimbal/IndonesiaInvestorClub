@@ -1,14 +1,8 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-
 import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
-import com.example.indonesiainvestorclub.databinding.LoungeFragmentBinding;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Funds;
 import com.example.indonesiainvestorclub.models.Meta;
@@ -17,15 +11,11 @@ import com.example.indonesiainvestorclub.models.response.FundsRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
@@ -57,22 +47,21 @@ public class FundsViewModel extends BaseViewModelWithCallback {
     loading(true);
 
     Disposable disposable = ServiceGenerator.service.fundsRequest()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getFunds) {
-              @Override
-              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
-                if (jsonElementResponse.body() != null) {
-                  loading(false);
-                  readFundsJSON(jsonElementResponse.body());
-                }
-              }
-            });
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getFunds) {
+          @Override
+          protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+            if (jsonElementResponse.body() != null) {
+              loading(false);
+              readFundsJSON(jsonElementResponse.body());
+            }
+          }
+        });
     compositeDisposable.add(disposable);
   }
 
-
-  private void readFundsJSON(JsonElement response){
+  private void readFundsJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
       FundsRes fundsRes = new FundsRes();
@@ -103,16 +92,15 @@ public class FundsViewModel extends BaseViewModelWithCallback {
           JSONObject objMeta = metaObject.getJSONObject(o + "");
 
           Metalist metaList = new Metalist(
-                  objMeta.getString("AccNo"),
-                  objMeta.getString("InvestorPass"),
-                  objMeta.getString("Server")
+              objMeta.getString("AccNo"),
+              objMeta.getString("InvestorPass"),
+              objMeta.getString("Server")
           );
           metalist.add(metaList);
         }
         fundslist = new Meta(metalist);
         meta.add(fundslist);
       }
-
     } catch (JSONException e) {
       e.printStackTrace();
     }
