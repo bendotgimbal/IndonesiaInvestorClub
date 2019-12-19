@@ -4,6 +4,11 @@ public class DocumentsBank {
     private String status;
     private String img;
 
+    public DocumentsBank(String status, String img) {
+        this.status = status;
+        this.img = img;
+    }
+
     public String getStatus() {
         return status;
     }

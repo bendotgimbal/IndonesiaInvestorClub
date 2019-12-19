@@ -9,15 +9,17 @@ public class Login {
     private String sponsor;
     private String network;
     private String avatar;
-    List<Groups> groups;
+    private List<Groups> groups;
 
-    public Login(String id, String refcode, String email, String sponsor, String network, String avatar) {
+    public Login(String id, String refcode, String email, String sponsor, String network,
+        String avatar, List<Groups> groups) {
         this.id = id;
         this.refcode = refcode;
         this.email = email;
         this.sponsor = sponsor;
         this.network = network;
         this.avatar = avatar;
+        this.groups = groups;
     }
 
     public String getID() {
