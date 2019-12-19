@@ -1,23 +1,31 @@
 package com.example.indonesiainvestorclub.models;
 
+import androidx.annotation.Nullable;
 import java.util.List;
 
 public class Agreement {
-    String parent;
-    List<Childs> childs;
+  private String parent;
+  private List<Childs> childs;
 
-    public String getParent() {
-        return parent;
-    }
+  public Agreement(String parent,
+      @Nullable List<Childs> childs) {
+    this.parent = parent;
+    this.childs = childs;
+  }
 
-    public void setParent(String author) {
-        this.parent = parent;
-    }
+  public String getParent() {
+    return parent;
+  }
 
-    public List<Childs> getChilds() {
-        return childs;
-    }
-    public void setChilds(List<Childs> childs) {
-        this.childs = childs;
-    }
+  public void setParent(String author) {
+    this.parent = parent;
+  }
+
+  public List<Childs> getChilds() {
+    return childs;
+  }
+
+  public void setChilds(List<Childs> childs) {
+    this.childs = childs;
+  }
 }

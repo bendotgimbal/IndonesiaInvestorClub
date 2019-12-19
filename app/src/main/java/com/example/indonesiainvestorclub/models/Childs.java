@@ -3,12 +3,17 @@ package com.example.indonesiainvestorclub.models;
 import java.util.List;
 
 public class Childs {
-    List<String> string;
+  private String phrase;
 
-    public List<String> getString() {
-        return string;
-    }
-    public void setString(List<String> string) {
-        this.string = string;
-    }
+  public Childs(String phrase) {
+    this.phrase = phrase;
+  }
+
+  public String getPhrase() {
+    return phrase;
+  }
+
+  public void setPhrase(String phrase) {
+    this.phrase = phrase;
+  }
 }

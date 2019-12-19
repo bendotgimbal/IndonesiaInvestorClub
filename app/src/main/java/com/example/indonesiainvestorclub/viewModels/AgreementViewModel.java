@@ -2,9 +2,11 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 
+import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.AgreementFragmentBinding;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.models.Agreement;
+import com.example.indonesiainvestorclub.models.Childs;
 import com.example.indonesiainvestorclub.models.response.AgreementRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
@@ -23,57 +25,98 @@ import retrofit2.Response;
 
 public class AgreementViewModel extends BaseViewModelWithCallback {
 
-    private AgreementFragmentBinding binding;
+  private AgreementFragmentBinding binding;
 
-    public AgreementViewModel(Context context, AgreementFragmentBinding binding) {
-        super(context);
-        this.binding = binding;
+  public ObservableField<String> agreementTx;
 
-        getAgreement();
-    }
+  public AgreementViewModel(Context context, AgreementFragmentBinding binding) {
+    super(context);
+    this.binding = binding;
 
-    //API CALL
-    private void getAgreement() {
-        Disposable disposable = ServiceGenerator.service.agreementRequest()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getAgreement) {
-                    @Override
-                    protected void onSuccess(Response<JsonElement> response) {
-                        if (response.body() != null) {
-                            readAgreementJSON(response.body());
-                        }
-                    }
-                });
-        compositeDisposable.add(disposable);
-    }
+    agreementTx = new ObservableField<>("");
 
-    private void readAgreementJSON(JsonElement response) {
-        JSONObject jsonObject;
-        try {
-            AgreementRes agreementRes = new AgreementRes();
+    start();
+  }
 
-            jsonObject = new JSONObject(response.toString());
-            JSONObject objectAgreement = jsonObject.getJSONObject("IIC_MUTUAL_FUND_AGREEMENT");
+  private void start() {
+    getAgreement();
+  }
 
-            List<Agreement> agreement = new ArrayList<>();
-
-            for (int i = 1; i <= objectAgreement.length(); i++) {
-                JSONObject objAgreement = objectAgreement.getJSONObject(i + "");
-
-                String parent = objAgreement.getString("Parent");
-                JSONObject childsObject = objAgreement.getJSONObject("Childs");
-                for (int o = 1; o <= childsObject.length(); o++) {
-                    JSONObject objChilds = childsObject.getJSONObject(o + "");
-                }
+  //API CALL
+  private void getAgreement() {
+    Disposable disposable = ServiceGenerator.service.agreementRequest()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getAgreement) {
+          @Override
+          protected void onSuccess(Response<JsonElement> response) {
+            if (response.body() != null) {
+              readAgreementJSON(response.body());
             }
+          }
+        });
+    compositeDisposable.add(disposable);
+  }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+  private void readAgreementJSON(JsonElement response) {
+    JSONObject jsonObject;
+    try {
+      AgreementRes agreementRes;
+
+      jsonObject = new JSONObject(response.toString());
+      JSONObject objectAgreement = jsonObject.getJSONObject("IIC_MUTUAL_FUND_AGREEMENT");
+
+      List<Agreement> agreement = new ArrayList<>();
+
+      for (int i = 1; i <= objectAgreement.length(); i++) {
+        JSONObject objAgreement = objectAgreement.getJSONObject(i + "");
+
+        String parent = objAgreement.getString("Parent");
+        List<Childs> childsList = new ArrayList<>();
+
+        if (objAgreement.has("Childs")) {
+          JSONObject childsObject = objAgreement.getJSONObject("Childs");
+
+          for (int o = 1; o <= childsObject.length(); o++) {
+            Childs childs = new Childs(childsObject.getString(o + ""));
+            childsList.add(childs);
+          }
+        }else {
+          Childs childs = new Childs("");
+          childsList.add(childs);
         }
+
+        agreement.add(new Agreement(parent, childsList));
+      }
+
+      agreementRes = new AgreementRes(agreement);
+
+      showAgreement(agreementRes);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void showAgreement(AgreementRes response) {
+    StringBuilder agreement = new StringBuilder();
+
+    for (int i = 0; i < response.getAgreement().size(); i++) {
+      StringBuilder temp;
+      temp = new StringBuilder(response.getAgreement().get(i).getParent() + "\n\n");
+
+      if (response.getAgreement().get(i).getChilds() != null) {
+        for (int o = 0; o < response.getAgreement().get(i).getChilds().size(); o++) {
+          temp.append(response.getAgreement().get(i).getChilds().get(o).getPhrase()).append("\n\n");
+        }
+      }
+
+      agreement.append(temp);
     }
 
-    @Override public void hideLoading() {
+    agreementTx.set(agreement.toString());
+  }
 
-    }
+  @Override public void hideLoading() {
+
+  }
 }
