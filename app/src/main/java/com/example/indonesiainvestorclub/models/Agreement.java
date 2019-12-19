@@ -13,4 +13,11 @@ public class Agreement {
     public void setParent(String author) {
         this.parent = parent;
     }
+
+    public List<Childs> getChilds() {
+        return childs;
+    }
+    public void setChilds(List<Childs> childs) {
+        this.childs = childs;
+    }
 }

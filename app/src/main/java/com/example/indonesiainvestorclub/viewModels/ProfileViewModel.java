@@ -5,6 +5,11 @@ import android.content.Context;
 import androidx.databinding.ObservableBoolean;
 
 import com.example.indonesiainvestorclub.databinding.ProfileFragmentBinding;
+import com.example.indonesiainvestorclub.models.Bank;
+import com.example.indonesiainvestorclub.models.Documents;
+import com.example.indonesiainvestorclub.models.Groups;
+import com.example.indonesiainvestorclub.models.Login;
+import com.example.indonesiainvestorclub.models.Profile;
 import com.example.indonesiainvestorclub.models.response.ProfileRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
@@ -12,6 +17,9 @@ import com.google.gson.JsonElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -74,8 +82,31 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
         try {
             ProfileRes profileRes = new ProfileRes();
 
+            List<Login> loginlist = new ArrayList<>();
+            List<Profile> profilelist = new ArrayList<>();
+            List<Bank> banklist = new ArrayList<>();
+            List<Documents> documentslist = new ArrayList<>();
+            List<Groups> groupslist = new ArrayList<>();
+
             jsonObject = new JSONObject(response.toString());
             JSONObject objectLogin = jsonObject.getJSONObject("Login");
+
+            for (int i = 1; i <= objectLogin.length(); i++) {
+                JSONObject objLogin = objectLogin.getJSONObject(i + "");
+
+                String id = objLogin.getString("ID");
+                String refcode = objLogin.getString("RefCode");
+                String email = objLogin.getString("e-Mail");
+                String sponsor = objLogin.getString("Sponsor");
+                String network = objLogin.getString("Network");
+                String avatar = objLogin.getString("Avatar");
+                JSONObject metaObject = objLogin.getJSONObject("Groups");
+
+                for (int o = 1; o <= metaObject.length(); o++) {
+                    JSONObject objGroups = metaObject.getJSONObject(o + "");
+
+                }
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

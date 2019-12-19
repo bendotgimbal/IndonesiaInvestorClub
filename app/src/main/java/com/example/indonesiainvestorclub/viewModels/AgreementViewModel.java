@@ -50,7 +50,7 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
             AgreementRes agreementRes = new AgreementRes();
 
             jsonObject = new JSONObject(response.toString());
-            JSONObject object = jsonObject.getJSONObject("IIC MUTUAL FUND AGREEMENT");
+            JSONObject object = jsonObject.getJSONObject("IIC_MUTUAL_FUND_AGREEMENT");
 
         } catch (JSONException e) {
             e.printStackTrace();
