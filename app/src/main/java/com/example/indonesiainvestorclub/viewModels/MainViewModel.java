@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.example.indonesiainvestorclub.databinding.NavHeaderMainBinding;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
@@ -56,12 +57,24 @@ public class MainViewModel extends BaseViewModelWithCallback {
     if (SharedPreferenceHelper.getLoginState()) {
       loginState.set(true);
       email.set(SharedPreferenceHelper.getUserName());
-    }else {
+      menuVisible(true);
+    } else {
       loginState.set(false);
       email.set("");
+      menuVisible(false);
     }
 
     getPerformance();
+  }
+
+  public void menuVisible(boolean visible) {
+    binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_lounge).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_agreement).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_network).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_funds).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_logout).setVisible(visible);
   }
 
   public void loginScreen(View view) {

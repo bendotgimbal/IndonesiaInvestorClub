@@ -62,7 +62,10 @@
     <activity android:name=".views.NetworkFragment" />
     <activity android:name=".views.TransactionsFragment" />
     <activity android:name=".views.InvestFragment" />
-    <activity android:name=".views.LogoutActivity" />
+    <activity
+        android:name=".views.LogoutActivity"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="stateHidden"/>
     <activity android:name=".views.FundsFragment" />
   </application>
 
