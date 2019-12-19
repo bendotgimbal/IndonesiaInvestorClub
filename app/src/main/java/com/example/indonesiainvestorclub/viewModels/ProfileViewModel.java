@@ -161,7 +161,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
   }
 
   private void showProfile(ProfileRes profileRes) {
-    loading(false);
+    hideLoading();
 
     if (profileRes == null) return;
 

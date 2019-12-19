@@ -2,22 +2,19 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.AgreementFragmentBinding;
-import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.models.Agreement;
 import com.example.indonesiainvestorclub.models.Childs;
 import com.example.indonesiainvestorclub.models.response.AgreementRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -27,15 +24,21 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
 
   private AgreementFragmentBinding binding;
 
+  public ObservableBoolean loadingState;
   public ObservableField<String> agreementTx;
 
   public AgreementViewModel(Context context, AgreementFragmentBinding binding) {
     super(context);
     this.binding = binding;
 
+    loadingState = new ObservableBoolean(false);
     agreementTx = new ObservableField<>("");
 
     start();
+  }
+
+  private void loading(boolean load) {
+    loadingState.set(load);
   }
 
   private void start() {
@@ -44,6 +47,8 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
 
   //API CALL
   private void getAgreement() {
+    loading(true);
+
     Disposable disposable = ServiceGenerator.service.agreementRequest()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -81,7 +86,7 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
             Childs childs = new Childs(childsObject.getString(o + ""));
             childsList.add(childs);
           }
-        }else {
+        } else {
           Childs childs = new Childs("");
           childsList.add(childs);
         }
@@ -98,6 +103,8 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
   }
 
   private void showAgreement(AgreementRes response) {
+    hideLoading();
+    if (response != null) return;
     StringBuilder agreement = new StringBuilder();
 
     for (int i = 0; i < response.getAgreement().size(); i++) {
