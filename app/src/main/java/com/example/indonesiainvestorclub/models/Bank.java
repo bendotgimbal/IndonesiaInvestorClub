@@ -9,6 +9,17 @@ public class Bank {
     private String swiftcode;
     private String status;
 
+    public Bank(String name, String accname, String accno, String branch, String address,
+        String swiftcode, String status) {
+        this.name = name;
+        this.accname = accname;
+        this.accno = accno;
+        this.branch = branch;
+        this.address = address;
+        this.swiftcode = swiftcode;
+        this.status = status;
+    }
+
     public String getName() {
         return name;
     }

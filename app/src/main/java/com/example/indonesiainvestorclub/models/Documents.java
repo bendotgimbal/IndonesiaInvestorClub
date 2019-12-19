@@ -1,24 +1,28 @@
 package com.example.indonesiainvestorclub.models;
 
-import java.util.List;
-
 public class Documents {
-    private List<DocumentsID> documentID;
-    private List<DocumentsBank> documentBank;
+  private DocumentsID documentID;
+  private DocumentsBank documentBank;
 
-    public List<DocumentsID> getDocumentsID() {
-        return documentID;
-    }
+  public Documents(DocumentsID documentID,
+      DocumentsBank documentBank) {
+    this.documentID = documentID;
+    this.documentBank = documentBank;
+  }
 
-    public void setDocumentsID(List<DocumentsID> documentID) {
-        this.documentID = documentID;
-    }
+  public DocumentsID getDocumentID() {
+    return documentID;
+  }
 
-    public List<DocumentsBank> getDocumentsBank() {
-        return documentBank;
-    }
+  public void setDocumentID(DocumentsID documentID) {
+    this.documentID = documentID;
+  }
 
-    public void seDocumentsBank(List<DocumentsBank> documentBank) {
-        this.documentBank = documentBank;
-    }
+  public DocumentsBank getDocumentBank() {
+    return documentBank;
+  }
+
+  public void setDocumentBank(DocumentsBank documentBank) {
+    this.documentBank = documentBank;
+  }
 }

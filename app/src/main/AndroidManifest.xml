@@ -55,7 +55,6 @@
         android:label="@string/title_activity_main"
         android:theme="@style/AppTheme.NoActionBar" />
     <activity android:name=".views.LoginActivity" />
-    <activity android:name=".views.PerformanceActivity" />
     <activity android:name=".views.ProfileFragment" />
     <activity android:name=".views.PortofolioActivity" />
     <activity android:name=".views.AgreementFragment" />

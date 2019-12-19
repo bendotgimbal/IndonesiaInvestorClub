@@ -14,6 +14,23 @@ public class Profile {
     private String phoneno;
     private String ocupation;
 
+    public Profile(String firstname, String lastname, String dob, String gender,
+        String maritasstatus, String nationality, String address, String city,
+        String postalcode, String country, String phoneno, String ocupation) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dob = dob;
+        this.gender = gender;
+        this.maritasstatus = maritasstatus;
+        this.nationality = nationality;
+        this.address = address;
+        this.city = city;
+        this.postalcode = postalcode;
+        this.country = country;
+        this.phoneno = phoneno;
+        this.ocupation = ocupation;
+    }
+
     public String getFirstName() {
         return firstname;
     }

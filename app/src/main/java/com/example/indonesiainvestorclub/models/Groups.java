@@ -1,14 +1,14 @@
 package com.example.indonesiainvestorclub.models;
 
-import java.util.List;
 
 public class Groups {
-    List<String> string;
+    private String department;
 
-    public List<String> getString() {
-        return string;
+    public String getDepartment() {
+        return department;
     }
-    public void setString(List<String> string) {
-        this.string = string;
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
