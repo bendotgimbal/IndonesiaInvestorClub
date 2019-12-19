@@ -9,29 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.example.indonesiainvestorclub.views.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/home_fragment">
-        <action
-            android:id="@+id/action_nav_profile"
-            app:destination="@id/nav_profile" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_lounge"
-            app:destination="@id/nav_lounge" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_agreement"
-            app:destination="@id/nav_agreement" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_network"
-            app:destination="@id/nav_network" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_transaction"
-            app:destination="@id/nav_transaction" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_funds"
-            app:destination="@id/nav_funds" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_logout"
-            app:destination="@id/nav_logout" />
-    </fragment>
+        tools:layout="@layout/home_fragment"/>
 
     <fragment
         android:id="@+id/nav_profile"
