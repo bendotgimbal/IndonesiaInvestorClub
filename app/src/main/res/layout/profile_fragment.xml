@@ -23,24 +23,67 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <!--      <ImageView-->
-            <!--          android:id="@+id/profile_image"-->
-            <!--          android:layout_width="120dp"-->
-            <!--          android:layout_height="120dp"-->
-            <!--          android:layout_marginTop="54dp"-->
-            <!--          android:background="@drawable/img" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@color/colorPrimary">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+<!--            <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                android:id="@+id/profile_image"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:layout_marginTop="54dp"-->
+<!--                android:src="@drawable/ic_profile" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/profile_image"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:background="@drawable/img"/>-->
+
+            <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="54dp"
-                android:src="@drawable/ic_profile" />
+                android:layout_margin="9dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/circle"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                app:imageUrl="@{viewModel.avatarTx}" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:rowCount="2">
+
+                <TextView
+                    android:id="@+id/first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:text="@{viewModel.firstNameTx}"
+                    tools:text="@string/profile_first_name"
+                    android:layout_marginEnd="1dp" />
+
+                <TextView
+                    android:id="@+id/last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:text="@{viewModel.lastNameTx}"
+                    tools:text="@string/profile_last_name"
+                    android:layout_marginStart="1dp" />
+            </GridLayout>
+        </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profile_image"
                 android:text="@{viewModel.idNumberTx}"
                 tools:text="ID" />
 

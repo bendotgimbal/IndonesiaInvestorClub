@@ -35,4 +35,7 @@
 
   <string name="label_username">Username</string>
   <string name="label_password">Password</string>
+
+  <string name="profile_first_name">First Name</string>
+  <string name="profile_last_name">Last Name</string>
 </resources>
