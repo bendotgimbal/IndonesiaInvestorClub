@@ -104,7 +104,8 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
 
   private void showAgreement(AgreementRes response) {
     hideLoading();
-    if (response != null) return;
+    if (response == null) return;
+    if (response.getAgreement() == null) return;
     StringBuilder agreement = new StringBuilder();
 
     for (int i = 0; i < response.getAgreement().size(); i++) {
@@ -124,6 +125,6 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
   }
 
   @Override public void hideLoading() {
-
+    loading(false);
   }
 }
