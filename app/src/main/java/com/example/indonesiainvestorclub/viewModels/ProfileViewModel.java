@@ -48,6 +48,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     refCodeTx = new ObservableField<>("");
     firstNameTx = new ObservableField<>("");
     lastNameTx = new ObservableField<>("");
+    phoneNumberTx = new ObservableField<>("");
     emailTx = new ObservableField<>("");
     avatarTx = new ObservableField<>("");
     sponsorTx = new ObservableField<>("");
@@ -176,6 +177,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     refCodeTx.set(profileRes.getLogin().getRefCode());
     firstNameTx.set(profileRes.getProfile().getFirstName());
     lastNameTx.set(profileRes.getProfile().getLastName());
+    phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
     avatarTx.set(profileRes.getLogin().getAvatar());
     sponsorTx.set(profileRes.getLogin().getSponsor());

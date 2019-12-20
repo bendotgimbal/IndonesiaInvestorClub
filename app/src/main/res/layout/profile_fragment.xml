@@ -81,41 +81,80 @@
             </GridLayout>
         </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.idNumberTx}"
-                tools:text="ID" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TextView
-                android:layout_width="match_parent"
+            <GridLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.refCodeTx}"
-                tools:text="Refferal Code" />
+                android:gravity="left"
+                android:rowCount="1"
+                android:columnCount="1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.emailTx}"
-                tools:text="Email" />
+                <TextView
+                    android:id="@+id/header_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderForProfile"
+                    android:text="Email" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.sponsorTx}"
-                tools:text="Sponsor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.emailTx}"
+                    tools:text="Email" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.networkTx}"
-                tools:text="Network" />
+            </GridLayout>
 
-            <TextView
-                android:layout_width="match_parent"
+            <GridLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.grupTx}"
-                tools:text="Group" />
+                android:gravity="left"
+                android:rowCount="1"
+                android:columnCount="1"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/header_refferal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderForProfile"
+                    android:text="Refferal Code" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.refCodeTx}"
+                    tools:text="Refferal Code" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:rowCount="1"
+                android:columnCount="1"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/header_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderForProfile"
+                    android:text="Phone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.phoneNumberTx}"
+                    tools:text="Phone" />
+
+            </GridLayout>
+        </LinearLayout>
 
         </LinearLayout>
 
