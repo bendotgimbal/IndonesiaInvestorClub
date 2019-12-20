@@ -1,86 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-  <data>
-    <variable
-        name="viewModel"
-        type="com.example.indonesiainvestorclub.viewModels.ProfileViewModel"
-        />
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <import type="android.view.View" />
-  </data>
+    <data>
 
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
+        <variable
+            name="viewModel"
+            type="com.example.indonesiainvestorclub.viewModels.ProfileViewModel" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical">
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.idNumberTx}"
-          tools:text="ID"/>
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.refCodeTx}"
-          tools:text="Refferal Code"/>
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.emailTx}"
-          tools:text="Email"/>
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.sponsorTx}"
-          tools:text="Sponsor"/>
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.networkTx}"
-          tools:text="Network"/>
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@{viewModel.grupTx}"
-          tools:text="Group"/>
-
-    </LinearLayout>
+        <import type="android.view.View" />
+    </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
-        tools:visibility="gone">
+        android:layout_height="match_parent">
 
-      <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:srcCompat="@color/black_transparent"
-          />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-      <androidx.core.widget.ContentLoadingProgressBar
-          style="?android:attr/progressBarStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          />
+            <!--      <ImageView-->
+            <!--          android:id="@+id/profile_image"-->
+            <!--          android:layout_width="120dp"-->
+            <!--          android:layout_height="120dp"-->
+            <!--          android:layout_marginTop="54dp"-->
+            <!--          android:background="@drawable/img" />-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="54dp"
+                android:src="@drawable/ic_profile" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_image"
+                android:text="@{viewModel.idNumberTx}"
+                tools:text="ID" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.refCodeTx}"
+                tools:text="Refferal Code" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.emailTx}"
+                tools:text="Email" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.sponsorTx}"
+                tools:text="Sponsor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.networkTx}"
+                tools:text="Network" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.grupTx}"
+                tools:text="Group" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@color/black_transparent" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+
     </FrameLayout>
-
-
-  </FrameLayout>
 </layout>
