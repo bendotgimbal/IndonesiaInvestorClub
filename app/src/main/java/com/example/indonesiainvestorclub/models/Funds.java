@@ -11,9 +11,11 @@ public class Funds {
     private String slots;
     private String compounding;
     private String roi;
-    List<Meta> meta;
+    private Meta meta;
 
-    public Funds(String name, String type, String manager, String invested, String equity, String slots, String compounding, String roi) {
+    public Funds(String name, String type, String manager, String invested, String equity,
+        String slots, String compounding, String roi,
+        Meta meta) {
         this.name = name;
         this.type = type;
         this.manager = manager;
@@ -22,9 +24,6 @@ public class Funds {
         this.slots = slots;
         this.compounding = compounding;
         this.roi = roi;
-    }
-
-    public Funds(List<Meta> meta) {
         this.meta = meta;
     }
 
@@ -92,11 +91,11 @@ public class Funds {
         this.roi = roi;
     }
 
-    public List<Meta> getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(List<Meta> meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 }

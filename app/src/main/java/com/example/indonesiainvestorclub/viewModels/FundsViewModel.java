@@ -3,10 +3,8 @@ package com.example.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import androidx.databinding.ObservableBoolean;
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
-import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Funds;
 import com.example.indonesiainvestorclub.models.Meta;
-import com.example.indonesiainvestorclub.models.Metalist;
 import com.example.indonesiainvestorclub.models.response.FundsRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
@@ -64,46 +62,53 @@ public class FundsViewModel extends BaseViewModelWithCallback {
   private void readFundsJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
-      FundsRes fundsRes = new FundsRes();
+      FundsRes fundsRes;
 
       jsonObject = new JSONObject(response.toString());
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
 
-      List<Funds> funds = new ArrayList<>();
-      List<Meta> meta = new ArrayList<>();
-      List<Metalist> metalist = new ArrayList<>();
+      List<Funds> fundsList = new ArrayList<>();
 
       for (int i = 1; i <= objectFunds.length(); i++) {
         JSONObject objFunds = objectFunds.getJSONObject(i + "");
-        Meta fundslist;
-        Datas data;
+        Funds funds;
 
-        String name = objFunds.getString("Name");
-        String type = objFunds.getString("Type");
-        String manager = objFunds.getString("Manager");
-        String invested = objFunds.getString("Invested");
-        String equity = objFunds.getString("Equity");
-        String slots = objFunds.getString("Slots");
-        String compounding = objFunds.getString("Compounding");
-        String roi = objFunds.getString("ROI");
         JSONObject metaObject = objFunds.getJSONObject("Meta");
+        Meta meta = new Meta(
+            metaObject.getString("AccNo"),
+            metaObject.getString("InvestorPass"),
+            metaObject.getString("Server")
+        );
 
-        for (int o = 1; o <= metaObject.length(); o++) {
-          JSONObject objMeta = metaObject.getJSONObject(o + "");
+        funds = new Funds(
+            objFunds.getString("Name"),
+            objFunds.getString("Type"),
+            objFunds.getString("Manager"),
+            objFunds.getString("Invested"),
+            objFunds.getString("Equity"),
+            objFunds.getString("Slots"),
+            objFunds.getString("Compounding"),
+            objFunds.getString("ROI"),
+            meta
+        );
 
-          Metalist metaList = new Metalist(
-              objMeta.getString("AccNo"),
-              objMeta.getString("InvestorPass"),
-              objMeta.getString("Server")
-          );
-          metalist.add(metaList);
-        }
-        fundslist = new Meta(metalist);
-        meta.add(fundslist);
+        fundsList.add(funds);
       }
+
+      fundsRes = new FundsRes(fundsList);
+
+      showFunds(fundsRes);
     } catch (JSONException e) {
       e.printStackTrace();
     }
+  }
+
+  private void showFunds(FundsRes response) {
+    hideLoading();
+    if (response == null) return;
+    if (response.getFunds() == null) return;
+
+    //TODO recyclerview
   }
 
   @Override
