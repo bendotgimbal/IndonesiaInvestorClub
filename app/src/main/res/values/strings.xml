@@ -38,4 +38,5 @@
 
   <string name="profile_first_name">First Name</string>
   <string name="profile_last_name">Last Name</string>
+  <string name="profile_name">Name</string>
 </resources>

@@ -13,7 +13,7 @@ import com.example.indonesiainvestorclub.viewModels.AgreementViewModel;
 
 public class AgreementFragment extends BaseFragment {
 
-  private AgreementFragmentBinding agreementFragmentBinding;
+  private AgreementFragmentBinding binding;
   private AgreementViewModel viewModel;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,13 +24,13 @@ public class AgreementFragment extends BaseFragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
-    agreementFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.agreement_fragment, container, false);
-    return agreementFragmentBinding.getRoot();
+    binding = DataBindingUtil.inflate(inflater, R.layout.agreement_fragment, container, false);
+    return binding.getRoot();
   }
 
   @Override
   protected void initDataBinding() {
-    viewModel = new AgreementViewModel(this.getContext(), agreementFragmentBinding);
-    agreementFragmentBinding.setViewModel(viewModel);
+    viewModel = new AgreementViewModel(this.getContext(), binding);
+    binding.setViewModel(viewModel);
   }
 }

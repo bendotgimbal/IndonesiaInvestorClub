@@ -79,12 +79,8 @@ public class Login {
     public List<Groups> getGroups() {
         return groups;
     }
+
     public void setGroups(List<Groups> groups) {
         this.groups = groups;
-    }
-
-    @BindingAdapter("bind:imageUrl")
-    public static void loadImage(ImageView view, String url) {
-        Glide.with(view.getContext()).load(url).into(view);
     }
 }
