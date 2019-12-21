@@ -1,5 +1,6 @@
 package com.example.indonesiainvestorclub.models;
 
+
 public class Meta {
     private String accno;
     private String investorpass;

@@ -6,14 +6,14 @@ import com.example.indonesiainvestorclub.databinding.PortofolioActivityBinding;
 
 public class PortofolioViewModel extends BaseViewModelWithCallback {
 
-    private PortofolioActivityBinding binding;
+  private PortofolioActivityBinding binding;
 
-    public PortofolioViewModel(Context context, PortofolioActivityBinding binding){
-        super(context);
-        this.binding = binding;
-    }
+  public PortofolioViewModel(Context context, PortofolioActivityBinding binding) {
+    super(context);
+    this.binding = binding;
+  }
 
-    @Override public void hideLoading() {
+  @Override public void hideLoading() {
 
-    }
+  }
 }

@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity {
     appBarConfiguration =
         new AppBarConfiguration.Builder(
             R.id.nav_home,
+            R.id.nav_profile,
             R.id.nav_lounge,
             R.id.nav_agreement,
             R.id.nav_network,
@@ -78,7 +79,8 @@ public class MainActivity extends BaseActivity {
     viewModel.start();
   }
 
-  @Override public void onBackPressed() {
+  @Override
+  public void onBackPressed() {
     if (viewModel.isDrawerOpen()) {
       viewModel.closeDrawer();
       return;

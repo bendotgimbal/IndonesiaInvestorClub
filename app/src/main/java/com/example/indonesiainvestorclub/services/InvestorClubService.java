@@ -15,7 +15,6 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -35,7 +34,7 @@ public interface InvestorClubService {
   Observable<Response<SignUpRes>> signUpRequest();
 
   @GET("profile")
-  Observable<Response<ProfileRes>> profileRequest();
+  Observable<Response<JsonElement>> profileRequest();
 
   @GET("public/performance")
   Observable<Response<JsonElement>> performanceRequest();
@@ -47,7 +46,7 @@ public interface InvestorClubService {
   Observable<Response<PortfolioRes>> portfolioRequest();
 
   @GET("funds")
-  Observable<Response<FundsRes>> fundsRequest();
+  Observable<Response<JsonElement>> fundsRequest();
 
   @GET("agreement")
   Observable<Response<JsonElement>> agreementRequest();
