@@ -56,7 +56,8 @@
         android:theme="@style/AppTheme.NoActionBar" />
     <activity
         android:name=".views.LoginActivity"
-        android:theme="@style/AppTheme.NoActionBar" />
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme" />
     <activity android:name=".views.ProfileFragment" />
     <activity android:name=".views.PortofolioActivity" />
     <activity android:name=".views.AgreementFragment" />
@@ -65,7 +66,8 @@
     <activity android:name=".views.InvestFragment" />
     <activity
         android:name=".views.LogoutActivity"
-        android:theme="@style/AppTheme.NoActionBar"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
         android:windowSoftInputMode="stateHidden" />
     <activity android:name=".views.FundsFragment" />
   </application>

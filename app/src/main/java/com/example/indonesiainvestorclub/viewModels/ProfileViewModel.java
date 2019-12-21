@@ -46,6 +46,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     idNumberTx = new ObservableField<>("");
     refCodeTx = new ObservableField<>("");
     nameTx = new ObservableField<>("");
+    phoneNumberTx = new ObservableField<>("");
     emailTx = new ObservableField<>("");
     sponsorTx = new ObservableField<>("");
     networkTx = new ObservableField<>("");
@@ -173,10 +174,11 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
     nameTx.set(profileRes.getProfile().getFirstName() + " " +profileRes.getProfile().getLastName());
+    phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
-    grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + " & "
+    grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
         + profileRes.getLogin().getGroups().get(1).getDepartment());
   }
 

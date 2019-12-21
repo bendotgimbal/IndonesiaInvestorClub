@@ -39,4 +39,14 @@
   <string name="profile_first_name">First Name</string>
   <string name="profile_last_name">Last Name</string>
   <string name="profile_name">Name</string>
+
+  <string name="personal_info">Personal Info</string>
+  <string name="user_info">User Info</string>
+
+  <string name="id_label">ID Number</string>
+  <string name="ref_label">Reffereal Code</string>
+  <string name="email_label">E-mail</string>
+  <string name="sponsor_label">Sponsor</string>
+  <string name="network_label">Network</string>
+  <string name="group_label">Group</string>
 </resources>
