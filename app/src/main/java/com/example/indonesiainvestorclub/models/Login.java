@@ -1,11 +1,5 @@
 package com.example.indonesiainvestorclub.models;
 
-import android.widget.ImageView;
-
-import androidx.databinding.BindingAdapter;
-
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 public class Login {

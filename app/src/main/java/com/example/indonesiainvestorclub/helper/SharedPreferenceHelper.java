@@ -18,6 +18,8 @@ public class SharedPreferenceHelper {
   private static final String COOKIE = "cookie";
   private static final String USER_NAME = "user_name";
   private static final String USER_KEY = "user_key";
+  private static final String USER_REAL_NAME = "user_real_name";
+  private static final String USER_AVA = "user_ava";
 
   @Nullable
   private static SharedPreferences getUserPreferences() {
@@ -85,4 +87,27 @@ public class SharedPreferenceHelper {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(USER_KEY, "");
   }
+
+  //REAL NAME
+  public static void setUserRealName(String userRealName) {
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putString(USER_REAL_NAME, userRealName).apply();
+  }
+
+  public static String getUserRealName() {
+    if (getUserPreferences() == null) return null;
+    return getUserPreferences().getString(USER_REAL_NAME, "");
+  }
+
+  //AVATAR
+  public static void setUserAva(String userAva) {
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putString(USER_AVA, userAva).apply();
+  }
+
+  public static String getUserAva() {
+    if (getUserPreferences() == null) return null;
+    return getUserPreferences().getString(USER_AVA, "");
+  }
+
 }

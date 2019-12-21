@@ -1,6 +1,8 @@
 package com.example.indonesiainvestorclub.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -10,7 +12,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.example.indonesiainvestorclub.databinding.NavHeaderMainBinding;
+import com.example.indonesiainvestorclub.models.Login;
+import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.viewModels.MainViewModel;
+import org.parceler.Parcels;
 
 public class MainActivity extends BaseActivity {
 
@@ -18,6 +23,9 @@ public class MainActivity extends BaseActivity {
   private NavHeaderMainBinding navHeaderMainBinding;
   private MainViewModel viewModel;
   private AppBarConfiguration appBarConfiguration;
+
+  public static final int REQ_LOGIN = 1001;
+  public static final String LOGIN_RES = "login_res";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
