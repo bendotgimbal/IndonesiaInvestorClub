@@ -21,4 +21,13 @@ public class LoungeRes {
     public void setCharts(List<Charts> charts) {
         this.charts = charts;
     }
+
+//    public LoungeRes(Tweets tweets, Charts charts) {
+//
+//    }
+
+    public LoungeRes(List<Tweets> tweets, List<Charts> charts) {
+        this.tweets = tweets;
+        this.charts = charts;
+    }
 }

@@ -6,9 +6,12 @@ public class LoginRes {
   @SerializedName("X-API-KEY")
   private String token;
   private String username;
+  @SerializedName("Avatar")
   private String avatar;
-  private String firstname;
-  private String lastname;
+  @SerializedName("FirstName")
+  private String firstName;
+  @SerializedName("LastName")
+  private String lastName;
 
   public String getToken() {
     return token;
@@ -35,18 +38,18 @@ public class LoginRes {
   }
 
   public String getFirstName() {
-    return firstname;
+    return firstName;
   }
 
-  public void setFirstName(String firstname) {
-    this.firstname = firstname;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   public String getLastName() {
-    return lastname;
+    return lastName;
   }
 
-  public void setLastName(String lastname) {
-    this.lastname = lastname;
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 }

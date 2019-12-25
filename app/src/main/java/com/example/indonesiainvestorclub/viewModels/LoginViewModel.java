@@ -1,6 +1,8 @@
 package com.example.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -13,11 +15,14 @@ import com.example.indonesiainvestorclub.models.response.LoginRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import com.example.indonesiainvestorclub.views.LoginActivity;
+import com.example.indonesiainvestorclub.views.MainActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 import retrofit2.Response;
 
 public class LoginViewModel extends BaseViewModelWithCallback{
@@ -83,6 +88,9 @@ public class LoginViewModel extends BaseViewModelWithCallback{
 
       //TODO encode before saving to shared preference
       SharedPreferenceHelper.setUserKey(getPassword());
+
+      SharedPreferenceHelper.setUserRealName(loginRes.getFirstName()+""+loginRes.getLastName());
+      SharedPreferenceHelper.setUserAva(loginRes.getAvatar());
 
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
       ((LoginActivity)context).finish();

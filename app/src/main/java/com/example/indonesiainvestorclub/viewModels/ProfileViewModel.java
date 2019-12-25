@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.ProfileFragmentBinding;
+import com.example.indonesiainvestorclub.helper.ImageHelper;
 import com.example.indonesiainvestorclub.models.Bank;
 import com.example.indonesiainvestorclub.models.Documents;
 import com.example.indonesiainvestorclub.models.DocumentsBank;
@@ -30,11 +31,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
   public ObservableBoolean loadingState;
   public ObservableField<String> idNumberTx;
   public ObservableField<String> refCodeTx;
-  public ObservableField<String> firstNameTx;
-  public ObservableField<String> lastNameTx;
+  public ObservableField<String> nameTx;
   public ObservableField<String> phoneNumberTx;
   public ObservableField<String> emailTx;
-  public ObservableField<String> avatarTx;
   public ObservableField<String> sponsorTx;
   public ObservableField<String> networkTx;
   public ObservableField<String> grupTx;
@@ -46,11 +45,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     loadingState = new ObservableBoolean(false);
     idNumberTx = new ObservableField<>("");
     refCodeTx = new ObservableField<>("");
-    firstNameTx = new ObservableField<>("");
-    lastNameTx = new ObservableField<>("");
+    nameTx = new ObservableField<>("");
     phoneNumberTx = new ObservableField<>("");
     emailTx = new ObservableField<>("");
-    avatarTx = new ObservableField<>("");
     sponsorTx = new ObservableField<>("");
     networkTx = new ObservableField<>("");
     grupTx = new ObservableField<>("");
@@ -162,7 +159,6 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
       //INIT PROFILE
       showProfile(profileRes);
-
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -173,16 +169,16 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
     if (profileRes == null) return;
 
+    ImageHelper.loadImage(binding.profileImage, profileRes.getLogin().getAvatar());
+
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
-    firstNameTx.set(profileRes.getProfile().getFirstName());
-    lastNameTx.set(profileRes.getProfile().getLastName());
+    nameTx.set(profileRes.getProfile().getFirstName() + " " +profileRes.getProfile().getLastName());
     phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
-    avatarTx.set(profileRes.getLogin().getAvatar());
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
-    grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + " & "
+    grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
         + profileRes.getLogin().getGroups().get(1).getDepartment());
   }
 

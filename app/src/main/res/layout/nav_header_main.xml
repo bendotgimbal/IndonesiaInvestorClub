@@ -32,30 +32,24 @@
         android:layout_gravity="center|end"
         tools:visibility="gone"/>
 
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:onClick="@{viewModel::signUpScreen}"-->
-<!--        android:text="@string/label_register"-->
-<!--        android:visibility="@{viewModel.loginState ? View.GONE : View.VISIBLE}"-->
-<!--        android:layout_gravity="center|end"-->
-<!--        tools:visibility="gone"/>-->
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:visibility="@{viewModel.loginState ? View.VISIBLE : View.GONE}"
         android:contentDescription="@string/nav_header_desc"
         app:srcCompat="@mipmap/ic_launcher_round"
+        android:layout_marginBottom="5dp"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nav_header_title"
-        android:visibility="gone"
+        android:visibility="@{viewModel.loginState ? View.VISIBLE : View.GONE}"
+        android:text="@{viewModel.name}"
+        tools:text="dummy dummy"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginBottom="2dp"
         />
 
     <TextView
@@ -64,7 +58,7 @@
         android:layout_height="wrap_content"
         android:visibility="@{viewModel.loginState ? View.VISIBLE : View.GONE}"
         android:text="@{viewModel.email}"
-        tools:text="@string/label_username"
+        tools:text="dummy123@gmail.com"
         />
 
   </LinearLayout>
