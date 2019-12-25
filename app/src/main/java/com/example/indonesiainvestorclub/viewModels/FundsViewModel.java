@@ -30,6 +30,7 @@ public class FundsViewModel extends BaseViewModelWithCallback {
     public ObservableBoolean loadingState;
     public ObservableField<String> fundsLabelTx;
     public ObservableField<String> fundsTypeValueTx;
+    public ObservableField<String> fundsManagerValueTx;
 
     public FundsViewModel(Context context, FundsFragmentBinding binding) {
         super(context);
@@ -38,6 +39,7 @@ public class FundsViewModel extends BaseViewModelWithCallback {
         loadingState = new ObservableBoolean(false);
         fundsLabelTx = new ObservableField<>("");
         fundsTypeValueTx = new ObservableField<>("");
+        fundsManagerValueTx = new ObservableField<>("");
 
         start();
     }
@@ -119,6 +121,7 @@ public class FundsViewModel extends BaseViewModelWithCallback {
 
         fundsLabelTx.set(fundsRes.getFunds().get(0).getName());
         fundsTypeValueTx.set(fundsRes.getFunds().get(0).getType());
+        fundsManagerValueTx.set(fundsRes.getFunds().get(0).getManager());
 
         //TODO recyclerview
     }

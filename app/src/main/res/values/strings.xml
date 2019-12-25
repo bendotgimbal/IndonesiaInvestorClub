@@ -58,4 +58,6 @@
   <string name="funds_label">Funds</string>
   <string name="funds_type_label">Type</string>
   <string name="funds_manager_label">Manager</string>
+
+  <string name="minus">-</string>
 </resources>
