@@ -42,6 +42,7 @@
 
   <string name="personal_info">Personal Info</string>
   <string name="user_info">User Info</string>
+  <string name="charts_info">IIC FX 1</string>
 
   <string name="id_label">ID Number</string>
   <string name="ref_label">Reffereal Code</string>
@@ -49,4 +50,14 @@
   <string name="sponsor_label">Sponsor</string>
   <string name="network_label">Network</string>
   <string name="group_label">Group</string>
+
+  <string name="invested_label">Invested</string>
+  <string name="profit_label">Profit</string>
+  <string name="roi_label">ROI</string>
+
+  <string name="funds_label">Funds</string>
+  <string name="funds_type_label">Type</string>
+  <string name="funds_manager_label">Manager</string>
+
+  <string name="minus">-</string>
 </resources>

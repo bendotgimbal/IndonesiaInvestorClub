@@ -9,8 +9,10 @@ import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.R;
 import com.example.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.example.indonesiainvestorclub.databinding.NavHeaderMainBinding;
+import com.example.indonesiainvestorclub.helper.ImageHelper;
 import com.example.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.example.indonesiainvestorclub.views.LoginActivity;
+import com.example.indonesiainvestorclub.views.MainActivity;
 
 public class MainViewModel extends BaseViewModelWithCallback {
 
@@ -21,6 +23,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
   public ObservableBoolean loginState;
   public ObservableBoolean loadingState;
   public ObservableField<String> email;
+  public ObservableField<String> name;
 
   public MainViewModel(Context context, ActivityMainBinding binding,
       NavHeaderMainBinding navHeaderMainBinding) {
@@ -31,6 +34,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
     loginState = new ObservableBoolean(false);
     loadingState = new ObservableBoolean(false);
     email = new ObservableField<>("");
+    name = new ObservableField<>("");
   }
 
   private void loading(boolean load) {
@@ -41,15 +45,19 @@ public class MainViewModel extends BaseViewModelWithCallback {
     if (SharedPreferenceHelper.getLoginState()) {
       loginState.set(true);
       email.set(SharedPreferenceHelper.getUserName());
+      name.set(SharedPreferenceHelper.getUserRealName());
+      ImageHelper.loadImage(navHeaderMainBinding.imageView, SharedPreferenceHelper.getUserAva());
       menuVisible(true);
     } else {
       loginState.set(false);
       email.set("");
+      name.set("");
+      navHeaderMainBinding.imageView.setImageResource(R.mipmap.ic_launcher_round);
       menuVisible(false);
     }
   }
 
-  public void menuVisible(boolean visible) {
+  private void menuVisible(boolean visible) {
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_lounge).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_agreement).setVisible(visible);
@@ -62,7 +70,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
   @SuppressWarnings("unused")
   public void loginScreen(View view) {
     Intent i = new Intent(context, LoginActivity.class);
-    context.startActivity(i);
+    ((MainActivity)context).startActivityForResult(i, MainActivity.REQ_LOGIN);
   }
 
   @SuppressWarnings("unused")
