@@ -58,6 +58,15 @@
   <string name="funds_label">Funds</string>
   <string name="funds_type_label">Type</string>
   <string name="funds_manager_label">Manager</string>
+  <string name="funds_your_invest_label">Your Invest</string>
+  <string name="funds_equity_progress_label">Equity Progress</string>
+  <string name="funds_slots_label">Slots</string>
+  <string name="funds_roi_label">Est. ROI</string>
+  <string name="funds_compounding_label">Compounding</string>
+  <string name="funds_meta_label">META INFO</string>
+  <string name="funds_acc_no_label">Acc. No.</string>
+  <string name="funds_investor_pass_label">Investor Pass</string>
+  <string name="funds_server_label">Server</string>
 
   <string name="minus">-</string>
 </resources>
