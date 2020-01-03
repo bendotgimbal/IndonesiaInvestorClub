@@ -5,7 +5,10 @@ import android.content.Context;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import com.example.indonesiainvestorclub.adapter.TweetsAdapter;
 import com.example.indonesiainvestorclub.databinding.LoungeFragmentBinding;
+import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Charts;
 import com.example.indonesiainvestorclub.models.Tweets;
 import com.example.indonesiainvestorclub.models.response.LoungeRes;
@@ -24,115 +27,132 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class LoungeViewModel extends BaseViewModelWithCallback {
+public class LoungeViewModel extends BaseViewModelWithCallback
+    implements ActionInterface.AdapterItemListener<Tweets> {
 
-    private LoungeFragmentBinding binding;
-    public ObservableBoolean loadingState;
-    public ObservableField<String> nameLabelTx;
-    public ObservableField<String> investedValueTx;
-    public ObservableField<String> profitValueTx;
-    public ObservableField<String> roiValueTx;
+  private LoungeFragmentBinding binding;
+  public ObservableBoolean loadingState;
+  public ObservableField<String> nameLabelTx;
+  public ObservableField<String> investedValueTx;
+  public ObservableField<String> profitValueTx;
+  public ObservableField<String> roiValueTx;
 
-    public LoungeViewModel(Context context, LoungeFragmentBinding binding) {
-        super(context);
-        this.binding = binding;
+  private TweetsAdapter adapter;
 
-        loadingState = new ObservableBoolean(false);
-        nameLabelTx = new ObservableField<>("");
-        investedValueTx = new ObservableField<>("");
-        profitValueTx = new ObservableField<>("");
-        roiValueTx = new ObservableField<>("");
+  public LoungeViewModel(Context context, LoungeFragmentBinding binding) {
+    super(context);
+    this.binding = binding;
 
-        start();
-    }
+    loadingState = new ObservableBoolean(false);
+    nameLabelTx = new ObservableField<>("");
+    investedValueTx = new ObservableField<>("");
+    profitValueTx = new ObservableField<>("");
+    roiValueTx = new ObservableField<>("");
 
-    private void start() {
-        getLounge();
-    }
+    adapter = new TweetsAdapter();
+    adapter.setListener(this);
 
-    private void loading(boolean load) {
-        loadingState.set(load);
-    }
+    this.binding.tweetList.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.tweetList.setAdapter(adapter);
 
-    //API CALL
-    private void getLounge() {
-        loading(true);
+    start();
+  }
 
-        Disposable disposable = ServiceGenerator.service.loungeRequest()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getLounge) {
-                    @Override
-                    protected void onSuccess(Response<JsonElement> jsonElementResponse) {
-                        if (jsonElementResponse.body() != null) {
-                            loading(false);
-                            readLoungeJSON(jsonElementResponse.body());
-                        }
-                    }
-                });
-        compositeDisposable.add(disposable);
-    }
+  private void start() {
+    getLounge();
+  }
 
-    private void readLoungeJSON(JsonElement response) {
-        JSONObject jsonObjectTweets;
-        JSONObject jsonObjectCharts;
-        try {
-            LoungeRes loungeRes;
+  private void loading(boolean load) {
+    loadingState.set(load);
+  }
 
-            jsonObjectTweets = new JSONObject(response.toString());
-            JSONObject objectTweets = jsonObjectTweets.getJSONObject("Tweets");
+  //API CALL
+  private void getLounge() {
+    loading(true);
 
-            List<Tweets> tweetslist = new ArrayList<>();
-            for (int t = 1; t <= objectTweets.length(); t++) {
-                JSONObject objTweets = objectTweets.getJSONObject(t + "");
-                Tweets tweets;
-
-                tweets = new Tweets(
-                        objTweets.getString("Author"),
-                        objTweets.getString("Content"),
-                        objTweets.getString("Date")
-                );
-                tweetslist.add(tweets);
+    Disposable disposable = ServiceGenerator.service.loungeRequest()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getLounge) {
+          @Override
+          protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+            if (jsonElementResponse.body() != null) {
+              loading(false);
+              readLoungeJSON(jsonElementResponse.body());
             }
+          }
+        });
+    compositeDisposable.add(disposable);
+  }
 
+  private void readLoungeJSON(JsonElement response) {
+    JSONObject jsonObjectTweets;
+    JSONObject jsonObjectCharts;
+    try {
+      LoungeRes loungeRes;
 
-            jsonObjectCharts = new JSONObject(response.toString());
-            JSONObject objectCharts = jsonObjectCharts.getJSONObject("Charts");
+      jsonObjectTweets = new JSONObject(response.toString());
+      JSONObject objectTweets = jsonObjectTweets.getJSONObject("Tweets");
 
-            List<Charts> chartslist = new ArrayList<>();
-            for (int c = 1; c <= objectCharts.length(); c++) {
-                JSONObject objCharts = objectCharts.getJSONObject(c + "");
-                Charts charts;
+      List<Tweets> tweetslist = new ArrayList<>();
+      for (int t = 1; t <= objectTweets.length(); t++) {
+        JSONObject objTweets = objectTweets.getJSONObject(t + "");
+        Tweets tweets;
 
-                charts = new Charts(
-                        objCharts.getString("Name"),
-                        objCharts.getString("Invested"),
-                        objCharts.getString("Profit"),
-                        objCharts.getString("ROI")
-                );
-                chartslist.add(charts);
-            }
-            loungeRes = new LoungeRes(tweetslist, chartslist);
-            showLounge(loungeRes);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        tweets = new Tweets(
+            objTweets.getString("Author"),
+            objTweets.getString("Content"),
+            objTweets.getString("Date")
+        );
+        tweetslist.add(tweets);
+      }
+
+      jsonObjectCharts = new JSONObject(response.toString());
+      JSONObject objectCharts = jsonObjectCharts.getJSONObject("Charts");
+
+      List<Charts> chartslist = new ArrayList<>();
+      for (int c = 1; c <= objectCharts.length(); c++) {
+        JSONObject objCharts = objectCharts.getJSONObject(c + "");
+        Charts charts;
+
+        charts = new Charts(
+            objCharts.getString("Name"),
+            objCharts.getString("Invested"),
+            objCharts.getString("Profit"),
+            objCharts.getString("ROI")
+        );
+        chartslist.add(charts);
+      }
+      loungeRes = new LoungeRes(tweetslist, chartslist);
+      showLounge(loungeRes);
+    } catch (JSONException e) {
+      e.printStackTrace();
     }
+  }
 
-    private void showLounge(LoungeRes loungeRes) {
-        hideLoading();
+  private void showLounge(LoungeRes loungeRes) {
+    hideLoading();
 
-        if (loungeRes == null) return;
+    if (loungeRes == null) return;
 
-        nameLabelTx.set(loungeRes.getCharts().get(0).getName());
-        investedValueTx.set(loungeRes.getCharts().get(0).getInvested());
-        profitValueTx.set(loungeRes.getCharts().get(0).getProfit());
-        roiValueTx.set(loungeRes.getCharts().get(0).getRoi());
+    nameLabelTx.set(loungeRes.getCharts().get(0).getName());
+    investedValueTx.set(loungeRes.getCharts().get(0).getInvested());
+    profitValueTx.set(loungeRes.getCharts().get(0).getProfit());
+    roiValueTx.set(loungeRes.getCharts().get(0).getRoi());
 
-    }
+    adapter.setModels(loungeRes.getTweets());
+    adapter.notifyDataSetChanged();
 
-    @Override
-    public void hideLoading() {
-        loading(false);
-    }
+    adapter.getItemCount();
+  }
+
+  @Override
+  public void hideLoading() {
+    loading(false);
+  }
+
+  @Override public void onClickAdapterItem(int index, Tweets model) {
+
+  }
 }

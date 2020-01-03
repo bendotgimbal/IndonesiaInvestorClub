@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <data>
+    <variable
+        name="obj"
+        type="com.example.indonesiainvestorclub.models.Tweets"
+        />
+
+    <variable
+        name="listener"
+        type="com.example.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener"
+        />
+
+    <import type="android.text.Html" />
+
+    <import type="android.view.View" />
+
+  </data>
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cardCornerRadius="10dp"
+      android:layout_margin="5dp"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{obj.author}"
+          android:textStyle="bold"
+          android:layout_marginBottom="3dp"
+          android:textSize="18sp"
+          tools:text="Author"
+          />
+
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{obj.date}"
+          android:layout_marginBottom="10dp"
+          android:textSize="16sp"
+          tools:text="Date"
+          />
+
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{Html.fromHtml(obj.content)}"
+          android:textSize="18sp"
+          tools:text="Content"
+          />
+
+    </LinearLayout>
+
+  </androidx.cardview.widget.CardView>
+
+</layout>

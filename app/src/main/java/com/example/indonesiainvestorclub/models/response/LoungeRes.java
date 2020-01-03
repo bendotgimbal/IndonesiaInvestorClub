@@ -6,28 +6,32 @@ import com.example.indonesiainvestorclub.models.Tweets;
 import java.util.List;
 
 public class LoungeRes {
-    private List<Tweets> tweets;
-    public List<Tweets> getTweets() {
-        return tweets;
-    }
-    public void setTweets(List<Tweets> tweets) {
-        this.tweets = tweets;
-    }
+  private List<Tweets> tweets;
 
-    private List<Charts> charts;
-    public List<Charts> getCharts() {
-        return charts;
-    }
-    public void setCharts(List<Charts> charts) {
-        this.charts = charts;
-    }
+  public List<Tweets> getTweets() {
+    return tweets;
+  }
 
-//    public LoungeRes(Tweets tweets, Charts charts) {
-//
-//    }
+  public void setTweets(List<Tweets> tweets) {
+    this.tweets = tweets;
+  }
 
-    public LoungeRes(List<Tweets> tweets, List<Charts> charts) {
-        this.tweets = tweets;
-        this.charts = charts;
-    }
+  private List<Charts> charts;
+
+  public List<Charts> getCharts() {
+    return charts;
+  }
+
+  public void setCharts(List<Charts> charts) {
+    this.charts = charts;
+  }
+
+  //    public LoungeRes(Tweets tweets, Charts charts) {
+  //
+  //    }
+
+  public LoungeRes(List<Tweets> tweets, List<Charts> charts) {
+    this.tweets = tweets;
+    this.charts = charts;
+  }
 }
