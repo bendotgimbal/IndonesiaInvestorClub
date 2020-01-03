@@ -32,6 +32,7 @@ public class LoungeViewModel extends BaseViewModelWithCallback {
     public ObservableField<String> investedValueTx;
     public ObservableField<String> profitValueTx;
     public ObservableField<String> roiValueTx;
+    public ObservableField<String> tweetValueTx;
 
     public LoungeViewModel(Context context, LoungeFragmentBinding binding) {
         super(context);

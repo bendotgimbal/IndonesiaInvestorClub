@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +17,7 @@ public class LoungeFragment extends BaseFragment {
 
   private LoungeFragmentBinding binding;
   private LoungeViewModel viewModel;
+  private ListView lv;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {

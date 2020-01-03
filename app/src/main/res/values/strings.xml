@@ -55,6 +55,8 @@
   <string name="profit_label">Profit</string>
   <string name="roi_label">ROI</string>
 
+  <string name="tweets_label">Tweets</string>
+
   <string name="funds_label">Funds</string>
   <string name="funds_type_label">Type</string>
   <string name="funds_manager_label">Manager</string>
