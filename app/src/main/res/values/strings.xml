@@ -70,5 +70,12 @@
   <string name="funds_investor_pass_label">Investor Pass</string>
   <string name="funds_server_label">Server</string>
 
+  <string name="perlots_usd_label">PerLots (USD)</string>
+  <string name="invest_usd_label">Invest (USD)</string>
+  <string name="commission_usd_label">Commission (USD)</string>
+  <string name="invest_idr_label">Invest (IDR)</string>
+  <string name="commission_idr_label">Commission (IDR)</string>
+  <string name="usdidr_label">USDIDR</string>
+
   <string name="minus">-</string>
 </resources>

@@ -5,10 +5,20 @@ public class Tweets {
     private String content;
     private String date;
 
+    int index;
+
     public Tweets(String author, String content, String date) {
         this.author = author;
         this.content = content;
         this.date = date;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getAuthor() {
