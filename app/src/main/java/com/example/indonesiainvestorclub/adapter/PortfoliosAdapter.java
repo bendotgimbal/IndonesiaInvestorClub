@@ -39,7 +39,7 @@ public class PortfoliosAdapter extends RVBaseAdapter {
     }
 
     @Override public int getLayoutIdForType(int viewType) {
-        return R.layout.sub_network_item;
+        return R.layout.sub_portfolio_item;
     }
 
     @Override public int getItemCount() {

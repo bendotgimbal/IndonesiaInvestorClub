@@ -24,7 +24,7 @@
         app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:id="@+id/commisions_info_wrapper"
+            android:id="@+id/porfolio_info_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="1dp"
