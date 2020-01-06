@@ -3,13 +3,9 @@ package com.example.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.indonesiainvestorclub.adapter.CommissionsAdapter;
 import com.example.indonesiainvestorclub.databinding.NetworkFragmentBinding;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
@@ -18,13 +14,10 @@ import com.example.indonesiainvestorclub.models.response.NetworkRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,7 +28,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback
 
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
-  private MutableLiveData<String> mText;
   private int currentPage = 1;
   private int totalPages = 10;
 
