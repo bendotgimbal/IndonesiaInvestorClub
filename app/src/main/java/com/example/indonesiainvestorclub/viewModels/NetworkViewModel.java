@@ -1,6 +1,8 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.LiveData;
@@ -34,12 +36,16 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
   private MutableLiveData<String> mText;
+  private int currentPage = 1;
+  private int totalPages = 10;
 
   private CommissionsAdapter adapter;
 
   public NetworkViewModel(Context context, NetworkFragmentBinding binding) {
     super(context);
     this.binding = binding;
+
+    binding.prevBtn.setEnabled(false);
 
     loadingState = new ObservableBoolean(false);
 
@@ -120,6 +126,41 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     adapter.notifyDataSetChanged();
 
     adapter.getItemCount();
+  }
+
+    public void previousButton(View view) {
+      currentPage -= 1;
+        Toast.makeText(getContext(), "Pervious Button "+currentPage, Toast.LENGTH_SHORT).show();
+      toggleButtons();
+    }
+
+    public void nextButton(View view) {
+      currentPage += 1;
+        Toast.makeText(getContext(), "Next Button "+currentPage, Toast.LENGTH_SHORT).show();
+      toggleButtons();
+    }
+
+  private void toggleButtons() {
+    //SINGLE PAGE DATA
+    if (totalPages <= 1) {
+      binding.prevBtn.setEnabled(false);
+      binding.nextBtn.setEnabled(true);
+    }
+    //LAST PAGE
+    else if (currentPage == totalPages) {
+      binding.prevBtn.setEnabled(true);
+      binding.nextBtn.setEnabled(false);
+    }
+    //FIRST PAGE
+    else if (currentPage == 1) {
+      binding.prevBtn.setEnabled(false);
+      binding.nextBtn.setEnabled(true);
+    }
+    //SOMEWHERE IN BETWEEN
+    else if (currentPage >= 1 && currentPage <= totalPages) {
+      binding.prevBtn.setEnabled(true);
+      binding.nextBtn.setEnabled(true);
+    }
   }
 
   @Override

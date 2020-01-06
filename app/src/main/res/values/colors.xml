@@ -8,4 +8,6 @@
   <color name="black_transparent">#77000000</color>
 
   <color name="colorHeaderForProfile">#4CAF50</color>
+
+  <color name="BottomButtonBackground">#D3D3D3</color>
 </resources>
