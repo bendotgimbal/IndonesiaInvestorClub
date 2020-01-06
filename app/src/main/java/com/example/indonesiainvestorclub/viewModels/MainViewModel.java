@@ -59,10 +59,11 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   private void menuVisible(boolean visible) {
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_portfolio).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_network).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_lounge).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_agreement).setVisible(visible);
-    binding.navView.getMenu().findItem(R.id.nav_network).setVisible(visible);
-    binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_funds).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_logout).setVisible(visible);
   }

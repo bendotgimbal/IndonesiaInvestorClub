@@ -59,7 +59,6 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
     <activity android:name=".views.ProfileFragment" />
-    <activity android:name=".views.PortofolioActivity" />
     <activity android:name=".views.AgreementFragment" />
     <activity android:name=".views.NetworkFragment" />
     <activity android:name=".views.TransactionsFragment" />
