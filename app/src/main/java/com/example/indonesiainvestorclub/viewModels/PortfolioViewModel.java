@@ -1,10 +1,8 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.indonesiainvestorclub.adapter.PortfoliosAdapter;
 import com.example.indonesiainvestorclub.databinding.PortfolioFragmentBinding;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
@@ -13,13 +11,10 @@ import com.example.indonesiainvestorclub.models.response.PortfolioRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -91,11 +86,10 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
         portfolios = new Portfolios(
                 objPortofolio.getString("Date"),
-                objPortofolio.getString("PerLots(USD)"),
                 objPortofolio.getString("Invest(USD)"),
-                objPortofolio.getString("Commission(USD)"),
+                objPortofolio.getString("Profit(USD)"),
                 objPortofolio.getString("Invest(IDR)"),
-                objPortofolio.getString("Commission(IDR)"),
+                objPortofolio.getString("Profit(IDR)"),
                 objPortofolio.getString("USDIDR")
         );
         portfoliolist.add(portfolios);
