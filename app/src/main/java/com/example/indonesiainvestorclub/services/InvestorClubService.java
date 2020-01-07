@@ -58,8 +58,8 @@ public interface InvestorClubService {
   @GET("network/{page}")
   Observable<Response<JsonElement>> networkRequest(@Path("page") String page);
 
-  @GET("transactions")
-  Observable<Response<TransactionsRes>> transactionsRequest();
+  @GET("transactions/{page}")
+  Observable<Response<JsonElement>> transactionsRequest(@Path("page") int page);
 
   @PATCH("profile")
   Observable<Response<ProfileUpdateRes>> profileupdateRequest();

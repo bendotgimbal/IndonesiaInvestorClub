@@ -83,5 +83,21 @@
   <string name="of_pages_label">0</string>
   <string name="of_pages">Of</string>
 
+  <string name="invest_date_transaction_label">Invest Date</string>
+  <string name="invest_usd_transaction_label">Invest USD</string>
+  <string name="invest_idr_transaction_label">Invest IDR</string>
+  <string name="dp_date_transaction_label">DP Date</string>
+  <string name="dp_amount_transaction_label">DP Amount</string>
+  <string name="dp_id_transaction_label">DP ID</string>
+  <string name="dp_status_transaction_label">DP Status</string>
+  <string name="dp_proof_transaction_label">DP Proof</string>
+  <string name="start_date_transaction_label">Start Date</string>
+  <string name="end_usd_transaction_label">End USD</string>
+  <string name="status_transaction_label">Status</string>
+  <string name="wd_date_transaction_label">WD Date</string>
+  <string name="wd_amount_transaction_label">WD Amount</string>
+  <string name="wd_id_transaction_label">WD ID</string>
+  <string name="wd_status_transaction_label">WD Status</string>
+
   <string name="minus">-</string>
 </resources>
