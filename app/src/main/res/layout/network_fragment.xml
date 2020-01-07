@@ -84,6 +84,60 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+                <TextView
+                    android:id="@+id/empty_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="35dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    android:text=""
+                    />
+                <TextView
+                    android:id="@+id/this_pages_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="35dp"
+                    android:text="@{viewModel.thisPagesValueTx}"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
+                    tools:text="0"
+                    />
+                <TextView
+                    android:id="@+id/of_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="60dp"
+                    android:text="@string/of_pages"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
+                    tools:text="Of"
+                    />
+                <TextView
+                    android:id="@+id/of_pages_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="85dp"
+                    android:text="@{viewModel.ofPagesValueTx}"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
+                    tools:text="0"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
                 <Button
                     android:id="@+id/nextBtn"
                     android:layout_width="wrap_content"

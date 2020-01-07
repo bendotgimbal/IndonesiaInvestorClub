@@ -75,11 +75,13 @@
   <string name="commission_usd_label">Commission (USD)</string>
   <string name="invest_idr_label">Invest (IDR)</string>
   <string name="commission_idr_label">Commission (IDR)</string>
-  <string name="usdidr_label">USDIDR</string>
-
   <string name="profit_usd_label">Profit (USD)</string>
   <string name="profit_idr_label">Profit (IDR)</string>
+  <string name="usdidr_label">USDIDR</string>
 
+  <string name="this_pages_label">0</string>
+  <string name="of_pages_label">0</string>
+  <string name="of_pages">Of</string>
 
   <string name="minus">-</string>
 </resources>
