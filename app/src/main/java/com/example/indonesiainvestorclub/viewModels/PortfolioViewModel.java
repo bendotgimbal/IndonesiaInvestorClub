@@ -28,13 +28,15 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class PortfolioViewModel extends BaseViewModelWithCallback
-        implements ActionInterface.AdapterItemListener<Portfolios>{
+    implements ActionInterface.AdapterItemListener<Portfolios> {
 
   private static final String TAG = PortfolioViewModel.class.getCanonicalName();
 
   private PortfolioFragmentBinding binding;
   public ObservableBoolean loadingState;
   public ObservableField<String> pageState;
+  public ObservableBoolean beforeButtonVisibility;
+  public ObservableBoolean nextButtonVisibility;
 
   private PortfoliosAdapter adapter;
 
@@ -46,12 +48,14 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
     loadingState = new ObservableBoolean(false);
     pageState = new ObservableField<>("1/1");
+    beforeButtonVisibility = new ObservableBoolean(false);
+    nextButtonVisibility = new ObservableBoolean(true);
 
     adapter = new PortfoliosAdapter();
     adapter.setListener(this);
 
     this.binding.portfolioslist.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.portfolioslist.setAdapter(adapter);
 
     start();
@@ -70,16 +74,16 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     loading(true);
 
     Disposable disposable = ServiceGenerator.service.portfolioRequest(PAGE)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getPortfolio) {
-              @Override
-              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
-                if (jsonElementResponse.body() != null) {
-                  readPerformancesJSON(jsonElementResponse.body());
-                }
-              }
-            });
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getPortfolio) {
+          @Override
+          protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+            if (jsonElementResponse.body() != null) {
+              readPerformancesJSON(jsonElementResponse.body());
+            }
+          }
+        });
     compositeDisposable.add(disposable);
   }
 
@@ -133,7 +137,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       }
 
       performanceRes.setPerformances(performances);
-
     } catch (JSONException e) {
       Log.e(TAG, e.toString());
     }
@@ -154,12 +157,12 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         JSONObject objPortofolio = objectPortofolio.getJSONObject(t + "");
 
         Portfolios portfolios = new Portfolios(
-                objPortofolio.getString("Date"),
-                objPortofolio.getString("Invest(USD)"),
-                objPortofolio.getString("Profit(USD)"),
-                objPortofolio.getString("Invest(IDR)"),
-                objPortofolio.getString("Profit(IDR)"),
-                objPortofolio.getString("USDIDR")
+            objPortofolio.getString("Date"),
+            objPortofolio.getString("Invest(USD)"),
+            objPortofolio.getString("Profit(USD)"),
+            objPortofolio.getString("Invest(IDR)"),
+            objPortofolio.getString("Profit(IDR)"),
+            objPortofolio.getString("USDIDR")
         );
         portfoliolist.add(portfolios);
       }
@@ -182,19 +185,36 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     adapter.setModels(portfolioRes.getPorfolios());
     adapter.notifyDataSetChanged();
 
-    pageState.set(portfolioRes.getPage()+" / "+portfolioRes.getPages());
+    pageState.set(portfolioRes.getPage() + " / " + portfolioRes.getPages());
+
+    toogleButton(portfolioRes.getPages());
   }
 
   @SuppressWarnings("unused")
-  public void onButtonBeforeClick(View view){
+  public void onButtonBeforeClick(View view) {
     PAGE--;
     getPortfolio();
   }
 
   @SuppressWarnings("unused")
-  public void onButtonNextClick(View view){
+  public void onButtonNextClick(View view) {
     PAGE++;
     getPortfolio();
+  }
+
+  private void toogleButton(int maxPages){
+    if (PAGE >= 1) {
+      nextButtonVisibility.set(true);
+      beforeButtonVisibility.set(false);
+      if (PAGE > 1) {
+        beforeButtonVisibility.set(true);
+      }
+    }
+
+    if (PAGE == maxPages) {
+      nextButtonVisibility.set(false);
+      beforeButtonVisibility.set(true);
+    }
   }
 
   @Override

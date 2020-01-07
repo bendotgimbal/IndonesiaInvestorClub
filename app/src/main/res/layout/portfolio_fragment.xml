@@ -43,10 +43,11 @@
 
       <androidx.appcompat.widget.AppCompatImageView
           android:id="@+id/before_btn"
-          android:clickable="true"
-          android:focusable="true"
+          android:clickable="@{viewModel.beforeButtonVisibility}"
+          android:focusable="@{viewModel.beforeButtonVisibility}"
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
           android:onClick="@{viewModel::onButtonBeforeClick}"
           android:layout_weight="1"
           app:srcCompat="@drawable/ic_navigate_before_primary"/>
@@ -63,10 +64,11 @@
 
       <androidx.appcompat.widget.AppCompatImageView
           android:id="@+id/next_btn"
-          android:clickable="true"
-          android:focusable="true"
+          android:clickable="@{viewModel.nextButtonVisibility}"
+          android:focusable="@{viewModel.nextButtonVisibility}"
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
           android:onClick="@{viewModel::onButtonNextClick}"
           android:layout_weight="1"
           app:srcCompat="@drawable/ic_navigate_next_primary"/>
