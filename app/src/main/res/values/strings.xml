@@ -77,5 +77,9 @@
   <string name="commission_idr_label">Commission (IDR)</string>
   <string name="usdidr_label">USDIDR</string>
 
+  <string name="profit_usd_label">Profit (USD)</string>
+  <string name="profit_idr_label">Profit (IDR)</string>
+
+
   <string name="minus">-</string>
 </resources>

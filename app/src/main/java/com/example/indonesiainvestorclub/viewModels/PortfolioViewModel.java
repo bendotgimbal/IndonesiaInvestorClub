@@ -1,12 +1,19 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.indonesiainvestorclub.adapter.PortfoliosAdapter;
 import com.example.indonesiainvestorclub.databinding.PortfolioFragmentBinding;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
+import com.example.indonesiainvestorclub.models.Datas;
+import com.example.indonesiainvestorclub.models.Month;
+import com.example.indonesiainvestorclub.models.Performance;
 import com.example.indonesiainvestorclub.models.Portfolios;
+import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 import com.example.indonesiainvestorclub.models.response.PortfolioRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
@@ -23,16 +30,22 @@ import retrofit2.Response;
 public class PortfolioViewModel extends BaseViewModelWithCallback
         implements ActionInterface.AdapterItemListener<Portfolios>{
 
+  private static final String TAG = PortfolioViewModel.class.getCanonicalName();
+
   private PortfolioFragmentBinding binding;
   public ObservableBoolean loadingState;
+  public ObservableField<String> pageState;
 
   private PortfoliosAdapter adapter;
+
+  private int PAGE = 1;
 
   public PortfolioViewModel(Context context, PortfolioFragmentBinding binding) {
     super(context);
     this.binding = binding;
 
     loadingState = new ObservableBoolean(false);
+    pageState = new ObservableField<>("1/1");
 
     adapter = new PortfoliosAdapter();
     adapter.setListener(this);
@@ -56,19 +69,76 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   private void getPortfolio() {
     loading(true);
 
-    Disposable disposable = ServiceGenerator.service.portfolioRequest()
+    Disposable disposable = ServiceGenerator.service.portfolioRequest(PAGE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getPortfolio) {
               @Override
               protected void onSuccess(Response<JsonElement> jsonElementResponse) {
                 if (jsonElementResponse.body() != null) {
-                  loading(false);
-                  readPortfolioJSON(jsonElementResponse.body());
+                  readPerformancesJSON(jsonElementResponse.body());
                 }
               }
             });
     compositeDisposable.add(disposable);
+  }
+
+  private void readPerformancesJSON(JsonElement response) {
+    JSONObject jsonObject;
+    try {
+      PerformanceRes performanceRes = new PerformanceRes();
+
+      jsonObject = new JSONObject(response.toString());
+      JSONObject object = jsonObject.getJSONObject("Performances");
+
+      List<Performance> performances = new ArrayList<>();
+      List<Datas> datasList = new ArrayList<>();
+      List<Month> monthList = new ArrayList<>();
+
+      for (int i = 1; i <= object.length(); i++) {
+        JSONObject obj = object.getJSONObject(i + "");
+        Performance performance;
+        Datas data;
+
+        String name = obj.getString("Name");
+        JSONObject datas = obj.getJSONObject("Datas");
+
+        for (int o = 1; o <= datas.length(); o++) {
+          JSONObject obj1 = datas.getJSONObject(o + "");
+
+          Month month = new Month(
+              obj1.getString("YEAR"),
+              obj1.getString("Jan"),
+              obj1.getString("Feb"),
+              obj1.getString("Mar"),
+              obj1.getString("Apr"),
+              obj1.getString("May"),
+              obj1.getString("Jun"),
+              obj1.getString("Jul"),
+              obj1.getString("Aug"),
+              obj1.getString("Sep"),
+              obj1.getString("Oct"),
+              obj1.getString("Nov"),
+              obj1.getString("Dec"),
+              obj1.getString("YTD")
+          );
+          monthList.add(month);
+        }
+
+        data = new Datas(monthList);
+        datasList.add(data);
+
+        performance = new Performance(name, datasList);
+        performances.add(performance);
+      }
+
+      performanceRes.setPerformances(performances);
+
+    } catch (JSONException e) {
+      Log.e(TAG, e.toString());
+    }
+
+    readPortfolioJSON(response);
   }
 
   private void readPortfolioJSON(JsonElement response) {
@@ -82,9 +152,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       List<Portfolios> portfoliolist = new ArrayList<>();
       for (int t = 1; t <= objectPortofolio.length(); t++) {
         JSONObject objPortofolio = objectPortofolio.getJSONObject(t + "");
-        Portfolios portfolios;
 
-        portfolios = new Portfolios(
+        Portfolios portfolios = new Portfolios(
                 objPortofolio.getString("Date"),
                 objPortofolio.getString("Invest(USD)"),
                 objPortofolio.getString("Profit(USD)"),
@@ -93,9 +162,13 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
                 objPortofolio.getString("USDIDR")
         );
         portfoliolist.add(portfolios);
-        portfolioRes = new PortfolioRes(portfoliolist);
-        showPortfolio(portfolioRes);
       }
+
+      int page = jsonObjectPortofolio.getInt("Page");
+      int pages = jsonObjectPortofolio.getInt("Pages");
+
+      portfolioRes = new PortfolioRes(page, pages, portfoliolist);
+      showPortfolio(portfolioRes);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -109,7 +182,19 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     adapter.setModels(portfolioRes.getPorfolios());
     adapter.notifyDataSetChanged();
 
-    adapter.getItemCount();
+    pageState.set(portfolioRes.getPage()+" / "+portfolioRes.getPages());
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonBeforeClick(View view){
+    PAGE--;
+    getPortfolio();
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonNextClick(View view){
+    PAGE++;
+    getPortfolio();
   }
 
   @Override

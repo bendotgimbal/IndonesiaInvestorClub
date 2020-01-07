@@ -20,6 +20,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface InvestorClubService {
 
@@ -42,8 +43,8 @@ public interface InvestorClubService {
   @GET("invest")
   Observable<Response<InvestRes>> investRequest();
 
-  @GET("portfolio")
-  Observable<Response<JsonElement>> portfolioRequest();
+  @GET("portfolio/{page}")
+  Observable<Response<JsonElement>> portfolioRequest(@Path("page") int page);
 
   @GET("funds")
   Observable<Response<JsonElement>> fundsRequest();

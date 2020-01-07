@@ -22,7 +22,6 @@ public class NetworkFragment extends BaseFragment {
 
   private NetworkFragmentBinding binding;
   private NetworkViewModel networkViewModel;
-  private ListView lv;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {

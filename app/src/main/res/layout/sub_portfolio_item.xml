@@ -30,6 +30,7 @@
             android:elevation="1dp"
             android:orientation="horizontal"
             android:padding="10dp"
+            android:baselineAligned="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,39 +55,15 @@
                     />
 
                 <TextView
-                    android:id="@+id/perlots_usd_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/perlots_usd_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/date_label"
-                    tools:text="PerLots (USD)"
-                    />
-
-                <TextView
-                    android:id="@+id/perlots_usd_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.perlotsUSD}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/perlots_usd_label"
-                    tools:text="PerLots (USD) Value"
-                    />
-
-                <TextView
                     android:id="@+id/invest_usd_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/invest_usd_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/perlots_usd_value"
+                    app:layout_constraintTop_toBottomOf="@id/date_label"
                     tools:text="Invest (USD)"
                     />
 
@@ -102,27 +79,50 @@
                     />
 
                 <TextView
-                    android:id="@+id/commission_usd_label"
+                    android:id="@+id/invest_idr_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/commission_usd_label"
+                    android:text="@string/invest_idr_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/invest_usd_value"
-                    tools:text="Commission (USD)"
+                    tools:text="Invest (IDR)"
                     />
 
                 <TextView
-                    android:id="@+id/commission_usd_value"
+                    android:id="@+id/invest_idr_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.commissionUSD}"
+                    android:text="@{obj.investIDR}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/commission_usd_label"
-                    tools:text="Commission (USD) Value"
+                    app:layout_constraintTop_toBottomOf="@id/invest_idr_label"
+                    tools:text="Invest (IDR) Value"
+                    />
+
+                <TextView
+                    android:id="@+id/usdidr_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/usdidr_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/invest_idr_value"
+                    tools:text="USDIDR"
+                    />
+                <TextView
+                    android:id="@+id/usdidr_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.uSDIDR}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/usdidr_label"
+                    tools:text="USDIDR Value"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,74 +144,51 @@
                     />
 
                 <TextView
-                    android:id="@+id/invest_idr_label"
+                    android:id="@+id/profit_usd_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/invest_idr_label"
+                    android:text="@string/profit_usd_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/empty_label"
-                    tools:text="Invest (IDR)"
-                    />
-                <TextView
-                    android:id="@+id/invest_idr_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.investIDR}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_idr_label"
-                    tools:text="Invest (IDR) Value"
+                    tools:text="Profit (USD)"
                     />
 
                 <TextView
-                    android:id="@+id/commission_idr_label"
+                    android:id="@+id/profit_usd_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.profit_usd}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profit_usd_label"
+                    tools:text="Profit (USD) Value"
+                    />
+
+                <TextView
+                    android:id="@+id/profit_idr_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/commission_idr_label"
+                    android:text="@string/profit_idr_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_idr_value"
-                    tools:text="Commission (IDR)"
+                    app:layout_constraintTop_toBottomOf="@id/profit_usd_value"
+                    tools:text="Profit (IDR)"
                     />
                 <TextView
-                    android:id="@+id/commission_idr_value"
+                    android:id="@+id/profit_idr_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.commissionIDR}"
+                    android:text="@{obj.profit_idr}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/commission_idr_label"
-                    tools:text="Commission (IDR) Value"
+                    app:layout_constraintTop_toBottomOf="@id/profit_idr_label"
+                    tools:text="Profit (IDR) Value"
                     />
-
-                <TextView
-                    android:id="@+id/usdidr_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/usdidr_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/commission_idr_value"
-                    tools:text="USDIDR"
-                    />
-                <TextView
-                    android:id="@+id/usdidr_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.uSDIDR}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/usdidr_label"
-                    tools:text="USDIDR Value"
-                    />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
