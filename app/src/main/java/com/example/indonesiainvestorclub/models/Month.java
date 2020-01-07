@@ -17,6 +17,8 @@ public class Month {
     private String dec;
     private String ytd;
 
+    int index;
+
     public Month(String year, String jan, String feb, String mar, String apr, String may,
         String jun, String jul, String aug, String sep, String oct, String nov, String dec,
         String ytd) {
@@ -34,6 +36,14 @@ public class Month {
         this.nov = nov;
         this.dec = dec;
         this.ytd = ytd;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getYear() {

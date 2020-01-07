@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
   <data>
     <variable
         name="viewModel"
@@ -10,6 +10,68 @@
 
     <import type="android.view.View"/>
   </data>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/perfromancelist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
+        tools:itemCount="2"
+        tools:listitem="@layout/sub_performance_item"
+        tools:visibility="gone"
+        />
+
+    <LinearLayout
+        android:id="@+id/paging_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/lightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/before_btn"
+          android:clickable="@{viewModel.beforeButtonVisibility}"
+          android:focusable="@{viewModel.beforeButtonVisibility}"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          android:onClick="@{viewModel::onButtonBeforeClick}"
+          android:layout_weight="1"
+          app:srcCompat="@drawable/ic_navigate_before_primary"/>
+
+      <TextView
+          android:id="@+id/paging_tv"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textStyle="bold"
+          android:text="@{viewModel.pageState}"
+          tools:text="1/3"/>
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/next_btn"
+          android:clickable="@{viewModel.nextButtonVisibility}"
+          android:focusable="@{viewModel.nextButtonVisibility}"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          android:onClick="@{viewModel::onButtonNextClick}"
+          android:layout_weight="1"
+          app:srcCompat="@drawable/ic_navigate_next_primary"/>
+
+    </LinearLayout>
 
   <FrameLayout
       android:layout_width="match_parent"
@@ -33,4 +95,5 @@
 
   </FrameLayout>
 
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

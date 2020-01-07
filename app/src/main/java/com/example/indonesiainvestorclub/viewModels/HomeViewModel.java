@@ -2,8 +2,16 @@ package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.example.indonesiainvestorclub.databinding.HomeFragmentBinding;
+import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Month;
 import com.example.indonesiainvestorclub.models.Performance;
@@ -20,20 +28,42 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Response;
 
-public class HomeViewModel extends BaseViewModelWithCallback {
+public class HomeViewModel extends BaseViewModelWithCallback
+        implements ActionInterface.AdapterItemListener<Month> {
 
   private static final String TAG = HomeViewModel.class.getCanonicalName();
 
   private HomeFragmentBinding binding;
-
   public ObservableBoolean loadingState;
+  public ObservableField<String> pageState;
+  public ObservableBoolean beforeButtonVisibility;
+  public ObservableBoolean nextButtonVisibility;
+
+  private PerformanceAdapter adapter;
+
+  private int PAGE = 1;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
     this.binding = binding;
 
     loadingState = new ObservableBoolean(false);
+    pageState = new ObservableField<>("1/1");
+    beforeButtonVisibility = new ObservableBoolean(false);
+    nextButtonVisibility = new ObservableBoolean(true);
 
+    adapter = new PerformanceAdapter();
+    adapter.setListener(this);
+
+    this.binding.perfromancelist.setLayoutManager(
+            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.perfromancelist.setAdapter(adapter);
+
+//    getPerformance();
+    start();
+  }
+
+  private void start() {
     getPerformance();
   }
 
@@ -78,6 +108,7 @@ public class HomeViewModel extends BaseViewModelWithCallback {
 
         String name = obj.getString("Name");
         JSONObject datas = obj.getJSONObject("Datas");
+        Toast.makeText(getContext(), "Total Data "+datas.length(), Toast.LENGTH_SHORT).show();
 
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
@@ -101,8 +132,11 @@ public class HomeViewModel extends BaseViewModelWithCallback {
           monthList.add(month);
         }
 
+        int total_data = datas.length();
+
         data = new Datas(monthList);
         datasList.add(data);
+        showPerformance(data, total_data);
 
         performance = new Performance(name, datasList);
         performances.add(performance);
@@ -117,11 +151,63 @@ public class HomeViewModel extends BaseViewModelWithCallback {
     }
   }
 
+  private void showPerformance(Datas data, int total_data) {
+    hideLoading();
+
+    if (data == null) return;
+
+    adapter.setModels(data.getMonths());
+    adapter.notifyDataSetChanged();
+
+    pageState.set(PAGE + " / " + total_data);
+
+    toogleButton(total_data);
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonBeforeClick(View view) {
+    PAGE--;
+    getPerformance();
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonNextClick(View view) {
+    PAGE++;
+    getPerformance();
+  }
+
+  private void toogleButton(int maxPages){
+    if (PAGE >= 1) {
+      nextButtonVisibility.set(true);
+      beforeButtonVisibility.set(false);
+      if (PAGE > 1) {
+        beforeButtonVisibility.set(true);
+      }
+    }
+
+    if (PAGE == maxPages) {
+      nextButtonVisibility.set(false);
+      beforeButtonVisibility.set(true);
+      if (maxPages == 1){
+        beforeButtonVisibility.set(false);
+      }
+    }
+
+    if (maxPages == 1) {
+      nextButtonVisibility.set(false);
+      beforeButtonVisibility.set(false);
+    }
+  }
+
   private void initChart(PerformanceRes response){
 
   }
 
   @Override public void hideLoading() {
       loading(false);
+  }
+
+  @Override public void onClickAdapterItem(int index, Month model) {
+
   }
 }
