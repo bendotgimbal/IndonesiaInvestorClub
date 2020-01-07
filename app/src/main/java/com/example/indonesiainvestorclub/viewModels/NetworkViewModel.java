@@ -36,12 +36,11 @@ public class NetworkViewModel extends BaseViewModelWithCallback
 
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
-  private MutableLiveData<String> mText;
-  public ObservableField<String> thisPagesValueTx;
-  public ObservableField<String> ofPagesValueTx;
-  private int currentPage = 1;
-//  private int totalPages = 10;
-  private int totalPages;
+  public ObservableField<String> pageState;
+  public ObservableBoolean beforeButtonVisibility;
+  public ObservableBoolean nextButtonVisibility;
+
+  private int PAGE = 1;
 
   private CommissionsAdapter adapter;
 
@@ -49,11 +48,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     super(context);
     this.binding = binding;
 
-    binding.prevBtn.setEnabled(false);
-
     loadingState = new ObservableBoolean(false);
-    thisPagesValueTx = new ObservableField<>("");
-    ofPagesValueTx = new ObservableField<>("");
+    pageState = new ObservableField<>("1/1");
+    beforeButtonVisibility = new ObservableBoolean(false);
+    nextButtonVisibility = new ObservableBoolean(true);
 
     adapter = new CommissionsAdapter();
     adapter.setListener(this);
@@ -76,9 +74,8 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   //API CALL
   private void getNetwork() {
     loading(true);
-//    Toast.makeText(getContext(), "Current Page "+currentPage, Toast.LENGTH_SHORT).show();
 
-    Disposable disposable = ServiceGenerator.service.networkRequest(String.valueOf(currentPage))
+    Disposable disposable = ServiceGenerator.service.networkRequest(PAGE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getNetwork) {
@@ -100,11 +97,9 @@ public class NetworkViewModel extends BaseViewModelWithCallback
 
       jsonObjectNetwork = new JSONObject(response.toString());
       JSONObject objectNetwork = jsonObjectNetwork.getJSONObject("Commissions");
-      String cureentPagesResult = jsonObjectNetwork.getString("Page");
-      String pagesResult = jsonObjectNetwork.getString("Pages");
-      currentPage = Integer.valueOf(cureentPagesResult);
-      totalPages = Integer.valueOf(pagesResult);
-      Toast.makeText(getContext(), "Current Page "+currentPage+" | Total Page "+totalPages, Toast.LENGTH_SHORT).show();
+
+      int page = jsonObjectNetwork.getInt("Page");
+      int pages = jsonObjectNetwork.getInt("Pages");
 
       List<Commissions> commissionslist = new ArrayList<>();
       for (int t = 1; t <= objectNetwork.length(); t++) {
@@ -121,7 +116,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
                 objNetwork.getString("USDIDR")
         );
         commissionslist.add(commissions);
-        networkRes = new NetworkRes(commissionslist);
+        networkRes = new NetworkRes(page, pages, commissionslist);
         showNetwork(networkRes);
       }
     } catch (JSONException e) {
@@ -134,49 +129,45 @@ public class NetworkViewModel extends BaseViewModelWithCallback
 
     if (networkRes == null) return;
 
-    thisPagesValueTx.set(String.valueOf(currentPage));
-    ofPagesValueTx.set(String.valueOf(totalPages));
-
     adapter.setModels(networkRes.getCommissions());
     adapter.notifyDataSetChanged();
 
     adapter.getItemCount();
+
+    pageState.set(networkRes.getPage() + " / " + networkRes.getPages());
+
+    toogleButton(networkRes.getPages());
   }
 
-    public void previousButton(View view) {
-      currentPage -= 1;
-//        Toast.makeText(getContext(), "Pervious Button "+currentPage, Toast.LENGTH_SHORT).show();
-      toggleButtons();
-      getNetwork();
+  @SuppressWarnings("unused")
+  public void onButtonBeforeClick(View view) {
+    PAGE--;
+    getNetwork();
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonNextClick(View view) {
+    PAGE++;
+    getNetwork();
+  }
+
+  private void toogleButton(int maxPages){
+    if (PAGE >= 1) {
+      nextButtonVisibility.set(true);
+      beforeButtonVisibility.set(false);
+      if (PAGE > 1) {
+        beforeButtonVisibility.set(true);
+      }
     }
 
-    public void nextButton(View view) {
-      currentPage += 1;
-//        Toast.makeText(getContext(), "Next Button "+currentPage, Toast.LENGTH_SHORT).show();
-      toggleButtons();
-      getNetwork();
+    if (PAGE == maxPages) {
+      nextButtonVisibility.set(false);
+      beforeButtonVisibility.set(true);
     }
 
-  private void toggleButtons() {
-    //SINGLE PAGE DATA
-    if (totalPages <= 1) {
-      binding.prevBtn.setEnabled(false);
-      binding.nextBtn.setEnabled(true);
-    }
-    //LAST PAGE
-    else if (currentPage == totalPages) {
-      binding.prevBtn.setEnabled(true);
-      binding.nextBtn.setEnabled(false);
-    }
-    //FIRST PAGE
-    else if (currentPage == 1) {
-      binding.prevBtn.setEnabled(false);
-      binding.nextBtn.setEnabled(true);
-    }
-    //SOMEWHERE IN BETWEEN
-    else if (currentPage >= 1 && currentPage <= totalPages) {
-      binding.prevBtn.setEnabled(true);
-      binding.nextBtn.setEnabled(true);
+    if (maxPages == 1) {
+      nextButtonVisibility.set(false);
+      beforeButtonVisibility.set(false);
     }
   }
 

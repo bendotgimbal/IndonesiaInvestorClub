@@ -25,9 +25,55 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/ln_button"
+            app:layout_constraintBottom_toTopOf="@+id/paging_wrapper"
             tools:listitem="@layout/sub_network_item"
-            tools:itemCount="5"/>
+            tools:itemCount="5"
+            tools:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/paging_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@color/lightPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/before_btn"
+                android:clickable="@{viewModel.beforeButtonVisibility}"
+                android:focusable="@{viewModel.beforeButtonVisibility}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{viewModel::onButtonBeforeClick}"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_navigate_before_primary"/>
+
+            <TextView
+                android:id="@+id/paging_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@{viewModel.pageState}"
+                tools:text="1/3"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/next_btn"
+                android:clickable="@{viewModel.nextButtonVisibility}"
+                android:focusable="@{viewModel.nextButtonVisibility}"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{viewModel::onButtonNextClick}"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_navigate_next_primary"/>
+
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -54,102 +100,6 @@
                 android:layout_gravity="center"
                 />
         </FrameLayout>
-        <LinearLayout
-            android:id="@+id/ln_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:paddingTop="100dp"
-            android:background="@color/BottomButtonBackground"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <Button
-                    android:id="@+id/prevBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="@{viewModel::previousButton}"
-                    android:text="Previous" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/empty_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="35dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    android:text=""
-                    />
-                <TextView
-                    android:id="@+id/this_pages_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="35dp"
-                    android:text="@{viewModel.thisPagesValueTx}"
-                    android:textColor="@color/colorPrimaryDark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
-                    tools:text="0"
-                    />
-                <TextView
-                    android:id="@+id/of_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="60dp"
-                    android:text="@string/of_pages"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
-                    tools:text="Of"
-                    />
-                <TextView
-                    android:id="@+id/of_pages_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="85dp"
-                    android:text="@{viewModel.ofPagesValueTx}"
-                    android:textColor="@color/colorPrimaryDark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/empty_label"
-                    tools:text="0"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <Button
-                    android:id="@+id/nextBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#009968"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="@{viewModel::nextButton}"
-                    android:text="Next" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

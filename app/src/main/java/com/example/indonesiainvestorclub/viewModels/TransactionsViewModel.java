@@ -169,6 +169,11 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
             nextButtonVisibility.set(false);
             beforeButtonVisibility.set(true);
         }
+
+        if (maxPages == 1) {
+            nextButtonVisibility.set(false);
+            beforeButtonVisibility.set(false);
+        }
     }
 
     @Override
