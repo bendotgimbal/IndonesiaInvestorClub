@@ -168,6 +168,9 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
         if (PAGE == maxPages) {
             nextButtonVisibility.set(false);
             beforeButtonVisibility.set(true);
+            if (maxPages == 1){
+                beforeButtonVisibility.set(false);
+            }
         }
     }
 
