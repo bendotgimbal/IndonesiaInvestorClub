@@ -163,11 +163,9 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     if (PAGE == maxPages) {
       nextButtonVisibility.set(false);
       beforeButtonVisibility.set(true);
-    }
-
-    if (maxPages == 1) {
-      nextButtonVisibility.set(false);
-      beforeButtonVisibility.set(false);
+      if (maxPages == 1){
+        beforeButtonVisibility.set(false);
+      }
     }
   }
 

@@ -20,15 +20,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:overScrollMode="never"
-            android:padding="13dp"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/paging_wrapper"
             tools:listitem="@layout/sub_network_item"
             tools:itemCount="5"
-            tools:visibility="gone"/>
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/paging_wrapper"

@@ -4,12 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.example.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.example.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Datas;
@@ -29,7 +25,7 @@ import org.json.JSONObject;
 import retrofit2.Response;
 
 public class HomeViewModel extends BaseViewModelWithCallback
-        implements ActionInterface.AdapterItemListener<Month> {
+    implements ActionInterface.AdapterItemListener<Month> {
 
   private static final String TAG = HomeViewModel.class.getCanonicalName();
 
@@ -39,9 +35,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
 
-  private PerformanceAdapter adapter;
+  public ObservableField<String> yearValueTv;
+
+  //private PerformanceAdapter adapter;
 
   private int PAGE = 1;
+  private PerformanceRes performanceRes;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
@@ -52,14 +51,17 @@ public class HomeViewModel extends BaseViewModelWithCallback
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
-    adapter = new PerformanceAdapter();
-    adapter.setListener(this);
+    yearValueTv = new ObservableField<>("");
 
-    this.binding.perfromancelist.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    this.binding.perfromancelist.setAdapter(adapter);
+    performanceRes = new PerformanceRes();
 
-//    getPerformance();
+    //adapter = new PerformanceAdapter();
+    //adapter.setListener(this);
+
+    //this.binding.perfromancelist.setLayoutManager(
+    //        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    //this.binding.perfromancelist.setAdapter(adapter);
+
     start();
   }
 
@@ -98,7 +100,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
       JSONObject object = jsonObject.getJSONObject("Performances");
 
       List<Performance> performances = new ArrayList<>();
-      List<Datas> datasList = new ArrayList<>();
       List<Month> monthList = new ArrayList<>();
 
       for (int i = 1; i <= object.length(); i++) {
@@ -108,7 +109,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
         String name = obj.getString("Name");
         JSONObject datas = obj.getJSONObject("Datas");
-        Toast.makeText(getContext(), "Total Data "+datas.length(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Total Data " + datas.length(), Toast.LENGTH_SHORT).show();
 
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
@@ -132,17 +133,15 @@ public class HomeViewModel extends BaseViewModelWithCallback
           monthList.add(month);
         }
 
-        int total_data = datas.length();
-
         data = new Datas(monthList);
-        datasList.add(data);
-        showPerformance(data, total_data);
 
-        performance = new Performance(name, datasList);
+        performance = new Performance(name, data);
         performances.add(performance);
       }
 
       performanceRes.setPerformances(performances);
+
+      showPerformance(performanceRes);
 
       hideLoading();
     } catch (JSONException e) {
@@ -151,32 +150,46 @@ public class HomeViewModel extends BaseViewModelWithCallback
     }
   }
 
-  private void showPerformance(Datas data, int total_data) {
+  private void showPerformance(PerformanceRes performanceRes) {
     hideLoading();
 
-    if (data == null) return;
+    if (performanceRes == null) return;
 
-    adapter.setModels(data.getMonths());
-    adapter.notifyDataSetChanged();
+    setPerformanceRes(performanceRes);
 
-    pageState.set(PAGE + " / " + total_data);
+    //adapter.setModels(data.getMonths());
+    //adapter.notifyDataSetChanged();
 
-    toogleButton(total_data);
+    yearValueTv.set("YEAR : " +
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getYear());
+
+    pageState.set(PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+
+    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
+  }
+
+  private PerformanceRes getPerformanceRes() {
+    return performanceRes;
+  }
+
+  private void setPerformanceRes(
+      PerformanceRes performanceRes) {
+    this.performanceRes = performanceRes;
   }
 
   @SuppressWarnings("unused")
   public void onButtonBeforeClick(View view) {
     PAGE--;
-    getPerformance();
+    showPerformance(getPerformanceRes());
   }
 
   @SuppressWarnings("unused")
   public void onButtonNextClick(View view) {
     PAGE++;
-    getPerformance();
+    showPerformance(getPerformanceRes());
   }
 
-  private void toogleButton(int maxPages){
+  private void toogleButton(int maxPages) {
     if (PAGE >= 1) {
       nextButtonVisibility.set(true);
       beforeButtonVisibility.set(false);
@@ -188,23 +201,19 @@ public class HomeViewModel extends BaseViewModelWithCallback
     if (PAGE == maxPages) {
       nextButtonVisibility.set(false);
       beforeButtonVisibility.set(true);
-      if (maxPages == 1){
+      if (maxPages == 1) {
         beforeButtonVisibility.set(false);
       }
     }
-
-    if (maxPages == 1) {
-      nextButtonVisibility.set(false);
-      beforeButtonVisibility.set(false);
-    }
   }
 
-  private void initChart(PerformanceRes response){
+  @SuppressWarnings("unused")
+  private void initChart(PerformanceRes response) {
 
   }
 
   @Override public void hideLoading() {
-      loading(false);
+    loading(false);
   }
 
   @Override public void onClickAdapterItem(int index, Month model) {

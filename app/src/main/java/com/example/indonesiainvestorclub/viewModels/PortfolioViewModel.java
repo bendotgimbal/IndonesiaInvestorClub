@@ -96,7 +96,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       JSONObject object = jsonObject.getJSONObject("Performances");
 
       List<Performance> performances = new ArrayList<>();
-      List<Datas> datasList = new ArrayList<>();
       List<Month> monthList = new ArrayList<>();
 
       for (int i = 1; i <= object.length(); i++) {
@@ -130,9 +129,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         }
 
         data = new Datas(monthList);
-        datasList.add(data);
 
-        performance = new Performance(name, datasList);
+        performance = new Performance(name, data);
         performances.add(performance);
       }
 
@@ -217,11 +215,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       if (maxPages == 1){
         beforeButtonVisibility.set(false);
       }
-    }
-
-    if (maxPages == 1) {
-      nextButtonVisibility.set(false);
-      beforeButtonVisibility.set(false);
     }
   }
 

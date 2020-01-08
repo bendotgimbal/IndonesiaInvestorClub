@@ -1,14 +1,13 @@
 package com.example.indonesiainvestorclub.models;
 
-import java.util.List;
 
 public class Performance {
   String name;
-  List<Datas> data;
+  Datas datas;
 
-  public Performance(String name, List<Datas> data) {
+  public Performance(String name, Datas datas) {
     this.name = name;
-    this.data = data;
+    this.datas = datas;
   }
 
   public String getName() {
@@ -19,11 +18,11 @@ public class Performance {
     this.name = name;
   }
 
-  public List<Datas> getData() {
-    return data;
+  public Datas getData() {
+    return datas;
   }
 
-  public void setData(List<Datas> data) {
-    this.data = data;
+  public void setData(Datas data) {
+    this.datas = data;
   }
 }
