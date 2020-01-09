@@ -1,6 +1,7 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -22,6 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.PieChartView;
 import retrofit2.Response;
 
 public class HomeViewModel extends BaseViewModelWithCallback
@@ -36,11 +41,14 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableBoolean nextButtonVisibility;
 
   public ObservableField<String> yearValueTv;
+  public ObservableField<String> monthValuePie;
 
   //private PerformanceAdapter adapter;
 
   private int PAGE = 1;
   private PerformanceRes performanceRes;
+
+  private PieChartView pieChartView;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
@@ -52,6 +60,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     nextButtonVisibility = new ObservableBoolean(true);
 
     yearValueTv = new ObservableField<>("");
+    monthValuePie = new ObservableField<>("");
 
     performanceRes = new PerformanceRes();
 
@@ -134,6 +143,10 @@ public class HomeViewModel extends BaseViewModelWithCallback
         }
 
         data = new Datas(monthList);
+//        PieChartData pieChartData = new PieChartData((PieChartData) monthList);
+//        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
+//        pieChartData.setHasCenterCircle(true).setCenterText1("Sales in million").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
+//        pieChartView.setPieChartData(pieChartData);
 
         performance = new Performance(name, data);
         performances.add(performance);
@@ -159,6 +172,29 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     //adapter.setModels(data.getMonths());
     //adapter.notifyDataSetChanged();
+
+    List pieData = new ArrayList<>();
+
+    String jan = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJan());
+    String feb = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getFeb());
+    String mar = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getMar());
+    String apr = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getApr());
+    String may = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getMay());
+    String jun = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJun());
+    String jul = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJul());
+    String aug = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getAug());
+    String sep = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getSep());
+    String oct = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getOct());
+    String nov = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getNov());
+    String dec = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getDec());
+    Toast.makeText(getContext(), "Bulan Jan = "+ jan+" || Feb = "+ jan+" || Mar = "+ jan+" || Apr = "+ jan+" || May = "+ jan+" || Jun = "+ jan+" || Jul = "+ jan+" || Aug = "+ jan+" || Sep = "+ jan+" || Oct = "+ jan+" || Nov = "+ jan+" || Dec = "+ jan, Toast.LENGTH_SHORT).show();
+
+    pieData.add(new SliceValue((float) 0, Color.BLUE).setLabel("Q1: "+dec));
+
+    PieChartData pieChartData = new PieChartData(pieData);
+    pieChartData.setHasLabels(true).setValueLabelTextSize(14);
+    pieChartData.setHasCenterCircle(true).setCenterText1("Sales in million").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
+//    pieChartView.setPieChartData(pieChartData);
 
     yearValueTv.set("YEAR : " +
         performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getYear());

@@ -16,21 +16,39 @@
       android:layout_height="match_parent"
       >
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/perfromancelist"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:overScrollMode="never"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/paging_wrapper"-->
-    <!--        tools:itemCount="2"-->
-    <!--        tools:listitem="@layout/sub_performance_item"-->
-    <!--        tools:visibility="visible"-->
-    <!--        />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/perfromancelist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
+            tools:itemCount="2"
+            tools:listitem="@layout/sub_performance_item"
+            tools:visibility="visible"
+            />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/performance_year_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <lecho.lib.hellocharts.view.PieChartView
+          android:id="@+id/chart"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/performance_year_label"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/paging_wrapper"

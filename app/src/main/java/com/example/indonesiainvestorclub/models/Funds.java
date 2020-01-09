@@ -3,6 +3,7 @@ package com.example.indonesiainvestorclub.models;
 import java.util.List;
 
 public class Funds {
+    private String id;
     private String name;
     private String type;
     private String manager;
@@ -13,7 +14,7 @@ public class Funds {
     private String roi;
     private Meta meta;
 
-    public Funds(String name, String type, String manager, String invested, String equity,
+    public Funds(String id, String name, String type, String manager, String invested, String equity,
         String slots, String compounding, String roi,
         Meta meta) {
         this.name = name;
@@ -25,6 +26,14 @@ public class Funds {
         this.compounding = compounding;
         this.roi = roi;
         this.meta = meta;
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getName() {

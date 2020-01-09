@@ -113,6 +113,7 @@ public class FundsViewModel extends BaseViewModelWithCallback {
                 metaList.add(meta);
 
                 funds = new Funds(
+                        objFunds.getString("ID"),
                         objFunds.getString("Name"),
                         objFunds.getString("Type"),
                         objFunds.getString("Manager"),
