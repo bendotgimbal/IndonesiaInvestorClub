@@ -63,6 +63,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     monthValuePie = new ObservableField<>("");
 
     performanceRes = new PerformanceRes();
+    pieChartView = new PieChartView(getContext());
 
     //adapter = new PerformanceAdapter();
     //adapter.setListener(this);
@@ -194,7 +195,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     PieChartData pieChartData = new PieChartData(pieData);
     pieChartData.setHasLabels(true).setValueLabelTextSize(14);
     pieChartData.setHasCenterCircle(true).setCenterText1("Sales in million").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
-//    pieChartView.setPieChartData(pieChartData);
+    pieChartView.setPieChartData(pieChartData);
 
     yearValueTv.set("YEAR : " +
         performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getYear());
