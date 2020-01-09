@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.HomeFragmentBinding;
+import com.example.indonesiainvestorclub.helper.StringHelper;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Month;
@@ -21,6 +21,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
+import lecho.lib.hellocharts.util.ChartUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,15 +41,13 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
 
-  public ObservableField<String> yearValueTv;
   public ObservableField<String> monthValuePie;
-
-  //private PerformanceAdapter adapter;
 
   private int PAGE = 1;
   private PerformanceRes performanceRes;
 
   private PieChartView pieChartView;
+  private PieChartData pieChartData;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
@@ -59,17 +58,11 @@ public class HomeViewModel extends BaseViewModelWithCallback
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
-    yearValueTv = new ObservableField<>("");
     monthValuePie = new ObservableField<>("");
 
     performanceRes = new PerformanceRes();
 
-    //adapter = new PerformanceAdapter();
-    //adapter.setListener(this);
-
-    //this.binding.perfromancelist.setLayoutManager(
-    //        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    //this.binding.perfromancelist.setAdapter(adapter);
+    pieChartView = binding.chart;
 
     start();
   }
@@ -118,7 +111,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
         String name = obj.getString("Name");
         JSONObject datas = obj.getJSONObject("Datas");
-        Toast.makeText(getContext(), "Total Data " + datas.length(), Toast.LENGTH_SHORT).show();
 
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
@@ -143,10 +135,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
         }
 
         data = new Datas(monthList);
-//        PieChartData pieChartData = new PieChartData((PieChartData) monthList);
-//        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-//        pieChartData.setHasCenterCircle(true).setCenterText1("Sales in million").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
-//        pieChartView.setPieChartData(pieChartData);
 
         performance = new Performance(name, data);
         performances.add(performance);
@@ -170,36 +158,68 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     setPerformanceRes(performanceRes);
 
-    //adapter.setModels(data.getMonths());
-    //adapter.notifyDataSetChanged();
+    List<SliceValue> pieData = new ArrayList<>();
 
-    List pieData = new ArrayList<>();
+    String jan = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
+    String feb = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
+    String mar = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
+    String apr = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
+    String may = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
+    String jun = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
+    String jul = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
+    String aug = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
+    String sep = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
+    String oct = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
+    String nov = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
+    String dec = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
 
-    String jan = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJan());
-    String feb = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getFeb());
-    String mar = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getMar());
-    String apr = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getApr());
-    String may = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getMay());
-    String jun = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJun());
-    String jul = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getJul());
-    String aug = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getAug());
-    String sep = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getSep());
-    String oct = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getOct());
-    String nov = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getNov());
-    String dec = String.valueOf(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getDec());
-    Toast.makeText(getContext(), "Bulan Jan = "+ jan+" || Feb = "+ jan+" || Mar = "+ jan+" || Apr = "+ jan+" || May = "+ jan+" || Jun = "+ jan+" || Jul = "+ jan+" || Aug = "+ jan+" || Sep = "+ jan+" || Oct = "+ jan+" || Nov = "+ jan+" || Dec = "+ jan, Toast.LENGTH_SHORT).show();
+    pieData.add(new SliceValue(StringHelper.setPieValue(jan), ChartUtils.pickColor()).setLabel(
+        "Jan: " + jan));
+    pieData.add(new SliceValue(StringHelper.setPieValue(feb), ChartUtils.pickColor()).setLabel(
+        "Feb: " + feb));
+    pieData.add(new SliceValue(StringHelper.setPieValue(mar), ChartUtils.pickColor()).setLabel(
+        "Mar: " + mar));
+    pieData.add(new SliceValue(StringHelper.setPieValue(apr), ChartUtils.pickColor()).setLabel(
+        "Apr: " + apr));
+    pieData.add(new SliceValue(StringHelper.setPieValue(may), ChartUtils.pickColor()).setLabel(
+        "May: " + may));
+    pieData.add(new SliceValue(StringHelper.setPieValue(jun), ChartUtils.pickColor()).setLabel(
+        "Jun: " + jun));
+    pieData.add(new SliceValue(StringHelper.setPieValue(jul), ChartUtils.pickColor()).setLabel(
+        "Jul: " + jul));
+    pieData.add(new SliceValue(StringHelper.setPieValue(aug), ChartUtils.pickColor()).setLabel(
+        "Aug: " + aug));
+    pieData.add(new SliceValue(StringHelper.setPieValue(sep), ChartUtils.pickColor()).setLabel(
+        "Sep: " + sep));
+    pieData.add(new SliceValue(StringHelper.setPieValue(oct), ChartUtils.pickColor()).setLabel(
+        "Oct: " + oct));
+    pieData.add(new SliceValue(StringHelper.setPieValue(nov), ChartUtils.pickColor()).setLabel(
+        "Nov: " + nov));
+    pieData.add(new SliceValue(StringHelper.setPieValue(dec), ChartUtils.pickColor()).setLabel(
+        "Dec: " + dec));
 
-    pieData.add(new SliceValue((float) 0, Color.BLUE).setLabel("Q1: "+dec));
-
-    PieChartData pieChartData = new PieChartData(pieData);
+    pieChartData = new PieChartData(pieData);
     pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-    pieChartData.setHasCenterCircle(true).setCenterText1("Sales in million").setCenterText1FontSize(20).setCenterText1Color(Color.parseColor("#0097A7"));
-//    pieChartView.setPieChartData(pieChartData);
+    pieChartData.setHasCenterCircle(true)
+        .setCenterText1("Sales in million")
+        .setCenterText1FontSize(20)
+        .setCenterText1Color(Color.parseColor("#0097A7"));
+    pieChartView.setPieChartData(pieChartData);
 
-    yearValueTv.set("YEAR : " +
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE-1).getYear());
-
-    pageState.set(PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+    pageState.set(
+        PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
 
     toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
   }

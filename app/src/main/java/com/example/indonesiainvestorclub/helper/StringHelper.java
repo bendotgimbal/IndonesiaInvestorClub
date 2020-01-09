@@ -12,4 +12,9 @@ public class StringHelper {
       SharedPreferenceHelper.setCookie(output[0]);
     }
   }
+
+  public static Float setPieValue(String data){
+    if (data.contains("-"))return 0F;
+    return Float.parseFloat(data.replaceAll(" %","").replace(",","."));
+  }
 }
