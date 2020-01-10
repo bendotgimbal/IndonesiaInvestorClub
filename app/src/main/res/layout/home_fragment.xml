@@ -25,6 +25,34 @@
         app:layout_constraintTop_toTopOf="parent"
         >
 
+      <TextView
+          android:id="@+id/performance_year_label"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginLeft="20dp"
+          android:text="@string/performance_year_label"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/chart"
+          tools:text="Year : "
+          />
+
+      <TextView
+          android:id="@+id/funds_manager_value"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginLeft="60dp"
+          android:text="@{viewModel.yearValueTv}"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/chart"
+          tools:text="Year Value"
+          />
+
       <lecho.lib.hellocharts.view.PieChartView
           android:id="@+id/chart"
           android:layout_width="match_parent"

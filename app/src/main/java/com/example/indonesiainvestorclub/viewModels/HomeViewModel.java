@@ -62,6 +62,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
+    yearValueTv = new ObservableField<>("");
     monthValuePie = new ObservableField<>("");
 
     performanceRes = new PerformanceRes();
@@ -165,29 +166,33 @@ public class HomeViewModel extends BaseViewModelWithCallback
     List<SliceValue> pieData = new ArrayList<>();
 
     String jan = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan()).replace("-","0 %");
     String feb = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb()).replace("-","0 %");
     String mar = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar()).replace("-","0 %");
     String apr = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr()).replace("-","0 %");
     String may = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay()).replace("-","0 %");
     String jun = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun()).replace("-","0 %");
     String jul = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul()).replace("-","0 %");
     String aug = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug()).replace("-","0 %");
     String sep = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep()).replace("-","0 %");
     String oct = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct()).replace("-","0 %");
     String nov = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov()).replace("-","0 %");
     String dec = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec()).replace("-","0 %");
+    String ytd = String.valueOf(
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYtd());
+    String year = String.valueOf(
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYear());
 
     pieData.add(new SliceValue(StringHelper.setPieValue(jan), ChartUtils.pickColor()).setLabel(
         "Jan: " + jan));
@@ -217,10 +222,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
     pieChartData = new PieChartData(pieData);
     pieChartData.setHasLabels(true).setValueLabelTextSize(14);
     pieChartData.setHasCenterCircle(true)
-        .setCenterText1("Sales in million")
+        .setCenterText1("Performance in year")
         .setCenterText1FontSize(20)
         .setCenterText1Color(Color.parseColor("#0097A7"));
     pieChartView.setPieChartData(pieChartData);
+
+    yearValueTv.set(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE -1).getYear());
 
     pageState.set(
         PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
