@@ -309,6 +309,31 @@
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/button_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_margin="20dp"
+            android:gravity="center|top"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="-30dp"
+            tools:layout_editor_absoluteY="503dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/founds_info_wrapper">
+
+            <Button
+                android:id="@+id/moreBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/square_radius_button"
+                android:padding="10dp"
+                android:onClick="@{viewModel::onButtonMoreInfoClick}"
+                android:text="MORE INFO" />
+
+        </LinearLayout>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"

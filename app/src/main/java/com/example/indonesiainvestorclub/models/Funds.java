@@ -14,6 +14,8 @@ public class Funds {
     private String roi;
     private Meta meta;
 
+    int index;
+
     public Funds(String id, String name, String type, String manager, String invested, String equity,
         String slots, String compounding, String roi,
         Meta meta) {
@@ -26,6 +28,14 @@ public class Funds {
         this.compounding = compounding;
         this.roi = roi;
         this.meta = meta;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getID() {

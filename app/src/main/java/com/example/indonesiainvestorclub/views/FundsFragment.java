@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class FundsFragment extends BaseFragment {
 
   private FundsFragmentBinding binding;
   private FundsViewModel fundsviewModel;
+  private ListView lv;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,11 +1,14 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.example.indonesiainvestorclub.databinding.FundsFragmentBinding;
+import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Funds;
 import com.example.indonesiainvestorclub.models.Meta;
 import com.example.indonesiainvestorclub.models.response.FundsRes;
@@ -24,7 +27,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class FundsViewModel extends BaseViewModelWithCallback {
+public class FundsViewModel extends BaseViewModelWithCallback
+        implements ActionInterface.AdapterItemListener<Funds>{
 
     private FundsFragmentBinding binding;
     public ObservableBoolean loadingState;
@@ -155,8 +159,17 @@ public class FundsViewModel extends BaseViewModelWithCallback {
         //TODO recyclerview
     }
 
+    @SuppressWarnings("unused")
+    public void onButtonMoreInfoClick(View view) {
+        Toast.makeText(context, "MORE INFO Click", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void hideLoading() {
         loading(false);
+    }
+
+    @Override public void onClickAdapterItem(int index, Funds model) {
+
     }
 }
