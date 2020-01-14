@@ -1,6 +1,7 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.example.indonesiainvestorclub.models.Meta;
 import com.example.indonesiainvestorclub.models.response.FundsRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
+import com.example.indonesiainvestorclub.views.InvestActivity;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -32,6 +34,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
 
     private FundsFragmentBinding binding;
     public ObservableBoolean loadingState;
+    public ObservableField<String> fundsIDValueTx;
     public ObservableField<String> fundsNameLabelTx;
     public ObservableField<String> fundsTypeValueTx;
     public ObservableField<String> fundsManagerValueTx;
@@ -44,11 +47,14 @@ public class FundsViewModel extends BaseViewModelWithCallback
     public ObservableField<String> fundsInvestorPassValueTx;
     public ObservableField<String> fundsServerValueTx;
 
+    private String investId;
+
     public FundsViewModel(Context context, FundsFragmentBinding binding) {
         super(context);
         this.binding = binding;
 
         loadingState = new ObservableBoolean(false);
+//        fundsIDValueTx = new ObservableField<>("");
         fundsNameLabelTx = new ObservableField<>("");
         fundsTypeValueTx = new ObservableField<>("");
         fundsManagerValueTx = new ObservableField<>("");
@@ -104,6 +110,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
 
             for (int i = 1; i <= objectFunds.length(); i++) {
                 JSONObject objFunds = objectFunds.getJSONObject(i + "");
+                investId = objFunds.getString("ID");
+                Toast.makeText(context, "ID "+investId, Toast.LENGTH_SHORT).show();
                 Funds funds;
                 Meta meta;
 
@@ -144,6 +152,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
         hideLoading();
         if (fundsRes == null) return;
 
+//        fundsIDValueTx.set(fundsRes.getFunds().get(0).getID());
         fundsNameLabelTx.set(fundsRes.getFunds().get(0).getName());
         fundsTypeValueTx.set(fundsRes.getFunds().get(0).getType());
         fundsManagerValueTx.set(fundsRes.getFunds().get(0).getManager());
@@ -161,7 +170,10 @@ public class FundsViewModel extends BaseViewModelWithCallback
 
     @SuppressWarnings("unused")
     public void onButtonMoreInfoClick(View view) {
-        Toast.makeText(context, "MORE INFO Click", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "MORE INFO Click "+investId, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, InvestActivity.class);
+        intent.putExtra("investId", investId);
+        context.startActivity(intent);
     }
 
     @Override

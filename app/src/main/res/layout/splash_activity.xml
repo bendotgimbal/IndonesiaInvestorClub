@@ -17,8 +17,7 @@
         android:src="@drawable/iic_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:text="0%"

@@ -40,8 +40,8 @@ public interface InvestorClubService {
   @GET("public/performance")
   Observable<Response<JsonElement>> performanceRequest();
 
-  @GET("invest")
-  Observable<Response<InvestRes>> investRequest();
+  @GET("invest/{id}")
+  Observable<Response<JsonElement>> investRequest(@Path("id") String id);
 
   @GET("portfolio/{page}")
   Observable<Response<JsonElement>> portfolioRequest(@Path("page") int page);
