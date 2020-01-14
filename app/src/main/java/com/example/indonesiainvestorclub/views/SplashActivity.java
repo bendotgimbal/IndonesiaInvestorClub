@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ public class SplashActivity extends Activity {
   private int mProgressStatus = 0;
   private ProgressBar mProgressBar;
   private TextView mTextView;
+  private ImageView mImg;
   private int i = 0;
   private Handler hdlr = new Handler();
 
@@ -24,9 +28,13 @@ public class SplashActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.splash_activity);
 
+    mImg = (ImageView)findViewById(R.id.imageView);
     mTextView = findViewById(R.id.textView);
     mProgressBar = findViewById(R.id.progressBar);
     i = mProgressBar.getProgress();
+
+    Animation animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+    mImg.startAnimation(animFadeIn);
     ProgressDialog();
   }
 

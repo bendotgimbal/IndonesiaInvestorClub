@@ -1,6 +1,7 @@
 package com.example.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
@@ -30,6 +31,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class InvestViewModel extends BaseViewModelWithCallback
         implements ActionInterface.AdapterItemListener<Invest> {
 
@@ -37,7 +40,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
     public ObservableBoolean loadingState;
     public ObservableField<String> investIDValueTx;
     public ObservableField<String> investNameTx;
-    public ObservableField<String> investYearTx;
+    public ObservableField<String> investYearValueTx;
+    public ObservableField<String> investYtdValueTv;
     private MutableLiveData<String> mText;
     private ObservableField<String> mInvestID;
     private String ID;
@@ -49,7 +53,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
         loadingState = new ObservableBoolean(false);
         investIDValueTx = new ObservableField<>("");
         investNameTx = new ObservableField<>("");
-        investYearTx = new ObservableField<>("");
+        investYearValueTx = new ObservableField<>("");
+        investYtdValueTv = new ObservableField<>("");
     }
 
     private void start() {
@@ -91,7 +96,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
             jsonObject = new JSONObject(response.toString());
             JSONObject objectInvest = jsonObject.getJSONObject("Performance");
 
-            String name = jsonObject.getString("Name");
+            String name = objectInvest.getString("Name");
             JSONObject datasObj = objectInvest.getJSONObject("Datas");
 
             List<Invest> investList = new ArrayList<>();
@@ -121,24 +126,28 @@ public class InvestViewModel extends BaseViewModelWithCallback
             data = new Datas(monthList);
 
             invest = new Invest(name, data);
-            investList.add(invest);
+//            investList.add(invest);
 
 //            investRes = new InvestRes(investList);
-            investRes.setInvest(investList);
+            investRes.setInvests(invest);
             showInvest(investRes);
 
+            hideLoading();
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.e(TAG, e.toString());
+            hideLoading();
         }
     }
 
     private void showInvest(InvestRes investRes) {
         hideLoading();
         if (investRes == null) return;
-        investNameTx.set(investRes.getInvest().get(0).getName());
-        investYearTx.set(investRes.getInvest().get(0).getData().getMonths().get(0).getYear());
+        investNameTx.set(investRes.getInvests().getName());
+        investYearValueTx.set(investRes.getInvests().getData().getMonths().get(0).getYear());
+        investYtdValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
 
-        Toast.makeText(context, "Name Invest "+investNameTx, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Name Invest "+investNameTx.get(), Toast.LENGTH_SHORT).show();
 
         //TODO recyclerview
     }
@@ -148,9 +157,9 @@ public class InvestViewModel extends BaseViewModelWithCallback
 //        mText.setValue("This is Invest fragment");
 //    }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+//    public LiveData<String> getText() {
+//        return mText;
+//    }
 
     public void investActivity(String id_invest){
 //        mText = new MutableLiveData<>();
@@ -158,7 +167,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
         investIDValueTx.set("ID "+id_invest);
         ID = id_invest;
         Toast.makeText(context, "ID Invest "+ID, Toast.LENGTH_SHORT).show();
-        getInvest();
+        start();
     }
 
     @Override

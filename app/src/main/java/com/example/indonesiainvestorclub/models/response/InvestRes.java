@@ -30,13 +30,23 @@ public class InvestRes {
 ////        this.datas = datas;
 ////    }
 
-    private List<Invest> invests;
+//    private List<Invest> invests;
+//
+//    public List<Invest> getInvest() {
+//        return invests;
+//    }
+//
+//    public void setInvest(List<Invest> invest) {
+//        this.invests = invests;
+//    }
 
-    public List<Invest> getInvest() {
+    private Invest invests;
+
+    public Invest getInvests() {
         return invests;
     }
 
-    public void setInvest(List<Invest> invest) {
+    public void setInvests(Invest invests) {
         this.invests = invests;
     }
 }
