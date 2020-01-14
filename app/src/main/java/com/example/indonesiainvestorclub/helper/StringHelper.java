@@ -17,4 +17,9 @@ public class StringHelper {
     if (data.contains("-"))return 0F;
     return Float.parseFloat(data.replaceAll(" %","").replace(",","."));
   }
+
+  public static String setYTDValue(String data){
+    if (data.contains("-"))return "0%";
+    return data.replace(" ", "").replace(",",".");
+  }
 }
