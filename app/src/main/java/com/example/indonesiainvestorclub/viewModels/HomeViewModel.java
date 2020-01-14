@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.example.indonesiainvestorclub.databinding.HomeFragmentBinding;
@@ -22,7 +21,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.LineChartView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,15 +49,18 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableBoolean nextButtonVisibility;
 
   public ObservableField<String> yearValueTv;
-  public ObservableField<String> monthValuePie;
+  public ObservableField<String> ytdValueTv;
 
-  //private PerformanceAdapter adapter;
+  public ObservableBoolean pieChartVisibility;
 
   private int PAGE = 1;
   private PerformanceRes performanceRes;
 
   private PieChartView pieChartView;
   private PieChartData pieChartData;
+
+  private LineChartView lineChartView;
+  private LineChartData lineChartData;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
@@ -62,12 +71,15 @@ public class HomeViewModel extends BaseViewModelWithCallback
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
-    yearValueTv = new ObservableField<>("");
-    monthValuePie = new ObservableField<>("");
+    yearValueTv = new ObservableField<>("0000");
+    ytdValueTv = new ObservableField<>("0 %");
+
+    pieChartVisibility = new ObservableBoolean(false);
 
     performanceRes = new PerformanceRes();
 
     pieChartView = binding.chart;
+    lineChartView = binding.chartLine;
 
     start();
   }
@@ -147,7 +159,8 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
       performanceRes.setPerformances(performances);
 
-      showPerformance(performanceRes);
+      //showPerformance(performanceRes);
+      showLineChartPerformance(performanceRes);
 
       hideLoading();
     } catch (JSONException e) {
@@ -156,6 +169,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     }
   }
 
+  @SuppressWarnings("unused")
   private void showPerformance(PerformanceRes performanceRes) {
     hideLoading();
 
@@ -166,33 +180,45 @@ public class HomeViewModel extends BaseViewModelWithCallback
     List<SliceValue> pieData = new ArrayList<>();
 
     String jan = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan())
+        .replace("-", "0 %");
     String feb = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb())
+        .replace("-", "0 %");
     String mar = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar())
+        .replace("-", "0 %");
     String apr = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr())
+        .replace("-", "0 %");
     String may = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay())
+        .replace("-", "0 %");
     String jun = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun())
+        .replace("-", "0 %");
     String jul = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul())
+        .replace("-", "0 %");
     String aug = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug())
+        .replace("-", "0 %");
     String sep = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep())
+        .replace("-", "0 %");
     String oct = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct())
+        .replace("-", "0 %");
     String nov = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov())
+        .replace("-", "0 %");
     String dec = String.valueOf(
-        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec()).replace("-","0 %");
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec())
+        .replace("-", "0 %");
     String ytd = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYtd());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYtd());
     String year = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYear());
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYear());
 
     pieData.add(new SliceValue(StringHelper.setPieValue(jan), ChartUtils.pickColor()).setLabel(
         "Jan: " + jan));
@@ -227,10 +253,119 @@ public class HomeViewModel extends BaseViewModelWithCallback
         .setCenterText1Color(Color.parseColor("#0097A7"));
     pieChartView.setPieChartData(pieChartData);
 
-    yearValueTv.set(performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE -1).getYear());
+    pagingInit();
+  }
 
+  private void showLineChartPerformance(PerformanceRes performanceRes) {
+    hideLoading();
+
+    if (performanceRes == null) return;
+
+    setPerformanceRes(performanceRes);
+
+    List<Line> lines = new ArrayList<>();
+    List<PointValue> pieData = new ArrayList<>();
+
+    String jan = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
+    String feb = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
+    String mar = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
+    String apr = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
+    String may = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
+    String jun = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
+    String jul = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
+    String aug = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
+    String sep = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
+    String oct = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
+    String nov = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
+    String dec = String.valueOf(
+        performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
+
+    pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
+    pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
+    pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
+    pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
+    pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
+    pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
+    pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
+    pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
+    pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
+    pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
+    pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
+    pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
+
+    Line line = new Line(pieData);
+    //line.setColor(Color.parseColor("#57DAC6"));
+    line.setColor(Color.WHITE);
+    line.setShape(ValueShape.CIRCLE);
+    //line.setPointColor(Color.parseColor("#57DAC6"));
+    line.setPointColor(Color.WHITE);
+    line.setCubic(false);
+    line.setFilled(true);
+    line.setHasLabels(false);
+    line.setHasLabelsOnlyForSelected(false);
+    line.setHasLines(true);
+    line.setHasPoints(true);
+    line.setPointRadius(3);
+    line.setStrokeWidth(2);
+    lines.add(line);
+
+    lineChartData = new LineChartData(lines);
+
+    List<AxisValue> values = new ArrayList<>();
+    values.add(new AxisValue(0, "JAN".toCharArray()));
+    values.add(new AxisValue(1, "FEB".toCharArray()));
+    values.add(new AxisValue(2, "MAR".toCharArray()));
+    values.add(new AxisValue(3, "APR".toCharArray()));
+    values.add(new AxisValue(4, "MAY".toCharArray()));
+    values.add(new AxisValue(5, "JUN".toCharArray()));
+    values.add(new AxisValue(6, "JUL".toCharArray()));
+    values.add(new AxisValue(7, "AUG".toCharArray()));
+    values.add(new AxisValue(8, "SEP".toCharArray()));
+    values.add(new AxisValue(9, "OCT".toCharArray()));
+    values.add(new AxisValue(10, "NOV".toCharArray()));
+    values.add(new AxisValue(11, "DES".toCharArray()));
+
+    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.WHITE);
+    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.WHITE);
+    lineChartData.setAxisXBottom(axisX);
+    lineChartData.setAxisYLeft(axisY);
+
+    lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
+
+    lineChartView.setInteractive(false);
+    lineChartView.setLineChartData(lineChartData);
+
+    pagingInit();
+  }
+
+  private void pagingInit() {
     pageState.set(
         PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+
+    yearValueTv.set(performanceRes.getPerformances()
+        .get(0)
+        .getData()
+        .getMonths()
+        .get(PAGE - 1)
+        .getYear());
+
+    ytdValueTv.set(performanceRes.getPerformances()
+        .get(0)
+        .getData()
+        .getMonths()
+        .get(PAGE - 1)
+        .getYtd());
 
     toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
   }
@@ -247,13 +382,15 @@ public class HomeViewModel extends BaseViewModelWithCallback
   @SuppressWarnings("unused")
   public void onButtonBeforeClick(View view) {
     PAGE--;
-    showPerformance(getPerformanceRes());
+    //showPerformance(getPerformanceRes());
+    showLineChartPerformance(getPerformanceRes());
   }
 
   @SuppressWarnings("unused")
   public void onButtonNextClick(View view) {
     PAGE++;
-    showPerformance(getPerformanceRes());
+    //showPerformance(getPerformanceRes());
+    showLineChartPerformance(getPerformanceRes());
   }
 
   private void toogleButton(int maxPages) {

@@ -99,7 +99,7 @@
   <string name="wd_id_transaction_label">WD ID</string>
   <string name="wd_status_transaction_label">WD Status</string>
 
-  <string name="performance_name_label">Year</string>
+  <string name="performance_ytd_label">Year to Date</string>
   <string name="performance_year_label">Year</string>
 
   <string name="minus">-</string>

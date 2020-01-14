@@ -14,49 +14,96 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@android:color/white"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_primary_gradient"
         app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
 
-      <TextView
-          android:id="@+id/performance_year_label"
+      <LinearLayout
+          android:id="@+id/fund_wrapper"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_marginLeft="20dp"
-          android:text="@string/performance_year_label"
+          android:padding="20dp"
+          android:orientation="vertical"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/chart"
-          tools:text="Year : "
-          />
+          >
 
-      <TextView
-          android:id="@+id/funds_manager_value"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_marginLeft="60dp"
-          android:text="@{viewModel.yearValueTv}"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/chart"
-          tools:text="Year Value"
-          />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/performance_ytd_label"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            tools:text="Year To Date"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.ytdValueTv}"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            tools:text="9.999"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@string/performance_year_label"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            tools:text="Year"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@{viewModel.yearValueTv}"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="1999"
+            />
+
+
+      </LinearLayout>
+
 
       <lecho.lib.hellocharts.view.PieChartView
           android:id="@+id/chart"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_margin="20dp"
+          android:visibility="@{viewModel.pieChartVisibility ? View.VISIBLE : View.GONE}"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/fund_wrapper"
+          tools:visibility="gone"
+          />
+
+      <lecho.lib.hellocharts.view.LineChartView
+          android:id="@+id/chartLine"
+          android:layout_width="0dp"
+          android:layout_height="250dp"
+          android:padding="5dp"
+          android:visibility="@{viewModel.pieChartVisibility ? View.GONE : View.VISIBLE}"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/fund_wrapper"
           tools:visibility="visible"
           />
 
@@ -66,7 +113,6 @@
         android:id="@+id/paging_wrapper"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:background="@color/lightPrimary"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
