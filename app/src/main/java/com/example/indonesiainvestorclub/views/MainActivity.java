@@ -1,7 +1,10 @@
 package com.example.indonesiainvestorclub.views;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.view.Window;
+import android.view.WindowManager;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -22,13 +25,19 @@ public class MainActivity extends BaseActivity {
     private AppBarConfiguration appBarConfiguration;
 
     public static final int REQ_LOGIN = 1001;
-    public static final String LOGIN_RES = "login_res";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSupportActionBar(binding.appbar.toolbar);
         initDrawerIcon();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#008577"));
+        }
+
         initAppBarConfiguration();
     }
 
