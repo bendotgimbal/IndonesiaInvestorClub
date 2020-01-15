@@ -32,11 +32,11 @@ public class InvestRes {
 
 //    private List<Invest> invests;
 //
-//    public List<Invest> getInvest() {
+//    public List<Invest> getInvests() {
 //        return invests;
 //    }
 //
-//    public void setInvest(List<Invest> invest) {
+//    public void setInvests(List<Invest> invest) {
 //        this.invests = invests;
 //    }
 
