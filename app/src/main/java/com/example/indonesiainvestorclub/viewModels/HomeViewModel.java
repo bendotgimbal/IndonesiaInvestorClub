@@ -6,15 +6,18 @@ import android.util.Log;
 import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import com.example.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.example.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.example.indonesiainvestorclub.helper.StringHelper;
 import com.example.indonesiainvestorclub.interfaces.ActionInterface;
 import com.example.indonesiainvestorclub.models.Datas;
 import com.example.indonesiainvestorclub.models.Month;
 import com.example.indonesiainvestorclub.models.Performance;
+import com.example.indonesiainvestorclub.models.SimpleModel;
 import com.example.indonesiainvestorclub.models.response.PerformanceRes;
 import com.example.indonesiainvestorclub.services.CallbackWrapper;
 import com.example.indonesiainvestorclub.services.ServiceGenerator;
+import com.example.indonesiainvestorclub.views.MainActivity;
 import com.google.gson.JsonElement;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -72,7 +75,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     nextButtonVisibility = new ObservableBoolean(true);
 
     yearValueTv = new ObservableField<>("0000");
-    ytdValueTv = new ObservableField<>("0 %");
+    ytdValueTv = new ObservableField<>("0%");
 
     pieChartVisibility = new ObservableBoolean(false);
 
@@ -350,6 +353,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
   }
 
   private void pagingInit() {
+
     pageState.set(
         PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
 
@@ -360,12 +364,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
         .get(PAGE - 1)
         .getYear());
 
-    ytdValueTv.set(performanceRes.getPerformances()
+    ytdValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
         .get(0)
         .getData()
         .getMonths()
         .get(PAGE - 1)
-        .getYtd());
+        .getYtd()));
 
     toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
   }
