@@ -53,8 +53,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
         loadingState = new ObservableBoolean(false);
         investIDValueTx = new ObservableField<>("");
         investNameTx = new ObservableField<>("");
-        investYearValueTx = new ObservableField<>("");
-        investYtdValueTv = new ObservableField<>("");
+        investYearValueTx = new ObservableField<>("0000");
+        investYtdValueTv = new ObservableField<>("0 %");
     }
 
     private void start() {
@@ -99,7 +99,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
             String name = objectInvest.getString("Name");
             JSONObject datasObj = objectInvest.getJSONObject("Datas");
 
-            List<Invest> investList = new ArrayList<>();
+            List<Invest> invests = new ArrayList<>();
             List<Month> monthList = new ArrayList<>();
 
             for (int i = 1; i <= datasObj.length(); i++) {
@@ -126,7 +126,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
             data = new Datas(monthList);
 
             invest = new Invest(name, data);
-//            investList.add(invest);
+            invests.add(invest);
 
 //            investRes = new InvestRes(investList);
             investRes.setInvests(invest);
@@ -144,8 +144,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
         hideLoading();
         if (investRes == null) return;
         investNameTx.set(investRes.getInvests().getName());
-        investYearValueTx.set(investRes.getInvests().getData().getMonths().get(0).getYear());
-        investYtdValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
+//        investYearValueTx.set(investRes.getInvests().getData().getMonths().get(0).getYear());
+//        investYtdValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
 
         Toast.makeText(context, "Name Invest "+investNameTx.get(), Toast.LENGTH_SHORT).show();
 
