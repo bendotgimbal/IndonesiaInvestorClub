@@ -11,26 +11,50 @@
 
     <import type="android.view.View" />
   </data>
-  <FrameLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/colorPrimary"
       >
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:text="Sign In"
+        android:text="@string/label_login"
+        android:gravity="center|start"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:paddingStart="30dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/login_wrapper"/>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/login_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
         android:layout_gravity="center"
-        android:layout_margin="40dp"
-        android:background="@drawable/square_radius_background"
+        android:background="@drawable/square_radius_top_background"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         >
 
       <com.google.android.material.textfield.TextInputLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="10dp"
+          android:layout_marginBottom="40dp"
+          android:layout_marginTop="20dp"
           >
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -48,7 +72,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:passwordToggleEnabled="true"
-          android:layout_marginBottom="10dp"
+          android:layout_marginBottom="40dp"
           >
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -67,12 +91,43 @@
           android:id="@+id/btnLogin"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@color/colorAccent"
+          android:background="@color/colorPrimary"
           android:onClick="@{viewModel::onClickLogin}"
           android:text="@string/label_login"
           android:textColor="@android:color/white"
           android:textStyle="bold"
           />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+      <TextView
+          android:id="@+id/sign_up_hint"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/hint_register"
+          tools:text="Belum memiliki akun? "
+          android:gravity="end"/>
+
+      <TextView
+          android:id="@+id/sign_up_btn_tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:clickable="true"
+          android:focusable="true"
+          tools:text="Sign Up"
+          android:text="@string/label_register"
+          android:textColor="@color/colorPrimary"
+          android:gravity="start"/>
+
 
     </LinearLayout>
 
@@ -98,5 +153,5 @@
 
     </FrameLayout>
 
-  </FrameLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

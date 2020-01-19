@@ -4,6 +4,7 @@
   <string name="website">https://www.investorclub.id</string>
 
   <string name="label_login">Sign in</string>
+  <string name="hint_register">Anda belum memiliki akun? </string>
   <string name="label_register">Sign up</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>
