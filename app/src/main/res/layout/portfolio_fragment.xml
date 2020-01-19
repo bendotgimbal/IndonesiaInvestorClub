@@ -50,9 +50,10 @@
             />
 
         <TextView
+            android:id="@+id/ytd_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.ytdValueTv}"
+            android:text="@{viewModel.ytdPerformancesValueTv}"
             android:textColor="@android:color/white"
             android:textSize="50sp"
             android:textStyle="bold"
@@ -83,7 +84,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:gravity="end"
-          android:text="@{viewModel.yearValueTv}"
+          android:text="@{viewModel.yearPerformancesValueTv}"
           android:textColor="@android:color/white"
           android:textSize="18sp"
           android:textStyle="bold"
@@ -134,11 +135,56 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <LinearLayout
+        android:id="@+id/paging_performances_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="250dp"
+        android:orientation="horizontal"
+        android:background="@color/lightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/before_performances_btn"
+          android:clickable="@{viewModel.beforeButtonPerformancesVisibility}"
+          android:focusable="@{viewModel.beforeButtonPerformancesVisibility}"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:visibility="@{viewModel.beforeButtonPerformancesVisibility ? View.VISIBLE : View.INVISIBLE}"
+          android:onClick="@{viewModel::onButtonPerformancesBeforeClick}"
+          android:layout_weight="1"
+          app:srcCompat="@drawable/ic_navigate_before_primary"/>
+
+      <TextView
+          android:id="@+id/paging_performances_tv"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textStyle="bold"
+          android:text="@{viewModel.pageStatePerformances}"
+          tools:text="1/3"/>
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/next_performances_btn"
+          android:clickable="@{viewModel.nextButtonPerformancesVisibility}"
+          android:focusable="@{viewModel.nextButtonPerformancesVisibility}"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:visibility="@{viewModel.nextButtonPerformancesVisibility ? View.VISIBLE : View.INVISIBLE}"
+          android:onClick="@{viewModel::onButtonPerformancesNextClick}"
+          android:layout_weight="1"
+          app:srcCompat="@drawable/ic_navigate_next_primary"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portfolioslist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="400dp"
+        android:layout_marginTop="480dp"
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
