@@ -46,17 +46,25 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   private PortfolioFragmentBinding binding;
   public ObservableBoolean loadingState;
   public ObservableField<String> pageState;
+  public ObservableField<String> pageStatePerformances;
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
 
+  public ObservableBoolean beforeButtonPerformancesVisibility;
+  public ObservableBoolean nextButtonPerformancesVisibility;
+
   public ObservableField<String> yearValueTv;
   public ObservableField<String> ytdValueTv;
+
+  public ObservableField<String> yearPerformancesValueTv;
+  public ObservableField<String> ytdPerformancesValueTv;
 
   private PortfoliosAdapter adapter;
 
   public ObservableBoolean pieChartVisibility;
 
   private int PAGE = 1;
+  private int PAGEPERFORMANCE = 1;
   private PerformanceRes performanceRes;
 
   private PieChartView pieChartView;
@@ -74,8 +82,15 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
+    pageStatePerformances = new ObservableField<>("1/1");
+    beforeButtonPerformancesVisibility = new ObservableBoolean(false);
+    nextButtonPerformancesVisibility = new ObservableBoolean(true);
+
     yearValueTv = new ObservableField<>("0000");
     ytdValueTv = new ObservableField<>("0%");
+
+    yearPerformancesValueTv = new ObservableField<>("0000");
+    ytdPerformancesValueTv = new ObservableField<>("0%");
 
     pieChartVisibility = new ObservableBoolean(false);
 
@@ -234,29 +249,29 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     List<PointValue> pieData = new ArrayList<>();
 
     String jan = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
     String feb = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
     String mar = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
     String apr = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
     String may = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
     String jun = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
     String jul = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
     String aug = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
     String sep = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
     String oct = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
     String nov = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
     String dec = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
 
     pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
     pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
@@ -313,29 +328,52 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     lineChartView.setInteractive(false);
     lineChartView.setLineChartData(lineChartData);
 
-    pagingInit();
+//    pagingInit();
+    pagingPerformancesInit();
   }
 
-  private void pagingInit() {
+//  private void pagingInit() {
+//
+//    pageState.set(
+//            PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+//
+//    yearValueTv.set(performanceRes.getPerformances()
+//            .get(0)
+//            .getData()
+//            .getMonths()
+//            .get(PAGE - 1)
+//            .getYear());
+//
+//    ytdValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
+//            .get(0)
+//            .getData()
+//            .getMonths()
+//            .get(PAGE - 1)
+//            .getYtd()));
+//
+//    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
+//  }
 
-    pageState.set(
-            PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+  private void pagingPerformancesInit() {
 
-    yearValueTv.set(performanceRes.getPerformances()
+    pageStatePerformances.set(
+            PAGEPERFORMANCE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+
+    yearPerformancesValueTv.set(performanceRes.getPerformances()
             .get(0)
             .getData()
             .getMonths()
-            .get(PAGE - 1)
+            .get(PAGEPERFORMANCE - 1)
             .getYear());
 
-    ytdValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
+    ytdPerformancesValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
             .get(0)
             .getData()
             .getMonths()
-            .get(PAGE - 1)
+            .get(PAGEPERFORMANCE - 1)
             .getYtd()));
 
-    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
+    toogleButtonPerformances(performanceRes.getPerformances().get(0).getData().getMonths().size());
   }
 
   private PerformanceRes getPerformanceRes() {
@@ -359,6 +397,20 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     getPortfolio();
   }
 
+  @SuppressWarnings("unused")
+  public void onButtonPerformancesBeforeClick(View view) {
+    PAGEPERFORMANCE--;
+//    getPortfolio();
+    showLineChartPerformance(getPerformanceRes());
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonPerformancesNextClick(View view) {
+    PAGEPERFORMANCE++;
+//    getPortfolio();
+    showLineChartPerformance(getPerformanceRes());
+  }
+
   private void toogleButton(int maxPages){
     if (PAGE >= 1) {
       nextButtonVisibility.set(true);
@@ -373,6 +425,24 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       beforeButtonVisibility.set(true);
       if (maxPages == 1){
         beforeButtonVisibility.set(false);
+      }
+    }
+  }
+
+  private void toogleButtonPerformances(int maxPages){
+    if (PAGEPERFORMANCE >= 1) {
+      nextButtonPerformancesVisibility.set(true);
+      beforeButtonPerformancesVisibility.set(false);
+      if (PAGEPERFORMANCE > 1) {
+        beforeButtonPerformancesVisibility.set(true);
+      }
+    }
+
+    if (PAGEPERFORMANCE == maxPages) {
+      nextButtonPerformancesVisibility.set(false);
+      beforeButtonPerformancesVisibility.set(true);
+      if (maxPages == 1){
+        beforeButtonPerformancesVisibility.set(false);
       }
     }
   }
