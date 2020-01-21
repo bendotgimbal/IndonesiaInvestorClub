@@ -6,7 +6,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.example.indonesiainvestorclub.viewModels.PortfolioViewModel"
+        type="com.project.indonesiainvestorclub.viewModels.PortfolioViewModel"
         />
 
     <import type="android.view.View" />

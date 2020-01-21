@@ -7,11 +7,11 @@
 
         <variable
             name="obj"
-            type="com.example.indonesiainvestorclub.models.Commissions" />
+            type="com.project.indonesiainvestorclub.models.Commissions" />
 
         <variable
             name="listener"
-            type="com.example.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener" />
+            type="com.project.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener" />
 
         <import type="android.view.View" />
 

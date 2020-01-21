@@ -7,12 +7,12 @@
   <data>
     <variable
         name="obj"
-        type="com.example.indonesiainvestorclub.models.Tweets"
+        type="com.project.indonesiainvestorclub.models.Tweets"
         />
 
     <variable
         name="listener"
-        type="com.example.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener"
+        type="com.project.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener"
         />
 
     <import type="android.text.Html" />

@@ -8,12 +8,12 @@
 
     <variable
         name="obj"
-        type="com.example.indonesiainvestorclub.models.Month"
+        type="com.project.indonesiainvestorclub.models.Month"
         />
 
     <variable
         name="listener"
-        type="com.example.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener"
+        type="com.project.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener"
         />
 
     <import type="android.view.View" />

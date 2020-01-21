@@ -7,55 +7,55 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.indonesiainvestorclub.views.HomeFragment"
+        android:name="com.project.indonesiainvestorclub.views.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/home_fragment"/>
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.indonesiainvestorclub.views.ProfileFragment"
+        android:name="com.project.indonesiainvestorclub.views.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/profile_fragment"/>
 
     <fragment
         android:id="@+id/nav_transaction"
-        android:name="com.example.indonesiainvestorclub.views.TransactionsFragment"
+        android:name="com.project.indonesiainvestorclub.views.TransactionsFragment"
         android:label="@string/menu_transactions"
         tools:layout="@layout/transactions_fragment"/>
 
     <fragment
         android:id="@+id/nav_portfolio"
-        android:name="com.example.indonesiainvestorclub.views.PortfolioFragment"
+        android:name="com.project.indonesiainvestorclub.views.PortfolioFragment"
         android:label="@string/menu_portfolio"
         tools:layout="@layout/portfolio_fragment"/>
 
     <fragment
         android:id="@+id/nav_network"
-        android:name="com.example.indonesiainvestorclub.views.NetworkFragment"
+        android:name="com.project.indonesiainvestorclub.views.NetworkFragment"
         android:label="@string/menu_network"
         tools:layout="@layout/network_fragment"/>
 
     <fragment
         android:id="@+id/nav_lounge"
-        android:name="com.example.indonesiainvestorclub.views.LoungeFragment"
+        android:name="com.project.indonesiainvestorclub.views.LoungeFragment"
         android:label="@string/menu_lounge"
         tools:layout="@layout/lounge_fragment"/>
 
     <fragment
         android:id="@+id/nav_agreement"
-        android:name="com.example.indonesiainvestorclub.views.AgreementFragment"
+        android:name="com.project.indonesiainvestorclub.views.AgreementFragment"
         android:label="@string/menu_agreement"
         tools:layout="@layout/agreement_fragment"/>
 
     <fragment
         android:id="@+id/nav_funds"
-        android:name="com.example.indonesiainvestorclub.views.FundsFragment"
+        android:name="com.project.indonesiainvestorclub.views.FundsFragment"
         android:label="@string/menu_funds"
         tools:layout="@layout/funds_fragment"/>
 
     <activity
         android:id="@+id/nav_logout"
-        android:name="com.example.indonesiainvestorclub.views.LogoutActivity"
+        android:name="com.project.indonesiainvestorclub.views.LogoutActivity"
         android:label="@string/menu_logout"
         tools:layout="@layout/logout_activity" />
 
