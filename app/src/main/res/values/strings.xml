@@ -45,11 +45,19 @@
   <string name="charts_info">IIC FX 1</string>
 
   <string name="id_label">ID Number</string>
-  <string name="ref_label">Reffereal Code</string>
+  <string name="ref_label">Referral Code</string>
   <string name="email_label">E-mail</string>
   <string name="sponsor_label">Sponsor</string>
   <string name="network_label">Network</string>
   <string name="group_label">Group</string>
+
+  <string name="registration_ref_label">Referral Code</string>
+  <string name="registration_firstname_label">First Name</string>
+  <string name="registration_lastname_label">Last Name</string>
+  <string name="registration_mobilephone_label">Mobile Phone</string>
+  <string name="registration_email_label">Email</string>
+  <string name="registration_password_label">Password</string>
+  <string name="registration_retypepassword_label">Retype Password</string>
 
   <string name="invested_label">Invested</string>
   <string name="profit_label">Profit</string>

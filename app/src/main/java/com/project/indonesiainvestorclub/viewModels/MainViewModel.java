@@ -13,6 +13,7 @@ import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.project.indonesiainvestorclub.views.LoginActivity;
 import com.project.indonesiainvestorclub.views.MainActivity;
+import com.project.indonesiainvestorclub.views.SignUpActivity;
 
 public class MainViewModel extends BaseViewModelWithCallback {
 
@@ -21,6 +22,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
   private ActivityMainBinding binding;
   private NavHeaderMainBinding navHeaderMainBinding;
   public ObservableBoolean loginState;
+  public ObservableBoolean signupState;
   public ObservableBoolean loadingState;
   public ObservableField<String> email;
   public ObservableField<String> name;
@@ -32,6 +34,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
     this.navHeaderMainBinding = navHeaderMainBinding;
 
     loginState = new ObservableBoolean(false);
+    signupState = new ObservableBoolean(false);
     loadingState = new ObservableBoolean(false);
     email = new ObservableField<>("");
     name = new ObservableField<>("");
@@ -44,12 +47,14 @@ public class MainViewModel extends BaseViewModelWithCallback {
   public void start() {
     if (SharedPreferenceHelper.getLoginState()) {
       loginState.set(true);
+      signupState.set(true);
       email.set(SharedPreferenceHelper.getUserName());
       name.set(SharedPreferenceHelper.getUserRealName());
       ImageHelper.loadImage(navHeaderMainBinding.imageView, SharedPreferenceHelper.getUserAva());
       menuVisible(true);
     } else {
       loginState.set(false);
+      signupState.set(false);
       email.set("");
       name.set("");
       navHeaderMainBinding.imageView.setImageResource(R.mipmap.ic_launcher_round);
@@ -71,6 +76,12 @@ public class MainViewModel extends BaseViewModelWithCallback {
   @SuppressWarnings("unused")
   public void loginScreen(View view) {
     Intent i = new Intent(context, LoginActivity.class);
+    ((MainActivity)context).startActivityForResult(i, MainActivity.REQ_LOGIN);
+  }
+
+  @SuppressWarnings("unused")
+  public void signupScreen(View view) {
+    Intent i = new Intent(context, SignUpActivity.class);
     ((MainActivity)context).startActivityForResult(i, MainActivity.REQ_LOGIN);
   }
 
