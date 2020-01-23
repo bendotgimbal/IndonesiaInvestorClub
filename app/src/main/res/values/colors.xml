@@ -14,4 +14,7 @@
   <color name="lightPrimary">#B3FFEF</color>
 
   <color name="colorButton">#4CAF50</color>
+
+  <color name="colorRed">#D81B60</color>
+  <color name="colorGreen">#4CAF50</color>
 </resources>

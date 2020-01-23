@@ -110,5 +110,7 @@
   <string name="performance_ytd_label">Year to Date</string>
   <string name="performance_year_label">Year</string>
 
+  <string name="about_app">ABOUT INVESTORCLUB</string>
+
   <string name="minus">-</string>
 </resources>
