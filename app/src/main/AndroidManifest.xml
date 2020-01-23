@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.indonesiainvestorclub"
+    package="com.project.indonesiainvestorclub"
     android:installLocation="auto">
 
   <uses-permission android:name="android.permission.INTERNET" />
@@ -14,7 +14,7 @@
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
   <application
-      android:name=".IndonesiaInvestorClub"
+      android:name="com.project.indonesiainvestorclub.IndonesiaInvestorClub"
       android:allowBackup="true"
       android:fullBackupContent="true"
       android:icon="@mipmap/ic_investorclub"
@@ -25,7 +25,7 @@
       android:usesCleartextTraffic="true"
       tools:targetApi="m">
     <activity
-        android:name=".views.SplashActivity"
+        android:name="com.project.indonesiainvestorclub.views.SplashActivity"
         android:configChanges="keyboard"
         android:launchMode="singleTop"
         android:screenOrientation="portrait"
@@ -51,24 +51,28 @@
       </intent-filter>
     </activity>
     <activity
-        android:name=".views.MainActivity"
+        android:name="com.project.indonesiainvestorclub.views.MainActivity"
         android:label="@string/title_activity_main"
         android:theme="@style/AppTheme.NoActionBar" />
     <activity
-        android:name=".views.LoginActivity"
+        android:name="com.project.indonesiainvestorclub.views.LoginActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".views.ProfileFragment" />
-    <activity android:name=".views.AgreementFragment" />
-    <activity android:name=".views.NetworkFragment" />
-    <activity android:name=".views.TransactionsFragment" />
+    <activity android:name="com.project.indonesiainvestorclub.views.ProfileFragment" />
+    <activity android:name="com.project.indonesiainvestorclub.views.AgreementFragment" />
+    <activity android:name="com.project.indonesiainvestorclub.views.NetworkFragment" />
+    <activity android:name="com.project.indonesiainvestorclub.views.TransactionsFragment" />
     <activity
-        android:name=".views.LogoutActivity"
+        android:name="com.project.indonesiainvestorclub.views.LogoutActivity"
         android:theme="@style/AppTheme.NoActionBar"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="stateHidden" />
-    <activity android:name=".views.FundsFragment" />
-    <activity android:name=".views.InvestActivity" />
+    <activity android:name="com.project.indonesiainvestorclub.views.FundsFragment" />
+    <activity android:name="com.project.indonesiainvestorclub.views.InvestActivity" />
+    <activity
+        android:name="com.project.indonesiainvestorclub.views.SignUpActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>

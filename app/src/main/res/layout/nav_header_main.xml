@@ -7,7 +7,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.example.indonesiainvestorclub.viewModels.MainViewModel"
+        type="com.project.indonesiainvestorclub.viewModels.MainViewModel"
         />
 
     <import type="android.view.View"/>
@@ -22,6 +22,15 @@
       android:padding="20dp"
       android:theme="@style/ThemeOverlay.AppCompat.Dark"
       >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{viewModel::signupScreen}"
+        android:text="@string/label_register"
+        android:visibility="@{viewModel.signupState ? View.GONE : View.VISIBLE}"
+        android:layout_gravity="center|end"
+        tools:visibility="gone"/>
 
     <Button
         android:layout_width="wrap_content"

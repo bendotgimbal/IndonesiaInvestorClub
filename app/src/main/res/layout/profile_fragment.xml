@@ -8,7 +8,7 @@
 
     <variable
         name="viewModel"
-        type="com.example.indonesiainvestorclub.viewModels.ProfileViewModel"
+        type="com.project.indonesiainvestorclub.viewModels.ProfileViewModel"
         />
 
     <import type="android.view.View" />

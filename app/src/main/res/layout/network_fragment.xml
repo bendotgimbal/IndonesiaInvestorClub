@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.indonesiainvestorclub.viewModels.NetworkViewModel"
+            type="com.project.indonesiainvestorclub.viewModels.NetworkViewModel"
             />
 
         <import type="android.view.View" />

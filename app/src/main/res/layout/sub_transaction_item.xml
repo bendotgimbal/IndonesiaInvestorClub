@@ -7,11 +7,11 @@
 
         <variable
             name="obj"
-            type="com.example.indonesiainvestorclub.models.Transactions" />
+            type="com.project.indonesiainvestorclub.models.Transactions" />
 
         <variable
             name="listener"
-            type="com.example.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener" />
+            type="com.project.indonesiainvestorclub.interfaces.ActionInterface.AdapterItemListener" />
 
         <import type="android.view.View" />
 
@@ -102,6 +102,126 @@
                     tools:text="Invest USD Value"
                     />
 
+                <TextView
+                    android:id="@+id/invest_idr_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/invest_idr_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/invest_usd_transaction_value"
+                    tools:text="Invest IDR"
+                    />
+
+                <TextView
+                    android:id="@+id/invest_idr_transaction_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.investIDR}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/invest_idr_transaction_label"
+                    tools:text="Invest IDR Value"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_date_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dp_date_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/invest_idr_transaction_value"
+                    tools:text="DP Date"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_date_transaction_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.dPDate}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_date_transaction_label"
+                    tools:text="DP Date Value"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_amount_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dp_amount_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_date_transaction_value"
+                    tools:text="DP Amount"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_amount_transaction_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.dPAmount}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_amount_transaction_label"
+                    tools:text="DP Amount Value"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_id_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dp_id_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_amount_transaction_value"
+                    tools:text="DP ID"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_id_transaction_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.dPID}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_label"
+                    tools:text="DP ID Value"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_status_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dp_status_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_value"
+                    tools:text="DP Status"
+                    />
+
+                <TextView
+                    android:id="@+id/dp_status_transaction_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.dPStatus}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dp_status_transaction_label"
+                    tools:text="DP Status Value"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,11 +265,11 @@
                     />
 
                 <TextView
-                    android:id="@+id/end_usd_transaction_label"
+                    android:id="@+id/end_date_transaction_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/start_date_transaction_label"
+                    android:text="@string/end_date_transaction_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -158,14 +278,134 @@
                     />
 
                 <TextView
-                    android:id="@+id/end_usd_transaction_value"
+                    android:id="@+id/end_date_transaction_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{obj.endDate}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/end_usd_transaction_label"
+                    app:layout_constraintTop_toBottomOf="@id/end_date_transaction_label"
                     tools:text="End Date Value"
+                    />
+
+                <TextView
+                    android:id="@+id/status_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/status_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/end_date_transaction_value"
+                    tools:text="Status"
+                    />
+
+                <TextView
+                    android:id="@+id/status_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.status}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/status_transaction_label"
+                    tools:text="Status Value"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_date_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/wd_date_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/status_transaction_value"
+                    tools:text="WD Date"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_date_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.wDDate}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_date_transaction_label"
+                    tools:text="WD Date Value"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_amount_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/wd_amount_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_date_transaction_value"
+                    tools:text="WD Amount"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_amount_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.wDAmount}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_amount_transaction_label"
+                    tools:text="WD Amount Value"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_id_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/wd_id_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_amount_transaction_value"
+                    tools:text="WD ID"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_id_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.wDID}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_id_transaction_label"
+                    tools:text="WD ID Value"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_status_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/wd_status_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_id_transaction_value"
+                    tools:text="WD Status"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_status_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.wDStatus}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_status_transaction_label"
+                    tools:text="WD Status Value"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

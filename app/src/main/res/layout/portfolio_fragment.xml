@@ -6,7 +6,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.example.indonesiainvestorclub.viewModels.PortfolioViewModel"
+        type="com.project.indonesiainvestorclub.viewModels.PortfolioViewModel"
         />
 
     <import type="android.view.View" />
@@ -183,13 +183,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portfolioslist"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_height="0dp"
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/graphiclist"
+        app:layout_constraintTop_toBottomOf="@id/paging_performances_wrapper"
+        app:layout_constraintBottom_toTopOf="@+id/paging_wrapper"
         tools:itemCount="5"
         tools:listitem="@layout/sub_portfolio_item"
         tools:visibility="visible"
