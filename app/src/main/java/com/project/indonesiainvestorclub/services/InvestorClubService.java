@@ -26,7 +26,7 @@ public interface InvestorClubService {
   Observable<Response<LogoutRes>> logoutRequest();
 
   @PUT("register")
-  Observable<Response<SignUpRes>> signUpRequest();
+  Observable<Response<SignUpRes>> signUpRequest(@Part("referral") RequestBody referral, @Part("first_name") RequestBody first_name, @Part("last_name") RequestBody last_name, @Part("phone_no") RequestBody phone_no, @Part("email") RequestBody email, @Part("password") RequestBody password);
 
   @GET("profile")
   Observable<Response<JsonElement>> profileRequest();
