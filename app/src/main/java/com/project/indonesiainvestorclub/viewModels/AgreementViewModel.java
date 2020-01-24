@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -120,6 +121,8 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
 
       agreement.append(temp);
     }
+
+    Toast.makeText(getContext(), "Result 1 = "+response.getAgreement().get(0).getParent()+" || Result 2 = "+response.getAgreement().get(1).getParent(), Toast.LENGTH_LONG).show();
 
     agreementTx.set(agreement.toString());
   }
