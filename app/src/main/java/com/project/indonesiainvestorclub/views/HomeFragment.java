@@ -31,7 +31,7 @@ public class HomeFragment extends BaseFragment {
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
-    showAboutDialog();
+//    showAboutDialog();
     return binding.getRoot();
   }
 
