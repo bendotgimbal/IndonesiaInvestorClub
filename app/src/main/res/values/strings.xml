@@ -5,6 +5,7 @@
 
   <string name="label_login">Sign in</string>
   <string name="hint_register">Anda belum memiliki akun? </string>
+  <string name="hint_login">Anda sudah memiliki akun? </string>
   <string name="label_register">Sign up</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>
@@ -53,12 +54,12 @@
   <string name="group_label">Group</string>
 
   <string name="registration_ref_label">Referral Code</string>
-  <string name="registration_firstname_label">First Name</string>
-  <string name="registration_lastname_label">Last Name</string>
-  <string name="registration_mobilephone_label">Mobile Phone</string>
+  <string name="registration_first_name_label">First Name</string>
+  <string name="registration_last_name_label">Last Name</string>
+  <string name="registration_mobile_phone_label">Mobile Phone</string>
   <string name="registration_email_label">Email</string>
   <string name="registration_password_label">Password</string>
-  <string name="registration_retypepassword_label">Retype Password</string>
+  <string name="registration_retype_password_label">Retype Password</string>
 
   <string name="invested_label">Invested</string>
   <string name="profit_label">Profit</string>
