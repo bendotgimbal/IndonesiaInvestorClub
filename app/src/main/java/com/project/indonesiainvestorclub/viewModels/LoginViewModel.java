@@ -14,6 +14,7 @@ import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.project.indonesiainvestorclub.views.InvestActivity;
 import com.project.indonesiainvestorclub.views.LoginActivity;
+import com.project.indonesiainvestorclub.views.SignUpActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -96,7 +97,7 @@ public class LoginViewModel extends BaseViewModelWithCallback{
 
   @SuppressWarnings("unused")
   public void onButtonSignUpClick(View view) {
-    Intent intent = new Intent(context, InvestActivity.class);
+    Intent intent = new Intent(context, SignUpActivity.class);
     context.startActivity(intent);
   }
 
