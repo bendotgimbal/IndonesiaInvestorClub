@@ -37,17 +37,7 @@ public class HomeFragment extends BaseFragment {
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
-//    viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-//    final TextView textView = binding.getRoot().findViewById(R.id.about_app);
-//    viewModel.getText().observe(this, new Observer<String>() {
-//      @Override
-//      public void onChanged(String s) {
-//        textView.setText(s);
-//        Toast.makeText(getContext(), "Isi "+s, Toast.LENGTH_SHORT).show();
-//      }
-//    });
-//    Toast.makeText(getContext(), "Isi "+viewModel.getText().getValue(), Toast.LENGTH_SHORT).show();
-    showAboutDialog();
+    //showAboutDialog();
     return binding.getRoot();
   }
 

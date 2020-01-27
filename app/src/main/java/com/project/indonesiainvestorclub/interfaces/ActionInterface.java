@@ -6,4 +6,10 @@ public interface ActionInterface {
     void onClickAdapterItem(int index, T model);
   }
 
+  interface CustomDialogActionButton{
+    void onClickPositiveButton();
+
+    void onClickNegativeButton();
+  }
+
 }
