@@ -222,6 +222,8 @@ public class HomeViewModel extends BaseViewModelWithCallback
         List<Childs> childsList = new ArrayList<>();
 
         if (objAbout.has("Childs")) {
+
+          //Correction childObject get value from objAbout not from objectAbout
           JSONObject childsObject = objAbout.getJSONObject("Childs");
 
           for (int o = 1; o <= childsObject.length(); o++) {

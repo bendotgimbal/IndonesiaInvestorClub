@@ -61,12 +61,9 @@ public class HomeFragment extends BaseFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
     builder.setTitle(R.string.about_app);
     builder.setView(R.layout.about_dialog);
-    builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialogInterface, int i) {
-        // dismiss dialog
-        dialogInterface.dismiss();
-      }
+    builder.setNegativeButton("Close", (dialogInterface, i) -> {
+      // dismiss dialog
+      dialogInterface.dismiss();
     });
     builder.show();
   }
