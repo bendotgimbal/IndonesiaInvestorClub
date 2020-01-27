@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
   <data>
 
-    <import type="android.text.Html"/>
+    <import type="android.text.Html" />
 
     <variable
         name="viewModel"
-        type="com.project.indonesiainvestorclub.viewModels.SimpleMessageDialogViewModel"/>
+        type="com.project.indonesiainvestorclub.viewModels.SimpleMessageDialogViewModel"
+        />
 
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@android:color/white">
+      android:background="@android:color/white"
+      >
 
     <FrameLayout
         android:id="@+id/title_wrapper"
@@ -25,46 +28,66 @@
         android:background="@android:color/white"
         android:visibility="@{viewModel.titleVisibility}"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
       <TextView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:gravity="start|center"
-          android:paddingEnd="8dp"
           android:paddingStart="8dp"
+          android:paddingEnd="8dp"
           android:text="@{Html.fromHtml(viewModel.titleText)}"
+          android:textSize="16sp"
           tools:text="Title"
-          android:textSize="16sp"/>
+          />
 
       <View
-          android:layout_gravity="bottom"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@android:color/darker_gray"/>
+          android:layout_gravity="bottom"
+          android:background="@android:color/darker_gray"
+          />
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/dialog_hint_text"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
-        android:gravity="center|start"
-        android:paddingEnd="0dp"
-        android:paddingStart="0dp"
-        android:text="@{Html.fromHtml(viewModel.messageText)}"
-        android:visibility="@{viewModel.messageVisibility}"
+        android:layout_height="300dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_wrapper"
-        tools:text="Message"
-        android:padding="0dp"
-        android:textSize="16sp"/>
+        >
+
+      <TextView
+          android:id="@+id/dialog_hint_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginTop="18dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="22dp"
+          android:gravity="center|start"
+          android:text="@{viewModel.messageText}"
+          android:textSize="16sp"
+          android:visibility="@{viewModel.messageVisibility}"
+          tools:text="Message"
+          />
+
+    </androidx.core.widget.NestedScrollView>
+
+<!--    <View-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="@android:color/darker_gray"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        />-->
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

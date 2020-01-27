@@ -103,7 +103,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
   private void start() {
     getPerformance();
-    getAbout();
   }
 
   private void loading(boolean load) {
@@ -125,24 +124,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
             }
           }
         });
-    compositeDisposable.add(disposable);
-  }
-
-  //API CALL
-  private void getAbout() {
-    loading(true);
-
-    Disposable disposable = ServiceGenerator.service.aboutRequest()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getAbout) {
-              @Override
-              protected void onSuccess(Response<JsonElement> response) {
-                if (response.body() != null) {
-                  readAboutJSON(response.body());
-                }
-              }
-            });
     compositeDisposable.add(disposable);
   }
 
@@ -201,51 +182,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
       hideLoading();
     } catch (JSONException e) {
       Log.e(TAG, e.toString());
-      hideLoading();
-    }
-  }
-
-  private void readAboutJSON(JsonElement response) {
-    JSONObject jsonObject;
-    try {
-      AboutRes aboutRes;
-
-      jsonObject = new JSONObject(response.toString());
-      JSONObject objectAbout = jsonObject.getJSONObject("ABOUT_IIC");
-
-      List<About> about = new ArrayList<>();
-
-      for (int i = 1; i <= objectAbout.length(); i++) {
-        JSONObject objAbout = objectAbout.getJSONObject(i + "");
-
-        String parent = objAbout.getString("Parent");
-        List<Childs> childsList = new ArrayList<>();
-
-        if (objAbout.has("Childs")) {
-
-          //Correction childObject get value from objAbout not from objectAbout
-          JSONObject childsObject = objAbout.getJSONObject("Childs");
-
-          for (int o = 1; o <= childsObject.length(); o++) {
-            Childs childs = new Childs(childsObject.getString(o + ""));
-            childsList.add(childs);
-          }
-        } else {
-          Childs childs = new Childs("");
-          childsList.add(childs);
-        }
-
-        about.add(new About(parent, childsList));
-      }
-
-      aboutRes = new AboutRes(about);
-
-//        Toast.makeText(getContext(), "Result 1 = "+aboutRes.getAbout().get(0).getParent()+" || Result 2 = "+aboutRes.getAbout().get(1).getParent(), Toast.LENGTH_LONG).show();
-
-      showAbout(aboutRes);
-      hideLoading();
-    } catch (JSONException e) {
-      e.printStackTrace();
       hideLoading();
     }
   }
@@ -336,38 +272,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     pagingInit();
   }
-
-  private void showAbout(AboutRes response) {
-    hideLoading();
-    if (response == null) return;
-    if (response.getAbout() == null) return;
-    StringBuilder about = new StringBuilder();
-
-    for (int i = 0; i < response.getAbout().size(); i++) {
-
-    }
-
-    Toast.makeText(getContext(), "Result "+response.getAbout().get(0).getParent(), Toast.LENGTH_LONG).show();
-    aboutTx.set(response.getAbout().get(0).getParent());
-//    mText = new MutableLiveData<>();
-//    mText.setValue(response.getAbout().get(0).getParent());
-//      alertMessage.set(response.getAbout().get(0).getParent());
-    alertMessage.set("TEST");
-    clicksMessage.set(response.getAbout().get(0).getParent());
-
-  }
-
-//  public LiveData<String> getText() {
-//    return mText;
-//  }
-
-//  public void onBtnClick(View view) {
-//    alertMessage.set("TEST");
-//  }
-//
-//  public void onDialogOkClick(DialogInterface dialog, int which) {
-//    clicksMessage.set(++count + " clicks");
-//  }
 
   private void showLineChartPerformance(PerformanceRes performanceRes) {
     hideLoading();
