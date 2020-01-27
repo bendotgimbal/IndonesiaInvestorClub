@@ -122,7 +122,7 @@ public class AgreementViewModel extends BaseViewModelWithCallback {
       agreement.append(temp);
     }
 
-    Toast.makeText(getContext(), "Result 1 = "+response.getAgreement().get(0).getParent()+" || Result 2 = "+response.getAgreement().get(1).getParent(), Toast.LENGTH_LONG).show();
+//    Toast.makeText(getContext(), "Result 1 = "+response.getAgreement().get(0).getParent()+" || Result 2 = "+response.getAgreement().get(1).getParent(), Toast.LENGTH_LONG).show();
 
     agreementTx.set(agreement.toString());
   }

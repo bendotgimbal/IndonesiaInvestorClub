@@ -8,10 +8,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.project.indonesiainvestorclub.viewModels.HomeViewModel;
@@ -31,7 +37,17 @@ public class HomeFragment extends BaseFragment {
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
-//    showAboutDialog();
+//    viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+//    final TextView textView = binding.getRoot().findViewById(R.id.about_app);
+//    viewModel.getText().observe(this, new Observer<String>() {
+//      @Override
+//      public void onChanged(String s) {
+//        textView.setText(s);
+//        Toast.makeText(getContext(), "Isi "+s, Toast.LENGTH_SHORT).show();
+//      }
+//    });
+//    Toast.makeText(getContext(), "Isi "+viewModel.getText().getValue(), Toast.LENGTH_SHORT).show();
+    showAboutDialog();
     return binding.getRoot();
   }
 
