@@ -12,6 +12,7 @@ import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.models.response.SignUpRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
+import com.project.indonesiainvestorclub.views.LoginActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -114,6 +115,7 @@ public class SignUpViewModel extends BaseViewModelWithCallback {
     if (signupRes != null) {
 
       Toast.makeText(getContext(), "Selamat Anda Berhasil Terdaftar", Toast.LENGTH_SHORT).show();
+      ((LoginActivity)context).finish();
     }
 
   }

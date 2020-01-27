@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
@@ -11,6 +12,7 @@ import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.models.response.LoginRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
+import com.project.indonesiainvestorclub.views.InvestActivity;
 import com.project.indonesiainvestorclub.views.LoginActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -90,6 +92,12 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
       ((LoginActivity)context).finish();
     }
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonSignUpClick(View view) {
+    Intent intent = new Intent(context, InvestActivity.class);
+    context.startActivity(intent);
   }
 
   @Override

@@ -1,7 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;

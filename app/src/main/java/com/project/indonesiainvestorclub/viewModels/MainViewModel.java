@@ -82,7 +82,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
   @SuppressWarnings("unused")
   public void signupScreen(View view) {
     Intent i = new Intent(context, SignUpActivity.class);
-    ((MainActivity)context).startActivityForResult(i, MainActivity.REQ_LOGIN);
+    ((MainActivity)context).startActivityForResult(i, MainActivity.REQ_SIGNUP);
   }
 
   @SuppressWarnings("unused")

@@ -125,6 +125,7 @@
           tools:text="Sign Up"
           android:text="@string/label_register"
           android:textColor="@color/colorPrimary"
+          android:onClick="@{viewModel::onButtonSignUpClick}"
           android:gravity="start"/>
 
 
