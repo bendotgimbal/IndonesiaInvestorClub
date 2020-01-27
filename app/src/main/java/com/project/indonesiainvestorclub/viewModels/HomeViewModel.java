@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
@@ -57,6 +60,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableField<String> yearValueTv;
   public ObservableField<String> ytdValueTv;
 
+  public ObservableField<String> aboutTx;
+  private MutableLiveData<String> mText;
+  private int count = 0;
+    public ObservableField<String> alertMessage = new ObservableField<>();
+  public ObservableField<String> clicksMessage = new ObservableField<>("No clicks");
+
   public ObservableBoolean pieChartVisibility;
 
   private int PAGE = 1;
@@ -79,6 +88,8 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     yearValueTv = new ObservableField<>("0000");
     ytdValueTv = new ObservableField<>("0%");
+
+    aboutTx = new ObservableField<>("");
 
     pieChartVisibility = new ObservableBoolean(false);
 
@@ -211,7 +222,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
         List<Childs> childsList = new ArrayList<>();
 
         if (objAbout.has("Childs")) {
-          JSONObject childsObject = objectAbout.getJSONObject("Childs");
+          JSONObject childsObject = objAbout.getJSONObject("Childs");
 
           for (int o = 1; o <= childsObject.length(); o++) {
             Childs childs = new Childs(childsObject.getString(o + ""));
@@ -227,7 +238,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
       aboutRes = new AboutRes(about);
 
-        Toast.makeText(getContext(), "Result 1 = "+aboutRes.getAbout().get(0).getParent()+" || Result 2 = "+aboutRes.getAbout().get(1).getParent(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), "Result 1 = "+aboutRes.getAbout().get(0).getParent()+" || Result 2 = "+aboutRes.getAbout().get(1).getParent(), Toast.LENGTH_LONG).show();
 
       showAbout(aboutRes);
       hideLoading();
@@ -335,8 +346,26 @@ public class HomeViewModel extends BaseViewModelWithCallback
     }
 
     Toast.makeText(getContext(), "Result "+response.getAbout().get(0).getParent(), Toast.LENGTH_LONG).show();
+    aboutTx.set(response.getAbout().get(0).getParent());
+//    mText = new MutableLiveData<>();
+//    mText.setValue(response.getAbout().get(0).getParent());
+//      alertMessage.set(response.getAbout().get(0).getParent());
+    alertMessage.set("TEST");
+    clicksMessage.set(response.getAbout().get(0).getParent());
 
   }
+
+//  public LiveData<String> getText() {
+//    return mText;
+//  }
+
+//  public void onBtnClick(View view) {
+//    alertMessage.set("TEST");
+//  }
+//
+//  public void onDialogOkClick(DialogInterface dialog, int which) {
+//    clicksMessage.set(++count + " clicks");
+//  }
 
   private void showLineChartPerformance(PerformanceRes performanceRes) {
     hideLoading();
