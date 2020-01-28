@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
     private AppBarConfiguration appBarConfiguration;
 
     public static final int REQ_LOGIN = 1001;
+    public static final int REQ_SIGNUP = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

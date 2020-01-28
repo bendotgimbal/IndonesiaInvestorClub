@@ -101,6 +101,7 @@
               android:id="@+id/login_column1"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
+              android:padding="5dp"
               android:orientation="vertical"
               app:layout_constraintEnd_toStartOf="@id/login_column2"
               app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +171,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:padding="5dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/login_column1"
               app:layout_constraintTop_toTopOf="@id/login_column1"
@@ -260,6 +262,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:padding="5dp"
               app:layout_constraintEnd_toStartOf="@id/personal_column2"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/personal_label"
@@ -380,6 +383,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:padding="5dp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@id/personal_column1"
               app:layout_constraintTop_toTopOf="@id/personal_column1"
@@ -497,6 +501,128 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/personal_info_proof_id_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/square_radius_background"
+            android:elevation="1dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            tools:targetApi="lollipop"
+            >
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              >
+
+            <TextView
+                android:id="@+id/personal_info_proof_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_info_proof_id"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/proof_image_id_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_radius_background2"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/personal_info_proof_id"
+                >
+
+              <ImageView
+                  android:id="@+id/proof_image_id"
+                  android:layout_width="320dp"
+                  android:layout_height="227dp"
+                  android:layout_margin="9dp"
+                  android:adjustViewBounds="true"
+                  android:background="@drawable/square_radius_background"
+                  android:padding="3dp"
+                  android:scaleType="centerInside"
+                  tools:ignore="ContentDescription"
+                  />
+            </LinearLayout>
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/personal_info_proof_bank_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/square_radius_background"
+            android:elevation="1dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            tools:targetApi="lollipop"
+            >
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              >
+
+            <TextView
+                android:id="@+id/personal_info_proof_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_info_proof_bank"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/proof_image_bank_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_radius_background2"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/personal_info_proof_bank"
+                >
+              <ImageView
+                  android:id="@+id/proof_image_bank"
+                  android:layout_width="320dp"
+                  android:layout_height="227dp"
+                  android:layout_margin="9dp"
+                  android:adjustViewBounds="true"
+                  android:background="@drawable/square_radius_background"
+                  android:padding="3dp"
+                  android:scaleType="centerInside"
+                  tools:ignore="ContentDescription"
+                  />
+            </LinearLayout>
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
 
       </LinearLayout>
 

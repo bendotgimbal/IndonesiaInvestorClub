@@ -198,6 +198,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
     nameTx.set(profileRes.getProfile().getFirstName() + " " +profileRes.getProfile().getLastName());
+    phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
@@ -217,6 +218,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     city.set(profileRes.getProfile().getCity());
     country.set(profileRes.getProfile().getCountry());
     occupation.set(profileRes.getProfile().getOccupation());
+
+    ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
+    ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());
 
   }
 
