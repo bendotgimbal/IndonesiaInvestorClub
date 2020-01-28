@@ -54,6 +54,19 @@
   <string name="sponsor_label">Sponsor</string>
   <string name="network_label">Network</string>
   <string name="group_label">Group</string>
+  
+  <string name="first_name_label">First Name</string>
+  <string name="last_name_label">Last Name</string>
+  <string name="dob_label">DoB</string>
+  <string name="marital_status_label">Marital Status</string>
+  <string name="address_label">Alamat</string>
+  <string name="postal_code_label">Kode POS</string>
+  <string name="gender_label">Jenis Kelamin</string>
+  <string name="nationality_label">Kebangsaan</string>
+  <string name="city_label">Kota</string>
+  <string name="country_label">Negara</string>
+  <string name="occupation_label">Pekerjaan</string>
+  <string name="phone_number_label">No. Telepon</string>
 
   <string name="personal_info_proof_id">Proof of ID</string>
   <string name="personal_info_proof_bank">Proof of Bank</string>
