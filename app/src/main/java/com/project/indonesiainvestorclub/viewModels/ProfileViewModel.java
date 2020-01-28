@@ -180,6 +180,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     networkTx.set(profileRes.getLogin().getNetwork());
     grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
         + profileRes.getLogin().getGroups().get(1).getDepartment());
+
+      ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
+      ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());
   }
 
   @Override

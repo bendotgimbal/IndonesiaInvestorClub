@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.models.response;
 
+import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.FundInvest;
 import com.project.indonesiainvestorclub.models.Invest;
 import com.project.indonesiainvestorclub.models.ParticipantInvest;
@@ -101,5 +102,29 @@ public class InvestRes {
 //
 //    public void setUserInvest(UserInvest user) {
 //        this.user = user;
+//    }
+
+//    String name;
+//    Datas datas;
+//
+//    public InvestRes(String name, Datas datas) {
+//        this.name = name;
+//        this.datas = datas;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setame(String name) {
+//        this.name = name;
+//    }
+//
+//    public Datas getDatas() {
+//        return datas;
+//    }
+//
+//    public void setDatas(Datas datas) {
+//        this.datas = datas;
 //    }
 }
