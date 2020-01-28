@@ -1,26 +1,19 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
-import com.project.indonesiainvestorclub.models.About;
-import com.project.indonesiainvestorclub.models.Childs;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.Month;
 import com.project.indonesiainvestorclub.models.Performance;
-import com.project.indonesiainvestorclub.models.response.AboutRes;
 import com.project.indonesiainvestorclub.models.response.PerformanceRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;

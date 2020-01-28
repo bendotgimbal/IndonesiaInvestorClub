@@ -28,15 +28,27 @@ import retrofit2.Response;
 public class ProfileViewModel extends BaseViewModelWithCallback {
 
   private ProfileFragmentBinding binding;
-  public ObservableBoolean loadingState;
-  public ObservableField<String> idNumberTx;
-  public ObservableField<String> refCodeTx;
-  public ObservableField<String> nameTx;
-  public ObservableField<String> phoneNumberTx;
-  public ObservableField<String> emailTx;
-  public ObservableField<String> sponsorTx;
-  public ObservableField<String> networkTx;
-  public ObservableField<String> grupTx;
+  public final ObservableBoolean loadingState;
+  public final ObservableField<String> idNumberTx;
+  public final ObservableField<String> refCodeTx;
+  public final ObservableField<String> nameTx;
+  public final ObservableField<String> phoneNumberTx;
+  public final ObservableField<String> emailTx;
+  public final ObservableField<String> sponsorTx;
+  public final ObservableField<String> networkTx;
+  public final ObservableField<String> grupTx;
+
+  public final ObservableField<String> firstName;
+  public final ObservableField<String> lastName;
+  public final ObservableField<String> dob;
+  public final ObservableField<String> maritalStatus;
+  public final ObservableField<String> address;
+  public final ObservableField<String> postalCode;
+  public final ObservableField<String> gender;
+  public final ObservableField<String> nationality;
+  public final ObservableField<String> city;
+  public final ObservableField<String> country;
+  public final ObservableField<String> occupation;
 
   public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
     super(context);
@@ -51,6 +63,18 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     sponsorTx = new ObservableField<>("");
     networkTx = new ObservableField<>("");
     grupTx = new ObservableField<>("");
+
+    firstName = new ObservableField<>("");
+    lastName = new ObservableField<>("");
+    dob = new ObservableField<>("");
+    maritalStatus = new ObservableField<>("");
+    address = new ObservableField<>("");
+    postalCode = new ObservableField<>("");
+    gender = new ObservableField<>("");
+    nationality = new ObservableField<>("");
+    city = new ObservableField<>("");
+    country = new ObservableField<>("");
+    occupation = new ObservableField<>("");
 
     start();
   }
@@ -174,12 +198,26 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
     nameTx.set(profileRes.getProfile().getFirstName() + " " +profileRes.getProfile().getLastName());
-    phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
     grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
         + profileRes.getLogin().getGroups().get(1).getDepartment());
+
+
+    firstName.set(profileRes.getProfile().getFirstName());
+    lastName.set(profileRes.getProfile().getLastName());
+    dob.set(profileRes.getProfile().getDoB());
+    maritalStatus.set(profileRes.getProfile().getMaritasStatus());
+    address.set(profileRes.getProfile().getAddress());
+    postalCode.set(profileRes.getProfile().getPostalCode());
+    phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
+    gender.set(profileRes.getProfile().getGender());
+    nationality.set(profileRes.getProfile().getNationality());
+    city.set(profileRes.getProfile().getCity());
+    country.set(profileRes.getProfile().getCountry());
+    occupation.set(profileRes.getProfile().getOccupation());
+
   }
 
   @Override
