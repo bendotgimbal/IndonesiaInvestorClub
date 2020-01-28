@@ -99,6 +99,7 @@ public class LoginViewModel extends BaseViewModelWithCallback{
   public void onButtonSignUpClick(View view) {
     Intent intent = new Intent(context, SignUpActivity.class);
     context.startActivity(intent);
+    ((LoginActivity)context).finish();
   }
 
   @Override

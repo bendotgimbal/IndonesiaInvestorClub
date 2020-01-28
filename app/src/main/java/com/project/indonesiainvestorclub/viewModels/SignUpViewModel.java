@@ -15,6 +15,7 @@ import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.project.indonesiainvestorclub.views.LoginActivity;
 
+import com.project.indonesiainvestorclub.views.SignUpActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -23,6 +24,8 @@ import okhttp3.RequestBody;
 import retrofit2.Response;
 
 public class SignUpViewModel extends BaseViewModelWithCallback {
+
+  private final static String REGISTERED = "Register";
 
   private SignupActivityBinding binding;
   public ObservableBoolean loadingState;
@@ -85,22 +88,15 @@ public class SignUpViewModel extends BaseViewModelWithCallback {
   public void onClickSignUp(View view) {
     loading(true);
 
-    RequestBody referral = RequestBody.create(MediaType.parse("text/plain"), getReferralCode());
-    RequestBody first_name = RequestBody.create(MediaType.parse("text/plain"), getFirstName());
-    RequestBody last_name = RequestBody.create(MediaType.parse("text/plain"), getLastName());
-    RequestBody phone_no = RequestBody.create(MediaType.parse("text/plain"), getMobilePhone());
-    RequestBody email = RequestBody.create(MediaType.parse("text/plain"), getEmail());
-    RequestBody password = RequestBody.create(MediaType.parse("text/plain"), getPassword());
-
-    Disposable disposable = ServiceGenerator.service.signUpRequest(referral, first_name, last_name, phone_no, email, password)
+    Disposable disposable = ServiceGenerator.service.signUpRequest(getReferralCode(), getFirstName(), getLastName(), getMobilePhone(), getEmail(), getPassword())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new CallbackWrapper<Response<SignUpRes>>(this, () -> onClickSignUp(view)) {
               @Override
               protected void onSuccess(Response<SignUpRes> signupResponse) {
-                onSuccessRegister(signupResponse.body());
                 String cookie = signupResponse.headers().get("Set-Cookie");
                 StringHelper.getCookie(cookie);
+                onSuccessRegister(signupResponse.body());
               }
 
               @Override public void onNext(Response<SignUpRes> signupResResponse) {
@@ -113,10 +109,11 @@ public class SignUpViewModel extends BaseViewModelWithCallback {
   }
 
   private void onSuccessRegister(SignUpRes signupRes){
-    if (signupRes != null) {
-
+    if (signupRes != null && signupRes.getMessage().equalsIgnoreCase(REGISTERED)) {
       Toast.makeText(getContext(), "Selamat Anda Berhasil Terdaftar", Toast.LENGTH_SHORT).show();
-      ((LoginActivity)context).finish();
+      ((SignUpActivity)context).finish();
+    }else {
+      Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
     }
 
   }
@@ -125,6 +122,7 @@ public class SignUpViewModel extends BaseViewModelWithCallback {
   public void onButtonSignInClick(View view) {
     Intent intent = new Intent(context, LoginActivity.class);
     context.startActivity(intent);
+    ((SignUpActivity)context).finish();
   }
 
   @Override public void hideLoading() {
