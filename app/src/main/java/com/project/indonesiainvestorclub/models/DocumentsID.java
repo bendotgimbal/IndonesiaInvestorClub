@@ -24,4 +24,8 @@ public class DocumentsID {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public String getStatusDocumentIdTx(){
+        return "Status : "+status;
+    }
 }

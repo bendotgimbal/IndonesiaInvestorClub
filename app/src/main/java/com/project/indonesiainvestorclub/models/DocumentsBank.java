@@ -24,4 +24,8 @@ public class DocumentsBank {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public String getStatusDocumentBankTx(){
+        return "Status : "+status;
+    }
 }

@@ -502,6 +502,184 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_marginStart="15dp"
+              android:layout_marginEnd="15dp"
+              android:background="@drawable/square_radius_background"
+              android:elevation="1dp"
+              android:padding="10dp"
+              tools:targetApi="lollipop"
+              >
+
+              <TextView
+                  android:id="@+id/bank_label"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/bank_info"
+                  android:textSize="18sp"
+                  android:textStyle="bold"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  />
+
+              <LinearLayout
+                  android:id="@+id/bank_column1"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="5dp"
+                  app:layout_constraintEnd_toStartOf="@id/bank_column2"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/bank_label"
+                  >
+
+                  <TextView
+                      android:id="@+id/bank_name_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:textColor="@color/colorPrimary"
+                      android:text="@string/bank_name_label"
+                      tools:text="Bank Name"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_name_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankNameTx}"
+                      tools:text="Bank Name Value"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_accname_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_accname_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="AccName"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_accname_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankAccNameTx}"
+                      tools:text="AccName Value"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_accno_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_accno_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="AccNo"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_accno_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankAccNoTx}"
+                      tools:text="AccNo Value"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_branch_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_branch_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="Branch"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_branch_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankBranchTx}"
+                      tools:text="Branch Value"
+                      />
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:id="@+id/bank_column2"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="5dp"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toEndOf="@id/bank_column1"
+                  app:layout_constraintTop_toTopOf="@id/bank_column1"
+                  >
+
+                  <TextView
+                      android:id="@+id/bank_address_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_address_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="Address"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_address_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankAddressTx}"
+                      tools:text="Address Value"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_swiftcode_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_swiftcode_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="SwiftCode"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_swiftcode_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankSwiftCodeTx}"
+                      tools:text="SwiftCode Value"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_status_label"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:text="@string/bank_status_label"
+                      android:textColor="@color/colorPrimary"
+                      tools:text="Status"
+                      />
+
+                  <TextView
+                      android:id="@+id/bank_status_value"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@{viewModel.bankStatusTx}"
+                      tools:text="Status Value"
+                      />
+
+              </LinearLayout>
+
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/personal_info_proof_id_wrapper"
             android:layout_width="match_parent"
@@ -533,10 +711,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
+            <TextView
+                android:id="@+id/proof_id_document_status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.documentIdStatusTx}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/personal_info_proof_id"
+                tools:text="Document ID Status Value"
+                />
+
             <LinearLayout
                 android:id="@+id/proof_image_id_wrapper"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/square_radius_background2"
                 android:gravity="center|top"
                 android:orientation="vertical"
@@ -594,10 +783,21 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
 
+            <TextView
+                android:id="@+id/proof_bank_document_status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.documentBankStatusTx}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/personal_info_proof_bank"
+                tools:text="Document Bank Status Value"
+                />
+
             <LinearLayout
                 android:id="@+id/proof_image_bank_wrapper"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/square_radius_background2"
                 android:gravity="center|top"
                 android:orientation="vertical"

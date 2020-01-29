@@ -50,6 +50,17 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
   public final ObservableField<String> country;
   public final ObservableField<String> occupation;
 
+    public final ObservableField<String> bankNameTx;
+    public final ObservableField<String> bankAccNameTx;
+    public final ObservableField<String> bankAccNoTx;
+    public final ObservableField<String> bankBranchTx;
+    public final ObservableField<String> bankAddressTx;
+    public final ObservableField<String> bankSwiftCodeTx;
+    public final ObservableField<String> bankStatusTx;
+
+    public final ObservableField<String> documentIdStatusTx;
+    public final ObservableField<String> documentBankStatusTx;
+
   public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
     super(context);
     this.binding = binding;
@@ -75,6 +86,17 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     city = new ObservableField<>("");
     country = new ObservableField<>("");
     occupation = new ObservableField<>("");
+
+      bankNameTx = new ObservableField<>("");
+      bankAccNameTx = new ObservableField<>("");
+      bankAccNoTx = new ObservableField<>("");
+      bankBranchTx = new ObservableField<>("");
+      bankAddressTx = new ObservableField<>("");
+      bankSwiftCodeTx = new ObservableField<>("");
+      bankStatusTx = new ObservableField<>("");
+
+      documentIdStatusTx = new ObservableField<>("");
+      documentBankStatusTx = new ObservableField<>("");
 
     start();
   }
@@ -218,6 +240,17 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     city.set(profileRes.getProfile().getCity());
     country.set(profileRes.getProfile().getCountry());
     occupation.set(profileRes.getProfile().getOccupation());
+
+      bankNameTx.set(profileRes.getBank().getName());
+      bankAccNameTx.set(profileRes.getBank().getAccName());
+      bankAccNoTx.set(profileRes.getBank().getAccNo());
+      bankBranchTx.set(profileRes.getBank().getBranch());
+      bankAddressTx.set(profileRes.getBank().getAddress());
+      bankSwiftCodeTx.set(profileRes.getBank().getSwiftCode());
+      bankStatusTx.set(profileRes.getBank().getStatus());
+
+      documentIdStatusTx.set(profileRes.getDocuments().getDocumentID().getStatusDocumentIdTx());
+      documentBankStatusTx.set(profileRes.getDocuments().getDocumentBank().getStatusDocumentBankTx());
 
     ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
     ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());

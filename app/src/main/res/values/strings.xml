@@ -68,6 +68,15 @@
   <string name="occupation_label">Pekerjaan</string>
   <string name="phone_number_label">No. Telepon</string>
 
+  <string name="bank_info">Bank Info</string>
+  <string name="bank_name_label">Name</string>
+  <string name="bank_accname_label">AccName</string>
+  <string name="bank_accno_label">AccNo</string>
+  <string name="bank_branch_label">Branch</string>
+  <string name="bank_address_label">Address</string>
+  <string name="bank_swiftcode_label">SwiftCode</string>
+  <string name="bank_status_label">Status</string>
+
   <string name="personal_info_proof_id">Proof of ID</string>
   <string name="personal_info_proof_bank">Proof of Bank</string>
 
