@@ -14,6 +14,7 @@ public class SharedPreferenceHelper {
 
   //CHILD
   private static final String LOGIN_STATE = "login_state";
+  private static final String ABOUT_STATE = "about_state";
   private static final String TOKEN = "token";
   private static final String COOKIE = "cookie";
   private static final String USER_NAME = "user_name";
@@ -108,6 +109,15 @@ public class SharedPreferenceHelper {
   public static String getUserAva() {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(USER_AVA, "");
+  }
+
+  public static void setAboutPopup(boolean about) {
+    if (getApplicationPreferences() == null) return;
+    getApplicationPreferences().edit().putBoolean(ABOUT_STATE, about).apply();
+  }
+
+  public static boolean getAboutPopup() {
+    return getApplicationPreferences() != null && getApplicationPreferences().getBoolean(ABOUT_STATE, false);
   }
 
 }

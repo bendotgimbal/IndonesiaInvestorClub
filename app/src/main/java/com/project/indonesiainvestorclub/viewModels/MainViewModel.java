@@ -13,6 +13,7 @@ import com.project.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.project.indonesiainvestorclub.databinding.NavHeaderMainBinding;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
+import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.About;
 import com.project.indonesiainvestorclub.models.Childs;
 import com.project.indonesiainvestorclub.models.response.AboutRes;
@@ -30,7 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Response;
 
-public class MainViewModel extends BaseViewModelWithCallback {
+public class MainViewModel extends BaseViewModelWithCallback implements ActionInterface.CustomDialogActionButton {
 
   private static final String TAG = MainViewModel.class.getCanonicalName();
 
@@ -76,7 +77,9 @@ public class MainViewModel extends BaseViewModelWithCallback {
       menuVisible(false);
     }
 
-    getAbout();
+    if (SharedPreferenceHelper.getAboutPopup()){
+      getAbout();
+    }
   }
 
   //API CALL
@@ -161,9 +164,10 @@ public class MainViewModel extends BaseViewModelWithCallback {
       about.append(temp);
     }
 
-    ((MainActivity)getContext()).showAlertDialog("Warnings", about.toString());
+    ((MainActivity)getContext()).showAlertDialog("Warnings", about.toString(), this);
 
   }
+
 
   private void menuVisible(boolean visible) {
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
@@ -204,5 +208,13 @@ public class MainViewModel extends BaseViewModelWithCallback {
   @Override
   public void hideLoading() {
     loading(false);
+  }
+
+  @Override public void onClickPositiveButton() {
+    SharedPreferenceHelper.setAboutPopup(true);
+  }
+
+  @Override public void onClickNegativeButton() {
+
   }
 }

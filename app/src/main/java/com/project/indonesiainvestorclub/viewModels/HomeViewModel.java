@@ -7,11 +7,13 @@ import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.project.indonesiainvestorclub.adapter.PerformanceListviewAdapter;
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.Month;
+import com.project.indonesiainvestorclub.models.Monthly;
 import com.project.indonesiainvestorclub.models.Performance;
 import com.project.indonesiainvestorclub.models.response.PerformanceRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
@@ -69,6 +71,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
   private LineChartView lineChartView;
   private LineChartData lineChartData;
 
+  private ArrayList<Monthly> monthlies;
+  private PerformanceListviewAdapter simpleAdapter;
+
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
     this.binding = binding;
@@ -89,6 +94,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     pieChartView = binding.chart;
     lineChartView = binding.chartLine;
+
+    monthlies = new ArrayList<>();
+    simpleAdapter = new PerformanceListviewAdapter(getContext(), monthlies);
+    binding.yearData.setAdapter(simpleAdapter);
+    binding.yearData.setDividerHeight(5);
+    binding.yearData.setDivider(null);
 
     start();
   }
@@ -313,12 +324,29 @@ public class HomeViewModel extends BaseViewModelWithCallback
     pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
     pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
 
+    simpleAdapter.clear();
+
+    simpleAdapter.add(new Monthly("JANUARY", jan));
+    simpleAdapter.add(new Monthly("FEBRUARY", feb));
+    simpleAdapter.add(new Monthly("MARCH", mar));
+    simpleAdapter.add(new Monthly("APRIL", apr));
+    simpleAdapter.add(new Monthly("MAY", may));
+    simpleAdapter.add(new Monthly("JUNE", jun));
+    simpleAdapter.add(new Monthly("JULY", jul));
+    simpleAdapter.add(new Monthly("AUGUST", aug));
+    simpleAdapter.add(new Monthly("SEPTEMBER", sep));
+    simpleAdapter.add(new Monthly("OCTOBER", oct));
+    simpleAdapter.add(new Monthly("NOVEMBER", nov));
+    simpleAdapter.add(new Monthly("DESEMBER", dec));
+
+    simpleAdapter.notifyDataSetChanged();
+
     Line line = new Line(pieData);
-    //line.setColor(Color.parseColor("#57DAC6"));
-    line.setColor(Color.WHITE);
+    line.setColor(Color.parseColor("#57DAC6"));
+    //line.setColor(Color.WHITE);
     line.setShape(ValueShape.CIRCLE);
-    //line.setPointColor(Color.parseColor("#57DAC6"));
-    line.setPointColor(Color.WHITE);
+    line.setPointColor(Color.parseColor("#57DAC6"));
+    //line.setPointColor(Color.WHITE);
     line.setCubic(false);
     line.setFilled(true);
     line.setHasLabels(false);
@@ -345,8 +373,8 @@ public class HomeViewModel extends BaseViewModelWithCallback
     values.add(new AxisValue(10, "NOV".toCharArray()));
     values.add(new AxisValue(11, "DES".toCharArray()));
 
-    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.WHITE);
-    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.WHITE);
+    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.parseColor("#57DAC6"));
+    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.parseColor("#57DAC6"));
     lineChartData.setAxisXBottom(axisX);
     lineChartData.setAxisYLeft(axisY);
 

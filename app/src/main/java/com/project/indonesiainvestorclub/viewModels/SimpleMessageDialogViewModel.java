@@ -96,4 +96,41 @@ public class SimpleMessageDialogViewModel extends BaseViewModel {
     }
   }
 
+  public void show(@Nullable String title, @Nullable String message, @Nullable ActionInterface.CustomDialogActionButton listener) {
+    titleVisibility.set(View.GONE);
+    titleText.set("");
+
+    messageVisibility.set(View.GONE);
+    messageText.set("");
+
+    if (title != null) {
+      titleText.set(title);
+      titleVisibility.set(View.VISIBLE);
+    }
+
+    if (message != null) {
+      messageText.set(message);
+      messageVisibility.set(View.VISIBLE);
+    }
+
+    PopUpBox popUpBox = PopUpBox.newInstance(getContext())
+        .withDuration(0)
+        .withCustomView(view)
+        .withCancelable(interupable)
+        .withPositiveButton(getContext().getString(R.string.label_ok), (dialog, which) -> {
+          if (listener != null){
+            listener.onClickPositiveButton();
+          }
+          dialog.dismiss();
+          if (finish) ((BaseActivity) getContext()).finish();
+        });
+    if (alertDialog != null) alertDialog.dismiss();
+    try {
+      alertDialog = popUpBox.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+      ((BaseActivity) context).showToast("Terjadi kesalahan", Toast.LENGTH_LONG);
+    }
+  }
+
 }
