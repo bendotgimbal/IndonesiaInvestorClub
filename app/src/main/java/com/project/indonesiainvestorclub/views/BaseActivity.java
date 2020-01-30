@@ -5,6 +5,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.viewModels.SimpleMessageDialogViewModel;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -28,8 +29,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     toast.show();
   }
 
+  @SuppressWarnings("unused")
   public void showAlertDialog(@NonNull String title, @NonNull String message) {
     simpleMessageDialogViewModel.show(title, message);
+  }
+
+  public void showAlertDialog(@NonNull String title, @NonNull String message, @NonNull
+      ActionInterface.CustomDialogActionButton listener){
+    simpleMessageDialogViewModel.show(title, message, listener);
   }
 
 }

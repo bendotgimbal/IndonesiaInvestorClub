@@ -2,9 +2,13 @@ package com.project.indonesiainvestorclub.views;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -28,7 +32,13 @@ public class SplashActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.splash_activity);
 
-    mImg = (ImageView)findViewById(R.id.imageView);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      Window window = getWindow();
+      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      window.setStatusBarColor(Color.parseColor("#FFFFFF"));
+    }
+
+    mImg = findViewById(R.id.imageView);
     mTextView = findViewById(R.id.textView);
     mProgressBar = findViewById(R.id.progressBar);
     i = mProgressBar.getProgress();

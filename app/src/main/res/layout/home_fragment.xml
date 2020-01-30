@@ -20,46 +20,75 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_primary_gradient"
         app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
 
-      <LinearLayout
-          android:id="@+id/fund_wrapper"
-          android:layout_width="0dp"
+<!--      <LinearLayout-->
+<!--          android:id="@+id/fund_wrapper"-->
+<!--          android:layout_width="0dp"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:padding="10dp"-->
+<!--          android:orientation="vertical"-->
+<!--          android:gravity="center"-->
+<!--          app:layout_constraintEnd_toEndOf="parent"-->
+<!--          app:layout_constraintStart_toStartOf="parent"-->
+<!--          app:layout_constraintTop_toTopOf="parent"-->
+<!--          >-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/performance_ytd_label"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="14sp"-->
+<!--            tools:text="Year To Date"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@{viewModel.ytdValueTv}"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="30sp"-->
+<!--            android:textStyle="bold"-->
+<!--            tools:text="99.9%"-->
+<!--            />-->
+
+
+<!--      </LinearLayout>-->
+
+
+      <TextView
+          android:id="@+id/ytd_label"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="10dp"
-          android:orientation="vertical"
-          android:gravity="center"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:text="@string/performance_ytd_label"
+          android:textColor="@color/colorPrimary"
+          android:textSize="14sp"
+          tools:text="Year To Date"
+          android:layout_marginStart="10dp"
+          android:layout_marginLeft="10dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          >
+          />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/performance_ytd_label"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            tools:text="Year To Date"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.ytdValueTv}"
-            android:textColor="@android:color/white"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            tools:text="99.9%"
-            />
-
-
-      </LinearLayout>
+      <TextView
+          android:id="@+id/ytd_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@{viewModel.ytdValueTv}"
+          android:textColor="@color/colorPrimary"
+          android:textSize="30sp"
+          android:textStyle="bold"
+          tools:text="99.9%"
+          android:layout_marginStart="10dp"
+          android:layout_marginLeft="10dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/ytd_label"
+          />
 
       <TextView
           android:id="@+id/year_label"
@@ -67,12 +96,12 @@
           android:layout_height="wrap_content"
           android:gravity="end"
           android:text="@string/performance_year_label"
-          android:textColor="@android:color/white"
+          android:textColor="@color/colorPrimary"
           android:textSize="14sp"
           android:layout_marginEnd="10dp"
           android:layout_marginRight="10dp"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/fund_wrapper"
+          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toTopOf="@id/year_value"
           tools:text="Year"
           />
@@ -83,14 +112,13 @@
           android:layout_height="wrap_content"
           android:gravity="end"
           android:text="@{viewModel.yearValueTv}"
-          android:textColor="@android:color/white"
+          android:textColor="@color/colorPrimary"
           android:textSize="18sp"
           android:textStyle="bold"
           android:layout_marginEnd="10dp"
           android:layout_marginRight="10dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/year_label"
-          app:layout_constraintBottom_toTopOf="@id/chartLine"
           tools:text="1999"
           />
 
@@ -117,7 +145,7 @@
           android:visibility="@{viewModel.pieChartVisibility ? View.GONE : View.VISIBLE}"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/year_value"
+          app:layout_constraintTop_toBottomOf="@id/ytd_value"
           tools:visibility="visible"
           />
 
@@ -125,10 +153,12 @@
           android:id="@+id/year_data"
           android:layout_width="0dp"
           android:layout_height="0dp"
+          android:layout_marginBottom="10dp"
           app:layout_constraintTop_toBottomOf="@id/chartLine"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          tools:listitem="@layout/sub_performance_listview"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
