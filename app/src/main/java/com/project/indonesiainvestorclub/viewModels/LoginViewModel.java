@@ -12,7 +12,6 @@ import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.models.response.LoginRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
-import com.project.indonesiainvestorclub.views.InvestActivity;
 import com.project.indonesiainvestorclub.views.LoginActivity;
 import com.project.indonesiainvestorclub.views.SignUpActivity;
 
