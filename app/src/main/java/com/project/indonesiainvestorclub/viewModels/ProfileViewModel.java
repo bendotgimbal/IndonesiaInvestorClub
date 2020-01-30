@@ -302,7 +302,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     intent.putExtra("addressStr", addressStr);
     intent.putExtra("cityStr", cityStr);
     intent.putExtra("postalCodeStr", postalCodeStr);
-    intent.putExtra("cityStr", cityStr);
+    intent.putExtra("countryStr", countryStr);
     intent.putExtra("phoneNumberStr", phoneNumberStr);
     intent.putExtra("occupationStr", occupationStr);
       context.startActivity(intent);

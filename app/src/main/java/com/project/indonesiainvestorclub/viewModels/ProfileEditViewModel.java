@@ -14,6 +14,16 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
     public ObservableBoolean loadingState;
     public ObservableField<String> firstNameValueTx;
     public ObservableField<String> lastNameValueTx;
+    public ObservableField<String> dobValueTx;
+    public ObservableField<String> maritalStatusValueTx;
+    public ObservableField<String> addressValueTx;
+    public ObservableField<String> postalCodeValueTx;
+    public ObservableField<String> genderValueTx;
+    public ObservableField<String> nationalityValueTx;
+    public ObservableField<String> cityValueTx;
+    public ObservableField<String> countryValueTx;
+    public ObservableField<String> phoneNumberValueTx;
+    public ObservableField<String> occupationValueTx;
 
     private String firstNameValueStr;
 
@@ -23,6 +33,16 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
 
         firstNameValueTx = new ObservableField<>("");
         lastNameValueTx = new ObservableField<>("");
+        dobValueTx = new ObservableField<>("");
+        maritalStatusValueTx = new ObservableField<>("");
+        addressValueTx = new ObservableField<>("");
+        postalCodeValueTx = new ObservableField<>("");
+        genderValueTx = new ObservableField<>("");
+        nationalityValueTx = new ObservableField<>("");
+        cityValueTx = new ObservableField<>("");
+        countryValueTx = new ObservableField<>("");
+        phoneNumberValueTx = new ObservableField<>("");
+        occupationValueTx = new ObservableField<>("");
 
     }
 
@@ -35,6 +55,17 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
 
         firstNameValueTx.set(firstNameStr);
         lastNameValueTx.set(lastNameStr);
+        dobValueTx.set(dobStr);
+        maritalStatusValueTx.set(maritalStatusStr);
+        addressValueTx.set(addressStr);
+        postalCodeValueTx.set(postalCodeStr);
+        genderValueTx.set(genderStr);
+        nationalityValueTx.set(nationalityStr);
+        cityValueTx.set(cityStr);
+        countryValueTx.set(countryStr);
+        phoneNumberValueTx.set(phoneNumberStr);
+        occupationValueTx.set(occupationStr);
+
         firstNameValueStr = firstNameStr;
         Toast.makeText(context, "First Name "+firstNameValueStr, Toast.LENGTH_SHORT).show();
 
