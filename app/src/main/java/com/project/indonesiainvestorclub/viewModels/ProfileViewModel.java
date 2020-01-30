@@ -1,6 +1,10 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.project.indonesiainvestorclub.databinding.ProfileFragmentBinding;
@@ -16,6 +20,8 @@ import com.project.indonesiainvestorclub.models.response.ProfileRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.views.ProfileEditActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
@@ -60,6 +66,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
     public final ObservableField<String> documentIdStatusTx;
     public final ObservableField<String> documentBankStatusTx;
+
+  private String firstNameStr;
+  private String lastNameStr;
 
   public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
     super(context);
@@ -173,6 +182,9 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
           profileObj.getString("Occupation")
       );
 
+      firstNameStr = profileObj.getString("FirstName");
+      lastNameStr = profileObj.getString("LastName");
+
       //BANK
       JSONObject bankObj = jsonObject.getJSONObject("Bank");
       Bank bank = new Bank(
@@ -255,6 +267,14 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
     ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());
 
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonEditInfoPersonalClick(View view) {
+    Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(context, ProfileEditActivity.class);
+    intent.putExtra("firstNameStr", firstNameStr);
+      context.startActivity(intent);
   }
 
   @Override
