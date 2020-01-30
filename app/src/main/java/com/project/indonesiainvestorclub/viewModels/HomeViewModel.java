@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
 
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
@@ -54,9 +53,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableField<String> ytdValueTv;
 
   public ObservableField<String> aboutTx;
-  private MutableLiveData<String> mText;
   private int count = 0;
-    public ObservableField<String> alertMessage = new ObservableField<>();
+
+  public ObservableField<String> alertMessage = new ObservableField<>();
   public ObservableField<String> clicksMessage = new ObservableField<>("No clicks");
 
   public ObservableBoolean pieChartVisibility;

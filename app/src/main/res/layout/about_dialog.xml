@@ -3,57 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
-    <data>
-        <variable
-            name="viewModel"
-            type="com.project.indonesiainvestorclub.viewModels.HomeViewModel"
-            />
+  <data>
+    <variable
+        name="viewModel"
+        type="com.project.indonesiainvestorclub.viewModels.HomeViewModel"
+        />
 
-        <import type="android.view.View" />
-    </data>
+    <import type="android.view.View" />
+  </data>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="16dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:alertMessage="@={viewModel.alertMessage}"-->
-<!--        app:alertPositiveButtonOnClick="@{viewModel::onDialogOkClick}">-->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="16dp"
+      app:alertMessage="@={viewModel.alertMessage}"
+      >
 
-<!--&lt;!&ndash;        <ImageView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:contentDescription="@string/app_name"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="100dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/app_logo"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:src="@mipmap/ic_launcher"/>&ndash;&gt;-->
-
-<!--&lt;!&ndash;        <Button&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/button"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="CLICK ME"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:onClick="@{viewModel::onBtnClick}" />&ndash;&gt;-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/about_app"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{viewModel.clicksMessage}"-->
-<!--            tools:text="@string/about_app"/>-->
-<!--    </LinearLayout>-->
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/about_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="vertical"
-        app:alertMessage="@={viewModel.alertMessage}">
+        android:text="@{viewModel.clicksMessage}"
+        tools:text="@string/about_app"
+        />
 
-        <TextView
-            android:id="@+id/about_app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.clicksMessage}"
-            tools:text="@string/about_app"/>
-    </LinearLayout>
+  </LinearLayout>
 </layout>
