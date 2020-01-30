@@ -1,6 +1,10 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.project.indonesiainvestorclub.databinding.ProfileFragmentBinding;
@@ -16,6 +20,8 @@ import com.project.indonesiainvestorclub.models.response.ProfileRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.views.ProfileEditActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
@@ -60,6 +66,19 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
     public final ObservableField<String> documentIdStatusTx;
     public final ObservableField<String> documentBankStatusTx;
+
+  private String firstNameStr;
+  private String lastNameStr;
+  private String dobStr;
+  private String maritalStatusStr;
+  private String addressStr;
+  private String postalCodeStr;
+  private String genderStr;
+  private String nationalityStr;
+  private String cityStr;
+  private String countryStr;
+  private String phoneNumberStr;
+  private String occupationStr;
 
   public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
     super(context);
@@ -173,6 +192,19 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
           profileObj.getString("Occupation")
       );
 
+      firstNameStr = profileObj.getString("FirstName");
+      lastNameStr = profileObj.getString("LastName");
+      dobStr = profileObj.getString("DoB");
+      genderStr = profileObj.getString("Gender");
+      maritalStatusStr = profileObj.getString("MaritasStatus");
+      nationalityStr = profileObj.getString("Nationality");
+      addressStr = profileObj.getString("Address");
+      cityStr = profileObj.getString("City");
+      postalCodeStr = profileObj.getString("PostalCode");
+      countryStr = profileObj.getString("Country");
+      phoneNumberStr = profileObj.getString("PhoneNo");
+      occupationStr = profileObj.getString("Occupation");
+
       //BANK
       JSONObject bankObj = jsonObject.getJSONObject("Bank");
       Bank bank = new Bank(
@@ -255,6 +287,25 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
     ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());
 
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonEditInfoPersonalClick(View view) {
+    Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
+      Intent intent = new Intent(context, ProfileEditActivity.class);
+    intent.putExtra("firstNameStr", firstNameStr);
+    intent.putExtra("lastNameStr", lastNameStr);
+    intent.putExtra("dobStr", dobStr);
+    intent.putExtra("genderStr", genderStr);
+    intent.putExtra("maritalStatusStr", maritalStatusStr);
+    intent.putExtra("nationalityStr", nationalityStr);
+    intent.putExtra("addressStr", addressStr);
+    intent.putExtra("cityStr", cityStr);
+    intent.putExtra("postalCodeStr", postalCodeStr);
+    intent.putExtra("cityStr", cityStr);
+    intent.putExtra("phoneNumberStr", phoneNumberStr);
+    intent.putExtra("occupationStr", occupationStr);
+      context.startActivity(intent);
   }
 
   @Override

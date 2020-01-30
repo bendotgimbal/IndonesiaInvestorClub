@@ -257,6 +257,21 @@
               app:layout_constraintTop_toTopOf="parent"
               />
 
+          <TextView
+              android:id="@+id/edit_label"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:layout_marginLeft="300dp"
+              android:textSize="18sp"
+              android:text="@string/edit_label"
+              android:textColor="@color/colorPrimary"
+              android:onClick="@{viewModel::onButtonEditInfoPersonalClick}"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              tools:text="Edit"
+              />
+
           <LinearLayout
               android:id="@+id/personal_column1"
               android:layout_width="0dp"

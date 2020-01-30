@@ -7,6 +7,7 @@
   <string name="hint_register">Anda belum memiliki akun? </string>
   <string name="hint_login">Anda sudah memiliki akun? </string>
   <string name="label_register">Sign up</string>
+  <string name="label_profile_edit">Edit Profile</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>
   <string name="title_activity_main">MainActivity</string>
@@ -142,4 +143,17 @@
   <string name="about_app">ABOUT INVESTORCLUB</string>
 
   <string name="minus">-</string>
+  <string name="edit_label">Edit</string>
+  <string name="edit_first_name_label">First Name</string>
+  <string name="edit_last_name_label">Last Name</string>
+  <string name="edit_dob_label">Date Of Birth</string>
+  <string name="edit_gender_label">Gender</string>
+  <string name="edit_marital_status_label">Marital Status</string>
+  <string name="edit_nationality_label">Nationality</string>
+  <string name="edit_address_label">Address</string>
+  <string name="edit_city_label">City</string>
+  <string name="edit_postal_code_label">Postal Code</string>
+  <string name="edit_country_label">Country</string>
+  <string name="edit_phone_number_label">Phone Number</string>
+  <string name="edit_occupation_label">Occupation</string>
 </resources>
