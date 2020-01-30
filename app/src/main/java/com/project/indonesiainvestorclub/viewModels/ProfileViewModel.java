@@ -69,6 +69,16 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   private String firstNameStr;
   private String lastNameStr;
+  private String dobStr;
+  private String maritalStatusStr;
+  private String addressStr;
+  private String postalCodeStr;
+  private String genderStr;
+  private String nationalityStr;
+  private String cityStr;
+  private String countryStr;
+  private String phoneNumberStr;
+  private String occupationStr;
 
   public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
     super(context);
@@ -184,6 +194,16 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
       firstNameStr = profileObj.getString("FirstName");
       lastNameStr = profileObj.getString("LastName");
+      dobStr = profileObj.getString("DoB");
+      genderStr = profileObj.getString("Gender");
+      maritalStatusStr = profileObj.getString("MaritasStatus");
+      nationalityStr = profileObj.getString("Nationality");
+      addressStr = profileObj.getString("Address");
+      cityStr = profileObj.getString("City");
+      postalCodeStr = profileObj.getString("PostalCode");
+      countryStr = profileObj.getString("Country");
+      phoneNumberStr = profileObj.getString("PhoneNo");
+      occupationStr = profileObj.getString("Occupation");
 
       //BANK
       JSONObject bankObj = jsonObject.getJSONObject("Bank");
@@ -274,6 +294,17 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
       Intent intent = new Intent(context, ProfileEditActivity.class);
     intent.putExtra("firstNameStr", firstNameStr);
+    intent.putExtra("lastNameStr", lastNameStr);
+    intent.putExtra("dobStr", dobStr);
+    intent.putExtra("genderStr", genderStr);
+    intent.putExtra("maritalStatusStr", maritalStatusStr);
+    intent.putExtra("nationalityStr", nationalityStr);
+    intent.putExtra("addressStr", addressStr);
+    intent.putExtra("cityStr", cityStr);
+    intent.putExtra("postalCodeStr", postalCodeStr);
+    intent.putExtra("cityStr", cityStr);
+    intent.putExtra("phoneNumberStr", phoneNumberStr);
+    intent.putExtra("occupationStr", occupationStr);
       context.startActivity(intent);
   }
 

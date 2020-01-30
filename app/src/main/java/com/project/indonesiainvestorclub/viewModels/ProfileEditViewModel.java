@@ -13,6 +13,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
     private ProfileEditActivityBinding binding;
     public ObservableBoolean loadingState;
     public ObservableField<String> firstNameValueTx;
+    public ObservableField<String> lastNameValueTx;
 
     private String firstNameValueStr;
 
@@ -20,16 +21,20 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
         super(context);
         this.binding = binding;
 
+        firstNameValueTx = new ObservableField<>("");
+        lastNameValueTx = new ObservableField<>("");
+
     }
 
     private void loading(boolean load){
         loadingState.set(load);
     }
 
-    public void profileEditActivity(String firstNameStr){
-        hideLoading();
+    public void start(String firstNameStr, String lastNameStr, String dobStr, String maritalStatusStr, String addressStr, String postalCodeStr, String genderStr, String nationalityStr, String cityStr, String countryStr, String phoneNumberStr, String occupationStr){
+//        hideLoading();
 
-        firstNameValueTx.set("First Name "+firstNameStr);
+        firstNameValueTx.set(firstNameStr);
+        lastNameValueTx.set(lastNameStr);
         firstNameValueStr = firstNameStr;
         Toast.makeText(context, "First Name "+firstNameValueStr, Toast.LENGTH_SHORT).show();
 

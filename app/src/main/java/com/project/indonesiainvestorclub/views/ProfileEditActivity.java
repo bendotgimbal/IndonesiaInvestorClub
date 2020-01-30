@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -13,16 +14,42 @@ public class ProfileEditActivity extends BaseActivity {
     private ProfileEditActivityBinding binding;
     private ProfileEditViewModel viewModel;
     String firstNameStr;
+    String lastNameStr;
+    String dobStr;
+    String maritalStatusStr;
+    String addressStr;
+    String postalCodeStr;
+    String genderStr;
+    String nationalityStr;
+    String cityStr;
+    String countryStr;
+    String phoneNumberStr;
+    String occupationStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_edit_activity);
 
-        Bundle extras = getIntent().getExtras();
+//        if (getIntent().hasExtra("firstNameStr")) {
+//            viewModel.start(getIntent().getStringExtra("firstNameStr"));
+//        }
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
         firstNameStr = extras.getString("firstNameStr");
+        lastNameStr = extras.getString("lastNameStr");
+        dobStr = extras.getString("dobStr");
+        maritalStatusStr = extras.getString("maritalStatusStr");
+        addressStr = extras.getString("addressStr");
+        postalCodeStr = extras.getString("postalCodeStr");
+        genderStr = extras.getString("genderStr");
+        nationalityStr = extras.getString("nationalityStr");
+        cityStr = extras.getString("cityStr");
+        countryStr = extras.getString("countryStr");
+        phoneNumberStr = extras.getString("phoneNumberStr");
+        occupationStr = extras.getString("occupationStr");
 
-        viewModel.profileEditActivity(firstNameStr);
+        viewModel.start(firstNameStr,lastNameStr,dobStr,maritalStatusStr,addressStr,postalCodeStr,genderStr,nationalityStr,cityStr,countryStr,phoneNumberStr,occupationStr);
 
     }
 
