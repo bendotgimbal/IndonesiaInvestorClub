@@ -106,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/edit_first_name_label"
                                 android:singleLine="true"
-                                android:text="@{viewModel.firstNameValueTx}"
+                                android:text="@={viewModel.firstNameValueTx}"
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -123,7 +123,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/edit_last_name_label"
                                 android:singleLine="true"
-                                android:text="@{viewModel.lastNameValueTx}"
+                                android:text="@={viewModel.lastNameValueTx}"
                                 />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -158,7 +158,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_dob_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.dobValueTx}"
+                            android:text="@={viewModel.dobValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_gender_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.genderValueTx}"
+                            android:text="@={viewModel.genderValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_marital_status_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.maritalStatusValueTx}"
+                            android:text="@={viewModel.maritalStatusValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -221,7 +221,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_nationality_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.nationalityValueTx}"
+                            android:text="@={viewModel.nationalityValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -242,7 +242,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_address_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.addressValueTx}"
+                            android:text="@={viewModel.addressValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -263,7 +263,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_city_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.cityValueTx}"
+                            android:text="@={viewModel.cityValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -284,7 +284,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_postal_code_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.postalCodeValueTx}"
+                            android:text="@={viewModel.postalCodeValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -305,7 +305,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_country_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.countryValueTx}"
+                            android:text="@={viewModel.countryValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -326,7 +326,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_phone_number_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.phoneNumberValueTx}"
+                            android:text="@={viewModel.phoneNumberValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -347,7 +347,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_occupation_label"
                             android:singleLine="true"
-                            android:text="@{viewModel.occupationValueTx}"
+                            android:text="@={viewModel.occupationValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
