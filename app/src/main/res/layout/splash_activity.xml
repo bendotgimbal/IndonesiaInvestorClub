@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="525dp"
-        android:visibility="gone"
         style="?android:attr/progressBarStyleHorizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

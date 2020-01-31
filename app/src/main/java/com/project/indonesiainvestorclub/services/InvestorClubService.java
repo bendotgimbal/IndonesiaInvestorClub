@@ -29,8 +29,17 @@ public interface InvestorClubService {
 
   @FormUrlEncoded
   @PUT("public/register")
-  //Observable<Response<SignUpRes>> signUpRequest(@Part("referral") RequestBody referral, @Part("first_name") RequestBody first_name, @Part("last_name") RequestBody last_name, @Part("phone_no") RequestBody phone_no, @Part("email") RequestBody email, @Part("password") RequestBody password);
-  Observable<Response<SignUpRes>> signUpRequest(@Field("referral") String referral, @Field("first_name") String first_name, @Field("last_name") String last_name, @Field("phone_no") String phone_no, @Field("email") String email, @Field("password") String password);
+  //Observable<Response<SignUpRes>> signUpRequest(@Part("referral") RequestBody referral, @Part("first_name") RequestBody first_name
+    // , @Part("last_name") RequestBody last_name, @Part("phone_no") RequestBody phone_no, @Part("email") RequestBody email, @Part("password") RequestBody password);
+  Observable<Response<SignUpRes>> signUpRequest(@Field("referral") String referral, @Field("first_name") String first_name
+          , @Field("last_name") String last_name, @Field("phone_no") String phone_no, @Field("email") String email, @Field("password") String password);
+
+  @FormUrlEncoded
+  @PATCH("profile")
+  Observable<Response<ProfileUpdateRes>> profileUpdateRequest(@Field("first_name") String first_name, @Field("last_name") String last_name
+          , @Field("date_of_birth") String date_of_birth, @Field("gender") String gender, @Field("marital_status") String marital_status
+          , @Field("nationality") String nationality, @Field("address") String address, @Field("city") String city, @Field("postal_code") String postal_code
+          , @Field("country") String country, @Field("phone_no") String phone_no, @Field("accupation") String accupation);
 
   @GET("profile")
   Observable<Response<JsonElement>> profileRequest();
@@ -61,7 +70,4 @@ public interface InvestorClubService {
 
   @GET("transactions/{page}")
   Observable<Response<JsonElement>> transactionsRequest(@Path("page") int page);
-
-  @PATCH("profile")
-  Observable<Response<ProfileUpdateRes>> profileupdateRequest();
 }
