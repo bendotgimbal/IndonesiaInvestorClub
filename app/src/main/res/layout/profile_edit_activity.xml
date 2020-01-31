@@ -158,7 +158,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/edit_dob_label"
                             android:singleLine="true"
-                            android:text=""
+                            android:text="@{viewModel.dobValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -351,6 +351,21 @@
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnEditProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/colorPrimary"
+                        android:onClick="@{viewModel::onClickEditProfile}"
+                        android:text="@string/label_profile_edit_proses"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtOccupation"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

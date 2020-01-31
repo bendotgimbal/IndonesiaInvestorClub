@@ -7,6 +7,7 @@
   <string name="hint_register">Anda belum memiliki akun? </string>
   <string name="hint_login">Anda sudah memiliki akun? </string>
   <string name="label_register">Sign up</string>
+  <string name="label_profile_edit_proses">Update</string>
   <string name="label_profile_edit">Edit Profile</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>

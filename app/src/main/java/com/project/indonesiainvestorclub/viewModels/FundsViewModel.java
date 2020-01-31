@@ -111,7 +111,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
             for (int i = 1; i <= objectFunds.length(); i++) {
                 JSONObject objFunds = objectFunds.getJSONObject(i + "");
                 investId = objFunds.getString("ID");
-                Toast.makeText(context, "ID "+investId, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "ID "+investId, Toast.LENGTH_SHORT).show();
                 Funds funds;
                 Meta meta;
 
