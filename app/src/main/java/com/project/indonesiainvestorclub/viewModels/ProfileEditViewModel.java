@@ -44,6 +44,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
         super(context);
         this.binding = binding;
 
+        loadingState = new ObservableBoolean(false);
         firstNameValueTx = new ObservableField<>("");
         lastNameValueTx = new ObservableField<>("");
         dobValueTx = new ObservableField<>("");
@@ -145,7 +146,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
 
     @SuppressWarnings("unused")
     public void onClickEditProfile(View view) {
-//        loading(true);
+        loading(true);
 //        Toast.makeText(context, "Update "+getFirstName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(context, "Update "+firstNameValueTx.get(), Toast.LENGTH_SHORT).show();
 
@@ -163,7 +164,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
 
                     @Override public void onNext(Response<ProfileUpdateRes> updateResResponse) {
                         super.onNext(updateResResponse);
-//                        loading(false);
+                        loading(false);
                     }
                 });
         compositeDisposable.add(disposable);
