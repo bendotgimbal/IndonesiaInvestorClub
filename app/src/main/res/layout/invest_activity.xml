@@ -24,32 +24,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_primary_gradient"
         app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
 
-      <LinearLayout
-          android:id="@+id/fund_wrapper"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:orientation="vertical"
-          android:padding="10dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          >
-
-        <TextView
+      <TextView
+          android:id="@+id/ytd_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/performance_ytd_label"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             tools:text="Year To Date"
+          android:layout_marginStart="10dp"
+          android:layout_marginLeft="10dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
             />
 
         <TextView
@@ -57,14 +49,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.ytdPerformancesValueTv}"
-            android:textColor="@android:color/white"
-            android:textSize="50sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
             android:textStyle="bold"
             tools:text="99.9%"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ytd_label"
             />
-
-
-      </LinearLayout>
 
       <TextView
           android:id="@+id/year_label"
@@ -74,11 +67,11 @@
           android:layout_marginRight="10dp"
           android:gravity="end"
           android:text="@string/performance_year_label"
-          android:textColor="@android:color/white"
+          android:textColor="@color/colorPrimary"
           android:textSize="14sp"
-          app:layout_constraintBottom_toTopOf="@id/year_value"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/fund_wrapper"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/year_value"
           tools:text="Year"
           />
 
@@ -90,7 +83,7 @@
           android:layout_marginRight="10dp"
           android:gravity="end"
           android:text="@{viewModel.yearPerformancesValueTv}"
-          android:textColor="@android:color/white"
+          android:textColor="@color/colorPrimary"
           android:textSize="18sp"
           android:textStyle="bold"
           app:layout_constraintBottom_toTopOf="@id/chartLine"
