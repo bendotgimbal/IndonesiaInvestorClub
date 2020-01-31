@@ -128,13 +128,14 @@
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_margin="20dp"
-          android:visibility="@{viewModel.pieChartVisibility ? View.VISIBLE : View.GONE}"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/year_value"
-          tools:visibility="gone"
           />
+
+<!--      android:visibility="@{viewModel.pieChartVisibility ? View.VISIBLE : View.GONE}"-->
 
       <!--//LINE-->
       <lecho.lib.hellocharts.view.LineChartView
@@ -142,12 +143,13 @@
           android:layout_width="0dp"
           android:layout_height="250dp"
           android:padding="5dp"
-          android:visibility="@{viewModel.pieChartVisibility ? View.GONE : View.VISIBLE}"
+          android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/ytd_value"
-          tools:visibility="visible"
           />
+
+<!--      android:visibility="@{viewModel.pieChartVisibility ? View.GONE : View.VISIBLE}"-->
 
       <ListView
           android:id="@+id/year_data"
@@ -159,7 +161,159 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           tools:listitem="@layout/sub_performance_listview"
+          android:visibility="gone"
           />
+
+
+      <HorizontalScrollView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/ytd_value">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+          <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="YEAR"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="JAN"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="FEB"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="MAR"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="APR"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="MAY"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="JUN"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="JUL"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="AUG"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="SEP"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="OCT"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="NOV"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="DES"
+                android:textColor="@color/colorPrimary"
+                android:padding="5dp"
+                android:textSize="14sp"
+                />
+
+          </TableRow>
+
+        </TableLayout>
+
+      </HorizontalScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

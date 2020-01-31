@@ -77,13 +77,13 @@ public class MainViewModel extends BaseViewModelWithCallback implements ActionIn
       menuVisible(false);
     }
 
-    if (SharedPreferenceHelper.getAboutPopup()){
+    if (!SharedPreferenceHelper.getAboutPopup()){
       getAbout();
     }
   }
 
   //API CALL
-  private void getAbout() {
+  public void getAbout() {
     loading(true);
 
     Disposable disposable = ServiceGenerator.service.aboutRequest()

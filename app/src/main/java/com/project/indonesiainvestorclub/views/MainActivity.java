@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.project.indonesiainvestorclub.databinding.NavHeaderMainBinding;
+import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.project.indonesiainvestorclub.viewModels.MainViewModel;
 
 public class MainActivity extends BaseActivity {
@@ -93,6 +94,10 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         viewModel.start();
+
+        if (SharedPreferenceHelper.getAboutPopup()){
+            viewModel.getAbout();
+        }
     }
 
     @Override
