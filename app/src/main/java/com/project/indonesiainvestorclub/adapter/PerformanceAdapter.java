@@ -39,7 +39,7 @@ public class PerformanceAdapter extends RVBaseAdapter {
     }
 
     @Override public int getLayoutIdForType(int viewType) {
-        return R.layout.sub_performance_item;
+        return R.layout.sub_performance_table;
     }
 
     @Override public int getItemCount() {
