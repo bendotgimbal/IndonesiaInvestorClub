@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toTopOf="@id/horizontal_table_view"/>
+        app:layout_constraintBottom_toBottomOf="@id/performance_title"/>
 
     <HorizontalScrollView
         android:id="@+id/horizontal_table_view"
@@ -272,7 +272,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toTopOf="@id/portfolioslist"/>
+        app:layout_constraintBottom_toBottomOf="@id/portofolio_title"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portfolioslist"

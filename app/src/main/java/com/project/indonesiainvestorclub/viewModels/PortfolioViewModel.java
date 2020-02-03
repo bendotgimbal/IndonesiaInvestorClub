@@ -9,6 +9,7 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PortfoliosAdapter;
 import com.project.indonesiainvestorclub.databinding.PortfolioFragmentBinding;
@@ -106,6 +107,9 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
     tableVisibility = new ObservableBoolean(false);
     portofolioListVisibility = new ObservableBoolean(true);
+
+    arrowTabelVisibility();
+    arrowPortofolioListVisibility();
 
 //    pieChartView = binding.chart;
 //    lineChartView = binding.chartLine;
@@ -470,22 +474,42 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     }
   }
 
+  private void arrowTabelVisibility(){
+    if (tableVisibility.get()){
+      binding.tableVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.tableVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
+  private void arrowPortofolioListVisibility(){
+    if (portofolioListVisibility.get()){
+      binding.portofolioListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.portofolioListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
   public void onClickTableHideShow(View view){
     if (!tableVisibility.get()){
       tableVisibility.set(true);
+      arrowTabelVisibility();
       return;
     }
 
     tableVisibility.set(false);
+    arrowTabelVisibility();
   }
 
   public void onClickPortofolioListHideShow(View view){
     if (!portofolioListVisibility.get()){
       portofolioListVisibility.set(true);
+      arrowPortofolioListVisibility();
       return;
     }
 
     portofolioListVisibility.set(false);
+    arrowPortofolioListVisibility();
   }
 
   @Override
