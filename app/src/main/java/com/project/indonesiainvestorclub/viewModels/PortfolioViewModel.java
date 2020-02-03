@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
@@ -61,6 +62,9 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   public ObservableField<String> yearPerformancesValueTv;
   public ObservableField<String> ytdPerformancesValueTv;
 
+  public ObservableBoolean tableVisibility;
+  public ObservableBoolean portofolioListVisibility;
+
   private PortfoliosAdapter adapter;
   private PerformanceAdapter performanceAdapter;
 
@@ -99,6 +103,9 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
     performanceRes = new PerformanceRes();
     performanceAdapter = new PerformanceAdapter();
+
+    tableVisibility = new ObservableBoolean(false);
+    portofolioListVisibility = new ObservableBoolean(true);
 
 //    pieChartView = binding.chart;
 //    lineChartView = binding.chartLine;
@@ -461,6 +468,24 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         beforeButtonPerformancesVisibility.set(false);
       }
     }
+  }
+
+  public void onClickTableHideShow(View view){
+    if (!tableVisibility.get()){
+      tableVisibility.set(true);
+      return;
+    }
+
+    tableVisibility.set(false);
+  }
+
+  public void onClickPortofolioListHideShow(View view){
+    if (!portofolioListVisibility.get()){
+      portofolioListVisibility.set(true);
+      return;
+    }
+
+    portofolioListVisibility.set(false);
   }
 
   @Override

@@ -177,7 +177,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="YEAR"
+                android:background="@drawable/background_table"
+                android:text="@string/year_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -187,7 +188,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="JAN"
+                android:background="@drawable/background_table"
+                android:text="@string/january_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -197,7 +199,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="FEB"
+                android:background="@drawable/background_table"
+                android:text="@string/february_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -207,7 +210,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="MAR"
+                android:background="@drawable/background_table"
+                android:text="@string/march_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -217,7 +221,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="APR"
+                android:background="@drawable/background_table"
+                android:text="@string/april_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -227,7 +232,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="MAY"
+                android:background="@drawable/background_table"
+                android:text="@string/may_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -237,7 +243,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="JUN"
+                android:background="@drawable/background_table"
+                android:text="@string/june_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -247,7 +254,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="JUL"
+                android:background="@drawable/background_table"
+                android:text="@string/july_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -257,7 +265,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="AUG"
+                android:background="@drawable/background_table"
+                android:text="@string/august_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -267,7 +276,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="SEP"
+                android:background="@drawable/background_table"
+                android:text="@string/september_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -277,7 +287,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="OCT"
+                android:background="@drawable/background_table"
+                android:text="@string/ocktober_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -287,7 +298,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="NOV"
+                android:background="@drawable/background_table"
+                android:text="@string/november_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />
@@ -297,7 +309,8 @@
                 android:gravity="center"
                 android:layout_height="50dp"
                 android:padding="5dp"
-                android:text="DES"
+                android:background="@drawable/background_table"
+                android:text="@string/december_label"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 />

@@ -157,4 +157,19 @@
   <string name="edit_country_label">Country</string>
   <string name="edit_phone_number_label">Phone Number</string>
   <string name="edit_occupation_label">Occupation</string>
+
+  <string name="year_label">YEAR</string>
+  <string name="january_label">JAN</string>
+  <string name="february_label">FEB</string>
+  <string name="march_label">MAR</string>
+  <string name="april_label">APR</string>
+  <string name="may_label">MAY</string>
+  <string name="june_label">JUN</string>
+  <string name="july_label">JUL</string>
+  <string name="august_label">AUG</string>
+  <string name="september_label">SEP</string>
+  <string name="ocktober_label">OCT</string>
+  <string name="november_label">NOV</string>
+  <string name="december_label">DEC</string>
+
 </resources>
