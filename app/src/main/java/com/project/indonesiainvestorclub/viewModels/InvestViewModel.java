@@ -273,29 +273,29 @@ public class InvestViewModel extends BaseViewModelWithCallback
     List<PointValue> pieData = new ArrayList<>();
 
     String jan = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
     String feb = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
     String mar = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
     String apr = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
     String may = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
     String jun = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
     String jul = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
     String aug = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
     String sep = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
     String oct = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
     String nov = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
     String dec = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
+            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
 
     pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
     pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
@@ -375,20 +375,20 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private void pagingInit() {
 
     pageStatePerformances.set(
-            PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+            PAGEPERFORMANCE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
 
     yearPerformancesValueTv.set(performanceRes.getPerformances()
             .get(0)
             .getData()
             .getMonths()
-            .get(PAGE - 1)
+            .get(PAGEPERFORMANCE - 1)
             .getYear());
 
     ytdPerformancesValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
             .get(0)
             .getData()
             .getMonths()
-            .get(PAGE - 1)
+            .get(PAGEPERFORMANCE - 1)
             .getYtd()));
 
     toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
@@ -405,26 +405,26 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   @SuppressWarnings("unused")
   public void onButtonBeforeClick(View view) {
-    PAGE--;
+    PAGEPERFORMANCE--;
     showLineChartPerformance(getPerformanceRes());
   }
 
   @SuppressWarnings("unused")
   public void onButtonNextClick(View view) {
-    PAGE++;
+    PAGEPERFORMANCE++;
     showLineChartPerformance(getPerformanceRes());
   }
 
   private void toogleButton(int maxPages) {
-    if (PAGE >= 1) {
+    if (PAGEPERFORMANCE >= 1) {
       nextButtonPerformancesVisibility.set(true);
       beforeButtonPerformancesVisibility.set(false);
-      if (PAGE > 1) {
+      if (PAGEPERFORMANCE > 1) {
         beforeButtonPerformancesVisibility.set(true);
       }
     }
 
-    if (PAGE == maxPages) {
+    if (PAGEPERFORMANCE == maxPages) {
       nextButtonPerformancesVisibility.set(false);
       beforeButtonPerformancesVisibility.set(true);
       if (maxPages == 1) {
