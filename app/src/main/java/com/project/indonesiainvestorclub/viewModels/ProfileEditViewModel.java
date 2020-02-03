@@ -151,8 +151,8 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
 //        Toast.makeText(context, "Update "+getFirstName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(context, "Update "+firstNameValueTx.get(), Toast.LENGTH_SHORT).show();
 
-        Disposable disposable = ServiceGenerator.service.profileUpdateRequest(getFirstName(), getLastName(), getDOB(), getMaritalStatus(), getAddress(), getPostalCode(), getGender()
-                , getNationality(), getCity(), getCountry(), getPhoneNumber(), getOccupation())
+        Disposable disposable = ServiceGenerator.service.profileUpdateRequest(getFirstName(), getLastName(), getDOB(), getGender(), getMaritalStatus(), getNationality()
+                , getAddress(), getCity(), getPostalCode(), getCountry(), getPhoneNumber(), getOccupation())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new CallbackWrapper<Response<ProfileUpdateRes>>(this, () -> onClickEditProfile(view)) {
