@@ -20,8 +20,10 @@ import com.project.indonesiainvestorclub.models.response.ProfileRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.views.MainActivity;
 import com.project.indonesiainvestorclub.views.ProfileEditActivity;
 
+import com.project.indonesiainvestorclub.views.ProfileFragment;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
@@ -30,6 +32,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
+
+import static com.project.indonesiainvestorclub.views.ProfileFragment.REFRESH_PROFILE;
 
 public class ProfileViewModel extends BaseViewModelWithCallback {
 
@@ -56,16 +60,16 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
   public final ObservableField<String> country;
   public final ObservableField<String> occupation;
 
-    public final ObservableField<String> bankNameTx;
-    public final ObservableField<String> bankAccNameTx;
-    public final ObservableField<String> bankAccNoTx;
-    public final ObservableField<String> bankBranchTx;
-    public final ObservableField<String> bankAddressTx;
-    public final ObservableField<String> bankSwiftCodeTx;
-    public final ObservableField<String> bankStatusTx;
+  public final ObservableField<String> bankNameTx;
+  public final ObservableField<String> bankAccNameTx;
+  public final ObservableField<String> bankAccNoTx;
+  public final ObservableField<String> bankBranchTx;
+  public final ObservableField<String> bankAddressTx;
+  public final ObservableField<String> bankSwiftCodeTx;
+  public final ObservableField<String> bankStatusTx;
 
-    public final ObservableField<String> documentIdStatusTx;
-    public final ObservableField<String> documentBankStatusTx;
+  public final ObservableField<String> documentIdStatusTx;
+  public final ObservableField<String> documentBankStatusTx;
 
   private String firstNameStr;
   private String lastNameStr;
@@ -80,9 +84,12 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
   private String phoneNumberStr;
   private String occupationStr;
 
-  public ProfileViewModel(Context context, ProfileFragmentBinding binding) {
+  private ProfileFragment profileFragment;
+
+  public ProfileViewModel(Context context, ProfileFragmentBinding binding, ProfileFragment profileFragment) {
     super(context);
     this.binding = binding;
+    this.profileFragment = profileFragment;
 
     loadingState = new ObservableBoolean(false);
     idNumberTx = new ObservableField<>("");
@@ -106,21 +113,21 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     country = new ObservableField<>("");
     occupation = new ObservableField<>("");
 
-      bankNameTx = new ObservableField<>("");
-      bankAccNameTx = new ObservableField<>("");
-      bankAccNoTx = new ObservableField<>("");
-      bankBranchTx = new ObservableField<>("");
-      bankAddressTx = new ObservableField<>("");
-      bankSwiftCodeTx = new ObservableField<>("");
-      bankStatusTx = new ObservableField<>("");
+    bankNameTx = new ObservableField<>("");
+    bankAccNameTx = new ObservableField<>("");
+    bankAccNoTx = new ObservableField<>("");
+    bankBranchTx = new ObservableField<>("");
+    bankAddressTx = new ObservableField<>("");
+    bankSwiftCodeTx = new ObservableField<>("");
+    bankStatusTx = new ObservableField<>("");
 
-      documentIdStatusTx = new ObservableField<>("");
-      documentBankStatusTx = new ObservableField<>("");
+    documentIdStatusTx = new ObservableField<>("");
+    documentBankStatusTx = new ObservableField<>("");
 
     start();
   }
 
-  private void start() {
+  public void start() {
     getProfile();
   }
 
@@ -251,14 +258,14 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
-    nameTx.set(profileRes.getProfile().getFirstName() + " " +profileRes.getProfile().getLastName());
+    nameTx.set(
+        profileRes.getProfile().getFirstName() + " " + profileRes.getProfile().getLastName());
     phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
     emailTx.set(profileRes.getLogin().getEmail());
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
     grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
         + profileRes.getLogin().getGroups().get(1).getDepartment());
-
 
     firstName.set(profileRes.getProfile().getFirstName());
     lastName.set(profileRes.getProfile().getLastName());
@@ -273,26 +280,26 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     country.set(profileRes.getProfile().getCountry());
     occupation.set(profileRes.getProfile().getOccupation());
 
-      bankNameTx.set(profileRes.getBank().getName());
-      bankAccNameTx.set(profileRes.getBank().getAccName());
-      bankAccNoTx.set(profileRes.getBank().getAccNo());
-      bankBranchTx.set(profileRes.getBank().getBranch());
-      bankAddressTx.set(profileRes.getBank().getAddress());
-      bankSwiftCodeTx.set(profileRes.getBank().getSwiftCode());
-      bankStatusTx.set(profileRes.getBank().getStatus());
+    bankNameTx.set(profileRes.getBank().getName());
+    bankAccNameTx.set(profileRes.getBank().getAccName());
+    bankAccNoTx.set(profileRes.getBank().getAccNo());
+    bankBranchTx.set(profileRes.getBank().getBranch());
+    bankAddressTx.set(profileRes.getBank().getAddress());
+    bankSwiftCodeTx.set(profileRes.getBank().getSwiftCode());
+    bankStatusTx.set(profileRes.getBank().getStatus());
 
-      documentIdStatusTx.set(profileRes.getDocuments().getDocumentID().getStatusDocumentIdTx());
-      documentBankStatusTx.set(profileRes.getDocuments().getDocumentBank().getStatusDocumentBankTx());
+    documentIdStatusTx.set(profileRes.getDocuments().getDocumentID().getStatusDocumentIdTx());
+    documentBankStatusTx.set(profileRes.getDocuments().getDocumentBank().getStatusDocumentBankTx());
 
     ImageHelper.loadImage(binding.proofImageId, profileRes.getDocuments().getDocumentID().getImg());
-    ImageHelper.loadImage(binding.proofImageBank, profileRes.getDocuments().getDocumentBank().getImg());
-
+    ImageHelper.loadImage(binding.proofImageBank,
+        profileRes.getDocuments().getDocumentBank().getImg());
   }
 
   @SuppressWarnings("unused")
   public void onButtonEditInfoPersonalClick(View view) {
-//    Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
-      Intent intent = new Intent(context, ProfileEditActivity.class);
+    //    Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
+    Intent intent = new Intent(context, ProfileEditActivity.class);
     intent.putExtra("firstNameStr", firstNameStr);
     intent.putExtra("lastNameStr", lastNameStr);
     intent.putExtra("dobStr", dobStr);
@@ -305,7 +312,8 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     intent.putExtra("countryStr", countryStr);
     intent.putExtra("phoneNumberStr", phoneNumberStr);
     intent.putExtra("occupationStr", occupationStr);
-      context.startActivity(intent);
+    //((MainActivity) context).startActivityForResult(intent, MainActivity.REFRESH_PROFILE);
+    profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
   }
 
   @Override
