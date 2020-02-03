@@ -261,13 +261,17 @@
               android:id="@+id/edit_label"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:layout_marginLeft="300dp"
-              android:textSize="18sp"
+              android:clickable="true"
+              android:focusable="true"
+              android:textSize="16sp"
+              android:layout_marginEnd="8dp"
+              android:layout_marginRight="8dp"
               android:text="@string/edit_label"
-              android:textColor="@color/colorPrimary"
+              android:textColor="@color/colorAccent"
+
+
               android:onClick="@{viewModel::onButtonEditInfoPersonalClick}"
-              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toTopOf="parent"
               tools:text="Edit"
               />
