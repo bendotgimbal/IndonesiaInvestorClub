@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
@@ -174,6 +175,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
     private void onSuccessUpdate(ProfileUpdateRes profileUpdateRes){
         if (profileUpdateRes != null && profileUpdateRes.getStatus().equalsIgnoreCase(STATUS)) {
             Toast.makeText(getContext(), "Selamat Anda Berhasil Update", Toast.LENGTH_SHORT).show();
+            ((ProfileEditActivity)context).setResult(Activity.RESULT_OK);
             ((ProfileEditActivity)context).finish();
         }else {
             Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
