@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PortfoliosAdapter;
 import com.project.indonesiainvestorclub.databinding.PortfolioFragmentBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
@@ -60,6 +62,7 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   public ObservableField<String> ytdPerformancesValueTv;
 
   private PortfoliosAdapter adapter;
+  private PerformanceAdapter performanceAdapter;
 
   public ObservableBoolean pieChartVisibility;
 
@@ -95,9 +98,10 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     pieChartVisibility = new ObservableBoolean(false);
 
     performanceRes = new PerformanceRes();
+    performanceAdapter = new PerformanceAdapter();
 
-    pieChartView = binding.chart;
-    lineChartView = binding.chartLine;
+//    pieChartView = binding.chart;
+//    lineChartView = binding.chartLine;
 
     adapter = new PortfoliosAdapter();
     adapter.setListener(this);
@@ -105,6 +109,12 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     this.binding.portfolioslist.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.portfolioslist.setAdapter(adapter);
+
+    this.binding.tablePerformance.setLayoutManager(
+            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.tablePerformance.setAdapter(performanceAdapter);
+    this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
+    this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
 
     start();
   }
@@ -184,7 +194,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
       performanceRes.setPerformances(performances);
 
-      showLineChartPerformance(performanceRes);
+//      showLineChartPerformance(performanceRes);
+      showPerformanceTable(performanceRes);
     } catch (JSONException e) {
       Log.e(TAG, e.toString());
     }
@@ -225,6 +236,11 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     }
   }
 
+  private void showPerformanceTable(PerformanceRes performanceRes) {
+    performanceAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
+    performanceAdapter.notifyDataSetChanged();
+  }
+
   private void showPortfolio(PortfolioRes portfolioRes) {
     hideLoading();
 
@@ -238,99 +254,99 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     toogleButton(portfolioRes.getPages());
   }
 
-  private void showLineChartPerformance(PerformanceRes performanceRes) {
-    hideLoading();
-
-    if (performanceRes == null) return;
-
-    setPerformanceRes(performanceRes);
-
-    List<Line> lines = new ArrayList<>();
-    List<PointValue> pieData = new ArrayList<>();
-
-    String jan = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
-    String feb = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
-    String mar = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
-    String apr = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
-    String may = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
-    String jun = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
-    String jul = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
-    String aug = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
-    String sep = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
-    String oct = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
-    String nov = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
-    String dec = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
-
-    pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
-    pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
-    pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
-    pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
-    pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
-    pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
-    pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
-    pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
-    pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
-    pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
-    pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
-    pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
-
-    Line line = new Line(pieData);
-    //line.setColor(Color.parseColor("#57DAC6"));
-    line.setColor(Color.WHITE);
-    line.setShape(ValueShape.CIRCLE);
-    //line.setPointColor(Color.parseColor("#57DAC6"));
-    line.setPointColor(Color.WHITE);
-    line.setCubic(false);
-    line.setFilled(true);
-    line.setHasLabels(false);
-    line.setHasLabelsOnlyForSelected(false);
-    line.setHasLines(true);
-    line.setHasPoints(true);
-    line.setPointRadius(3);
-    line.setStrokeWidth(2);
-    lines.add(line);
-
-    lineChartData = new LineChartData(lines);
-
-    List<AxisValue> values = new ArrayList<>();
-    values.add(new AxisValue(0, "JAN".toCharArray()));
-    values.add(new AxisValue(1, "FEB".toCharArray()));
-    values.add(new AxisValue(2, "MAR".toCharArray()));
-    values.add(new AxisValue(3, "APR".toCharArray()));
-    values.add(new AxisValue(4, "MAY".toCharArray()));
-    values.add(new AxisValue(5, "JUN".toCharArray()));
-    values.add(new AxisValue(6, "JUL".toCharArray()));
-    values.add(new AxisValue(7, "AUG".toCharArray()));
-    values.add(new AxisValue(8, "SEP".toCharArray()));
-    values.add(new AxisValue(9, "OCT".toCharArray()));
-    values.add(new AxisValue(10, "NOV".toCharArray()));
-    values.add(new AxisValue(11, "DES".toCharArray()));
-
-    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.WHITE);
-    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.WHITE);
-    lineChartData.setAxisXBottom(axisX);
-    lineChartData.setAxisYLeft(axisY);
-
-    lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
-
-    lineChartView.setInteractive(false);
-    lineChartView.setLineChartData(lineChartData);
-
-//    pagingInit();
-    pagingPerformancesInit();
-  }
+//  private void showLineChartPerformance(PerformanceRes performanceRes) {
+//    hideLoading();
+//
+//    if (performanceRes == null) return;
+//
+//    setPerformanceRes(performanceRes);
+//
+//    List<Line> lines = new ArrayList<>();
+//    List<PointValue> pieData = new ArrayList<>();
+//
+//    String jan = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
+//    String feb = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
+//    String mar = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
+//    String apr = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
+//    String may = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
+//    String jun = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
+//    String jul = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
+//    String aug = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
+//    String sep = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
+//    String oct = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
+//    String nov = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
+//    String dec = String.valueOf(
+//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
+//
+//    pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
+//    pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
+//    pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
+//    pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
+//    pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
+//    pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
+//    pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
+//    pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
+//    pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
+//    pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
+//    pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
+//    pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
+//
+//    Line line = new Line(pieData);
+//    //line.setColor(Color.parseColor("#57DAC6"));
+//    line.setColor(Color.WHITE);
+//    line.setShape(ValueShape.CIRCLE);
+//    //line.setPointColor(Color.parseColor("#57DAC6"));
+//    line.setPointColor(Color.WHITE);
+//    line.setCubic(false);
+//    line.setFilled(true);
+//    line.setHasLabels(false);
+//    line.setHasLabelsOnlyForSelected(false);
+//    line.setHasLines(true);
+//    line.setHasPoints(true);
+//    line.setPointRadius(3);
+//    line.setStrokeWidth(2);
+//    lines.add(line);
+//
+//    lineChartData = new LineChartData(lines);
+//
+//    List<AxisValue> values = new ArrayList<>();
+//    values.add(new AxisValue(0, "JAN".toCharArray()));
+//    values.add(new AxisValue(1, "FEB".toCharArray()));
+//    values.add(new AxisValue(2, "MAR".toCharArray()));
+//    values.add(new AxisValue(3, "APR".toCharArray()));
+//    values.add(new AxisValue(4, "MAY".toCharArray()));
+//    values.add(new AxisValue(5, "JUN".toCharArray()));
+//    values.add(new AxisValue(6, "JUL".toCharArray()));
+//    values.add(new AxisValue(7, "AUG".toCharArray()));
+//    values.add(new AxisValue(8, "SEP".toCharArray()));
+//    values.add(new AxisValue(9, "OCT".toCharArray()));
+//    values.add(new AxisValue(10, "NOV".toCharArray()));
+//    values.add(new AxisValue(11, "DES".toCharArray()));
+//
+//    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.WHITE);
+//    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.WHITE);
+//    lineChartData.setAxisXBottom(axisX);
+//    lineChartData.setAxisYLeft(axisY);
+//
+//    lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
+//
+//    lineChartView.setInteractive(false);
+//    lineChartView.setLineChartData(lineChartData);
+//
+////    pagingInit();
+//    pagingPerformancesInit();
+//  }
 
 //  private void pagingInit() {
 //
@@ -400,15 +416,15 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   @SuppressWarnings("unused")
   public void onButtonPerformancesBeforeClick(View view) {
     PAGEPERFORMANCE--;
-//    getPortfolio();
-    showLineChartPerformance(getPerformanceRes());
+////    getPortfolio();
+//    showLineChartPerformance(getPerformanceRes());
   }
 
   @SuppressWarnings("unused")
   public void onButtonPerformancesNextClick(View view) {
     PAGEPERFORMANCE++;
-//    getPortfolio();
-    showLineChartPerformance(getPerformanceRes());
+////    getPortfolio();
+//    showLineChartPerformance(getPerformanceRes());
   }
 
   private void toogleButton(int maxPages){
