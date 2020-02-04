@@ -9,7 +9,10 @@ import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.project.indonesiainvestorclub.R;
+import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceListviewAdapter;
 import com.project.indonesiainvestorclub.databinding.InvestActivityBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
@@ -66,6 +69,9 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private MutableLiveData<String> mText;
   private ObservableField<String> mInvestID;
 
+  public ObservableBoolean tablePerformanceVisibility;
+  public ObservableBoolean fundsListVisibility;
+
   public ObservableBoolean beforeButtonPerformancesVisibility;
   public ObservableBoolean nextButtonPerformancesVisibility;
 
@@ -82,6 +88,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableBoolean pieChartVisibility;
 
   private PerformanceListviewAdapter simpleAdapter;
+  private PerformanceAdapter performanceAdapter;
 
   public InvestViewModel(Context context, InvestActivityBinding binding) {
     super(context);
@@ -99,11 +106,24 @@ public class InvestViewModel extends BaseViewModelWithCallback
     ytdPerformancesValueTv = new ObservableField<>("0%");
 
 //    performanceRes = new PerformanceRes();
+    performanceAdapter = new PerformanceAdapter();
+
+    tablePerformanceVisibility = new ObservableBoolean(false);
+    fundsListVisibility = new ObservableBoolean(false);
 
     pieChartVisibility = new ObservableBoolean(false);
 
-    pieChartView = binding.chart;
-    lineChartView = binding.chartLine;
+    arrowTabelPerformanceVisibility();
+    arrowFundsListVisibility();
+
+//    pieChartView = binding.chart;
+//    lineChartView = binding.chartLine;
+
+    this.binding.tablePerformance.setLayoutManager(
+            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.tablePerformance.setAdapter(performanceAdapter);
+    this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
+    this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
   }
 
   public void start(String id) {
@@ -240,12 +260,19 @@ public class InvestViewModel extends BaseViewModelWithCallback
       investRes.setInvests(invest);
       showInvest(investRes);
 
+      showPerformanceTable(investRes);
+
       hideLoading();
     } catch (JSONException e) {
       e.printStackTrace();
       Log.e(TAG, e.toString());
       hideLoading();
     }
+  }
+
+  private void showPerformanceTable(InvestRes investRes) {
+    performanceAdapter.setModels(investRes.getInvests().getData().getMonths());
+    performanceAdapter.notifyDataSetChanged();
   }
 
   private void showInvest(InvestRes investRes) {
@@ -430,6 +457,44 @@ public class InvestViewModel extends BaseViewModelWithCallback
       if (maxPages == 1) {
         beforeButtonPerformancesVisibility.set(false);
       }
+    }
+  }
+
+  public void onClickTablePerformanceHideShow(View view){
+    if (!tablePerformanceVisibility.get()){
+      tablePerformanceVisibility.set(true);
+      arrowTabelPerformanceVisibility();
+      return;
+    }
+
+    tablePerformanceVisibility.set(false);
+    arrowTabelPerformanceVisibility();
+  }
+
+  public void onClickFundsListHideShow(View view){
+    if (!fundsListVisibility.get()){
+      fundsListVisibility.set(true);
+      arrowFundsListVisibility();
+      return;
+    }
+
+    fundsListVisibility.set(false);
+    arrowFundsListVisibility();
+  }
+
+  private void arrowTabelPerformanceVisibility(){
+    if (tablePerformanceVisibility.get()){
+      binding.tablePerformanceVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.tablePerformanceVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
+  private void arrowFundsListVisibility(){
+    if (fundsListVisibility.get()){
+      binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }
 
