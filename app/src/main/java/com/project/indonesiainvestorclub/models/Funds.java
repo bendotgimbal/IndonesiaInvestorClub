@@ -1,118 +1,151 @@
 package com.project.indonesiainvestorclub.models;
 
 public class Funds {
-    private String id;
-    private String name;
-    private String type;
-    private String manager;
-    private String invested;
-    private String equity;
-    private String slots;
-    private String compounding;
-    private String roi;
-    private Meta meta;
+  private String id;
+  private String name;
+  private String type;
+  private String manager;
+  private String invested;
+  private String equity;
+  private String slots;
+  private String compounding;
+  private String roi;
+  private Meta meta;
+  private Bank bank;
+  private String usdidr;
 
-    int index;
+  int index;
 
-    public Funds(String id, String name, String type, String manager, String invested, String equity,
-        String slots, String compounding, String roi,
-        Meta meta) {
-        this.name = name;
-        this.type = type;
-        this.manager = manager;
-        this.invested = invested;
-        this.equity = equity;
-        this.slots = slots;
-        this.compounding = compounding;
-        this.roi = roi;
-        this.meta = meta;
-    }
+  public Funds(String id, String name, String type, String manager, String invested, String equity,
+      String slots, String compounding, String roi, Meta meta) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.manager = manager;
+    this.invested = invested;
+    this.equity = equity;
+    this.slots = slots;
+    this.compounding = compounding;
+    this.roi = roi;
+    this.meta = meta;
+  }
 
-    public int getIndex() {
-        return index;
-    }
+  public Funds(String name, String type, String manager, String invested, String equity,
+      String slots, String compounding, String roi, Meta meta, Bank bank, String usdidr) {
+    this.name = name;
+    this.type = type;
+    this.manager = manager;
+    this.invested = invested;
+    this.equity = equity;
+    this.slots = slots;
+    this.compounding = compounding;
+    this.roi = roi;
+    this.meta = meta;
+    this.bank = bank;
+    this.usdidr = usdidr;
+  }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
+  public int getIndex() {
+    return index;
+  }
 
-    public String getID() {
-        return id;
-    }
+  public void setIndex(int index) {
+    this.index = index;
+  }
 
-    public void setID(String id) {
-        this.id = id;
-    }
+  public String getID() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setID(String id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public String getManager() {
-        return manager;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
+  public String getManager() {
+    return manager;
+  }
 
-    public String getInvested() {
-        return invested;
-    }
+  public void setManager(String manager) {
+    this.manager = manager;
+  }
 
-    public void setInvested(String invested) {
-        this.invested = invested;
-    }
+  public String getInvested() {
+    return invested;
+  }
 
-    public String getEquity() {
-        return equity;
-    }
+  public void setInvested(String invested) {
+    this.invested = invested;
+  }
 
-    public void setEquity(String equity) {
-        this.equity = equity;
-    }
+  public String getEquity() {
+    return equity;
+  }
 
-    public String getSlots() {
-        return slots;
-    }
+  public void setEquity(String equity) {
+    this.equity = equity;
+  }
 
-    public void setSlots(String slots) {
-        this.slots = slots;
-    }
+  public String getSlots() {
+    return slots;
+  }
 
-    public String getCompounding() {
-        return compounding;
-    }
+  public void setSlots(String slots) {
+    this.slots = slots;
+  }
 
-    public void setCompounding(String compounding) {
-        this.compounding = compounding;
-    }
+  public String getCompounding() {
+    return compounding;
+  }
 
-    public String getROI() {
-        return roi;
-    }
+  public void setCompounding(String compounding) {
+    this.compounding = compounding;
+  }
 
-    public void setROI(String roi) {
-        this.roi = roi;
-    }
+  public String getROI() {
+    return roi;
+  }
 
-    public Meta getMeta() {
-        return meta;
-    }
+  public void setROI(String roi) {
+    this.roi = roi;
+  }
 
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
+  public Meta getMeta() {
+    return meta;
+  }
+
+  public void setMeta(Meta meta) {
+    this.meta = meta;
+  }
+
+  public Bank getBank() {
+    return bank;
+  }
+
+  public void setBank(Bank bank) {
+    this.bank = bank;
+  }
+
+  public String getUsdidr() {
+    return usdidr;
+  }
+
+  public void setUsdidr(String usdidr) {
+    this.usdidr = usdidr;
+  }
 }

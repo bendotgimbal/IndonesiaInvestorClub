@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.indonesiainvestorclub.R;
@@ -66,8 +64,19 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> investNameTx;
   public ObservableField<String> yearPerformancesValueTv;
   public ObservableField<String> ytdPerformancesValueTv;
-  private MutableLiveData<String> mText;
-  private ObservableField<String> mInvestID;
+  public ObservableField<String> mInvestID;
+
+  public ObservableField<String> fundName;
+  public ObservableField<String> fxType;
+  public ObservableField<String> investment;
+  public ObservableField<String> equityProgress;
+  public ObservableField<String> slots;
+  public ObservableField<String> roi;
+  public ObservableField<String> compounding;
+
+  public ObservableField<String> accNumber;
+  public ObservableField<String> investorPass;
+  public ObservableField<String> server;
 
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
@@ -105,7 +114,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv = new ObservableField<>("0000");
     ytdPerformancesValueTv = new ObservableField<>("0%");
 
-//    performanceRes = new PerformanceRes();
+    fundName = new ObservableField<>("-");
+    fxType = new ObservableField<>("-");
+    investment = new ObservableField<>("-");
+    equityProgress = new ObservableField<>("-");
+    slots = new ObservableField<>("-");
+    roi = new ObservableField<>("-");
+    compounding = new ObservableField<>("-");
+
+    accNumber = new ObservableField<>("-");
+    investorPass = new ObservableField<>("-");
+    server = new ObservableField<>("-");
+
     performanceAdapter = new PerformanceAdapter();
 
     tablePerformanceVisibility = new ObservableBoolean(false);
@@ -116,11 +136,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowTabelPerformanceVisibility();
     arrowFundsListVisibility();
 
-//    pieChartView = binding.chart;
-//    lineChartView = binding.chartLine;
-
     this.binding.tablePerformance.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
     this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
     this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
@@ -156,12 +173,14 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private void readInvestJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
-      InvestRes investRes = new InvestRes();
+      InvestRes investRes;
 
       Invest invest;
       Datas data;
 
       jsonObject = new JSONObject(response.toString());
+
+      //PERFORMANCE
       JSONObject objectInvest = jsonObject.getJSONObject("Performance");
 
       String name = objectInvest.getString("Name");
@@ -196,20 +215,26 @@ public class InvestViewModel extends BaseViewModelWithCallback
       invest = new Invest(name, data);
       invests.add(invest);
 
+      //FUNDS
       Meta meta;
       BankFundInvest bankFundInvest;
-      List<FundInvest> fundsInvestList = new ArrayList<>();
+
       JSONObject fundObj = jsonObject.getJSONObject("Fund");
       JSONObject fundMetaObj = fundObj.getJSONObject("Meta");
+
       String fundMetaAccNo = fundMetaObj.getString("AccNo");
       String fundMetaInvestorPass = fundMetaObj.getString("InvestorPass");
       String fundMetaServer = fundMetaObj.getString("Server");
+
       meta = new Meta(fundMetaAccNo, fundMetaInvestorPass, fundMetaServer);
+
       JSONObject fundBankObj = fundObj.getJSONObject("Bank");
       String fundBankName = fundBankObj.getString("Name");
       String fundBankAccName = fundBankObj.getString("AccName");
       String fundBankAccNo = fundBankObj.getString("AccNo");
+
       bankFundInvest = new BankFundInvest(fundBankName, fundBankAccName, fundBankAccNo);
+
       FundInvest fundInvest = new FundInvest(
           fundObj.getString("Name"),
           fundObj.getString("Type"),
@@ -223,13 +248,15 @@ public class InvestViewModel extends BaseViewModelWithCallback
           fundObj.getString("USDIDR"),
           bankFundInvest
       );
-      fundsInvestList.add(fundInvest);
 
+      //PARTICIPANT
       JSONObject objectParticipant = jsonObject.getJSONObject("Participant");
       JSONObject participantPreviousObj = objectParticipant.getJSONObject("Previous");
+
       String participantPreviousDate = participantPreviousObj.getString("Date");
       String participantPreviousInvest = participantPreviousObj.getString("Invest");
-      ParticipantInvestPrevious participantInvestPrevious =
+
+      ParticipantInvestPrevious previous =
           new ParticipantInvestPrevious(participantPreviousDate, participantPreviousInvest);
 
       JSONObject participantCurrentObj = objectParticipant.getJSONObject("Current");
@@ -249,15 +276,31 @@ public class InvestViewModel extends BaseViewModelWithCallback
         );
         currentDatalist.add(currentData);
       }
-      //            Current current = new Current(currentDatalist);
-      ParticipantInvestCurrent participantInvestCurrent =
-          new ParticipantInvestCurrent(currentDatalist);
-      ParticipantInvest participantInvest =
-          new ParticipantInvest(participantInvestPrevious, participantInvestCurrent);
 
-      //            investRes = new InvestRes(participantInvest,fundsInvestList,participantInvest,participantInvest);
-      //            investRes = new InvestRes(investList);
-      investRes.setInvests(invest);
+      ParticipantInvestCurrent current = new ParticipantInvestCurrent(currentDatalist);
+      ParticipantInvest participantInvest = new ParticipantInvest(previous, current);
+
+      //USER
+      JSONObject objectUser = jsonObject.getJSONObject("User");
+      List<CurrentData> users = new ArrayList<>();
+      for (int i = 1; i <= objectUser.length(); i++) {
+        JSONObject objCurrent = participantCurrentObj.getJSONObject(i + "");
+
+        CurrentData currentData = new CurrentData(
+            objCurrent.getString("Date"),
+            objCurrent.getString("UserID"),
+            objCurrent.getString("Name"),
+            objCurrent.getString("Invest"),
+            objCurrent.getString("StatusID"),
+            objCurrent.getString("Status"),
+            objCurrent.getString("WdID")
+        );
+
+        users.add(currentData);
+      }
+
+      investRes = new InvestRes(invest, fundInvest, participantInvest, users);
+
       showInvest(investRes);
 
       showPerformanceTable(investRes);
@@ -282,9 +325,17 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYear());
     ytdPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
 
-    Toast.makeText(context, "Name Invest " + investNameTx.get(), Toast.LENGTH_SHORT).show();
-    Log.d(TAG, "Year : "+yearPerformancesValueTv.get());
-    Log.d(TAG, "YTD : "+ytdPerformancesValueTv.get());
+    fundName.set(investRes.getFunds().getName());
+    fxType.set(investRes.getFunds().getManager());
+    investment.set(investRes.getFunds().getInvested());
+    equityProgress.set(investRes.getFunds().getEquity());
+    slots.set(investRes.getFunds().getSlots());
+    roi.set(investRes.getFunds().getROI());
+    compounding.set(investRes.getFunds().getCompounding());
+
+    accNumber.set(investRes.getFunds().getMeta().getAccNo());
+    investorPass.set(investRes.getFunds().getMeta().getInvestorPass());
+    server.set(investRes.getFunds().getMeta().getServer());
 
     //TODO recyclerview
   }
@@ -300,29 +351,89 @@ public class InvestViewModel extends BaseViewModelWithCallback
     List<PointValue> pieData = new ArrayList<>();
 
     String jan = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getJan());
     String feb = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getFeb());
     String mar = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getMar());
     String apr = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getApr());
     String may = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getMay());
     String jun = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getJun());
     String jul = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getJul());
     String aug = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getAug());
     String sep = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getSep());
     String oct = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getOct());
     String nov = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getNov());
     String dec = String.valueOf(
-            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
+        performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .get(PAGEPERFORMANCE - 1)
+            .getDec());
 
     pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
     pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
@@ -386,8 +497,11 @@ public class InvestViewModel extends BaseViewModelWithCallback
     values.add(new AxisValue(10, "NOV".toCharArray()));
     values.add(new AxisValue(11, "DES".toCharArray()));
 
-    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.parseColor("#57DAC6"));
-    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.parseColor("#57DAC6"));
+    Axis axisX =
+        new Axis(values).setHasSeparationLine(false).setTextColor(Color.parseColor("#57DAC6"));
+    Axis axisY = new Axis().setHasSeparationLine(false)
+        .setHasLines(true)
+        .setTextColor(Color.parseColor("#57DAC6"));
     lineChartData.setAxisXBottom(axisX);
     lineChartData.setAxisYLeft(axisY);
 
@@ -402,21 +516,25 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private void pagingInit() {
 
     pageStatePerformances.set(
-            PAGEPERFORMANCE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
+        PAGEPERFORMANCE + " / " + performanceRes.getPerformances()
+            .get(0)
+            .getData()
+            .getMonths()
+            .size());
 
     yearPerformancesValueTv.set(performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getYear());
+        .get(0)
+        .getData()
+        .getMonths()
+        .get(PAGEPERFORMANCE - 1)
+        .getYear());
 
     ytdPerformancesValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getYtd()));
+        .get(0)
+        .getData()
+        .getMonths()
+        .get(PAGEPERFORMANCE - 1)
+        .getYtd()));
 
     toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
   }
@@ -426,7 +544,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
   }
 
   private void setPerformanceRes(
-          PerformanceRes performanceRes) {
+      PerformanceRes performanceRes) {
     this.performanceRes = performanceRes;
   }
 
@@ -460,8 +578,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
-  public void onClickTablePerformanceHideShow(View view){
-    if (!tablePerformanceVisibility.get()){
+  public void onClickTablePerformanceHideShow(View view) {
+    if (!tablePerformanceVisibility.get()) {
       tablePerformanceVisibility.set(true);
       arrowTabelPerformanceVisibility();
       return;
@@ -471,8 +589,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowTabelPerformanceVisibility();
   }
 
-  public void onClickFundsListHideShow(View view){
-    if (!fundsListVisibility.get()){
+  public void onClickFundsListHideShow(View view) {
+    if (!fundsListVisibility.get()) {
       fundsListVisibility.set(true);
       arrowFundsListVisibility();
       return;
@@ -482,18 +600,20 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowFundsListVisibility();
   }
 
-  private void arrowTabelPerformanceVisibility(){
-    if (tablePerformanceVisibility.get()){
-      binding.tablePerformanceVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    }else {
-      binding.tablePerformanceVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+  private void arrowTabelPerformanceVisibility() {
+    if (tablePerformanceVisibility.get()) {
+      binding.tablePerformanceVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_down_black_24dp);
+    } else {
+      binding.tablePerformanceVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }
 
-  private void arrowFundsListVisibility(){
-    if (fundsListVisibility.get()){
+  private void arrowFundsListVisibility() {
+    if (fundsListVisibility.get()) {
       binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    }else {
+    } else {
       binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }

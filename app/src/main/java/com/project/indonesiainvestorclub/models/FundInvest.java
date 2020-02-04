@@ -65,7 +65,7 @@ public class FundInvest {
     }
 
     public String getManager() {
-        return manager;
+        return "FX - "+manager;
     }
 
     public void setManager(String manager) {
