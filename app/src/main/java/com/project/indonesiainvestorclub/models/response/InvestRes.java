@@ -45,7 +45,18 @@ public class InvestRes {
 //    }
 
 
+//    private Invest invests;
+//
+//    public Invest getInvests() {
+//        return invests;
+//    }
+//
+//    public void setInvests(Invest invests) {
+//        this.invests = invests;
+//    }
+
     private Invest invests;
+    private FundInvest fundinvests;
 
     public Invest getInvests() {
         return invests;
@@ -53,6 +64,14 @@ public class InvestRes {
 
     public void setInvests(Invest invests) {
         this.invests = invests;
+    }
+
+    public FundInvest getFundInvests() {
+        return fundinvests;
+    }
+
+    public void setFundInvests(FundInvest fundinvests) {
+        this.fundinvests = fundinvests;
     }
 
 

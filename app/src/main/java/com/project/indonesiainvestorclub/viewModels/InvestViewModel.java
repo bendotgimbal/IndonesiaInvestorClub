@@ -68,6 +68,17 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> ytdPerformancesValueTv;
   private MutableLiveData<String> mText;
   private ObservableField<String> mInvestID;
+  public ObservableField<String> fundsNameLabelTx;
+  public ObservableField<String> fundsTypeValueTx;
+  public ObservableField<String> fundsManagerValueTx;
+  public ObservableField<String> fundsEquityProgressValueTx;
+  public ObservableField<String> fundsSlotsValueTx;
+  public ObservableField<String> fundsRoiValueTx;
+  public ObservableField<String> fundsCompoundingValueTx;
+  public ObservableField<String> fundsYouInvestValueTx;
+  public ObservableField<String> fundsCcNoValueTx;
+  public ObservableField<String> fundsInvestorPassValueTx;
+  public ObservableField<String> fundsServerValueTx;
 
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
@@ -110,6 +121,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
     tablePerformanceVisibility = new ObservableBoolean(false);
     fundsListVisibility = new ObservableBoolean(false);
+
+    fundsNameLabelTx = new ObservableField<>("");
+    fundsTypeValueTx = new ObservableField<>("");
+    fundsManagerValueTx = new ObservableField<>("");
+    fundsEquityProgressValueTx = new ObservableField<>("");
+    fundsSlotsValueTx = new ObservableField<>("");
+    fundsRoiValueTx = new ObservableField<>("");
+    fundsCompoundingValueTx = new ObservableField<>("");
+    fundsYouInvestValueTx = new ObservableField<>("");
+    fundsCcNoValueTx = new ObservableField<>("");
+    fundsInvestorPassValueTx = new ObservableField<>("");
+    fundsServerValueTx = new ObservableField<>("");
 
     pieChartVisibility = new ObservableBoolean(false);
 
@@ -258,6 +281,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
       //            investRes = new InvestRes(participantInvest,fundsInvestList,participantInvest,participantInvest);
       //            investRes = new InvestRes(investList);
       investRes.setInvests(invest);
+      investRes.setFundInvests(fundInvest);
       showInvest(investRes);
 
       showPerformanceTable(investRes);
@@ -281,6 +305,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
     investNameTx.set(investRes.getInvests().getName());
     yearPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYear());
     ytdPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
+
+    fundsNameLabelTx.set(investRes.getFundInvests().getName());
+    fundsTypeValueTx.set(investRes.getFundInvests().getType());
+    fundsManagerValueTx.set(investRes.getFundInvests().getManager());
+    fundsEquityProgressValueTx.set(investRes.getFundInvests().getEquity());
+    fundsSlotsValueTx.set(investRes.getFundInvests().getSlots());
+    fundsRoiValueTx.set(investRes.getFundInvests().getROI());
+    fundsCompoundingValueTx.set(investRes.getFundInvests().getCompounding());
+    fundsYouInvestValueTx.set(investRes.getFundInvests().getInvested());
+    fundsCcNoValueTx.set(investRes.getFundInvests().getMeta().getAccNo());
+    fundsInvestorPassValueTx.set(investRes.getFundInvests().getMeta().getInvestorPass());
+    fundsServerValueTx.set(investRes.getFundInvests().getMeta().getServer());
 
     Toast.makeText(context, "Name Invest " + investNameTx.get(), Toast.LENGTH_SHORT).show();
     Log.d(TAG, "Year : "+yearPerformancesValueTv.get());

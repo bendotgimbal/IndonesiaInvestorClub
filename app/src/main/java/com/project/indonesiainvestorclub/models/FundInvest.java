@@ -1,7 +1,7 @@
 package com.project.indonesiainvestorclub.models;
 
 public class FundInvest {
-    private String id;
+//    private String id;
     private String name;
     private String type;
     private String manager;
@@ -40,13 +40,13 @@ public class FundInvest {
         this.index = index;
     }
 
-    public String getID() {
-        return id;
-    }
-
-    public void setID(String id) {
-        this.id = id;
-    }
+//    public String getID() {
+//        return id;
+//    }
+//
+//    public void setID(String id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
