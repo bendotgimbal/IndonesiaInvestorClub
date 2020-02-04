@@ -79,6 +79,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsCcNoValueTx;
   public ObservableField<String> fundsInvestorPassValueTx;
   public ObservableField<String> fundsServerValueTx;
+  public ObservableField<String> fundsUSDIDRValueTx;
+  public ObservableField<String> fundsBankNameValueTx;
+  public ObservableField<String> fundsBankAccNameValueTx;
+  public ObservableField<String> fundsBankAccNoValueTx;
 
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
@@ -133,6 +137,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsCcNoValueTx = new ObservableField<>("");
     fundsInvestorPassValueTx = new ObservableField<>("");
     fundsServerValueTx = new ObservableField<>("");
+    fundsUSDIDRValueTx = new ObservableField<>("");
+    fundsBankNameValueTx = new ObservableField<>("");
+    fundsBankAccNameValueTx = new ObservableField<>("");
+    fundsBankAccNoValueTx = new ObservableField<>("");
 
     pieChartVisibility = new ObservableBoolean(false);
 
@@ -317,6 +325,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsCcNoValueTx.set(investRes.getFundInvests().getMeta().getAccNo());
     fundsInvestorPassValueTx.set(investRes.getFundInvests().getMeta().getInvestorPass());
     fundsServerValueTx.set(investRes.getFundInvests().getMeta().getServer());
+    fundsUSDIDRValueTx.set(investRes.getFundInvests().getUSDIDR());
+    fundsBankNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getName());
+    fundsBankAccNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccName());
+    fundsBankAccNoValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccNo());
 
     Toast.makeText(context, "Name Invest " + investNameTx.get(), Toast.LENGTH_SHORT).show();
     Log.d(TAG, "Year : "+yearPerformancesValueTv.get());

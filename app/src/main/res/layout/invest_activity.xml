@@ -624,6 +624,28 @@
               app:layout_constraintTop_toBottomOf="@id/funds_compounding_label"
               tools:text="No/Yes"
               />
+          <TextView
+              android:id="@+id/funds_acc_no_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_acc_no_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_compounding_value"
+              tools:text="Acc. No."
+              />
+          <TextView
+              android:id="@+id/funds_cc_no_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsCcNoValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_acc_no_label"
+              tools:text="0001234"
+              />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -673,28 +695,6 @@
               app:layout_constraintTop_toBottomOf="@id/empty_label2"
               />
           <TextView
-              android:id="@+id/funds_acc_no_label"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="15dp"
-              android:text="@string/funds_acc_no_label"
-              android:textColor="@color/colorPrimary"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/empty_label3"
-              tools:text="Acc. No."
-              />
-          <TextView
-              android:id="@+id/funds_cc_no_value"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.fundsCcNoValueTx}"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/funds_acc_no_label"
-              tools:text="0001234"
-              />
-          <TextView
               android:id="@+id/funds_investor_pass_label"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
@@ -703,7 +703,7 @@
               android:textColor="@color/colorPrimary"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/funds_cc_no_value"
+              app:layout_constraintTop_toBottomOf="@id/empty_label3"
               tools:text="Investor Pass"
               />
           <TextView
@@ -720,7 +720,7 @@
               android:id="@+id/funds_server_label"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_marginTop="15dp"
+              android:layout_marginTop="5dp"
               android:text="@string/funds_server_label"
               android:textColor="@color/colorPrimary"
               app:layout_constraintEnd_toEndOf="parent"
@@ -737,6 +737,94 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/funds_server_label"
               tools:text="Server Value"
+              />
+          <TextView
+              android:id="@+id/funds_usdidr_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_usdidr_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_server_value"
+              tools:text="USDIDR"
+              />
+          <TextView
+              android:id="@+id/funds_usdidr_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsUSDIDRValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_usdidr_label"
+              tools:text="USDIDR Value"
+              />
+          <TextView
+              android:id="@+id/funds_bank_name_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_bank_name_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_usdidr_value"
+              tools:text="Bank Name"
+              />
+          <TextView
+              android:id="@+id/funds_bank_name_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsBankNameValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_bank_name_label"
+              tools:text="Bank Name Value"
+              />
+          <TextView
+              android:id="@+id/funds_bank_accname_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_bank_accname_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_bank_name_value"
+              tools:text="Bank AccName"
+              />
+          <TextView
+              android:id="@+id/funds_bank_accname_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsBankAccNameValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_bank_accname_label"
+              tools:text="Bank AccName Value"
+              />
+          <TextView
+              android:id="@+id/funds_bank_accno_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_bank_accno_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_bank_accname_value"
+              tools:text="Bank AccNo"
+              />
+          <TextView
+              android:id="@+id/funds_bank_accno_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsBankAccNoValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_bank_accno_label"
+              tools:text="Bank AccNo Value"
               />
         </androidx.constraintlayout.widget.ConstraintLayout>
       </LinearLayout>

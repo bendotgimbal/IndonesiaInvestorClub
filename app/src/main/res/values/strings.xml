@@ -108,6 +108,10 @@
   <string name="funds_acc_no_label">Acc. No.</string>
   <string name="funds_investor_pass_label">Investor Pass</string>
   <string name="funds_server_label">Server</string>
+  <string name="funds_usdidr_label">USDIDR</string>
+  <string name="funds_bank_name_label">Name</string>
+  <string name="funds_bank_accname_label">AccName</string>
+  <string name="funds_bank_accno_label">AccNo</string>
 
   <string name="perlots_usd_label">PerLots (USD)</string>
   <string name="invest_usd_label">Invest (USD)</string>
