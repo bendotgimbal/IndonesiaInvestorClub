@@ -58,7 +58,7 @@ public class InvestRes {
 
     private Invest invests;
     private FundInvest fundinvests;
-    private CurrentData currentData;
+    private UserInvest userInvest;
 
     public Invest getInvests() {
         return invests;
@@ -76,12 +76,12 @@ public class InvestRes {
         this.fundinvests = fundinvests;
     }
 
-    public CurrentData getCurrentData() {
-        return currentData;
+    public UserInvest getUserInvest() {
+        return userInvest;
     }
 
-    public void setCurrentData(CurrentData currentData) {
-        this.currentData = currentData;
+    public void setUserInvest(UserInvest userInvest) {
+        this.userInvest = userInvest;
     }
 
 

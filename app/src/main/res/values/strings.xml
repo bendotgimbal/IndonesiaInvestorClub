@@ -115,6 +115,13 @@
   <string name="funds_bank_name_label">Name</string>
   <string name="funds_bank_accname_label">AccName</string>
   <string name="funds_bank_accno_label">AccNo</string>
+  <string name="funds_user_date_label">Date</string>
+  <string name="funds_user_id_label">UserID</string>
+  <string name="funds_user_name_label">Name</string>
+  <string name="funds_user_invest_label">Invest</string>
+  <string name="funds_user_status_id_label">StatusID</string>
+  <string name="funds_user_status_label">Status</string>
+  <string name="funds_user_wd_id_label">WdID</string>
 
   <string name="perlots_usd_label">PerLots (USD)</string>
   <string name="invest_usd_label">Invest (USD)</string>

@@ -950,7 +950,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginTop="5dp"
-              android:text="@string/funds_your_invest_label"
+              android:text="@string/funds_user_date_label"
               android:textColor="@color/colorPrimary"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -967,7 +967,144 @@
               app:layout_constraintTop_toBottomOf="@id/funds_user_date_label"
               tools:text="User Date Value"
               />
+          <TextView
+              android:id="@+id/funds_user_id_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_user_id_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_user_date_value"
+              tools:text="User ID"
+              />
+          <TextView
+              android:id="@+id/funds_user_id_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsUserIDValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_user_id_label"
+              tools:text="User ID Value"
+              />
+            <TextView
+                android:id="@+id/funds_user_name_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_user_name_label"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/funds_user_id_value"
+                tools:text="User Name"
+                />
+            <TextView
+                android:id="@+id/funds_user_name_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsUserNameValueTx}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/funds_user_name_label"
+                tools:text="User Name Value"
+                />
+            <TextView
+                android:id="@+id/funds_user_invest_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_user_invest_label"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/funds_user_name_value"
+                tools:text="User Invest"
+                />
+            <TextView
+                android:id="@+id/funds_user_invest_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsUserInvestValueTx}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/funds_user_invest_label"
+                tools:text="User Invest Value"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1">
+              <TextView
+                  android:id="@+id/funds_user_status_id_label"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="@string/funds_user_status_id_label"
+                  android:textColor="@color/colorPrimary"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  tools:text="User Status ID"
+                  />
+              <TextView
+                  android:id="@+id/funds_user_status_id_value"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.fundsUserStatusIDValueTx}"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/funds_user_status_id_label"
+                  tools:text="User Status ID Value"
+                  />
+              <TextView
+                  android:id="@+id/funds_user_status_label"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="@string/funds_user_status_label"
+                  android:textColor="@color/colorPrimary"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/funds_user_status_id_value"
+                  tools:text="User Status"
+                  />
+              <TextView
+                  android:id="@+id/funds_user_status_value"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.fundsUserStatusValueTx}"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/funds_user_status_label"
+                  tools:text="User Status Value"
+                  />
+              <TextView
+                  android:id="@+id/funds_user_wd_id_label"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dp"
+                  android:text="@string/funds_user_wd_id_label"
+                  android:textColor="@color/colorPrimary"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/funds_user_status_value"
+                  tools:text="User WdID"
+                  />
+              <TextView
+                  android:id="@+id/funds_user_wd_id_value"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:text="@{viewModel.fundsUserWdIDValueTx}"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toBottomOf="@id/funds_user_wd_id_label"
+                  tools:text="User WdID Value"
+                  />
+          </androidx.constraintlayout.widget.ConstraintLayout>
       </LinearLayout>
 
 

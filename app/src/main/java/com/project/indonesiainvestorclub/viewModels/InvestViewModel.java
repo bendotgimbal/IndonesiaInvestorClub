@@ -28,6 +28,7 @@ import com.project.indonesiainvestorclub.models.Monthly;
 import com.project.indonesiainvestorclub.models.ParticipantInvest;
 import com.project.indonesiainvestorclub.models.ParticipantInvestCurrent;
 import com.project.indonesiainvestorclub.models.ParticipantInvestPrevious;
+import com.project.indonesiainvestorclub.models.UserInvest;
 import com.project.indonesiainvestorclub.models.response.InvestRes;
 import com.project.indonesiainvestorclub.models.response.PerformanceRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
@@ -299,8 +300,27 @@ public class InvestViewModel extends BaseViewModelWithCallback
             objCurrent.getString("WdID")
         );
         currentDatalist.add(currentData);
-        investRes.setCurrentData(currentData);
       }
+
+      JSONObject objectUser = jsonObject.getJSONObject("User");
+      List<UserInvest> userInvestDatalist = new ArrayList<>();
+      for (int i = 1; i <= objectUser.length(); i++) {
+        JSONObject objUser = objectUser.getJSONObject(i + "");
+        UserInvest userInvest;
+
+        userInvest = new UserInvest(
+                objUser.getString("Date"),
+                objUser.getString("UserID"),
+                objUser.getString("Name"),
+                objUser.getString("Invest"),
+                objUser.getString("StatusID"),
+                objUser.getString("Status"),
+                objUser.getString("WdID")
+        );
+        userInvestDatalist.add(userInvest);
+        investRes.setUserInvest(userInvest);
+      }
+
       //            Current current = new Current(currentDatalist);
       ParticipantInvestCurrent participantInvestCurrent =
           new ParticipantInvestCurrent(currentDatalist);
@@ -350,7 +370,13 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsBankNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getName());
     fundsBankAccNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccName());
     fundsBankAccNoValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccNo());
-    fundsUserDateValueTx.set(investRes.getCurrentData().getDate());
+    fundsUserDateValueTx.set(investRes.getUserInvest().getDate());
+    fundsUserIDValueTx.set(investRes.getUserInvest().getUserID());
+    fundsUserNameValueTx.set(investRes.getUserInvest().getName());
+      fundsUserInvestValueTx.set(investRes.getUserInvest().getInvest());
+      fundsUserStatusIDValueTx.set(investRes.getUserInvest().getStatusID());
+      fundsUserStatusValueTx.set(investRes.getUserInvest().getStatus());
+      fundsUserWdIDValueTx.set(investRes.getUserInvest().getWdID());
 
     Toast.makeText(context, "Name Invest " + investNameTx.get(), Toast.LENGTH_SHORT).show();
     Log.d(TAG, "Year : "+yearPerformancesValueTv.get());
