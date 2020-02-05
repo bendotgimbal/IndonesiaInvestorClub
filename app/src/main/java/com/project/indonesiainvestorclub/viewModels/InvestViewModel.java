@@ -83,9 +83,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsBankNameValueTx;
   public ObservableField<String> fundsBankAccNameValueTx;
   public ObservableField<String> fundsBankAccNoValueTx;
+  public ObservableField<String> fundsUserDateValueTx;
+  public ObservableField<String> fundsUserIDValueTx;
+  public ObservableField<String> fundsUserNameValueTx;
+  public ObservableField<String> fundsUserInvestValueTx;
+  public ObservableField<String> fundsUserStatusIDValueTx;
+  public ObservableField<String> fundsUserStatusValueTx;
+  public ObservableField<String> fundsUserWdIDValueTx;
 
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
+  public ObservableBoolean participantListVisibility;
+  public ObservableBoolean userListVisibility;
 
   public ObservableBoolean beforeButtonPerformancesVisibility;
   public ObservableBoolean nextButtonPerformancesVisibility;
@@ -125,6 +134,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
     tablePerformanceVisibility = new ObservableBoolean(false);
     fundsListVisibility = new ObservableBoolean(false);
+    participantListVisibility = new ObservableBoolean(false);
+    userListVisibility = new ObservableBoolean(false);
 
     fundsNameLabelTx = new ObservableField<>("");
     fundsTypeValueTx = new ObservableField<>("");
@@ -141,11 +152,20 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsBankNameValueTx = new ObservableField<>("");
     fundsBankAccNameValueTx = new ObservableField<>("");
     fundsBankAccNoValueTx = new ObservableField<>("");
+    fundsUserDateValueTx = new ObservableField<>("");
+    fundsUserIDValueTx = new ObservableField<>("");
+    fundsUserNameValueTx = new ObservableField<>("");
+    fundsUserInvestValueTx = new ObservableField<>("");
+    fundsUserStatusIDValueTx = new ObservableField<>("");
+    fundsUserStatusValueTx = new ObservableField<>("");
+    fundsUserWdIDValueTx = new ObservableField<>("");
 
     pieChartVisibility = new ObservableBoolean(false);
 
     arrowTabelPerformanceVisibility();
     arrowFundsListVisibility();
+    participantListVisibility();
+    userListVisibility();
 
 //    pieChartView = binding.chart;
 //    lineChartView = binding.chartLine;
@@ -279,6 +299,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
             objCurrent.getString("WdID")
         );
         currentDatalist.add(currentData);
+        investRes.setCurrentData(currentData);
       }
       //            Current current = new Current(currentDatalist);
       ParticipantInvestCurrent participantInvestCurrent =
@@ -329,6 +350,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsBankNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getName());
     fundsBankAccNameValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccName());
     fundsBankAccNoValueTx.set(investRes.getFundInvests().getBankFundInvest().getAccNo());
+    fundsUserDateValueTx.set(investRes.getCurrentData().getDate());
 
     Toast.makeText(context, "Name Invest " + investNameTx.get(), Toast.LENGTH_SHORT).show();
     Log.d(TAG, "Year : "+yearPerformancesValueTv.get());
@@ -530,6 +552,28 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowFundsListVisibility();
   }
 
+  public void onClickParticipantListHideShow(View view){
+    if (!participantListVisibility.get()){
+      participantListVisibility.set(true);
+      participantListVisibility();
+      return;
+    }
+
+    participantListVisibility.set(false);
+    participantListVisibility();
+  }
+
+  public void onClickUserListHideShow(View view){
+    if (!userListVisibility.get()){
+      userListVisibility.set(true);
+      userListVisibility();
+      return;
+    }
+
+    userListVisibility.set(false);
+    userListVisibility();
+  }
+
   private void arrowTabelPerformanceVisibility(){
     if (tablePerformanceVisibility.get()){
       binding.tablePerformanceVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
@@ -543,6 +587,22 @@ public class InvestViewModel extends BaseViewModelWithCallback
       binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
     }else {
       binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
+  private void participantListVisibility(){
+    if (participantListVisibility.get()){
+      binding.participantListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.participantListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
+  private void userListVisibility(){
+    if (userListVisibility.get()){
+      binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+    }else {
+      binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }
 

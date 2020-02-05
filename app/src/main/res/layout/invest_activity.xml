@@ -192,8 +192,8 @@
           android:id="@+id/performance_title"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:text="@string/menu_performance"
-          android:layout_marginTop="10dp"
+          android:text="@string/menu_funds_performance"
+          android:layout_marginTop="20dp"
           android:paddingStart="10dp"
           android:paddingLeft="10dp"
           android:paddingEnd="0dp"
@@ -411,7 +411,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:text="@string/menu_funds"
-          android:layout_marginTop="10dp"
+          android:layout_marginTop="20dp"
           android:textSize="18sp"
           android:textStyle="bold"
           android:paddingStart="10dp"
@@ -825,6 +825,147 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@id/funds_bank_accno_label"
               tools:text="Bank AccNo Value"
+              />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/participant_title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@string/menu_funds_participant"
+          android:layout_marginTop="20dp"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          android:paddingStart="10dp"
+          android:paddingLeft="10dp"
+          android:paddingEnd="0dp"
+          android:paddingRight="0dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/founds_info_wrapper"/>
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/participantListVisibilityButton"
+          android:layout_width="50dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:paddingStart="0dp"
+          android:paddingLeft="0dp"
+          android:paddingEnd="10dp"
+          android:paddingRight="10dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:onClick="@{viewModel::onClickParticipantListHideShow}"
+          app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/participant_title"
+          />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"
+          app:layout_constraintBottom_toBottomOf="@id/participant_title"/>
+
+      <LinearLayout
+          android:id="@+id/participant_info_wrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:background="@drawable/square_radius_background"
+          android:visibility="@{viewModel.participantListVisibility ? View.VISIBLE : View.GONE}"
+          android:elevation="1dp"
+          android:orientation="horizontal"
+          android:padding="10dp"
+          android:baselineAligned="false"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/participant_title"
+          tools:targetApi="lollipop"
+          >
+
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/user_title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@string/menu_funds_user"
+          android:layout_marginTop="20dp"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          android:paddingStart="10dp"
+          android:paddingLeft="10dp"
+          android:paddingEnd="0dp"
+          android:paddingRight="0dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/participant_info_wrapper"/>
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/userListVisibilityButton"
+          android:layout_width="50dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:paddingStart="0dp"
+          android:paddingLeft="0dp"
+          android:paddingEnd="10dp"
+          android:paddingRight="10dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:onClick="@{viewModel::onClickUserListHideShow}"
+          app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/user_title"
+          />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"
+          app:layout_constraintBottom_toBottomOf="@id/user_title"/>
+
+      <LinearLayout
+          android:id="@+id/user_info_wrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:background="@drawable/square_radius_background"
+          android:visibility="@{viewModel.userListVisibility ? View.VISIBLE : View.GONE}"
+          android:elevation="1dp"
+          android:orientation="horizontal"
+          android:padding="10dp"
+          android:baselineAligned="false"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/user_title"
+          tools:targetApi="lollipop"
+          >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+          <TextView
+              android:id="@+id/funds_user_date_label"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_your_invest_label"
+              android:textColor="@color/colorPrimary"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              tools:text="User Date"
+              />
+          <TextView
+              android:id="@+id/funds_user_date_value"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsUserDateValueTx}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/funds_user_date_label"
+              tools:text="User Date Value"
               />
         </androidx.constraintlayout.widget.ConstraintLayout>
       </LinearLayout>

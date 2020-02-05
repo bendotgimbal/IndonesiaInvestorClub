@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.models.response;
 
+import com.project.indonesiainvestorclub.models.CurrentData;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.FundInvest;
 import com.project.indonesiainvestorclub.models.Invest;
@@ -57,6 +58,7 @@ public class InvestRes {
 
     private Invest invests;
     private FundInvest fundinvests;
+    private CurrentData currentData;
 
     public Invest getInvests() {
         return invests;
@@ -72,6 +74,14 @@ public class InvestRes {
 
     public void setFundInvests(FundInvest fundinvests) {
         this.fundinvests = fundinvests;
+    }
+
+    public CurrentData getCurrentData() {
+        return currentData;
+    }
+
+    public void setCurrentData(CurrentData currentData) {
+        this.currentData = currentData;
     }
 
 
