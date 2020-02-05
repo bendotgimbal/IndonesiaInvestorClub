@@ -19,49 +19,12 @@
       android:layout_height="match_parent"
       >
 
-    <LinearLayout
-        android:id="@+id/ava_wrapper"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
-      <ImageView
-          android:id="@+id/profile_image"
-          android:layout_width="120dp"
-          android:layout_height="120dp"
-          android:layout_margin="9dp"
-          android:adjustViewBounds="true"
-          android:background="@drawable/circle"
-          android:padding="3dp"
-          android:scaleType="centerInside"
-          tools:ignore="ContentDescription"
-          />
-
-      <TextView
-          android:id="@+id/first_name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="@{viewModel.nameTx}"
-          android:textColor="@android:color/white"
-          android:textSize="18sp"
-          tools:text="@string/profile_name"
-          />
-    </LinearLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ava_wrapper"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         >
 
@@ -69,9 +32,42 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="20dp"
-          android:layout_marginTop="10dp"
           android:orientation="vertical"
           >
+
+        <LinearLayout
+            android:id="@+id/ava_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+
+          <ImageView
+              android:id="@+id/profile_image"
+              android:layout_width="120dp"
+              android:layout_height="120dp"
+              android:layout_margin="9dp"
+              android:adjustViewBounds="true"
+              android:background="@drawable/circle"
+              android:padding="3dp"
+              android:scaleType="centerInside"
+              tools:ignore="ContentDescription"
+              />
+
+          <TextView
+              android:id="@+id/first_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="@{viewModel.nameTx}"
+              android:textColor="@android:color/white"
+              android:textSize="18sp"
+              tools:text="@string/profile_name"
+              />
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/login_info_wrapper"
