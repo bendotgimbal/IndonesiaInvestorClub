@@ -38,6 +38,7 @@
   <string name="menu_invest">Invest</string>
   <string name="menu_funds">Funds</string>
   <string name="menu_transactions">Transactions</string>
+  <string name="menu_funds_user">User</string>
 
   <string name="label_username">Username</string>
   <string name="label_password">Password</string>
@@ -112,6 +113,14 @@
   <string name="funds_bank_name_label">Bank Name</string>
   <string name="funds_bank_accname_label">Bank Acc.Name</string>
   <string name="funds_bank_accno_label">Bank Acc.No</string>
+
+  <string name="funds_user_date_label">Date</string>
+  <string name="funds_user_id_label">UserID</string>
+  <string name="funds_user_name_label">Name</string>
+  <string name="funds_user_invest_label">Invest</string>
+  <string name="funds_user_status_id_label">StatusID</string>
+  <string name="funds_user_status_label">Status</string>
+  <string name="funds_user_wd_id_label">WdID</string>
 
   <string name="perlots_usd_label">PerLots (USD)</string>
   <string name="invest_usd_label">Invest (USD)</string>
