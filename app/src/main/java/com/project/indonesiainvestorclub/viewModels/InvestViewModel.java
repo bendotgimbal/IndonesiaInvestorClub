@@ -159,7 +159,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     performanceAdapter = new PerformanceAdapter();
     participantAdapter = new ParticipantAdapter();
 
-    tablePerformanceVisibility = new ObservableBoolean(false);
+    tablePerformanceVisibility = new ObservableBoolean(true);
     fundsListVisibility = new ObservableBoolean(false);
     participantVisibility = new ObservableBoolean(false);
     userListVisibility = new ObservableBoolean(false);
