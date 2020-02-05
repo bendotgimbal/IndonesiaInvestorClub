@@ -268,8 +268,6 @@
               android:layout_marginRight="8dp"
               android:text="@string/edit_label"
               android:textColor="@color/colorAccent"
-
-
               android:onClick="@{viewModel::onButtonEditInfoPersonalClick}"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toTopOf="parent"

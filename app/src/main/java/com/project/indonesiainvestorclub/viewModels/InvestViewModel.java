@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.indonesiainvestorclub.R;
+import com.project.indonesiainvestorclub.adapter.ParticipantAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceListviewAdapter;
 import com.project.indonesiainvestorclub.databinding.InvestActivityBinding;
@@ -69,6 +70,19 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> ytdPerformancesValueTv;
   private MutableLiveData<String> mText;
   private ObservableField<String> mInvestID;
+
+  public ObservableField<String> fundName;
+  public ObservableField<String> fxType;
+  public ObservableField<String> investment;
+  public ObservableField<String> equityProgress;
+  public ObservableField<String> slots;
+  public ObservableField<String> roi;
+  public ObservableField<String> compounding;
+
+  public ObservableField<String> accNumber;
+  public ObservableField<String> investorPass;
+  public ObservableField<String> server;
+
   public ObservableField<String> fundsNameLabelTx;
   public ObservableField<String> fundsTypeValueTx;
   public ObservableField<String> fundsManagerValueTx;
@@ -92,6 +106,9 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsUserStatusValueTx;
   public ObservableField<String> fundsUserWdIDValueTx;
 
+  public ObservableField<String> previousDate;
+  public ObservableField<String> previousIvest;
+
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
   public ObservableBoolean participantListVisibility;
@@ -114,6 +131,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   private PerformanceListviewAdapter simpleAdapter;
   private PerformanceAdapter performanceAdapter;
+  private ParticipantAdapter participantAdapter;
 
   public InvestViewModel(Context context, InvestActivityBinding binding) {
     super(context);
@@ -130,8 +148,24 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv = new ObservableField<>("0000");
     ytdPerformancesValueTv = new ObservableField<>("0%");
 
+//    fundName = new ObservableField<>("-");
+//    fxType = new ObservableField<>("-");
+//    investment = new ObservableField<>("-");
+//    equityProgress = new ObservableField<>("-");
+//    slots = new ObservableField<>("-");
+//    roi = new ObservableField<>("-");
+//    compounding = new ObservableField<>("-");
+//
+//    accNumber = new ObservableField<>("-");
+//    investorPass = new ObservableField<>("-");
+//    server = new ObservableField<>("-");
+
+    previousDate = new ObservableField<>("-");
+    previousIvest = new ObservableField<>("-");
+
 //    performanceRes = new PerformanceRes();
     performanceAdapter = new PerformanceAdapter();
+    participantAdapter = new ParticipantAdapter();
 
     tablePerformanceVisibility = new ObservableBoolean(false);
     fundsListVisibility = new ObservableBoolean(false);
@@ -165,8 +199,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
     arrowTabelPerformanceVisibility();
     arrowFundsListVisibility();
-    participantListVisibility();
-    userListVisibility();
+    arrowparticipantListVisibility();
+    arrowuserListVisibility();
 
 //    pieChartView = binding.chart;
 //    lineChartView = binding.chartLine;
@@ -208,7 +242,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private void readInvestJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
-      InvestRes investRes = new InvestRes();
+//      InvestRes investRes = new InvestRes();
+      InvestRes investRes;
 
       Invest invest;
       Datas data;
@@ -304,6 +339,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
       JSONObject objectUser = jsonObject.getJSONObject("User");
       List<UserInvest> userInvestDatalist = new ArrayList<>();
+      List<CurrentData> users = new ArrayList<>();
       for (int i = 1; i <= objectUser.length(); i++) {
         JSONObject objUser = objectUser.getJSONObject(i + "");
         UserInvest userInvest;
@@ -317,8 +353,20 @@ public class InvestViewModel extends BaseViewModelWithCallback
                 objUser.getString("Status"),
                 objUser.getString("WdID")
         );
+
+        CurrentData currentData = new CurrentData(
+                objUser.getString("Date"),
+                objUser.getString("UserID"),
+                objUser.getString("Name"),
+                objUser.getString("Invest"),
+                objUser.getString("StatusID"),
+                objUser.getString("Status"),
+                objUser.getString("WdID")
+        );
+
         userInvestDatalist.add(userInvest);
-        investRes.setUserInvest(userInvest);
+//        investRes.setUserInvest(userInvest);
+        users.add(currentData);
       }
 
       //            Current current = new Current(currentDatalist);
@@ -329,6 +377,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
       //            investRes = new InvestRes(participantInvest,fundsInvestList,participantInvest,participantInvest);
       //            investRes = new InvestRes(investList);
+      investRes = new InvestRes(invest, fundInvest, participantInvest, users);
       investRes.setInvests(invest);
       investRes.setFundInvests(fundInvest);
       showInvest(investRes);
@@ -581,23 +630,23 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public void onClickParticipantListHideShow(View view){
     if (!participantListVisibility.get()){
       participantListVisibility.set(true);
-      participantListVisibility();
+      arrowparticipantListVisibility();
       return;
     }
 
     participantListVisibility.set(false);
-    participantListVisibility();
+    arrowparticipantListVisibility();
   }
 
   public void onClickUserListHideShow(View view){
     if (!userListVisibility.get()){
       userListVisibility.set(true);
-      userListVisibility();
+      arrowuserListVisibility();
       return;
     }
 
     userListVisibility.set(false);
-    userListVisibility();
+    arrowuserListVisibility();
   }
 
   private void arrowTabelPerformanceVisibility(){
@@ -616,7 +665,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
-  private void participantListVisibility(){
+  private void arrowparticipantListVisibility(){
     if (participantListVisibility.get()){
       binding.participantListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
     }else {
@@ -624,7 +673,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
-  private void userListVisibility(){
+  private void arrowuserListVisibility(){
     if (userListVisibility.get()){
       binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
     }else {

@@ -58,7 +58,22 @@ public class InvestRes {
 
     private Invest invests;
     private FundInvest fundinvests;
+    private ParticipantInvest participantInvest;
+    private List<CurrentData> user;
     private UserInvest userInvest;
+
+    public InvestRes(Invest invests, FundInvest fundinvests,
+                     ParticipantInvest participantInvest,
+                     List<CurrentData> user,UserInvest userInvest) {
+        this.invests = invests;
+        this.fundinvests = fundinvests;
+        this.participantInvest = participantInvest;
+        this.user = user;
+        this.userInvest = userInvest;
+    }
+
+    public InvestRes(Invest invest, FundInvest fundInvest, ParticipantInvest participantInvest, List<CurrentData> users) {
+    }
 
     public Invest getInvests() {
         return invests;
@@ -74,6 +89,22 @@ public class InvestRes {
 
     public void setFundInvests(FundInvest fundinvests) {
         this.fundinvests = fundinvests;
+    }
+
+    public ParticipantInvest getParticipantInvest() {
+        return participantInvest;
+    }
+
+    public void setParticipantInvest(ParticipantInvest participantInvest) {
+        this.participantInvest = participantInvest;
+    }
+
+    public List<CurrentData> getUser() {
+        return user;
+    }
+
+    public void setUser(List<CurrentData> user) {
+        this.user = user;
     }
 
     public UserInvest getUserInvest() {
