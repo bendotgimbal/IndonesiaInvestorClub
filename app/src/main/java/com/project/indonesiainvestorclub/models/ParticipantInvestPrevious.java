@@ -13,12 +13,20 @@ public class ParticipantInvestPrevious {
         return date;
     }
 
+    public String getDateText(){
+        return "Date : " +getDate();
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
 
     public String getInvest() {
         return invest;
+    }
+
+    public String getInvestText(){
+        return "Total invest : " +getInvest();
     }
 
     public void setInvest(String invest) {

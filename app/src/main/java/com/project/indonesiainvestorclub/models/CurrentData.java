@@ -50,12 +50,20 @@ public class CurrentData {
         return name;
     }
 
+    public String getNameText(){
+        return "Name : " + getName();
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getInvest() {
         return invest;
+    }
+
+    public String getInvestText(){
+        return "Invest : "+getInvest();
     }
 
     public void setInvest(String invest) {

@@ -7,9 +7,11 @@ import android.view.View;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.indonesiainvestorclub.R;
+import com.project.indonesiainvestorclub.adapter.ParticipantAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceListviewAdapter;
 import com.project.indonesiainvestorclub.databinding.InvestActivityBinding;
@@ -66,20 +68,27 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> ytdPerformancesValueTv;
   public ObservableField<String> mInvestID;
 
-  public ObservableField<String> fundName;
-  public ObservableField<String> fxType;
-  public ObservableField<String> investment;
-  public ObservableField<String> equityProgress;
-  public ObservableField<String> slots;
-  public ObservableField<String> roi;
-  public ObservableField<String> compounding;
+  public ObservableField<String> fundsNameLabelTx;
+  public ObservableField<String> fundsTypeValueTx;
+  public ObservableField<String> fundsEquityProgressValueTx;
+  public ObservableField<String> fundsSlotsValueTx;
+  public ObservableField<String> fundsRoiValueTx;
+  public ObservableField<String> fundsCompoundingValueTx;
+  public ObservableField<String> fundsYouInvestValueTx;
+  public ObservableField<String> fundsCcNoValueTx;
+  public ObservableField<String> fundsInvestorPassValueTx;
+  public ObservableField<String> fundsServerValueTx;
+  public ObservableField<String> fundsUSDIDRValueTx;
+  public ObservableField<String> fundsBankNameValueTx;
+  public ObservableField<String> fundsBankAccNameValueTx;
+  public ObservableField<String> fundsBankAccNoValueTx;
 
-  public ObservableField<String> accNumber;
-  public ObservableField<String> investorPass;
-  public ObservableField<String> server;
+  public ObservableField<String> previousDate;
+  public ObservableField<String> previousIvest;
 
   public ObservableBoolean tablePerformanceVisibility;
   public ObservableBoolean fundsListVisibility;
+  public ObservableBoolean participantVisibility;
 
   public ObservableBoolean beforeButtonPerformancesVisibility;
   public ObservableBoolean nextButtonPerformancesVisibility;
@@ -98,6 +107,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   private PerformanceListviewAdapter simpleAdapter;
   private PerformanceAdapter performanceAdapter;
+  private ParticipantAdapter participantAdapter;
 
   public InvestViewModel(Context context, InvestActivityBinding binding) {
     super(context);
@@ -114,33 +124,46 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv = new ObservableField<>("0000");
     ytdPerformancesValueTv = new ObservableField<>("0%");
 
-    fundName = new ObservableField<>("-");
-    fxType = new ObservableField<>("-");
-    investment = new ObservableField<>("-");
-    equityProgress = new ObservableField<>("-");
-    slots = new ObservableField<>("-");
-    roi = new ObservableField<>("-");
-    compounding = new ObservableField<>("-");
+    fundsNameLabelTx = new ObservableField<>("-");
+    fundsTypeValueTx = new ObservableField<>("-");
+    fundsEquityProgressValueTx = new ObservableField<>("-");
+    fundsSlotsValueTx = new ObservableField<>("-");
+    fundsRoiValueTx = new ObservableField<>("-");
+    fundsCompoundingValueTx = new ObservableField<>("-");
+    fundsYouInvestValueTx = new ObservableField<>("-");
+    fundsCcNoValueTx = new ObservableField<>("-");
+    fundsInvestorPassValueTx = new ObservableField<>("-");
+    fundsServerValueTx = new ObservableField<>("-");
+    fundsUSDIDRValueTx = new ObservableField<>("-");
+    fundsBankNameValueTx = new ObservableField<>("-");
+    fundsBankAccNameValueTx = new ObservableField<>("-");
+    fundsBankAccNoValueTx = new ObservableField<>("-");
 
-    accNumber = new ObservableField<>("-");
-    investorPass = new ObservableField<>("-");
-    server = new ObservableField<>("-");
+    previousDate = new ObservableField<>("-");
+    previousIvest = new ObservableField<>("-");
 
     performanceAdapter = new PerformanceAdapter();
+    participantAdapter = new ParticipantAdapter();
 
     tablePerformanceVisibility = new ObservableBoolean(false);
     fundsListVisibility = new ObservableBoolean(false);
+    participantVisibility = new ObservableBoolean(false);
 
     pieChartVisibility = new ObservableBoolean(false);
 
     arrowTabelPerformanceVisibility();
     arrowFundsListVisibility();
+    arrowParticipantVisibility();
 
     this.binding.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
     this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
     this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
+
+    this.binding.participantList.setLayoutManager(
+        new GridLayoutManager(getContext(), 2));
+    this.binding.participantList.setAdapter(participantAdapter);
   }
 
   public void start(String id) {
@@ -186,7 +209,6 @@ public class InvestViewModel extends BaseViewModelWithCallback
       String name = objectInvest.getString("Name");
       JSONObject datasObj = objectInvest.getJSONObject("Datas");
 
-      List<Invest> invests = new ArrayList<>();
       List<Month> monthList = new ArrayList<>();
 
       for (int i = 1; i <= datasObj.length(); i++) {
@@ -213,7 +235,6 @@ public class InvestViewModel extends BaseViewModelWithCallback
       data = new Datas(monthList);
 
       invest = new Invest(name, data);
-      invests.add(invest);
 
       //FUNDS
       Meta meta;
@@ -325,17 +346,27 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYear());
     ytdPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
 
-    fundName.set(investRes.getFunds().getName());
-    fxType.set(investRes.getFunds().getManager());
-    investment.set(investRes.getFunds().getInvested());
-    equityProgress.set(investRes.getFunds().getEquity());
-    slots.set(investRes.getFunds().getSlots());
-    roi.set(investRes.getFunds().getROI());
-    compounding.set(investRes.getFunds().getCompounding());
+    fundsNameLabelTx.set(investRes.getFunds().getName());
+    fundsTypeValueTx.set(investRes.getFunds().getTypeManager());
+    fundsYouInvestValueTx.set(investRes.getFunds().getInvested());
+    fundsEquityProgressValueTx.set(investRes.getFunds().getEquity());
+    fundsSlotsValueTx.set(investRes.getFunds().getSlots());
+    fundsRoiValueTx.set(investRes.getFunds().getROI());
+    fundsCompoundingValueTx.set(investRes.getFunds().getCompounding());
+    fundsCcNoValueTx.set(investRes.getFunds().getMeta().getAccNo());
+    fundsInvestorPassValueTx.set(investRes.getFunds().getMeta().getInvestorPass());
+    fundsServerValueTx.set(investRes.getFunds().getMeta().getServer());
+    fundsUSDIDRValueTx.set(investRes.getFunds().getUSDIDR());
+    fundsBankNameValueTx.set(investRes.getFunds().getBankFundInvest().getName());
+    fundsBankAccNameValueTx.set(investRes.getFunds().getBankFundInvest().getAccName());
+    fundsBankAccNoValueTx.set(investRes.getFunds().getBankFundInvest().getAccNo());
 
-    accNumber.set(investRes.getFunds().getMeta().getAccNo());
-    investorPass.set(investRes.getFunds().getMeta().getInvestorPass());
-    server.set(investRes.getFunds().getMeta().getServer());
+    previousDate.set(investRes.getParticipant().getParticipantInvestPrevious().getDateText());
+    previousIvest.set(investRes.getParticipant().getParticipantInvestPrevious().getInvestText());
+
+    participantAdapter.setModels(
+        investRes.getParticipant().getParticipantInvestCurrent().getCurrent());
+    participantAdapter.notifyDataSetChanged();
 
     //TODO recyclerview
   }
@@ -578,6 +609,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
+  @SuppressWarnings("unused")
   public void onClickTablePerformanceHideShow(View view) {
     if (!tablePerformanceVisibility.get()) {
       tablePerformanceVisibility.set(true);
@@ -589,6 +621,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowTabelPerformanceVisibility();
   }
 
+  @SuppressWarnings("unused")
   public void onClickFundsListHideShow(View view) {
     if (!fundsListVisibility.get()) {
       fundsListVisibility.set(true);
@@ -598,6 +631,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
     fundsListVisibility.set(false);
     arrowFundsListVisibility();
+  }
+
+  @SuppressWarnings("unused")
+  public void onClickParticipantHideShow(View view) {
+    if (!participantVisibility.get()) {
+      participantVisibility.set(true);
+      arrowParticipantVisibility();
+      return;
+    }
+
+    participantVisibility.set(false);
+    arrowParticipantVisibility();
   }
 
   private void arrowTabelPerformanceVisibility() {
@@ -612,9 +657,21 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   private void arrowFundsListVisibility() {
     if (fundsListVisibility.get()) {
-      binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+      binding.fundsListVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_down_black_24dp);
     } else {
-      binding.fundsListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+      binding.fundsListVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_up_black_24dp);
+    }
+  }
+
+  private void arrowParticipantVisibility() {
+    if (participantVisibility.get()) {
+      binding.participantVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_down_black_24dp);
+    } else {
+      binding.participantVisibilityButton.setImageResource(
+          R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }
 

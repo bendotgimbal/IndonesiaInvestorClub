@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+
+    <variable
+        name="obj"
+        type="com.project.indonesiainvestorclub.models.CurrentData"
+        />
+
+  </data>
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="3dp">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical"
+        >
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          >
+
+        <TextView
+            android:id="@+id/transactionDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@{obj.date}"
+            android:textSize="14sp"
+            tools:text="01-01-1999"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_gravity="bottom"/>
+
+      </FrameLayout>
+
+      <TextView
+          android:id="@+id/participantName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:text="@{obj.nameText}"
+          android:textSize="14sp"
+          tools:text="Name : Gimbal"
+          />
+
+      <TextView
+          android:id="@+id/totalInvest"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:text="@{obj.investText}"
+          android:textSize="14sp"
+          tools:text="Invest : 2000 USD"
+          />
+
+      <TextView
+          android:id="@+id/transactionStatus"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@{obj.status}"
+          android:textSize="14sp"
+          tools:text="Payment Confirmed"
+          />
+
+    </LinearLayout>
+
+  </androidx.cardview.widget.CardView>
+
+</layout>

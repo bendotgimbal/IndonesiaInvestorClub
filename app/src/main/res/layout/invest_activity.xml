@@ -21,494 +21,691 @@
       android:background="@android:color/white"
       >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
 
-      <TextView
-          android:id="@+id/performance_title"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:paddingStart="10dp"
-          android:paddingLeft="10dp"
-          android:paddingEnd="0dp"
-          android:paddingRight="0dp"
-          android:text="@string/menu_performance"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/tablePerformanceVisibilityButton"
-          android:layout_width="50dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:clickable="true"
-          android:focusable="true"
-          android:onClick="@{viewModel::onClickTablePerformanceHideShow}"
-          android:paddingStart="0dp"
-          android:paddingLeft="0dp"
-          android:paddingEnd="10dp"
-          android:paddingRight="10dp"
-          app:layout_constraintBottom_toBottomOf="@id/performance_title"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-          />
-
-      <View
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@android:color/darker_gray"
-          app:layout_constraintBottom_toBottomOf="@id/performance_title"
-          />
-
-      <HorizontalScrollView
-          android:id="@+id/horizontal_table_view"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:visibility="@{viewModel.tablePerformanceVisibility ? View.VISIBLE : View.GONE}"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/performance_title"
+          app:layout_constraintTop_toTopOf="parent"
           >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/performance_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/menu_performance"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/tablePerformanceVisibilityButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickTablePerformanceHideShow}"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/performance_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/performance_title"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal_table_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.tablePerformanceVisibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/performance_title"
             >
 
           <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               >
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/year_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/january_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/year_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/february_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/january_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/march_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/february_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/april_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/march_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/may_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/april_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/june_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/may_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/july_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/june_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/august_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/july_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/september_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/august_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/ocktober_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/september_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/november_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                />
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/ocktober_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/background_table"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/december_label"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/november_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
+
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="50dp"
+                  android:background="@drawable/background_table"
+                  android:gravity="center"
+                  android:padding="5dp"
+                  android:text="@string/december_label"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="14sp"
+                  />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/table_performance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:itemCount="3"
+                tools:listitem="@layout/sub_performance_table"
                 />
 
           </LinearLayout>
 
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/table_performance"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              tools:itemCount="3"
-              tools:listitem="@layout/sub_performance_table"
-              />
+        </HorizontalScrollView>
 
-        </LinearLayout>
-
-      </HorizontalScrollView>
-
-      <TextView
-          android:id="@+id/funds_title"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:paddingStart="10dp"
-          android:paddingLeft="10dp"
-          android:paddingEnd="0dp"
-          android:paddingRight="0dp"
-          android:text="@string/menu_funds"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/horizontal_table_view"
-          />
-
-      <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/fundsListVisibilityButton"
-          android:layout_width="50dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:clickable="true"
-          android:focusable="true"
-          android:onClick="@{viewModel::onClickFundsListHideShow}"
-          android:paddingStart="0dp"
-          android:paddingLeft="0dp"
-          android:paddingEnd="10dp"
-          android:paddingRight="10dp"
-          app:layout_constraintBottom_toBottomOf="@id/funds_title"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-          />
-
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@android:color/darker_gray"
-          app:layout_constraintBottom_toBottomOf="@id/funds_title"
-          />
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/founds_info_wrapper"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="15dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginEnd="15dp"
-          android:background="@drawable/square_radius_background"
-          android:elevation="1dp"
-          android:padding="10dp"
-          android:visibility="@{viewModel.fundsListVisibility ? View.VISIBLE : View.GONE}"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/funds_title"
-          tools:targetApi="lollipop"
-          >
-
-        <LinearLayout
-            android:id="@+id/fund_coloumn_1"
+        <TextView
+            android:id="@+id/funds_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
-            app:layout_constraintEnd_toStartOf="@id/fund_coloumn_2"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/menu_funds"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_table_view"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fundsListVisibilityButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickFundsListHideShow}"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/funds_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/funds_title"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/funds_info_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/square_radius_background"
+            android:elevation="1dp"
+            android:padding="10dp"
+            android:visibility="@{viewModel.fundsListVisibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/funds_title"
+            tools:targetApi="lollipop"
             >
 
-          <TextView
-              android:id="@+id/funds_name"
-              android:layout_width="wrap_content"
+          <LinearLayout
+              android:id="@+id/fund_coloumn_1"
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:text="@{viewModel.fundName}"
-              android:textSize="18sp"
-              android:textStyle="bold"
-              tools:text="IIC FX 1"
-              />
+              android:orientation="vertical"
+              android:padding="5dp"
+              app:layout_constraintEnd_toStartOf="@id/fund_coloumn_2"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              >
 
-          <TextView
-              android:id="@+id/funds_type"
-              android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/funds_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsNameLabelTx}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="IIC FX 1"
+                />
+
+            <TextView
+                android:id="@+id/funds_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsTypeValueTx}"
+                android:textSize="12sp"
+                tools:text="FX - Manager"
+                />
+
+            <TextView
+                android:id="@+id/funds_invest_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_your_invest_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Your Invest"
+                />
+
+            <TextView
+                android:id="@+id/funds_invest_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsYouInvestValueTx}"
+                tools:text="0 USD"
+                />
+
+            <TextView
+                android:id="@+id/funds_equity_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_equity_progress_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Equity Progress"
+                />
+
+            <TextView
+                android:id="@+id/funds_equity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsEquityProgressValueTx}"
+                tools:text="0 USD"
+                />
+
+            <TextView
+                android:id="@+id/funds_slots_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_slots_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Slots"
+                />
+
+            <TextView
+                android:id="@+id/funds_slots_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsSlotsValueTx}"
+                tools:text="0 USD"
+                />
+
+            <TextView
+                android:id="@+id/funds_roi_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_roi_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="ROI"
+                />
+
+            <TextView
+                android:id="@+id/funds_roi_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsRoiValueTx}"
+                tools:text="0 % p.a."
+                />
+
+            <TextView
+                android:id="@+id/funds_compounding_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_compounding_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Compounding"
+                />
+
+            <TextView
+                android:id="@+id/funds_compounding_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsCompoundingValueTx}"
+                tools:text="No/Yes"
+                />
+
+            <TextView
+                android:id="@+id/funds_acc_no_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_acc_no_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Acc. No."
+                />
+
+            <TextView
+                android:id="@+id/funds_cc_no_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsCcNoValueTx}"
+                tools:text="0001234"
+                />
+
+          </LinearLayout>
+
+          <LinearLayout
+              android:id="@+id/fund_coloumn_2"
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:text="@{viewModel.fxType}"
-              android:textSize="12sp"
-              tools:text="FX - Manager"
-              />
+              android:orientation="vertical"
+              android:padding="5dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toEndOf="@id/fund_coloumn_1"
+              app:layout_constraintTop_toTopOf="parent"
+              >
 
-          <TextView
-              android:id="@+id/funds_invest_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_your_invest_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Your Invest"
-              />
+            <TextView
+                android:id="@+id/funds_meta_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/funds_meta_label"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="META INFO"
+                />
 
-          <TextView
-              android:id="@+id/funds_invest_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.investment}"
-              tools:text="0 USD"
-              />
+            <TextView
+                android:id="@+id/funds_investor_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_investor_pass_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Investor Pass"
+                />
 
-          <TextView
-              android:id="@+id/funds_equity_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_equity_progress_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Equity Progress"
-              />
+            <TextView
+                android:id="@+id/funds_investor_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsInvestorPassValueTx}"
+                tools:text="2016"
+                />
 
-          <TextView
-              android:id="@+id/funds_equity_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.equityProgress}"
-              tools:text="0 USD"
-              />
+            <TextView
+                android:id="@+id/funds_server_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_server_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Server"
+                />
 
-          <TextView
-              android:id="@+id/funds_slots_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_slots_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Slots"
-              />
+            <TextView
+                android:id="@+id/funds_server_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsServerValueTx}"
+                tools:text="Server Value"
+                />
 
-          <TextView
-              android:id="@+id/funds_slots_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.slots}"
-              tools:text="0 USD"
-              />
+            <TextView
+                android:id="@+id/funds_usdidr_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_usdidr_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="USDIDR"
+                />
 
-          <TextView
-              android:id="@+id/funds_roi_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_roi_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="ROI"
-              />
+            <TextView
+                android:id="@+id/funds_usdidr_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsUSDIDRValueTx}"
+                tools:text="USDIDR Value"
+                />
 
-          <TextView
-              android:id="@+id/funds_roi_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.roi}"
-              tools:text="0 % p.a."
-              />
+            <TextView
+                android:id="@+id/funds_bank_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_bank_name_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Bank Name"
+                />
 
-          <TextView
-              android:id="@+id/funds_compounding_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_compounding_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Compounding"
-              />
+            <TextView
+                android:id="@+id/funds_bank_name_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsBankNameValueTx}"
+                tools:text="Bank Name Value"
+                />
 
-          <TextView
-              android:id="@+id/funds_compounding_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.compounding}"
-              tools:text="No/Yes"
-              />
+            <TextView
+                android:id="@+id/funds_bank_accname_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_bank_accname_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Bank AccName"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/funds_bank_accname_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsBankAccNameValueTx}"
+                tools:text="Bank AccName Value"
+                />
+
+            <TextView
+                android:id="@+id/funds_bank_accno_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/funds_bank_accno_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Bank AccNo"
+                />
+
+            <TextView
+                android:id="@+id/funds_bank_accno_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.fundsBankAccNoValueTx}"
+                tools:text="Bank AccNo Value"
+                />
+
+          </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/participant_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:text="@string/participant_label"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/funds_info_wrapper"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/participantVisibilityButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickParticipantHideShow}"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/participant_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/participant_title"
+            />
 
         <LinearLayout
-            android:id="@+id/fund_coloumn_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:visibility="@{viewModel.participantVisibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fund_coloumn_1"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/participant_title"
             >
 
           <TextView
-              android:id="@+id/funds_meta_label"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="@string/funds_meta_label"
-              android:textSize="18sp"
-              android:textStyle="bold"
-              tools:text="META INFO"
-              />
-
-          <TextView
-              android:id="@+id/funds_acc_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_marginBottom="5dp"
               android:layout_marginTop="5dp"
-              android:text="@string/funds_acc_no_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Acc. No."
-              />
+              android:paddingStart="8dp"
+              android:paddingLeft="8dp"
+              android:paddingEnd="0dp"
+              android:paddingRight="0dp"
+              android:text="@string/previous_label"
+              android:textSize="16sp"
+              android:textStyle="bold"/>
+
+          <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/square_radius_background"
+              android:layout_margin="5dp"
+              android:elevation="1dp"
+              android:padding="10dp"
+              tools:targetApi="lollipop"
+              >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@{viewModel.previousDate}"
+                tools:text="01-01-1999"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@{viewModel.previousIvest}"
+                tools:text="2000 USD"
+                android:textSize="14sp"/>
+
+
+          </FrameLayout>
 
           <TextView
-              android:id="@+id/funds_acc_value"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="@{viewModel.accNumber}"
-              tools:text="0001234"
-              />
-
-          <TextView
-              android:id="@+id/funds_investor_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_marginBottom="5dp"
               android:layout_marginTop="5dp"
-              android:text="@string/funds_investor_pass_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Investor Pass"
-              />
+              android:paddingStart="8dp"
+              android:paddingLeft="8dp"
+              android:paddingEnd="0dp"
+              android:paddingRight="0dp"
+              android:text="@string/current_label"
+              android:textSize="16sp"
+              android:textStyle="bold"/>
 
-          <TextView
-              android:id="@+id/funds_investor_value"
-              android:layout_width="wrap_content"
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/participantList"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="@{viewModel.investorPass}"
-              tools:text="2016"
-              />
-
-          <TextView
-              android:id="@+id/funds_server_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_server_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Server"
-              />
-
-          <TextView
-              android:id="@+id/funds_server_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.server}"
-              tools:text="Server Value"
+              tools:listitem="@layout/sub_participant_item"
+              tools:itemCount="2"
               />
 
         </LinearLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:layout_width="match_parent"

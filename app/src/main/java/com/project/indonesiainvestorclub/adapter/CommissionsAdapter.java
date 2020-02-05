@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.adapter;
 
+import com.project.indonesiainvestorclub.BR;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Commissions;
@@ -27,7 +28,7 @@ public class CommissionsAdapter extends RVBaseAdapter {
 
     @Override public void onBindViewHolder(RVViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        holder.binding.setVariable(com.project.indonesiainvestorclub.BR.listener, this.listener);
+        holder.binding.setVariable(BR.listener, this.listener);
         holder.binding.executePendingBindings();
     }
 
