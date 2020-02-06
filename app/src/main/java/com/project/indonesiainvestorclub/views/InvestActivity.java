@@ -28,4 +28,9 @@ public class InvestActivity extends BaseActivity {
     investModel = new InvestViewModel(this, binding);
     binding.setViewModel(investModel);
   }
+
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+    setResult(RESULT_CANCELED);
+  }
 }

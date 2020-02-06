@@ -298,7 +298,6 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onButtonEditInfoPersonalClick(View view) {
-    //    Toast.makeText(context, "Edit Button Click", Toast.LENGTH_SHORT).show();
     Intent intent = new Intent(context, ProfileEditActivity.class);
     intent.putExtra("firstNameStr", firstNameStr);
     intent.putExtra("lastNameStr", lastNameStr);
@@ -312,7 +311,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     intent.putExtra("countryStr", countryStr);
     intent.putExtra("phoneNumberStr", phoneNumberStr);
     intent.putExtra("occupationStr", occupationStr);
-    //((MainActivity) context).startActivityForResult(intent, MainActivity.REFRESH_PROFILE);
+
     profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
   }
 

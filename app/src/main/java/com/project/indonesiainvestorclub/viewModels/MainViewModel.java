@@ -3,7 +3,7 @@ package com.project.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
+
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -147,7 +147,6 @@ public class MainViewModel extends BaseViewModelWithCallback implements ActionIn
     hideLoading();
     if (response == null) return;
     if (response.getAbout() == null) return;
-
 
     StringBuilder about = new StringBuilder();
 
