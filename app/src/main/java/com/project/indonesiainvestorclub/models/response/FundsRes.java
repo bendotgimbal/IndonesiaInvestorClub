@@ -7,11 +7,9 @@ import java.util.List;
 
 public class FundsRes {
   private List<Funds> funds;
-  private List<Meta> meta;
 
-  public FundsRes(List<Funds> funds, List<Meta> meta) {
+  public FundsRes(List<Funds> funds) {
     this.funds = funds;
-    this.meta = meta;
   }
 
   public List<Funds> getFunds() {
@@ -22,11 +20,4 @@ public class FundsRes {
     this.funds = funds;
   }
 
-  public List<Meta> getMeta() {
-    return meta;
-  }
-
-  public void setMeta(List<Meta> meta) {
-    this.meta = meta;
-  }
 }

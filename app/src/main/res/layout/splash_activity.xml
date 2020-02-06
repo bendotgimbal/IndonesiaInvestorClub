@@ -27,7 +27,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
-        android:textColor="@color/ColorPercentProgressBar"
+        android:textColor="@android:color/black"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"

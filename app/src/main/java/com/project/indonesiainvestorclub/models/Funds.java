@@ -85,6 +85,10 @@ public class Funds {
     this.manager = manager;
   }
 
+  public String getTypeManager(){
+    return getType()+" - "+getManager();
+  }
+
   public String getInvested() {
     return invested;
   }

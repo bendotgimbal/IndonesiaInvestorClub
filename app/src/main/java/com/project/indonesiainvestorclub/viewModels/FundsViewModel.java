@@ -39,7 +39,6 @@ public class FundsViewModel extends BaseViewModelWithCallback
   public ObservableBoolean loadingState;
   public ObservableField<String> fundsNameLabelTx;
   public ObservableField<String> fundsTypeValueTx;
-  public ObservableField<String> fundsManagerValueTx;
   public ObservableField<String> fundsEquityProgressValueTx;
   public ObservableField<String> fundsSlotsValueTx;
   public ObservableField<String> fundsRoiValueTx;
@@ -58,7 +57,6 @@ public class FundsViewModel extends BaseViewModelWithCallback
     loadingState = new ObservableBoolean(false);
     fundsNameLabelTx = new ObservableField<>("");
     fundsTypeValueTx = new ObservableField<>("");
-    fundsManagerValueTx = new ObservableField<>("");
     fundsEquityProgressValueTx = new ObservableField<>("");
     fundsSlotsValueTx = new ObservableField<>("");
     fundsRoiValueTx = new ObservableField<>("");
@@ -107,23 +105,21 @@ public class FundsViewModel extends BaseViewModelWithCallback
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
 
       List<Funds> fundsList = new ArrayList<>();
-      List<Meta> metaList = new ArrayList<>();
 
       for (int i = 1; i <= objectFunds.length(); i++) {
         JSONObject objFunds = objectFunds.getJSONObject(i + "");
         investId = objFunds.getString("ID");
-        //                Toast.makeText(context, "ID "+investId, Toast.LENGTH_SHORT).show();
+
         Funds funds;
         Meta meta;
 
         JSONObject metaObject = objFunds.getJSONObject("Meta");
+
         meta = new Meta(
             metaObject.getString("AccNo"),
             metaObject.getString("InvestorPass"),
             metaObject.getString("Server")
         );
-
-        metaList.add(meta);
 
         funds = new Funds(
             objFunds.getString("ID"),
@@ -141,7 +137,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
         fundsList.add(funds);
       }
 
-      fundsRes = new FundsRes(fundsList, metaList);
+      fundsRes = new FundsRes(fundsList);
 
       showFunds(fundsRes);
     } catch (JSONException e) {
@@ -151,18 +147,19 @@ public class FundsViewModel extends BaseViewModelWithCallback
 
   private void showFunds(FundsRes fundsRes) {
     hideLoading();
+
     if (fundsRes == null) return;
+
     fundsNameLabelTx.set(fundsRes.getFunds().get(0).getName());
-    fundsTypeValueTx.set(fundsRes.getFunds().get(0).getType());
-    fundsManagerValueTx.set(fundsRes.getFunds().get(0).getManager());
+    fundsTypeValueTx.set(fundsRes.getFunds().get(0).getTypeManager());
     fundsEquityProgressValueTx.set(fundsRes.getFunds().get(0).getEquity());
     fundsSlotsValueTx.set(fundsRes.getFunds().get(0).getSlots());
     fundsRoiValueTx.set(fundsRes.getFunds().get(0).getROI());
     fundsCompoundingValueTx.set(fundsRes.getFunds().get(0).getCompounding());
     fundsYouInvestValueTx.set(fundsRes.getFunds().get(0).getInvested());
-    fundsCcNoValueTx.set(fundsRes.getMeta().get(0).getAccNo());
-    fundsInvestorPassValueTx.set(fundsRes.getMeta().get(0).getInvestorPass());
-    fundsServerValueTx.set(fundsRes.getMeta().get(0).getServer());
+    fundsCcNoValueTx.set(fundsRes.getFunds().get(0).getMeta().getAccNo());
+    fundsInvestorPassValueTx.set(fundsRes.getFunds().get(0).getMeta().getInvestorPass());
+    fundsServerValueTx.set(fundsRes.getFunds().get(0).getMeta().getServer());
   }
 
   @SuppressWarnings("unused")

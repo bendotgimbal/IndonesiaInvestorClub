@@ -1,364 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.project.indonesiainvestorclub.viewModels.FundsViewModel"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.project.indonesiainvestorclub.viewModels.FundsViewModel"
+        />
+
+    <import type="android.view.View" />
+  </data>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/funds_info_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/square_radius_background"
+        android:elevation="0dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop"
+        >
+
+      <LinearLayout
+          android:id="@+id/fund_coloumn_1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="5dp"
+          app:layout_constraintEnd_toStartOf="@id/fund_coloumn_2"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+
+        <TextView
+            android:id="@+id/funds_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsNameLabelTx}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="IIC FX 1"
             />
 
-        <import type="android.view.View" />
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <LinearLayout
-            android:id="@+id/founds_info_wrapper"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/funds_type"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/square_radius_background"
-            android:elevation="1dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:baselineAligned="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:id="@+id/funds_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsNameLabelTx}"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="IIC FX 1"
-                    />
-                <TextView
-                    android:id="@+id/funds_type_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:text="@{viewModel.fundsTypeValueTx}"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_label"
-                    tools:text="FX"
-                    />
-                <TextView
-                    android:id="@+id/minus_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="@string/minus"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_label"
-                    />
-                <TextView
-                    android:id="@+id/funds_manager_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="30dp"
-                    android:text="@{viewModel.fundsManagerValueTx}"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_label"
-                    tools:text="Manager"
-                    />
-                <TextView
-                    android:id="@+id/funds_your_invest_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/funds_your_invest_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_manager_value"
-                    tools:text="Your Invest"
-                    />
-                <TextView
-                    android:id="@+id/funds_invest_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsYouInvestValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_your_invest_label"
-                    tools:text="0 USD"
-                    />
-                <TextView
-                    android:id="@+id/funds_equity_progress_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/funds_your_invest_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_invest_value"
-                    tools:text="Equity Progress"
-                    />
-                <TextView
-                    android:id="@+id/funds_equity_progress_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsEquityProgressValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_equity_progress_label"
-                    tools:text="0 USD"
-                    />
-                <TextView
-                    android:id="@+id/funds_slots_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/funds_slots_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_equity_progress_value"
-                    tools:text="Slots"
-                    />
-                <TextView
-                    android:id="@+id/funds_slots_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsSlotsValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_slots_label"
-                    tools:text="0 USD"
-                    />
-                <TextView
-                    android:id="@+id/funds_roi_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/funds_roi_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_slots_value"
-                    tools:text="ROI"
-                    />
-                <TextView
-                    android:id="@+id/funds_roi_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsRoiValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_roi_label"
-                    tools:text="0 % p.a."
-                    />
-                <TextView
-                    android:id="@+id/funds_compounding_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/funds_roi_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_roi_value"
-                    tools:text="Compounding"
-                    />
-                <TextView
-                    android:id="@+id/funds_compounding_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsCompoundingValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_compounding_label"
-                    tools:text="No/Yes"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                >
-                <TextView
-                    android:id="@+id/funds_meta_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="@string/funds_meta_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="META INFO"
-                    />
-                <TextView
-                    android:id="@+id/empty_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_meta_label"
-                    />
-                <TextView
-                    android:id="@+id/empty_label2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/empty_label"
-                    />
-                <TextView
-                    android:id="@+id/empty_label3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/empty_label2"
-                    />
-                <TextView
-                    android:id="@+id/funds_acc_no_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/funds_acc_no_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/empty_label3"
-                    tools:text="Acc. No."
-                    />
-                <TextView
-                    android:id="@+id/funds_cc_no_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsCcNoValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_acc_no_label"
-                    tools:text="0001234"
-                    />
-                <TextView
-                    android:id="@+id/funds_investor_pass_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/funds_investor_pass_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_cc_no_value"
-                    tools:text="Investor Pass"
-                    />
-                <TextView
-                    android:id="@+id/funds_investor_pass_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsInvestorPassValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_investor_pass_label"
-                    tools:text="2016"
-                    />
-                <TextView
-                    android:id="@+id/funds_server_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/funds_server_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_investor_pass_value"
-                    tools:text="Server"
-                    />
-                <TextView
-                    android:id="@+id/funds_server_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.fundsServerValueTx}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/funds_server_label"
-                    tools:text="Server Value"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/button_wrapper"
-            android:layout_width="0dp"
+            android:text="@{viewModel.fundsTypeValueTx}"
+            android:textSize="12sp"
+            tools:text="FX - Manager"
+            />
+
+        <TextView
+            android:id="@+id/funds_invest_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="20dp"
-            android:gravity="center|top"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="-30dp"
-            tools:layout_editor_absoluteY="503dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/founds_info_wrapper">
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_your_invest_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Your Invest"
+            />
 
-            <Button
-                android:id="@+id/moreBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="@drawable/square_radius_button"
-                android:padding="10dp"
-                android:onClick="@{viewModel::onButtonMoreInfoClick}"
-                android:text="MORE INFO" />
+        <TextView
+            android:id="@+id/funds_invest_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsYouInvestValueTx}"
+            tools:text="0 USD"
+            />
 
-        </LinearLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
-            android:elevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible"
-            tools:targetApi="lollipop"
-            >
+        <TextView
+            android:id="@+id/funds_equity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_equity_progress_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Equity Progress"
+            />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@color/black_transparent"
-                />
+        <TextView
+            android:id="@+id/funds_equity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsEquityProgressValueTx}"
+            tools:text="0 USD"
+            />
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
-        </FrameLayout>
+        <TextView
+            android:id="@+id/funds_slots_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_slots_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Slots"
+            />
+
+        <TextView
+            android:id="@+id/funds_slots_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsSlotsValueTx}"
+            tools:text="0 USD"
+            />
+
+        <TextView
+            android:id="@+id/funds_roi_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_roi_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="ROI"
+            />
+
+        <TextView
+            android:id="@+id/funds_roi_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsRoiValueTx}"
+            tools:text="0 % p.a."
+            />
+
+        <TextView
+            android:id="@+id/funds_compounding_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_compounding_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Compounding"
+            />
+
+        <TextView
+            android:id="@+id/funds_compounding_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsCompoundingValueTx}"
+            tools:text="No/Yes"
+            />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/fund_coloumn_2"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="5dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/fund_coloumn_1"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+
+        <TextView
+            android:id="@+id/funds_meta_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/funds_meta_label"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="META INFO"
+            />
+
+        <TextView
+            android:id="@+id/funds_acc_no_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_acc_no_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Acc. No."
+            />
+
+        <TextView
+            android:id="@+id/funds_cc_no_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsCcNoValueTx}"
+            tools:text="0001234"
+            />
+
+        <TextView
+            android:id="@+id/funds_investor_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_investor_pass_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Investor Pass"
+            />
+
+        <TextView
+            android:id="@+id/funds_investor_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsInvestorPassValueTx}"
+            tools:text="2016"
+            />
+
+        <TextView
+            android:id="@+id/funds_server_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/funds_server_label"
+            android:textColor="@color/colorPrimary"
+            tools:text="Server"
+            />
+
+        <TextView
+            android:id="@+id/funds_server_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.fundsServerValueTx}"
+            tools:text="Server Value"
+            />
+
+      </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/moreBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/square_radius_button"
+        android:onClick="@{viewModel::onButtonMoreInfoClick}"
+        android:layout_margin="20dp"
+        android:elevation="0dp"
+        android:text="@string/more_info_label"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/funds_info_wrapper"
+        tools:targetApi="lollipop"
+        />
+
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="2dp"
+        android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop"
+        tools:visibility="gone"
+        >
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:srcCompat="@color/black_transparent"
+          />
+
+      <androidx.core.widget.ContentLoadingProgressBar
+          style="?android:attr/progressBarStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          />
+    </FrameLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
