@@ -188,4 +188,6 @@
   <string name="participant_label">Participant</string>
   <string name="previous_label">Previous</string>
   <string name="current_label">Current</string>
+
+  <string name="more_info_label">MORE INFO</string>
 </resources>

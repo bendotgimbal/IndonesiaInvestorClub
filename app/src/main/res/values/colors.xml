@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#008577</color>
-  <color name="colorPrimaryDark">#00574B</color>
-  <color name="colorAccent">#D81B60</color>
-  <color name="ColorPercentProgressBar">#000000</color>
+  <color name="colorPrimary">#009688</color>
+  <color name="colorPrimaryDark">#004D40</color>
+  <color name="lightPrimary">#B2DFDC</color>
+
+  <color name="colorAccent">#D12C23</color>
 
   <color name="black_transparent">#77000000</color>
 
-  <color name="colorHeaderForProfile">#4CAF50</color>
-
-  <color name="BottomButtonBackground">#D3D3D3</color>
-
-  <color name="lightPrimary">#B3FFEF</color>
-
-  <color name="colorButton">#4CAF50</color>
-
-  <color name="colorRed">#D81B60</color>
-  <color name="colorGreen">#4CAF50</color>
 </resources>
