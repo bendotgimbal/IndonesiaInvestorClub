@@ -10,6 +10,10 @@ public class Performance {
     this.datas = datas;
   }
 
+  public String getNameText(){
+    return "Live Performance\n"+getName();
+  }
+
   public String getName() {
     return name;
   }

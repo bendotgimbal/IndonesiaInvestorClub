@@ -33,30 +33,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
   private HomeFragmentBinding binding;
   public ObservableBoolean loadingState;
-  public ObservableField<String> pageState;
-  public ObservableBoolean beforeButtonVisibility;
-  public ObservableBoolean nextButtonVisibility;
-
-  public ObservableField<String> yearValueTv;
-  public ObservableField<String> ytdValueTv;
-
-  public ObservableField<String> aboutTx;
-  private int count = 0;
-
-  public ObservableField<String> alertMessage = new ObservableField<>();
-  public ObservableField<String> clicksMessage = new ObservableField<>("No clicks");
-
-  public ObservableBoolean pieChartVisibility;
-
-  private int PAGE = 1;
-  private PerformanceRes performanceRes;
-
-  //private PieChartView pieChartView;
-  //private PieChartData pieChartData;
-  //
-  //private LineChartView lineChartView;
-  //private LineChartData lineChartData;
-
+  public ObservableField<String> titlePerformance;
   private PerformanceAdapter performanceAdapter;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
@@ -64,27 +41,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
     this.binding = binding;
 
     loadingState = new ObservableBoolean(false);
-    pageState = new ObservableField<>("1/1");
-    beforeButtonVisibility = new ObservableBoolean(false);
-    nextButtonVisibility = new ObservableBoolean(true);
-
-    yearValueTv = new ObservableField<>("0000");
-    ytdValueTv = new ObservableField<>("0%");
-
-    aboutTx = new ObservableField<>("");
-
-    pieChartVisibility = new ObservableBoolean(false);
-
-    performanceRes = new PerformanceRes();
-
-    //pieChartView = binding.chart;
-    //lineChartView = binding.chartLine;
-    //
-    //monthlies = new ArrayList<>();
-    //simpleAdapter = new PerformanceListviewAdapter(getContext(), monthlies);
-    //binding.yearData.setAdapter(simpleAdapter);
-    //binding.yearData.setDividerHeight(5);
-    //binding.yearData.setDivider(null);
+    titlePerformance = new ObservableField<>("");
 
     performanceAdapter = new PerformanceAdapter();
 
@@ -92,7 +49,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
     this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
-    this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
+    //this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
 
     start();
   }
@@ -162,6 +119,8 @@ public class HomeViewModel extends BaseViewModelWithCallback
               obj1.getString("YTD")
           );
           monthList.add(month);
+          monthList.add(month);
+          monthList.add(month);
         }
 
         data = new Datas(monthList);
@@ -172,8 +131,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
       performanceRes.setPerformances(performances);
 
-      //showPerformance(performanceRes);
-      //showLineChartPerformance(performanceRes);
       showPerformanceTable(performanceRes);
 
       hideLoading();
@@ -184,276 +141,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
   }
 
   private void showPerformanceTable(PerformanceRes performanceRes) {
+    titlePerformance.set(performanceRes.getPerformances().get(0).getNameText());
     performanceAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
     performanceAdapter.notifyDataSetChanged();
-  }
-
-  @SuppressWarnings("unused")
-  //private void showPerformance(PerformanceRes performanceRes) {
-  //  hideLoading();
-  //
-  //  if (performanceRes == null) return;
-  //
-  //  setPerformanceRes(performanceRes);
-  //
-  //  List<SliceValue> pieData = new ArrayList<>();
-  //
-  //  String jan = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan())
-  //      .replace("-", "0 %");
-  //  String feb = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb())
-  //      .replace("-", "0 %");
-  //  String mar = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar())
-  //      .replace("-", "0 %");
-  //  String apr = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr())
-  //      .replace("-", "0 %");
-  //  String may = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay())
-  //      .replace("-", "0 %");
-  //  String jun = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun())
-  //      .replace("-", "0 %");
-  //  String jul = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul())
-  //      .replace("-", "0 %");
-  //  String aug = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug())
-  //      .replace("-", "0 %");
-  //  String sep = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep())
-  //      .replace("-", "0 %");
-  //  String oct = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct())
-  //      .replace("-", "0 %");
-  //  String nov = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov())
-  //      .replace("-", "0 %");
-  //  String dec = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec())
-  //      .replace("-", "0 %");
-  //  String ytd = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYtd());
-  //  String year = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getYear());
-  //
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(jan), ChartUtils.pickColor()).setLabel(
-  //      "Jan: " + jan));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(feb), ChartUtils.pickColor()).setLabel(
-  //      "Feb: " + feb));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(mar), ChartUtils.pickColor()).setLabel(
-  //      "Mar: " + mar));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(apr), ChartUtils.pickColor()).setLabel(
-  //      "Apr: " + apr));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(may), ChartUtils.pickColor()).setLabel(
-  //      "May: " + may));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(jun), ChartUtils.pickColor()).setLabel(
-  //      "Jun: " + jun));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(jul), ChartUtils.pickColor()).setLabel(
-  //      "Jul: " + jul));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(aug), ChartUtils.pickColor()).setLabel(
-  //      "Aug: " + aug));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(sep), ChartUtils.pickColor()).setLabel(
-  //      "Sep: " + sep));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(oct), ChartUtils.pickColor()).setLabel(
-  //      "Oct: " + oct));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(nov), ChartUtils.pickColor()).setLabel(
-  //      "Nov: " + nov));
-  //  pieData.add(new SliceValue(StringHelper.setPieValue(dec), ChartUtils.pickColor()).setLabel(
-  //      "Dec: " + dec));
-  //
-  //  pieChartData = new PieChartData(pieData);
-  //  pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-  //  pieChartData.setHasCenterCircle(true)
-  //      .setCenterText1("Performance in year")
-  //      .setCenterText1FontSize(20)
-  //      .setCenterText1Color(Color.parseColor("#0097A7"));
-  //  pieChartView.setPieChartData(pieChartData);
-  //
-  //  pagingInit();
-  //}
-
-  //private void showLineChartPerformance(PerformanceRes performanceRes) {
-  //  hideLoading();
-  //
-  //  if (performanceRes == null) return;
-  //
-  //  setPerformanceRes(performanceRes);
-  //
-  //  List<Line> lines = new ArrayList<>();
-  //  List<PointValue> pieData = new ArrayList<>();
-  //
-  //  String jan = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJan());
-  //  String feb = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getFeb());
-  //  String mar = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMar());
-  //  String apr = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getApr());
-  //  String may = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getMay());
-  //  String jun = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJun());
-  //  String jul = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getJul());
-  //  String aug = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getAug());
-  //  String sep = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getSep());
-  //  String oct = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getOct());
-  //  String nov = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getNov());
-  //  String dec = String.valueOf(
-  //      performanceRes.getPerformances().get(0).getData().getMonths().get(PAGE - 1).getDec());
-  //
-  //  pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
-  //  pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
-  //  pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
-  //  pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
-  //  pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
-  //  pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
-  //  pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
-  //  pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
-  //  pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
-  //  pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
-  //  pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
-  //  pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
-  //
-  //  simpleAdapter.clear();
-  //
-  //  simpleAdapter.add(new Monthly("JANUARY", jan));
-  //  simpleAdapter.add(new Monthly("FEBRUARY", feb));
-  //  simpleAdapter.add(new Monthly("MARCH", mar));
-  //  simpleAdapter.add(new Monthly("APRIL", apr));
-  //  simpleAdapter.add(new Monthly("MAY", may));
-  //  simpleAdapter.add(new Monthly("JUNE", jun));
-  //  simpleAdapter.add(new Monthly("JULY", jul));
-  //  simpleAdapter.add(new Monthly("AUGUST", aug));
-  //  simpleAdapter.add(new Monthly("SEPTEMBER", sep));
-  //  simpleAdapter.add(new Monthly("OCTOBER", oct));
-  //  simpleAdapter.add(new Monthly("NOVEMBER", nov));
-  //  simpleAdapter.add(new Monthly("DESEMBER", dec));
-  //
-  //  simpleAdapter.notifyDataSetChanged();
-  //
-  //  Line line = new Line(pieData);
-  //  line.setColor(Color.parseColor("#57DAC6"));
-  //  //line.setColor(Color.WHITE);
-  //  line.setShape(ValueShape.CIRCLE);
-  //  line.setPointColor(Color.parseColor("#57DAC6"));
-  //  //line.setPointColor(Color.WHITE);
-  //  line.setCubic(false);
-  //  line.setFilled(true);
-  //  line.setHasLabels(false);
-  //  line.setHasLabelsOnlyForSelected(false);
-  //  line.setHasLines(true);
-  //  line.setHasPoints(true);
-  //  line.setPointRadius(3);
-  //  line.setStrokeWidth(2);
-  //  lines.add(line);
-  //
-  //  lineChartData = new LineChartData(lines);
-  //
-  //  List<AxisValue> values = new ArrayList<>();
-  //  values.add(new AxisValue(0, "JAN".toCharArray()));
-  //  values.add(new AxisValue(1, "FEB".toCharArray()));
-  //  values.add(new AxisValue(2, "MAR".toCharArray()));
-  //  values.add(new AxisValue(3, "APR".toCharArray()));
-  //  values.add(new AxisValue(4, "MAY".toCharArray()));
-  //  values.add(new AxisValue(5, "JUN".toCharArray()));
-  //  values.add(new AxisValue(6, "JUL".toCharArray()));
-  //  values.add(new AxisValue(7, "AUG".toCharArray()));
-  //  values.add(new AxisValue(8, "SEP".toCharArray()));
-  //  values.add(new AxisValue(9, "OCT".toCharArray()));
-  //  values.add(new AxisValue(10, "NOV".toCharArray()));
-  //  values.add(new AxisValue(11, "DES".toCharArray()));
-  //
-  //  Axis axisX =
-  //      new Axis(values).setHasSeparationLine(false).setTextColor(Color.parseColor("#57DAC6"));
-  //  Axis axisY = new Axis().setHasSeparationLine(false)
-  //      .setHasLines(true)
-  //      .setTextColor(Color.parseColor("#57DAC6"));
-  //  lineChartData.setAxisXBottom(axisX);
-  //  lineChartData.setAxisYLeft(axisY);
-  //
-  //  lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
-  //
-  //  lineChartView.setInteractive(false);
-  //  lineChartView.setLineChartData(lineChartData);
-  //
-  //  pagingInit();
-  //}
-
-  private void pagingInit() {
-
-    pageState.set(
-        PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
-
-    yearValueTv.set(performanceRes.getPerformances()
-        .get(0)
-        .getData()
-        .getMonths()
-        .get(PAGE - 1)
-        .getYear());
-
-    ytdValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
-        .get(0)
-        .getData()
-        .getMonths()
-        .get(PAGE - 1)
-        .getYtd()));
-
-    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
-  }
-
-  private PerformanceRes getPerformanceRes() {
-    return performanceRes;
-  }
-
-  private void setPerformanceRes(
-      PerformanceRes performanceRes) {
-    this.performanceRes = performanceRes;
-  }
-
-  @SuppressWarnings("unused")
-  public void onButtonBeforeClick(View view) {
-    PAGE--;
-    //showPerformance(getPerformanceRes());
-    //showLineChartPerformance(getPerformanceRes());
-  }
-
-  @SuppressWarnings("unused")
-  public void onButtonNextClick(View view) {
-    PAGE++;
-    //showPerformance(getPerformanceRes());
-    //showLineChartPerformance(getPerformanceRes());
-  }
-
-  private void toogleButton(int maxPages) {
-    if (PAGE >= 1) {
-      nextButtonVisibility.set(true);
-      beforeButtonVisibility.set(false);
-      if (PAGE > 1) {
-        beforeButtonVisibility.set(true);
-      }
-    }
-
-    if (PAGE == maxPages) {
-      nextButtonVisibility.set(false);
-      beforeButtonVisibility.set(true);
-      if (maxPages == 1) {
-        beforeButtonVisibility.set(false);
-      }
-    }
-  }
-
-  @SuppressWarnings("unused")
-  private void initChart(PerformanceRes response) {
-
   }
 
   @Override public void hideLoading() {

@@ -157,4 +157,12 @@ public class Month {
     public void setYtd(String ytd) {
         this.ytd = ytd;
     }
+
+    public boolean colourIndex(){
+        if (getIndex()%2 == 0){
+            return true;
+        }
+
+        return false;
+    }
 }
