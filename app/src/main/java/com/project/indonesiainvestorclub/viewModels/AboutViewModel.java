@@ -1,8 +1,10 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.databinding.AboutFragmentBinding;
@@ -29,12 +31,20 @@ public class AboutViewModel extends BaseViewModelWithCallback
 
     private AboutFragmentBinding binding;
     public ObservableBoolean loadingState;
+    public ObservableField<String> parentAboutValueTx;
+    public ObservableField<String> parentVisionMissionValueTx;
+    public ObservableField<String> parentAboutChildsValueTx;
+    public ObservableField<String> parentVisionMissionChildsValueTx;
 
     public AboutViewModel(Context context, AboutFragmentBinding binding) {
         super(context);
         this.binding = binding;
 
         loadingState = new ObservableBoolean(false);
+        parentAboutValueTx = new ObservableField<>("");
+        parentVisionMissionValueTx = new ObservableField<>("");
+        parentAboutChildsValueTx = new ObservableField<>("");
+        parentVisionMissionChildsValueTx = new ObservableField<>("");
 
         start();
     }
@@ -109,7 +119,32 @@ public class AboutViewModel extends BaseViewModelWithCallback
     }
 
     private void showAbout(AboutRes response) {
+        hideLoading();
+        if (response == null) return;
+        if (response.getAbout() == null) return;
+        StringBuilder about = new StringBuilder();
+        StringBuilder vision_mission = new StringBuilder();
 
+        parentAboutValueTx.set(response.getAbout().get(0).getParent());
+        parentVisionMissionValueTx.set(response.getAbout().get(1).getParent());
+
+        if (response.getAbout().get(0).getChilds() != null) {
+            for (int o = 0; o < response.getAbout().get(0).getChilds().size(); o++) {
+                StringBuilder tempAbout;
+                tempAbout = new StringBuilder(response.getAbout().get(0).getChilds().get(o).getPhrase() + "\n\n");
+                about.append(tempAbout);
+            }
+        }
+
+        if (response.getAbout().get(1).getChilds() != null) {
+            for (int o = 0; o < response.getAbout().get(1).getChilds().size(); o++) {
+                StringBuilder tempVisionMission;
+                tempVisionMission = new StringBuilder(response.getAbout().get(1).getChilds().get(o).getPhrase() + "\n\n");
+                vision_mission.append(tempVisionMission);
+            }
+        }
+        parentAboutChildsValueTx.set(about.toString());
+        parentVisionMissionChildsValueTx.set(vision_mission.toString());
     }
 
     @Override
