@@ -77,6 +77,10 @@
         android:name="com.project.indonesiainvestorclub.views.ProfileEditActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+        android:name="com.project.indonesiainvestorclub.views.AboutFragment"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>

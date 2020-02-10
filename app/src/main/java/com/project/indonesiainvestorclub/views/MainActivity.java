@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity {
     appBarConfiguration =
         new AppBarConfiguration.Builder(
             R.id.nav_home,
+                R.id.nav_about,
             R.id.nav_profile,
             R.id.nav_transaction,
             R.id.nav_portfolio,
@@ -100,9 +101,9 @@ public class MainActivity extends BaseActivity {
     super.onResume();
     viewModel.start();
 
-    if (show_about) {
-      viewModel.getAbout();
-    }
+//    if (show_about) {
+//      viewModel.getAbout();
+//    }
   }
 
   @Override protected void onPause() {

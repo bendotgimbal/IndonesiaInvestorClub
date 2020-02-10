@@ -78,7 +78,7 @@ public class MainViewModel extends BaseViewModelWithCallback implements ActionIn
     }
 
     if (!SharedPreferenceHelper.getAboutPopup()){
-      getAbout();
+//      getAbout();
     }
   }
 
@@ -169,6 +169,7 @@ public class MainViewModel extends BaseViewModelWithCallback implements ActionIn
 
 
   private void menuVisible(boolean visible) {
+      binding.navView.getMenu().findItem(R.id.nav_about).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_portfolio).setVisible(visible);
