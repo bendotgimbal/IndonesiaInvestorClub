@@ -106,6 +106,8 @@ public class LoungeViewModel extends BaseViewModelWithCallback
             objTweets.getString("Date")
         );
         tweetslist.add(tweets);
+        tweetslist.add(tweets);
+        tweetslist.add(tweets);
       }
 
       jsonObjectCharts = new JSONObject(response.toString());

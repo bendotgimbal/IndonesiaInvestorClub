@@ -17,7 +17,6 @@ public class LoungeFragment extends BaseFragment {
 
   private LoungeFragmentBinding binding;
   private LoungeViewModel viewModel;
-  private ListView lv;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
