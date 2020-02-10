@@ -185,6 +185,7 @@
   <string name="ocktober_label">OCT</string>
   <string name="november_label">NOV</string>
   <string name="december_label">DEC</string>
+  <string name="ytd_label">YTD</string>
 
   <string name="participant_label">Participant</string>
   <string name="previous_label">Previous</string>
