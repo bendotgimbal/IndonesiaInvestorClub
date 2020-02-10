@@ -26,24 +26,15 @@ public class MainActivity extends BaseActivity {
   private MainViewModel viewModel;
   private AppBarConfiguration appBarConfiguration;
 
-  public static final int SHOW_ABOUT = 1000;
   public static final int REQ_LOGIN = 1001;
   public static final int REQ_SIGNUP = 1002;
   public static final int FUND_MENU = 1003;
-
-  private boolean show_about = true;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setSupportActionBar(binding.appbar.toolbar);
     initDrawerIcon();
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      Window window = getWindow();
-      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      window.setStatusBarColor(Color.parseColor("#008577"));
-    }
 
     initAppBarConfiguration();
   }
@@ -100,15 +91,10 @@ public class MainActivity extends BaseActivity {
   protected void onResume() {
     super.onResume();
     viewModel.start();
-
-//    if (show_about) {
-//      viewModel.getAbout();
-//    }
   }
 
   @Override protected void onPause() {
     super.onPause();
-    show_about = true;
   }
 
   @Override
@@ -123,9 +109,5 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-
-    if (requestCode > SHOW_ABOUT){
-      show_about = false;
-    }
   }
 }
