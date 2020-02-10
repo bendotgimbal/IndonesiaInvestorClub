@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+  <data>
+
+    <variable
+        name="obj"
+        type="com.project.indonesiainvestorclub.models.Month"
+        />
+
+  </data>
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="wrap_content"
+      android:layout_height="65dp"
+      android:background="@{obj.colourIndex() ? @color/white_row_table : @color/green_row_table}"
+      android:layout_marginStart="12dp"
+      android:layout_marginLeft="12dp"
+      android:layout_marginBottom="5dp"
+      app:cardElevation="0dp"
+      app:cardCornerRadius="0dp"
+      tools:targetApi="lollipop"
+      >
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:gravity="center|start"
+        android:padding="15dp"
+        android:text="@{obj.year}"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="YEAR"
+        />
+
+  </androidx.cardview.widget.CardView>
+</layout>

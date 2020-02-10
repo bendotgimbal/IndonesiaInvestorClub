@@ -31,6 +31,7 @@
           android:layout_width="0dp"
           android:layout_height="200dp"
           android:scaleType="fitXY"
+          tools:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -61,9 +62,10 @@
           android:overScrollMode="never"
           android:scrollbars="none"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintStart_toEndOf="@id/fixed_year_table"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
+          tools:targetApi="lollipop"
           >
 
         <LinearLayout
@@ -75,21 +77,10 @@
           <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="50dp"
-              android:layout_marginStart="12dp"
               android:layout_marginEnd="12dp"
+              android:layout_marginRight="12dp"
               android:orientation="horizontal"
               >
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center|start"
-                android:padding="15dp"
-                android:text="@string/year_label"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                />
 
             <TextView
                 android:layout_width="80dp"
@@ -228,7 +219,8 @@
               android:id="@+id/table_performance"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:nestedScrollingEnabled="true"
+              android:overScrollMode="never"
+              android:scrollbars="none"
               tools:itemCount="10"
               tools:listitem="@layout/sub_performance_table"
               tools:targetApi="lollipop"
@@ -237,6 +229,44 @@
         </LinearLayout>
 
       </HorizontalScrollView>
+
+      <LinearLayout
+          android:id="@+id/fixed_year_table"
+          android:layout_width="100dp"
+          android:layout_height="0dp"
+          android:layout_marginTop="130dp"
+          android:orientation="vertical"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:targetApi="lollipop"
+          >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center|start"
+            android:padding="15dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:text="@string/year_label"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/table_performance_year"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            tools:itemCount="10"
+            tools:listitem="@layout/sub_fixed_column"
+            tools:targetApi="lollipop"
+            />
+
+      </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,19 +1,15 @@
 package com.project.indonesiainvestorclub.adapter;
 
-import com.project.indonesiainvestorclub.BR;
 import com.project.indonesiainvestorclub.R;
-import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Month;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PerformanceAdapter extends RVBaseAdapter {
+public class PerformanceYearAdapter extends RVBaseAdapter {
 
   private List<Month> models;
-  private ActionInterface.AdapterItemListener<Month> listener;
 
-  public PerformanceAdapter() {
+  public PerformanceYearAdapter() {
     this.models = new ArrayList<>();
   }
 
@@ -21,14 +17,8 @@ public class PerformanceAdapter extends RVBaseAdapter {
     this.models = models;
   }
 
-  public void setListener(
-      ActionInterface.AdapterItemListener<Month> listener) {
-    this.listener = listener;
-  }
-
   @Override public void onBindViewHolder(RVViewHolder holder, int position) {
     super.onBindViewHolder(holder, position);
-    holder.binding.setVariable(BR.listener, this.listener);
     holder.binding.executePendingBindings();
   }
 
@@ -40,7 +30,7 @@ public class PerformanceAdapter extends RVBaseAdapter {
   }
 
   @Override public int getLayoutIdForType(int viewType) {
-    return R.layout.sub_performance_table;
+    return R.layout.sub_fixed_column;
   }
 
   @Override public int getItemCount() {

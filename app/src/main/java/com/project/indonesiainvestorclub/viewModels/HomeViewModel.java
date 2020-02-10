@@ -2,13 +2,14 @@ package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
+import com.project.indonesiainvestorclub.adapter.PerformanceYearAdapter;
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
-import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.Month;
@@ -35,6 +36,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
   public ObservableBoolean loadingState;
   public ObservableField<String> titlePerformance;
   private PerformanceAdapter performanceAdapter;
+  private PerformanceYearAdapter performanceYearAdapter;
+
+  private int draggingView = -1;
 
   public HomeViewModel(Context context, HomeFragmentBinding binding) {
     super(context);
@@ -44,12 +48,39 @@ public class HomeViewModel extends BaseViewModelWithCallback
     titlePerformance = new ObservableField<>("");
 
     performanceAdapter = new PerformanceAdapter();
+    performanceYearAdapter = new PerformanceYearAdapter();
 
     this.binding.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
     this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
-    //this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
+
+    this.binding.tablePerformanceYear.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.tablePerformanceYear.setAdapter(performanceYearAdapter);
+
+    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+      @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        if (binding.tablePerformance == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 1;
+        } else if (binding.tablePerformanceYear == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 2;
+        }
+      }
+
+      @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (draggingView == 1 && recyclerView == binding.tablePerformance) {
+          binding.tablePerformanceYear.scrollBy(dx, dy);
+        } else if (draggingView == 2 && recyclerView == binding.tablePerformanceYear) {
+          binding.tablePerformance.scrollBy(dx, dy);
+        }
+      }
+    };
+
+    this.binding.tablePerformance.addOnScrollListener(scrollListener);
+    this.binding.tablePerformanceYear.addOnScrollListener(scrollListener);
 
     start();
   }
@@ -119,8 +150,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
               obj1.getString("YTD")
           );
           monthList.add(month);
-          monthList.add(month);
-          monthList.add(month);
         }
 
         data = new Datas(monthList);
@@ -143,7 +172,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
   private void showPerformanceTable(PerformanceRes performanceRes) {
     titlePerformance.set(performanceRes.getPerformances().get(0).getNameText());
     performanceAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
+    performanceYearAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
     performanceAdapter.notifyDataSetChanged();
+    performanceYearAdapter.notifyDataSetChanged();
   }
 
   @Override public void hideLoading() {
