@@ -79,12 +79,12 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsUserWdIDValueTx;
 
   public ObservableField<String> previousDate;
-  public ObservableField<String> previousIvest;
+  public ObservableField<String> previousInvest;
 
-  public ObservableBoolean tablePerformanceVisibility;
-  public ObservableBoolean fundsListVisibility;
-  public ObservableBoolean participantVisibility;
-  public ObservableBoolean userListVisibility;
+  public ObservableBoolean fundsTab;
+  public ObservableBoolean performanceTab;
+  public ObservableBoolean participantTab;
+  public ObservableBoolean userTab;
 
   public ObservableBoolean beforeButtonPerformancesVisibility;
   public ObservableBoolean nextButtonPerformancesVisibility;
@@ -133,21 +133,16 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsUserWdIDValueTx = new ObservableField<>("-");
 
     previousDate = new ObservableField<>("-");
-    previousIvest = new ObservableField<>("-");
+    previousInvest = new ObservableField<>("-");
+
+    fundsTab = new ObservableBoolean(true);
+    performanceTab = new ObservableBoolean(false);
+    participantTab = new ObservableBoolean(false);
+    userTab = new ObservableBoolean(false);
 
     performanceAdapter = new PerformanceAdapter();
     participantAdapter = new ParticipantAdapter();
     performanceYearAdapter = new PerformanceYearAdapter();
-
-    tablePerformanceVisibility = new ObservableBoolean(true);
-    fundsListVisibility = new ObservableBoolean(false);
-    participantVisibility = new ObservableBoolean(false);
-    userListVisibility = new ObservableBoolean(false);
-
-    arrowTabelPerformanceVisibility();
-    arrowFundsListVisibility();
-    arrowParticipantVisibility();
-    arrowuserListVisibility();
 
     this.binding.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -391,7 +386,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdID());
 
     previousDate.set(investRes.getParticipant().getParticipantInvestPrevious().getDateText());
-    previousIvest.set(investRes.getParticipant().getParticipantInvestPrevious().getInvestText());
+    previousInvest.set(investRes.getParticipant().getParticipantInvestPrevious().getInvestText());
 
     participantAdapter.setModels(
         investRes.getParticipant().getParticipantInvestCurrent().getCurrent());
@@ -399,87 +394,42 @@ public class InvestViewModel extends BaseViewModelWithCallback
   }
 
   @SuppressWarnings("unused")
-  public void onClickTablePerformanceHideShow(View view) {
-    if (!tablePerformanceVisibility.get()) {
-      tablePerformanceVisibility.set(true);
-      arrowTabelPerformanceVisibility();
-      return;
+  public void onClickFunds(View view) {
+    if (!fundsTab.get()) {
+      fundsTab.set(true);
+      performanceTab.set(false);
+      participantTab.set(false);
+      userTab.set(false);
     }
-
-    tablePerformanceVisibility.set(false);
-    arrowTabelPerformanceVisibility();
   }
 
   @SuppressWarnings("unused")
-  public void onClickFundsListHideShow(View view) {
-    if (!fundsListVisibility.get()) {
-      fundsListVisibility.set(true);
-      arrowFundsListVisibility();
-      return;
+  public void onClickPerformance(View view) {
+    if (!performanceTab.get()) {
+      fundsTab.set(false);
+      performanceTab.set(true);
+      participantTab.set(false);
+      userTab.set(false);
     }
-
-    fundsListVisibility.set(false);
-    arrowFundsListVisibility();
   }
 
   @SuppressWarnings("unused")
-  public void onClickParticipantHideShow(View view) {
-    if (!participantVisibility.get()) {
-      participantVisibility.set(true);
-      arrowParticipantVisibility();
-      return;
-    }
-
-    participantVisibility.set(false);
-    arrowParticipantVisibility();
-  }
-
-  public void onClickUserListHideShow(View view) {
-    if (!userListVisibility.get()) {
-      userListVisibility.set(true);
-      arrowuserListVisibility();
-      return;
-    }
-
-    userListVisibility.set(false);
-    arrowuserListVisibility();
-  }
-
-  private void arrowTabelPerformanceVisibility() {
-    if (tablePerformanceVisibility.get()) {
-      binding.tablePerformanceVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_down_black_24dp);
-    } else {
-      binding.tablePerformanceVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_up_black_24dp);
+  public void onClickParticipant(View view) {
+    if (!participantTab.get()) {
+      fundsTab.set(false);
+      performanceTab.set(false);
+      participantTab.set(true);
+      userTab.set(false);
     }
   }
 
-  private void arrowFundsListVisibility() {
-    if (fundsListVisibility.get()) {
-      binding.fundsListVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_down_black_24dp);
-    } else {
-      binding.fundsListVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_up_black_24dp);
-    }
-  }
-
-  private void arrowParticipantVisibility() {
-    if (participantVisibility.get()) {
-      binding.participantVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_down_black_24dp);
-    } else {
-      binding.participantVisibilityButton.setImageResource(
-          R.drawable.ic_arrow_drop_up_black_24dp);
-    }
-  }
-
-  private void arrowuserListVisibility() {
-    if (userListVisibility.get()) {
-      binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    } else {
-      binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+  @SuppressWarnings("unused")
+  public void onClickUser(View view) {
+    if (!userTab.get()) {
+      fundsTab.set(false);
+      performanceTab.set(false);
+      participantTab.set(false);
+      userTab.set(true);
     }
   }
 
