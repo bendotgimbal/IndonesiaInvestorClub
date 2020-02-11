@@ -55,6 +55,10 @@ public class Portfolios {
         return usdidr;
     }
 
+    public String getUSDIDRText() {
+        return "USDIDR\n"+usdidr;
+    }
+
     public void setUSDIDR(String usdidr) {
         this.usdidr = usdidr;
     }

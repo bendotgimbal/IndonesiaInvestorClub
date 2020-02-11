@@ -5,6 +5,8 @@
   <color name="lightPrimary">#C8E6C9</color>
   <color name="colorAccent">#AF4CAC</color>
 
+  <color name="accentTextInactive">#BE6BBA</color>
+
   <color name="black_transparent">#77000000</color>
   <color name="light_background_list">#EBEBEB</color>
 

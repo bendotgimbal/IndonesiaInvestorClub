@@ -36,5 +36,11 @@
         tools:text="YEAR"
         />
 
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="45dp"
+        android:layout_gravity="end|center"
+        android:background="@android:color/darker_gray"/>
+
   </androidx.cardview.widget.CardView>
 </layout>

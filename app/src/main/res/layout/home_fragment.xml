@@ -38,6 +38,18 @@
           app:srcCompat="@drawable/background_primary_gradient"
           />
 
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/performance_icon"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          app:srcCompat="@drawable/maxwell"
+          android:layout_marginStart="20dp"
+          android:layout_marginLeft="20dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/horizontal_table_view"
+          />
+
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -46,11 +58,9 @@
           android:textStyle="bold"
           android:textColor="@android:color/white"
           tools:text="ICX II"
-          android:paddingLeft="20dp"
-          android:paddingStart="20dp"
-          android:paddingRight="0dp"
-          android:paddingEnd="0dp"
-          app:layout_constraintStart_toStartOf="parent"
+          android:layout_marginStart="8dp"
+          android:layout_marginLeft="8dp"
+          app:layout_constraintStart_toEndOf="@id/performance_icon"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toTopOf="@id/horizontal_table_view"/>
 
@@ -60,7 +70,6 @@
           android:layout_height="0dp"
           android:layout_marginTop="130dp"
           android:overScrollMode="never"
-          android:scrollbars="none"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/fixed_year_table"
           app:layout_constraintTop_toTopOf="parent"

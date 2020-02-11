@@ -1,19 +1,18 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.project.indonesiainvestorclub.R;
+import androidx.recyclerview.widget.RecyclerView;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
+import com.project.indonesiainvestorclub.adapter.PerformanceYearAdapter;
 import com.project.indonesiainvestorclub.adapter.PortfoliosAdapter;
 import com.project.indonesiainvestorclub.databinding.PortfolioFragmentBinding;
-import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.Month;
@@ -31,15 +30,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.view.LineChartView;
-import lecho.lib.hellocharts.view.PieChartView;
+
 import retrofit2.Response;
 
 public class PortfolioViewModel extends BaseViewModelWithCallback
@@ -51,11 +42,10 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   public ObservableBoolean loadingState;
   public ObservableField<String> pageState;
   public ObservableField<String> pageStatePerformances;
+
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
-
-  public ObservableBoolean beforeButtonPerformancesVisibility;
-  public ObservableBoolean nextButtonPerformancesVisibility;
+  public ObservableBoolean portofolioListVisibility;
 
   public ObservableField<String> yearValueTv;
   public ObservableField<String> ytdValueTv;
@@ -63,23 +53,13 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   public ObservableField<String> yearPerformancesValueTv;
   public ObservableField<String> ytdPerformancesValueTv;
 
-  public ObservableBoolean tableVisibility;
-  public ObservableBoolean portofolioListVisibility;
-
   private PortfoliosAdapter adapter;
   private PerformanceAdapter performanceAdapter;
-
-  public ObservableBoolean pieChartVisibility;
+  private PerformanceYearAdapter performanceYearAdapter;
 
   private int PAGE = 1;
-  private int PAGEPERFORMANCE = 1;
-  private PerformanceRes performanceRes;
 
-  private PieChartView pieChartView;
-  private PieChartData pieChartData;
-
-  private LineChartView lineChartView;
-  private LineChartData lineChartData;
+  private int draggingView = -1;
 
   public PortfolioViewModel(Context context, PortfolioFragmentBinding binding) {
     super(context);
@@ -87,12 +67,13 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
     loadingState = new ObservableBoolean(false);
     pageState = new ObservableField<>("1/1");
+
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
 
+    portofolioListVisibility = new ObservableBoolean(false);
+
     pageStatePerformances = new ObservableField<>("1/1");
-    beforeButtonPerformancesVisibility = new ObservableBoolean(false);
-    nextButtonPerformancesVisibility = new ObservableBoolean(true);
 
     yearValueTv = new ObservableField<>("0000");
     ytdValueTv = new ObservableField<>("0%");
@@ -100,19 +81,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv = new ObservableField<>("0000");
     ytdPerformancesValueTv = new ObservableField<>("0%");
 
-    pieChartVisibility = new ObservableBoolean(false);
-
-    performanceRes = new PerformanceRes();
     performanceAdapter = new PerformanceAdapter();
-
-    tableVisibility = new ObservableBoolean(false);
-    portofolioListVisibility = new ObservableBoolean(true);
-
-    arrowTabelVisibility();
-    arrowPortofolioListVisibility();
-
-//    pieChartView = binding.chart;
-//    lineChartView = binding.chartLine;
+    performanceYearAdapter = new PerformanceYearAdapter();
 
     adapter = new PortfoliosAdapter();
     adapter.setListener(this);
@@ -124,8 +94,33 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     this.binding.tablePerformance.setLayoutManager(
             new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
-    this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
-    this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
+
+    this.binding.yearColumn.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.yearColumn.setAdapter(performanceYearAdapter);
+
+    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+      @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        if (binding.tablePerformance == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 1;
+        } else if (binding.yearColumn == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 2;
+        }
+      }
+
+      @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (draggingView == 1 && recyclerView == binding.tablePerformance) {
+          binding.yearColumn.scrollBy(dx, dy);
+        } else if (draggingView == 2 && recyclerView == binding.yearColumn) {
+          binding.tablePerformance.scrollBy(dx, dy);
+        }
+      }
+    };
+
+    this.binding.tablePerformance.addOnScrollListener(scrollListener);
+    this.binding.yearColumn.addOnScrollListener(scrollListener);
 
     start();
   }
@@ -205,7 +200,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
       performanceRes.setPerformances(performances);
 
-//      showLineChartPerformance(performanceRes);
       showPerformanceTable(performanceRes);
     } catch (JSONException e) {
       Log.e(TAG, e.toString());
@@ -249,7 +243,11 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
   private void showPerformanceTable(PerformanceRes performanceRes) {
     performanceAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
+    performanceYearAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
+
     performanceAdapter.notifyDataSetChanged();
+    performanceYearAdapter.notifyDataSetChanged();
+
   }
 
   private void showPortfolio(PortfolioRes portfolioRes) {
@@ -265,153 +263,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     toogleButton(portfolioRes.getPages());
   }
 
-//  private void showLineChartPerformance(PerformanceRes performanceRes) {
-//    hideLoading();
-//
-//    if (performanceRes == null) return;
-//
-//    setPerformanceRes(performanceRes);
-//
-//    List<Line> lines = new ArrayList<>();
-//    List<PointValue> pieData = new ArrayList<>();
-//
-//    String jan = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJan());
-//    String feb = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getFeb());
-//    String mar = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMar());
-//    String apr = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getApr());
-//    String may = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getMay());
-//    String jun = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJun());
-//    String jul = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getJul());
-//    String aug = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getAug());
-//    String sep = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getSep());
-//    String oct = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getOct());
-//    String nov = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getNov());
-//    String dec = String.valueOf(
-//            performanceRes.getPerformances().get(0).getData().getMonths().get(PAGEPERFORMANCE - 1).getDec());
-//
-//    pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
-//    pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
-//    pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
-//    pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
-//    pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
-//    pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
-//    pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
-//    pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
-//    pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
-//    pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
-//    pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
-//    pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
-//
-//    Line line = new Line(pieData);
-//    //line.setColor(Color.parseColor("#57DAC6"));
-//    line.setColor(Color.WHITE);
-//    line.setShape(ValueShape.CIRCLE);
-//    //line.setPointColor(Color.parseColor("#57DAC6"));
-//    line.setPointColor(Color.WHITE);
-//    line.setCubic(false);
-//    line.setFilled(true);
-//    line.setHasLabels(false);
-//    line.setHasLabelsOnlyForSelected(false);
-//    line.setHasLines(true);
-//    line.setHasPoints(true);
-//    line.setPointRadius(3);
-//    line.setStrokeWidth(2);
-//    lines.add(line);
-//
-//    lineChartData = new LineChartData(lines);
-//
-//    List<AxisValue> values = new ArrayList<>();
-//    values.add(new AxisValue(0, "JAN".toCharArray()));
-//    values.add(new AxisValue(1, "FEB".toCharArray()));
-//    values.add(new AxisValue(2, "MAR".toCharArray()));
-//    values.add(new AxisValue(3, "APR".toCharArray()));
-//    values.add(new AxisValue(4, "MAY".toCharArray()));
-//    values.add(new AxisValue(5, "JUN".toCharArray()));
-//    values.add(new AxisValue(6, "JUL".toCharArray()));
-//    values.add(new AxisValue(7, "AUG".toCharArray()));
-//    values.add(new AxisValue(8, "SEP".toCharArray()));
-//    values.add(new AxisValue(9, "OCT".toCharArray()));
-//    values.add(new AxisValue(10, "NOV".toCharArray()));
-//    values.add(new AxisValue(11, "DES".toCharArray()));
-//
-//    Axis axisX = new Axis(values).setHasSeparationLine(false).setTextColor(Color.WHITE);
-//    Axis axisY = new Axis().setHasSeparationLine(false).setHasLines(true).setTextColor(Color.WHITE);
-//    lineChartData.setAxisXBottom(axisX);
-//    lineChartData.setAxisYLeft(axisY);
-//
-//    lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
-//
-//    lineChartView.setInteractive(false);
-//    lineChartView.setLineChartData(lineChartData);
-//
-////    pagingInit();
-//    pagingPerformancesInit();
-//  }
-
-//  private void pagingInit() {
-//
-//    pageState.set(
-//            PAGE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
-//
-//    yearValueTv.set(performanceRes.getPerformances()
-//            .get(0)
-//            .getData()
-//            .getMonths()
-//            .get(PAGE - 1)
-//            .getYear());
-//
-//    ytdValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
-//            .get(0)
-//            .getData()
-//            .getMonths()
-//            .get(PAGE - 1)
-//            .getYtd()));
-//
-//    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
-//  }
-
-  private void pagingPerformancesInit() {
-
-    pageStatePerformances.set(
-            PAGEPERFORMANCE + " / " + performanceRes.getPerformances().get(0).getData().getMonths().size());
-
-    yearPerformancesValueTv.set(performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getYear());
-
-    ytdPerformancesValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getYtd()));
-
-    toogleButtonPerformances(performanceRes.getPerformances().get(0).getData().getMonths().size());
-  }
-
-  private PerformanceRes getPerformanceRes() {
-    return performanceRes;
-  }
-
-  private void setPerformanceRes(
-          PerformanceRes performanceRes) {
-    this.performanceRes = performanceRes;
-  }
-
   @SuppressWarnings("unused")
   public void onButtonBeforeClick(View view) {
     PAGE--;
@@ -425,17 +276,17 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   }
 
   @SuppressWarnings("unused")
-  public void onButtonPerformancesBeforeClick(View view) {
-    PAGEPERFORMANCE--;
-////    getPortfolio();
-//    showLineChartPerformance(getPerformanceRes());
+  public void onClickPerformance(View view){
+    if (portofolioListVisibility.get()){
+      portofolioListVisibility.set(false);
+    }
   }
 
   @SuppressWarnings("unused")
-  public void onButtonPerformancesNextClick(View view) {
-    PAGEPERFORMANCE++;
-////    getPortfolio();
-//    showLineChartPerformance(getPerformanceRes());
+  public void onClickOverview(View view){
+    if (!portofolioListVisibility.get()){
+      portofolioListVisibility.set(true);
+    }
   }
 
   private void toogleButton(int maxPages){
@@ -454,62 +305,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         beforeButtonVisibility.set(false);
       }
     }
-  }
-
-  private void toogleButtonPerformances(int maxPages){
-    if (PAGEPERFORMANCE >= 1) {
-      nextButtonPerformancesVisibility.set(true);
-      beforeButtonPerformancesVisibility.set(false);
-      if (PAGEPERFORMANCE > 1) {
-        beforeButtonPerformancesVisibility.set(true);
-      }
-    }
-
-    if (PAGEPERFORMANCE == maxPages) {
-      nextButtonPerformancesVisibility.set(false);
-      beforeButtonPerformancesVisibility.set(true);
-      if (maxPages == 1){
-        beforeButtonPerformancesVisibility.set(false);
-      }
-    }
-  }
-
-  private void arrowTabelVisibility(){
-    if (tableVisibility.get()){
-      binding.tableVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    }else {
-      binding.tableVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-    }
-  }
-
-  private void arrowPortofolioListVisibility(){
-    if (portofolioListVisibility.get()){
-      binding.portofolioListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    }else {
-      binding.portofolioListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
-    }
-  }
-
-  public void onClickTableHideShow(View view){
-    if (!tableVisibility.get()){
-      tableVisibility.set(true);
-      arrowTabelVisibility();
-      return;
-    }
-
-    tableVisibility.set(false);
-    arrowTabelVisibility();
-  }
-
-  public void onClickPortofolioListHideShow(View view){
-    if (!portofolioListVisibility.get()){
-      portofolioListVisibility.set(true);
-      arrowPortofolioListVisibility();
-      return;
-    }
-
-    portofolioListVisibility.set(false);
-    arrowPortofolioListVisibility();
   }
 
   @Override

@@ -17,330 +17,355 @@
       android:layout_height="match_parent"
       >
 
-    <TextView
-        android:id="@+id/performance_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_performance"
-        android:layout_marginTop="20dp"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingEnd="0dp"
-        android:paddingRight="0dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/tableVisibilityButton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="0dp"
-        android:paddingLeft="0dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="@{viewModel::onClickTableHideShow}"
-        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/performance_title"
-        />
-
-    <View
+    <LinearLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@id/performance_title"/>
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal_table_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:visibility="@{viewModel.tableVisibility ? View.VISIBLE : View.GONE}"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/performance_title"
-        app:layout_constraintBottom_toTopOf="@id/portofolio_title"
+        app:layout_constraintTop_toTopOf="parent"
         >
 
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:onClick="@{viewModel::onClickPerformance}"
+          android:text="@string/menu_performance"
+          android:textColor="@{viewModel.portofolioListVisibility ? @color/accentTextInactive : @android:color/white}"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          tools:text="Performance"
+          tools:textColor="@android:color/white"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center"
+          android:onClick="@{viewModel::onClickOverview}"
+          android:text="@string/overview_label"
+          android:textColor="@{viewModel.portofolioListVisibility ? @android:color/white : @color/accentTextInactive}"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          tools:text="Overview"
+          tools:textColor="@color/accentTextInactive"
+          />
+
+    </LinearLayout>
+
+    <!--PERFORMANCE-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:visibility="@{viewModel.portofolioListVisibility ? View.GONE : View.VISIBLE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        >
+
+      <HorizontalScrollView
+          android:id="@+id/horizontal_table_view"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:overScrollMode="never"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/yearTable"
+          app:layout_constraintTop_toTopOf="parent"
           >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             >
 
-          <TextView
-              android:layout_width="80dp"
+          <LinearLayout
+              android:layout_width="wrap_content"
               android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/year_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+              android:layout_marginEnd="12dp"
+              android:layout_marginRight="12dp"
+              android:background="@color/colorPrimary"
+              android:orientation="horizontal"
+              >
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/january_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/january_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/february_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/february_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/march_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/march_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/april_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/april_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/may_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/may_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/june_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/june_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/july_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/july_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/august_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/august_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/september_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/september_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/ocktober_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/ocktober_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/november_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
-              />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/november_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
 
-          <TextView
-              android:layout_width="80dp"
-              android:layout_height="50dp"
-              android:gravity="center"
-              android:background="@drawable/background_table"
-              android:padding="5dp"
-              android:text="@string/december_label"
-              android:textColor="@color/colorPrimary"
-              android:textSize="14sp"
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/december_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|start"
+                android:padding="15dp"
+                android:text="@string/ytd_label"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+
+          </LinearLayout>
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/table_performance"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:overScrollMode="never"
+              android:scrollbars="none"
+              tools:itemCount="3"
+              tools:listitem="@layout/sub_performance_table"
               />
 
         </LinearLayout>
 
+      </HorizontalScrollView>
+
+      <LinearLayout
+          android:id="@+id/yearTable"
+          android:layout_width="100dp"
+          android:layout_height="0dp"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center|start"
+            android:padding="15dp"
+            android:text="@string/year_label"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/table_performance"
+            android:id="@+id/year_column"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
             tools:itemCount="3"
-            tools:listitem="@layout/sub_performance_table"
+            tools:listitem="@layout/sub_fixed_column"
             />
 
       </LinearLayout>
 
-    </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/portofolio_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_portfolio"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingEnd="0dp"
-        android:paddingRight="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_table_view"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/portofolioListVisibilityButton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="0dp"
-        android:paddingLeft="0dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="@{viewModel::onClickPortofolioListHideShow}"
-        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/portofolio_title"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@id/portofolio_title"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/portfolioslist"
+    <!--OVERVIEW-->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overScrollMode="never"
+        android:layout_marginTop="8dp"
         android:visibility="@{viewModel.portofolioListVisibility ? View.VISIBLE : View.GONE}"
-        app:layout_constraintBottom_toTopOf="@+id/paging_wrapper"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/portofolio_title"
-        tools:itemCount="5"
-        tools:listitem="@layout/sub_portfolio_item"
-        tools:visibility="visible"
-        />
-
-    <LinearLayout
-        android:id="@+id/paging_wrapper"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/lightPrimary"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
         >
 
-      <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/before_btn"
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/portfolioslist"
           android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:clickable="@{viewModel.beforeButtonVisibility}"
-          android:focusable="@{viewModel.beforeButtonVisibility}"
-          android:onClick="@{viewModel::onButtonBeforeClick}"
-          android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
-          app:srcCompat="@drawable/ic_navigate_before_primary"
+          android:layout_height="0dp"
+          android:overScrollMode="never"
+          app:layout_constraintBottom_toTopOf="@+id/paging_wrapper"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:itemCount="5"
+          tools:listitem="@layout/sub_portfolio_item"
+          tools:visibility="gone"
           />
 
-      <TextView
-          android:id="@+id/paging_tv"
+      <LinearLayout
+          android:id="@+id/paging_wrapper"
           android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:gravity="center"
-          android:text="@{viewModel.pageState}"
-          android:textStyle="bold"
-          tools:text="1/3"
-          />
+          android:layout_height="40dp"
+          android:orientation="horizontal"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          tools:visibility="gone"
+          >
 
-      <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/next_btn"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:clickable="@{viewModel.nextButtonVisibility}"
-          android:focusable="@{viewModel.nextButtonVisibility}"
-          android:onClick="@{viewModel::onButtonNextClick}"
-          android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
-          app:srcCompat="@drawable/ic_navigate_next_primary"
-          />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/before_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="@{viewModel.beforeButtonVisibility}"
+            android:focusable="@{viewModel.beforeButtonVisibility}"
+            android:onClick="@{viewModel::onButtonBeforeClick}"
+            android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+            app:srcCompat="@drawable/ic_navigate_before_primary"
+            />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/paging_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{viewModel.pageState}"
+            android:textStyle="bold"
+            tools:text="1/3"
+            />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/next_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="@{viewModel.nextButtonVisibility}"
+            android:focusable="@{viewModel.nextButtonVisibility}"
+            android:onClick="@{viewModel::onButtonNextClick}"
+            android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+            app:srcCompat="@drawable/ic_navigate_next_primary"
+            />
+
+      </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--LOADING-->
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clickable="true"
         android:elevation="2dp"
+        android:focusable="true"
         android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

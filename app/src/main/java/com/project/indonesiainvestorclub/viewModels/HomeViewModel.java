@@ -7,9 +7,11 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceYearAdapter;
 import com.project.indonesiainvestorclub.databinding.HomeFragmentBinding;
+import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Datas;
 import com.project.indonesiainvestorclub.models.Month;
@@ -53,7 +55,6 @@ public class HomeViewModel extends BaseViewModelWithCallback
     this.binding.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
-    this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
 
     this.binding.tablePerformanceYear.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

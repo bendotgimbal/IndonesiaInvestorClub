@@ -20,177 +20,129 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
-            android:id="@+id/porfolio_info_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:baselineAligned="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/date_label"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.date}"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Date"
-                    />
+                    android:gravity="center"
+                    android:text="@string/invest_labels"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    tools:text="Invest"/>
 
                 <TextView
-                    android:id="@+id/invest_usd_label"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/invest_usd_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/date_label"
-                    tools:text="Invest (USD)"
-                    />
-
-                <TextView
-                    android:id="@+id/invest_usd_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.investUSD}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_usd_label"
-                    tools:text="Invest (USD) Value"
-                    />
-
-                <TextView
-                    android:id="@+id/invest_idr_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/invest_idr_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_usd_value"
-                    tools:text="Invest (IDR)"
-                    />
-
-                <TextView
-                    android:id="@+id/invest_idr_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@{obj.investIDR}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_idr_label"
-                    tools:text="Invest (IDR) Value"
-                    />
+                    android:padding="5dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="36,000,000 IDR"/>
 
                 <TextView
-                    android:id="@+id/usdidr_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/usdidr_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/invest_idr_value"
-                    tools:text="USDIDR"
-                    />
-                <TextView
-                    android:id="@+id/usdidr_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.uSDIDR}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/usdidr_label"
-                    tools:text="USDIDR Value"
-                    />
+                    android:gravity="center"
+                    android:text="@{obj.investUSD}"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="3,0000 USD"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/profit_icon"/>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/empty_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    android:gravity="center"
+                    android:text="@string/profit_label"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/darker_gray"
+                    tools:text="Profit"/>
 
                 <TextView
-                    android:id="@+id/profit_usd_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/profit_usd_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/empty_label"
-                    tools:text="Profit (USD)"
-                    />
-
-                <TextView
-                    android:id="@+id/profit_usd_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.profit_usd}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profit_usd_label"
-                    tools:text="Profit (USD) Value"
-                    />
-
-                <TextView
-                    android:id="@+id/profit_idr_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/profit_idr_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profit_usd_value"
-                    tools:text="Profit (IDR)"
-                    />
-                <TextView
-                    android:id="@+id/profit_idr_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
                     android:text="@{obj.profit_idr}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profit_idr_label"
-                    tools:text="Profit (IDR) Value"
-                    />
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="719,400 IDR"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{obj.profit_usd}"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="59,95 USD"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{obj.date}"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/darker_gray"
+                    tools:text="01-01-1999"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:text="@{obj.uSDIDRText}"
+                    android:textSize="12sp"
+                    tools:text="USDIRD\n12,000 IDR"/>
+
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 
