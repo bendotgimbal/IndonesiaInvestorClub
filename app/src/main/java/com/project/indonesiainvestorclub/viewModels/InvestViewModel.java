@@ -1,21 +1,21 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.ParticipantAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
-import com.project.indonesiainvestorclub.adapter.PerformanceListviewAdapter;
+import com.project.indonesiainvestorclub.adapter.PerformanceYearAdapter;
 import com.project.indonesiainvestorclub.databinding.InvestActivityBinding;
-import com.project.indonesiainvestorclub.helper.StringHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.BankFundInvest;
 import com.project.indonesiainvestorclub.models.CurrentData;
@@ -24,12 +24,10 @@ import com.project.indonesiainvestorclub.models.FundInvest;
 import com.project.indonesiainvestorclub.models.Invest;
 import com.project.indonesiainvestorclub.models.Meta;
 import com.project.indonesiainvestorclub.models.Month;
-import com.project.indonesiainvestorclub.models.Monthly;
 import com.project.indonesiainvestorclub.models.ParticipantInvest;
 import com.project.indonesiainvestorclub.models.ParticipantInvestCurrent;
 import com.project.indonesiainvestorclub.models.ParticipantInvestPrevious;
 import com.project.indonesiainvestorclub.models.response.InvestRes;
-import com.project.indonesiainvestorclub.models.response.PerformanceRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
@@ -43,15 +41,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.view.LineChartView;
-import lecho.lib.hellocharts.view.PieChartView;
 import retrofit2.Response;
 
 public class InvestViewModel extends BaseViewModelWithCallback
@@ -100,21 +89,11 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableBoolean beforeButtonPerformancesVisibility;
   public ObservableBoolean nextButtonPerformancesVisibility;
 
-  private int PAGEPERFORMANCE = 1;
-  private int PAGE = 1;
-  private PerformanceRes performanceRes;
+  private int draggingView = -1;
 
-  private PieChartView pieChartView;
-  private PieChartData pieChartData;
-
-  private LineChartView lineChartView;
-  private LineChartData lineChartData;
-
-  public ObservableBoolean pieChartVisibility;
-
-  private PerformanceListviewAdapter simpleAdapter;
   private PerformanceAdapter performanceAdapter;
   private ParticipantAdapter participantAdapter;
+  private PerformanceYearAdapter performanceYearAdapter;
 
   public InvestViewModel(Context context, InvestActivityBinding binding) {
     super(context);
@@ -158,13 +137,12 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
     performanceAdapter = new PerformanceAdapter();
     participantAdapter = new ParticipantAdapter();
+    performanceYearAdapter = new PerformanceYearAdapter();
 
     tablePerformanceVisibility = new ObservableBoolean(true);
     fundsListVisibility = new ObservableBoolean(false);
     participantVisibility = new ObservableBoolean(false);
     userListVisibility = new ObservableBoolean(false);
-
-    pieChartVisibility = new ObservableBoolean(false);
 
     arrowTabelPerformanceVisibility();
     arrowFundsListVisibility();
@@ -174,12 +152,37 @@ public class InvestViewModel extends BaseViewModelWithCallback
     this.binding.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.tablePerformance.setAdapter(performanceAdapter);
-    this.binding.horizontalTableView.setSmoothScrollingEnabled(true);
-    this.binding.horizontalTableView.setScrollbarFadingEnabled(false);
+
+    this.binding.yearColumn.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.yearColumn.setAdapter(performanceYearAdapter);
 
     this.binding.participantList.setLayoutManager(
         new GridLayoutManager(getContext(), 2));
     this.binding.participantList.setAdapter(participantAdapter);
+
+    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+      @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        if (binding.tablePerformance == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 1;
+        } else if (binding.yearColumn == recyclerView
+            && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+          draggingView = 2;
+        }
+      }
+
+      @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        if (draggingView == 1 && recyclerView == binding.tablePerformance) {
+          binding.yearColumn.scrollBy(dx, dy);
+        } else if (draggingView == 2 && recyclerView == binding.yearColumn) {
+          binding.tablePerformance.scrollBy(dx, dy);
+        }
+      }
+    };
+
+    this.binding.tablePerformance.addOnScrollListener(scrollListener);
+    this.binding.yearColumn.addOnScrollListener(scrollListener);
   }
 
   public void start(String id) {
@@ -352,7 +355,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   private void showPerformanceTable(InvestRes investRes) {
     performanceAdapter.setModels(investRes.getInvests().getData().getMonths());
+    performanceYearAdapter.setModels(investRes.getInvests().getData().getMonths());
+
     performanceAdapter.notifyDataSetChanged();
+    performanceYearAdapter.notifyDataSetChanged();
   }
 
   private void showInvest(InvestRes investRes) {
@@ -384,253 +390,12 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatus());
     fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdID());
 
-
     previousDate.set(investRes.getParticipant().getParticipantInvestPrevious().getDateText());
     previousIvest.set(investRes.getParticipant().getParticipantInvestPrevious().getInvestText());
 
     participantAdapter.setModels(
         investRes.getParticipant().getParticipantInvestCurrent().getCurrent());
     participantAdapter.notifyDataSetChanged();
-
-    //TODO recyclerview
-  }
-
-  private void showLineChartPerformance(PerformanceRes performanceRes) {
-    hideLoading();
-
-    if (performanceRes == null) return;
-
-    setPerformanceRes(performanceRes);
-
-    List<Line> lines = new ArrayList<>();
-    List<PointValue> pieData = new ArrayList<>();
-
-    String jan = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getJan());
-    String feb = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getFeb());
-    String mar = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getMar());
-    String apr = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getApr());
-    String may = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getMay());
-    String jun = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getJun());
-    String jul = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getJul());
-    String aug = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getAug());
-    String sep = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getSep());
-    String oct = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getOct());
-    String nov = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getNov());
-    String dec = String.valueOf(
-        performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .get(PAGEPERFORMANCE - 1)
-            .getDec());
-
-    pieData.add(new PointValue(0, StringHelper.setPieValue(jan)).setLabel("JAN"));
-    pieData.add(new PointValue(1, StringHelper.setPieValue(feb)).setLabel("FEB"));
-    pieData.add(new PointValue(2, StringHelper.setPieValue(mar)).setLabel("MAR"));
-    pieData.add(new PointValue(3, StringHelper.setPieValue(apr)).setLabel("APR"));
-    pieData.add(new PointValue(4, StringHelper.setPieValue(may)).setLabel("MEI"));
-    pieData.add(new PointValue(5, StringHelper.setPieValue(jun)).setLabel("JUN"));
-    pieData.add(new PointValue(6, StringHelper.setPieValue(jul)).setLabel("JUL"));
-    pieData.add(new PointValue(7, StringHelper.setPieValue(aug)).setLabel("AUG"));
-    pieData.add(new PointValue(8, StringHelper.setPieValue(sep)).setLabel("SEPT"));
-    pieData.add(new PointValue(9, StringHelper.setPieValue(oct)).setLabel("OCT"));
-    pieData.add(new PointValue(10, StringHelper.setPieValue(nov)).setLabel("NOV"));
-    pieData.add(new PointValue(11, StringHelper.setPieValue(dec)).setLabel("DES"));
-
-    simpleAdapter.clear();
-
-    simpleAdapter.add(new Monthly("JANUARY", jan));
-    simpleAdapter.add(new Monthly("FEBRUARY", feb));
-    simpleAdapter.add(new Monthly("MARCH", mar));
-    simpleAdapter.add(new Monthly("APRIL", apr));
-    simpleAdapter.add(new Monthly("MAY", may));
-    simpleAdapter.add(new Monthly("JUNE", jun));
-    simpleAdapter.add(new Monthly("JULY", jul));
-    simpleAdapter.add(new Monthly("AUGUST", aug));
-    simpleAdapter.add(new Monthly("SEPTEMBER", sep));
-    simpleAdapter.add(new Monthly("OCTOBER", oct));
-    simpleAdapter.add(new Monthly("NOVEMBER", nov));
-    simpleAdapter.add(new Monthly("DESEMBER", dec));
-
-    simpleAdapter.notifyDataSetChanged();
-
-    Line line = new Line(pieData);
-    line.setColor(Color.parseColor("#57DAC6"));
-    //line.setColor(Color.WHITE);
-    line.setShape(ValueShape.CIRCLE);
-    line.setPointColor(Color.parseColor("#57DAC6"));
-    //line.setPointColor(Color.WHITE);
-    line.setCubic(false);
-    line.setFilled(true);
-    line.setHasLabels(false);
-    line.setHasLabelsOnlyForSelected(false);
-    line.setHasLines(true);
-    line.setHasPoints(true);
-    line.setPointRadius(3);
-    line.setStrokeWidth(2);
-    lines.add(line);
-
-    lineChartData = new LineChartData(lines);
-
-    List<AxisValue> values = new ArrayList<>();
-    values.add(new AxisValue(0, "JAN".toCharArray()));
-    values.add(new AxisValue(1, "FEB".toCharArray()));
-    values.add(new AxisValue(2, "MAR".toCharArray()));
-    values.add(new AxisValue(3, "APR".toCharArray()));
-    values.add(new AxisValue(4, "MAY".toCharArray()));
-    values.add(new AxisValue(5, "JUN".toCharArray()));
-    values.add(new AxisValue(6, "JUL".toCharArray()));
-    values.add(new AxisValue(7, "AUG".toCharArray()));
-    values.add(new AxisValue(8, "SEP".toCharArray()));
-    values.add(new AxisValue(9, "OCT".toCharArray()));
-    values.add(new AxisValue(10, "NOV".toCharArray()));
-    values.add(new AxisValue(11, "DES".toCharArray()));
-
-    Axis axisX =
-        new Axis(values).setHasSeparationLine(false).setTextColor(Color.parseColor("#57DAC6"));
-    Axis axisY = new Axis().setHasSeparationLine(false)
-        .setHasLines(true)
-        .setTextColor(Color.parseColor("#57DAC6"));
-    lineChartData.setAxisXBottom(axisX);
-    lineChartData.setAxisYLeft(axisY);
-
-    lineChartData.setBaseValue(Float.NEGATIVE_INFINITY);
-
-    lineChartView.setInteractive(false);
-    lineChartView.setLineChartData(lineChartData);
-
-    pagingInit();
-  }
-
-  private void pagingInit() {
-
-    pageStatePerformances.set(
-        PAGEPERFORMANCE + " / " + performanceRes.getPerformances()
-            .get(0)
-            .getData()
-            .getMonths()
-            .size());
-
-    yearPerformancesValueTv.set(performanceRes.getPerformances()
-        .get(0)
-        .getData()
-        .getMonths()
-        .get(PAGEPERFORMANCE - 1)
-        .getYear());
-
-    ytdPerformancesValueTv.set(StringHelper.setYTDValue(performanceRes.getPerformances()
-        .get(0)
-        .getData()
-        .getMonths()
-        .get(PAGEPERFORMANCE - 1)
-        .getYtd()));
-
-    toogleButton(performanceRes.getPerformances().get(0).getData().getMonths().size());
-  }
-
-  private PerformanceRes getPerformanceRes() {
-    return performanceRes;
-  }
-
-  private void setPerformanceRes(
-      PerformanceRes performanceRes) {
-    this.performanceRes = performanceRes;
-  }
-
-  @SuppressWarnings("unused")
-  public void onButtonBeforeClick(View view) {
-    PAGEPERFORMANCE--;
-    showLineChartPerformance(getPerformanceRes());
-  }
-
-  @SuppressWarnings("unused")
-  public void onButtonNextClick(View view) {
-    PAGEPERFORMANCE++;
-    showLineChartPerformance(getPerformanceRes());
-  }
-
-  private void toogleButton(int maxPages) {
-    if (PAGEPERFORMANCE >= 1) {
-      nextButtonPerformancesVisibility.set(true);
-      beforeButtonPerformancesVisibility.set(false);
-      if (PAGEPERFORMANCE > 1) {
-        beforeButtonPerformancesVisibility.set(true);
-      }
-    }
-
-    if (PAGEPERFORMANCE == maxPages) {
-      nextButtonPerformancesVisibility.set(false);
-      beforeButtonPerformancesVisibility.set(true);
-      if (maxPages == 1) {
-        beforeButtonPerformancesVisibility.set(false);
-      }
-    }
   }
 
   @SuppressWarnings("unused")
@@ -669,9 +434,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
     arrowParticipantVisibility();
   }
 
-
-  public void onClickUserListHideShow(View view){
-    if (!userListVisibility.get()){
+  public void onClickUserListHideShow(View view) {
+    if (!userListVisibility.get()) {
       userListVisibility.set(true);
       arrowuserListVisibility();
       return;
@@ -711,10 +475,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
-  private void arrowuserListVisibility(){
-    if (userListVisibility.get()){
+  private void arrowuserListVisibility() {
+    if (userListVisibility.get()) {
       binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
-    }else {
+    } else {
       binding.userListVisibilityButton.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
     }
   }

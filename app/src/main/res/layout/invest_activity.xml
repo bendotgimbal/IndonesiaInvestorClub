@@ -83,9 +83,10 @@
             android:id="@+id/horizontal_table_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
             android:visibility="@{viewModel.tablePerformanceVisibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/yearTable"
             app:layout_constraintTop_toBottomOf="@id/performance_title"
             >
 
@@ -97,150 +98,139 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal"
                 >
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
-                  android:text="@string/year_label"
-                  android:textColor="@color/colorPrimary"
-                  android:textSize="14sp"
-                  />
-
-              <TextView
-                  android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/january_label"
-                  android:textColor="@color/colorPrimary"
-                  android:textSize="14sp"
-                  />
+                  android:textColor="@android:color/white"
+                  android:textSize="14sp"/>
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/february_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/march_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/april_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/may_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/june_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/july_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/august_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/september_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/ocktober_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/november_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
               <TextView
                   android:layout_width="80dp"
-                  android:layout_height="50dp"
-                  android:background="@drawable/background_table"
-                  android:gravity="center"
-                  android:padding="5dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
                   android:text="@string/december_label"
-                  android:textColor="@color/colorPrimary"
+                  android:textColor="@android:color/white"
+                  android:textSize="14sp"
+                  />
+
+              <TextView
+                  android:layout_width="80dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:padding="15dp"
+                  android:text="@string/ytd_label"
+                  android:textColor="@android:color/white"
                   android:textSize="14sp"
                   />
 
@@ -250,6 +240,8 @@
                 android:id="@+id/table_performance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 tools:itemCount="3"
                 tools:listitem="@layout/sub_performance_table"
                 />
@@ -257,6 +249,39 @@
           </LinearLayout>
 
         </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/yearTable"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.tablePerformanceVisibility ? View.VISIBLE : View.GONE}"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/performance_title">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:layout_marginStart="12dp"
+              android:layout_marginLeft="12dp"
+              android:background="@color/colorPrimary"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/year_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/year_column"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:overScrollMode="never"
+              tools:itemCount="3"
+              tools:listitem="@layout/sub_fixed_column"
+              />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/funds_title"
