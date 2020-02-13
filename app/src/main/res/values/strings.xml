@@ -84,6 +84,10 @@
   <string name="personal_info_proof_id">Proof of ID</string>
   <string name="personal_info_proof_bank">Proof of Bank</string>
 
+  <string name="personal_info_pick_image_profile">Pick Image Gallery Profile</string>
+  <string name="personal_info_pick_image_proof_of_id">Pick Image Gallery Proof Of ID</string>
+  <string name="personal_info_pick_image_proof_of_bank">Pick Image Gallery Proof Of Bank</string>
+
   <string name="registration_ref_label">Referral Code</string>
   <string name="registration_first_name_label">First Name</string>
   <string name="registration_last_name_label">Last Name</string>

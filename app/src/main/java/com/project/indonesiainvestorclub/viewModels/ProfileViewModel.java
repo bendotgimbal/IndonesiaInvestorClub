@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -20,7 +21,9 @@ import com.project.indonesiainvestorclub.models.response.ProfileRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
-import com.project.indonesiainvestorclub.views.MainActivity;
+import com.project.indonesiainvestorclub.views.UpdateImageProfileActivity;
+import com.project.indonesiainvestorclub.views.UpdateImageProofOfBankActivity;
+import com.project.indonesiainvestorclub.views.UpdateImageProofOfIDActivity;
 import com.project.indonesiainvestorclub.views.ProfileEditActivity;
 
 import com.project.indonesiainvestorclub.views.ProfileFragment;
@@ -33,6 +36,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.project.indonesiainvestorclub.views.MainActivity.FUND_MENU;
 import static com.project.indonesiainvestorclub.views.ProfileFragment.REFRESH_PROFILE;
 
 public class ProfileViewModel extends BaseViewModelWithCallback {
@@ -313,6 +317,30 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
     intent.putExtra("occupationStr", occupationStr);
 
     profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
+  }
+
+  @SuppressWarnings("unused")
+  public void onUpdateImageProfileInfoPersonalClick(View view) {
+    Toast.makeText(getContext(), "Update Image Profile Click",Toast.LENGTH_LONG).show();
+    Intent intent = new Intent(context, UpdateImageProfileActivity.class);
+    Activity activity = (Activity) context;
+    activity.startActivityForResult(intent, FUND_MENU);
+  }
+
+  @SuppressWarnings("unused")
+  public void onUpdateImageProofOfIDInfoPersonalClick(View view) {
+    Toast.makeText(getContext(), "Update Image Proof Of ID Click",Toast.LENGTH_LONG).show();
+      Intent intent = new Intent(context, UpdateImageProofOfIDActivity.class);
+      Activity activity = (Activity) context;
+      activity.startActivityForResult(intent, FUND_MENU);
+  }
+
+  @SuppressWarnings("unused")
+  public void onUpdateImageProofOfBankInfoPersonalClick(View view) {
+    Toast.makeText(getContext(), "Update Image Proof Of Bank Click",Toast.LENGTH_LONG).show();
+    Intent intent = new Intent(context, UpdateImageProofOfBankActivity.class);
+    Activity activity = (Activity) context;
+    activity.startActivityForResult(intent, FUND_MENU);
   }
 
   @Override

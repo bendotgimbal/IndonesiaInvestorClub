@@ -55,6 +55,7 @@
               android:padding="3dp"
               android:scaleType="centerInside"
               tools:ignore="ContentDescription"
+              android:onClick="@{viewModel::onUpdateImageProfileInfoPersonalClick}"
               />
 
           <TextView
@@ -296,7 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.firstName}"
-                tools:text="Yosua"
+                tools:text="John"
                 />
 
             <TextView
@@ -350,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.address}"
-                tools:text="Perum Sekneg"
+                tools:text="Perum Berseri Selalu"
                 />
 
             <TextView
@@ -417,7 +418,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.lastName}"
-                tools:text="Tony Batara"
+                tools:text="Doe"
                 />
 
             <TextView
@@ -758,6 +759,7 @@
                   android:padding="3dp"
                   android:scaleType="centerInside"
                   tools:ignore="ContentDescription"
+                  android:onClick="@{viewModel::onUpdateImageProofOfIDInfoPersonalClick}"
                   />
             </LinearLayout>
 
@@ -830,6 +832,7 @@
                   android:padding="3dp"
                   android:scaleType="centerInside"
                   tools:ignore="ContentDescription"
+                  android:onClick="@{viewModel::onUpdateImageProofOfBankInfoPersonalClick}"
                   />
             </LinearLayout>
 

@@ -7,6 +7,9 @@ import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.ActivityMainBinding;
@@ -33,6 +36,8 @@ import retrofit2.Response;
 
 public class MainViewModel extends BaseViewModelWithCallback implements ActionInterface.CustomDialogActionButton {
 
+  private FirebaseRemoteConfig firebaseRemoteConfig;
+
   private static final String TAG = MainViewModel.class.getCanonicalName();
 
   private ActivityMainBinding binding;
@@ -48,6 +53,10 @@ public class MainViewModel extends BaseViewModelWithCallback implements ActionIn
     super(context);
     this.binding = binding;
     this.navHeaderMainBinding = navHeaderMainBinding;
+//    // Get Firebase Remote Config instance.
+//    firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+//    // Create a Remote Config Setting to enable developer mode,
+//    FirebaseRemoteConfigSettings.Builder configBuilder = new FirebaseRemoteConfigSettings.Builder();
 
     loginState = new ObservableBoolean(false);
     signupState = new ObservableBoolean(false);
