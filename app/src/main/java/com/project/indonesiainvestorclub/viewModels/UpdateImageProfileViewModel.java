@@ -1,19 +1,20 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.ObservableBoolean;
 
+import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.UpdateImageProfileActivityBinding;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.views.UpdateImageProfileActivity;
 
 import java.io.File;
+
+import static com.project.indonesiainvestorclub.views.UpdateImageProfileActivity.REQUEST_GALLERY_PHOTO;
 
 public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
 
@@ -23,7 +24,10 @@ public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
   public UpdateImageProfileViewModel(Context context, UpdateImageProfileActivityBinding binding) {
     super(context);
     this.binding = binding;
+
     loadingState = new ObservableBoolean(false);
+    binding.ivPickImage.setImageResource(R.drawable.ic_camera);
+
   }
 
   public void start(File fileimage) {
@@ -38,7 +42,10 @@ public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onButtonUpdateImageClick(View view) {
-    ((UpdateImageProfileActivity) getContext()).chooseGallery();
+    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    ((UpdateImageProfileActivity) context).startActivityForResult(pickPhoto, REQUEST_GALLERY_PHOTO);
   }
 
   @Override public void hideLoading() {
