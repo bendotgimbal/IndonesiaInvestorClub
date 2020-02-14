@@ -36,14 +36,14 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   public ObservableField<String> pageState;
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
-  public ObservableBoolean requestWBButtonVisibility;
+  public ObservableBoolean requestWDButtonVisibility;
   public ObservableBoolean uploadBuktiTransferButtonVisibility;
 
   private TransactionsAdapter adapter;
 
   private int PAGE = 1;
-  private int DPSTATUS = 1;
-  private int WDSTATUS = 1;
+  private int DPSTATUS = 0;
+  private int WDSTATUS = 0;
 
   public TransactionsViewModel(Context context, TransactionsFragmentBinding binding) {
     super(context);
@@ -53,8 +53,7 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     pageState = new ObservableField<>("1/1");
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
-    beforeButtonVisibility = new ObservableBoolean(false);
-    requestWBButtonVisibility = new ObservableBoolean(false);
+    requestWDButtonVisibility = new ObservableBoolean(false);
     uploadBuktiTransferButtonVisibility = new ObservableBoolean(false);
 
     adapter = new TransactionsAdapter();
@@ -147,6 +146,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     pageState.set(transactionsRes.getPage() + " / " + transactionsRes.getPages());
 
     toogleButton(transactionsRes.getPages());
+    toogleButtonWDEnable(Integer.parseInt(transactionsRes.getTransactions().get(0).getWDID()));
+    toogleButtonUploadBuktiTransferEnable(Integer.parseInt(transactionsRes.getTransactions().get(0).getDPID()));
   }
 
   @SuppressWarnings("unused")
@@ -175,6 +176,28 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
       beforeButtonVisibility.set(true);
       if (maxPages == 1) {
         beforeButtonVisibility.set(false);
+      }
+    }
+  }
+
+    private void toogleButtonWDEnable(int enableWd) {
+        if (WDSTATUS == enableWd) {
+            requestWDButtonVisibility.set(true);
+          Toast.makeText(context, "WD = 0 || "+enableWd, Toast.LENGTH_LONG).show();
+            if (enableWd > 1) {
+                requestWDButtonVisibility.set(false);
+              Toast.makeText(context, "WD > 0 || "+enableWd, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+  private void toogleButtonUploadBuktiTransferEnable(int uploadValue) {
+    if (DPSTATUS == uploadValue) {
+      uploadBuktiTransferButtonVisibility.set(true);
+      Toast.makeText(context, "Upload = 0 || "+uploadValue, Toast.LENGTH_LONG).show();
+      if (uploadValue > 1) {
+        uploadBuktiTransferButtonVisibility.set(false);
+        Toast.makeText(context, "Upload > 0 || "+uploadValue, Toast.LENGTH_LONG).show();
       }
     }
   }
