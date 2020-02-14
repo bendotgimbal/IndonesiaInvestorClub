@@ -203,4 +203,7 @@
   <string name="more_info_label">MORE INFO</string>
 
   <string name="about_label">About Us</string>
+
+  <string name="button_request_wd_label">Request WD</string>
+  <string name="button_upload_bukti_transfer_label">Upload Bukti Transfer</string>
 </resources>

@@ -2,6 +2,7 @@ package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -35,6 +36,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   public ObservableField<String> pageState;
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
+  public ObservableBoolean requestWBButtonVisibility;
+  public ObservableBoolean uploadBuktiTransferButtonVisibility;
 
   private TransactionsAdapter adapter;
 
@@ -48,6 +51,9 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     pageState = new ObservableField<>("1/1");
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
+    beforeButtonVisibility = new ObservableBoolean(false);
+    requestWBButtonVisibility = new ObservableBoolean(false);
+    uploadBuktiTransferButtonVisibility = new ObservableBoolean(false);
 
     adapter = new TransactionsAdapter();
     adapter.setListener(this);
@@ -169,6 +175,16 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
         beforeButtonVisibility.set(false);
       }
     }
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonRequestWDClick(View view) {
+    Toast.makeText(context, "Button Request WD ", Toast.LENGTH_LONG).show();
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonUploadBuktiTransferClick(View view) {
+    Toast.makeText(context, "Button Upload Bukti Transfer ", Toast.LENGTH_LONG).show();
   }
 
   @Override
