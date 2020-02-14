@@ -48,4 +48,29 @@ public class ImageHelper {
       e.printStackTrace();
     }
   }
+
+  public static void loadLocalImage(final ImageView view, final String imagePath) {
+    try {
+      Glide.with(view.getContext())
+          .load(imagePath)
+          .listener(new RequestListener<Drawable>() {
+            @Override public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                Target<Drawable> target, boolean isFirstResource) {
+              return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+                DataSource dataSource, boolean isFirstResource) {
+              return false;
+            }
+          })
+          .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
+              .dontAnimate()
+              .skipMemoryCache(true))
+          .into(view);
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+  }
 }
