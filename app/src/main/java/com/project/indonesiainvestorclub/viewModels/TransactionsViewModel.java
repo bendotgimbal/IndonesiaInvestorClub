@@ -42,6 +42,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   private TransactionsAdapter adapter;
 
   private int PAGE = 1;
+  private int DPSTATUS = 1;
+  private int WDSTATUS = 1;
 
   public TransactionsViewModel(Context context, TransactionsFragmentBinding binding) {
     super(context);

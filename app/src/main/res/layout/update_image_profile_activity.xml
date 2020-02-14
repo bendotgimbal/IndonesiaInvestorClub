@@ -57,6 +57,17 @@
                     android:layout_weight="1"
                     >
 
+                    <TextView
+                        android:id="@+id/personal_info_pick_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|top"
+                        android:orientation="vertical"
+                        android:text="@string/personal_info_pick_image_profile"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                     <LinearLayout
                         android:id="@+id/ln_pick_image"
                         android:layout_width="0dp"
@@ -113,17 +124,17 @@
                                     />
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/personal_info_pick_image"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center|top"
-                                android:orientation="vertical"
-                                android:text="@string/personal_info_pick_image_profile"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/ln_image"/>
+<!--                            <TextView-->
+<!--                                android:id="@+id/personal_info_pick_image"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:gravity="center|top"-->
+<!--                                android:orientation="vertical"-->
+<!--                                android:text="@string/personal_info_pick_image_profile"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                app:layout_constraintTop_toTopOf="parent"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/ln_image"/>-->
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
