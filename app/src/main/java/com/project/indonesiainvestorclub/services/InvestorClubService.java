@@ -6,6 +6,7 @@ import com.project.indonesiainvestorclub.models.response.ProfileUpdateRes;
 import com.project.indonesiainvestorclub.models.response.SignUpRes;
 import com.google.gson.JsonElement;
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
@@ -70,4 +71,8 @@ public interface InvestorClubService {
 
   @GET("transactions/{page}")
   Observable<Response<JsonElement>> transactionsRequest(@Path("page") int page);
+
+  @Multipart
+  @GET("avatar")
+  Observable<Response<JsonElement>> uploadProfileRequest(@Part MultipartBody.Part profile_image);
 }

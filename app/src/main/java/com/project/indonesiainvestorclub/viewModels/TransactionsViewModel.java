@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -39,6 +40,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   public ObservableBoolean nextButtonVisibility;
   public ObservableBoolean requestWDButtonVisibility;
   public ObservableBoolean uploadBuktiTransferButtonVisibility;
+  public ObservableBoolean requestWDButtonColor;
+  public ObservableBoolean uploadBuktiTransferButtonColor;
 
   private TransactionsAdapter adapter;
 
@@ -56,6 +59,7 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     nextButtonVisibility = new ObservableBoolean(true);
     requestWDButtonVisibility = new ObservableBoolean(false);
     uploadBuktiTransferButtonVisibility = new ObservableBoolean(false);
+//    requestWDButtonColor = new ObservableBoolean(Boolean.parseBoolean("#AF4CAC"));
 
     adapter = new TransactionsAdapter();
     adapter.setListener(this);
@@ -184,31 +188,39 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
   private void toogleButtonWDEnable(int enableWd) {
     if (WDSTATUS == enableWd) {
+      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
       requestWDButtonVisibility.set(true);
-      //            Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
+                  Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
     } else if (enableWd > 1) {
+      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
       requestWDButtonVisibility.set(false);
-      //            Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
+                  Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
     } else {
-      requestWDButtonVisibility.set(true);
-      Log.d("DEBUG", String.valueOf(enableWd));
+      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
+      requestWDButtonVisibility.set(false);
+      Toast.makeText(context, "WD Others || " + enableWd, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", String.valueOf(enableWd));
     }
   }
 
   private void toogleButtonUploadBuktiTransferEnable(int uploadValue) {
     if (DPSTATUS == uploadValue) {
+      this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(175, 76, 168));
       uploadBuktiTransferButtonVisibility.set(true);
-      //            Toast.makeText(context, "Upload = 0 || " + uploadValue, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "Upload = 0 || " + String.valueOf(uploadValue));
+                  Toast.makeText(context, "Upload = 0 || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", "Upload = 0 || " + String.valueOf(uploadValue));
     } else if (uploadValue > 1) {
+      this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
       uploadBuktiTransferButtonVisibility.set(false);
-      //            Toast.makeText(context, "Upload > 0 || " + uploadValue, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "Upload > 0 || " + String.valueOf(uploadValue));
+                  Toast.makeText(context, "Upload > 0 || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", "Upload > 0 || " + String.valueOf(uploadValue));
     } else {
-      uploadBuktiTransferButtonVisibility.set(true);
-      Log.d("DEBUG", String.valueOf(uploadValue));
+      this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
+      uploadBuktiTransferButtonVisibility.set(false);
+      Toast.makeText(context, "Upload Others || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Log.d("DEBUG", String.valueOf(uploadValue));
     }
   }
 
