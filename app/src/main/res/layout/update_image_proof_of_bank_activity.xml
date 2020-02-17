@@ -36,11 +36,12 @@
                 android:id="@+id/pick_image_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/square_radius_background"
+                android:baselineAligned="false"
                 android:elevation="1dp"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -66,19 +67,19 @@
 
                     <LinearLayout
                         android:id="@+id/ln_pick_image"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:background="@drawable/square_radius_background2"
-                        android:gravity="center|top"
                         android:orientation="vertical"
                         android:padding="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         >
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="320dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="9dp"
                             android:adjustViewBounds="true"
@@ -94,30 +95,18 @@
                                 android:layout_height="wrap_content"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
-                                <ImageView
+                                <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/iv_pick_image"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="250dp"
+                                    android:layout_height="250dp"
                                     android:layout_margin="9dp"
                                     android:adjustViewBounds="true"
-                                    android:background="@drawable/ic_camera"
+                                    android:onClick="@{viewModel::onButtonUpdateImageClick}"
                                     android:padding="3dp"
                                     android:scaleType="centerInside"
                                     tools:ignore="ContentDescription"
                                     />
                             </LinearLayout>
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/personal_info_pick_image"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:gravity="center|top"-->
-<!--                                android:orientation="vertical"-->
-<!--                                android:text="@string/personal_info_pick_image_proof_of_bank"-->
-<!--                                android:textSize="18sp"-->
-<!--                                android:textStyle="bold"-->
-<!--                                app:layout_constraintTop_toTopOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@id/ln_image"/>-->
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 

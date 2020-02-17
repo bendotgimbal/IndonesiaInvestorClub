@@ -1,27 +1,17 @@
 package com.project.indonesiainvestorclub.views;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.UpdateImageProfileActivityBinding;
 import com.project.indonesiainvestorclub.helper.FileUtil;
-import com.project.indonesiainvestorclub.helper.ImageContract;
-import com.project.indonesiainvestorclub.helper.ImagePresenter;
 import com.project.indonesiainvestorclub.viewModels.UpdateImageProfileViewModel;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 import io.reactivex.annotations.Nullable;
 
