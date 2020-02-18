@@ -121,6 +121,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:clickable="true"
             android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
             tools:visibility="gone"
             >

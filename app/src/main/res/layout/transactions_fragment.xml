@@ -1,150 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.project.indonesiainvestorclub.viewModels.TransactionsViewModel"
-            />
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.project.indonesiainvestorclub.viewModels.TransactionsViewModel"
+        />
 
-        <import type="android.view.View" />
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <import type="android.view.View" />
+  </data>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transactionslist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/button_wrapper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="2"
+        tools:listitem="@layout/sub_transaction_item"
+        tools:visibility="gone"
+        />
+
+    <LinearLayout
+        android:id="@+id/button_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/paging_wrapper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transactionslist"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_wrapper"
-            tools:itemCount="2"
-            tools:listitem="@layout/sub_transaction_item"
-            tools:visibility="gone"
-            />
-        <LinearLayout
-            android:id="@+id/button_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transactionslist">
-            <Button
-                android:id="@+id/btnRequestWD"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/square_radius_button"
-                android:onClick="@{viewModel::onButtonRequestWDClick}"
-                android:clickable="@{viewModel.requestWDButtonVisibility}"
-                android:focusable="@{viewModel.requestWDButtonVisibility}"
-                android:layout_margin="20dp"
-                android:elevation="0dp"
-                android:text="@string/button_request_wd_label"
-                android:textColor="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:targetApi="lollipop"
-                />
-            <Button
-                android:id="@+id/btnUploadBuktiFransfer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/square_radius_button"
-                android:onClick="@{viewModel::onButtonUploadBuktiTransferClick}"
-                android:clickable="@{viewModel.uploadBuktiTransferButtonVisibility}"
-                android:focusable="@{viewModel.uploadBuktiTransferButtonVisibility}"
-                android:layout_margin="20dp"
-                android:elevation="0dp"
-                android:text="@string/button_upload_bukti_transfer_label"
-                android:textColor="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnRequestWD"
-                tools:targetApi="lollipop"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/paging_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:background="@color/lightPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+      <Button
+          android:id="@+id/btnRequestWD"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:background="@drawable/square_radius_button"
+          android:clickable="@{viewModel.requestWDButtonVisibility}"
+          android:focusable="@{viewModel.requestWDButtonVisibility}"
+          android:onClick="@{viewModel::onButtonRequestWDClick}"
+          android:text="@string/button_request_wd_label"
+          android:textColor="@android:color/white"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:targetApi="lollipop"
+          />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/before_btn"
-                android:clickable="@{viewModel.beforeButtonVisibility}"
-                android:focusable="@{viewModel.beforeButtonVisibility}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{viewModel::onButtonBeforeClick}"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_navigate_before_primary"/>
+      <Button
+          android:id="@+id/btnUploadBuktiFransfer"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:background="@drawable/square_radius_button"
+          android:clickable="@{viewModel.uploadBuktiTransferButtonVisibility}"
+          android:focusable="@{viewModel.uploadBuktiTransferButtonVisibility}"
+          android:onClick="@{viewModel::onButtonUploadBuktiTransferClick}"
+          android:text="@string/button_upload_bukti_transfer_label"
+          android:textColor="@android:color/white"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/btnRequestWD"
+          tools:targetApi="lollipop"
+          />
 
-            <TextView
-                android:id="@+id/paging_tv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:text="@{viewModel.pageState}"
-                tools:text="1/3"/>
+    </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/next_btn"
-                android:clickable="@{viewModel.nextButtonVisibility}"
-                android:focusable="@{viewModel.nextButtonVisibility}"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
-                android:onClick="@{viewModel::onButtonNextClick}"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_navigate_next_primary"/>
+    <LinearLayout
+        android:id="@+id/paging_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/lightPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
-        </LinearLayout>
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/before_btn"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="@{viewModel.beforeButtonVisibility}"
+          android:focusable="@{viewModel.beforeButtonVisibility}"
+          android:onClick="@{viewModel::onButtonBeforeClick}"
+          android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          app:srcCompat="@drawable/ic_navigate_before_primary"
+          />
+
+      <TextView
+          android:id="@+id/paging_tv"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@{viewModel.pageState}"
+          android:textStyle="bold"
+          tools:text="1/3"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/next_btn"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="@{viewModel.nextButtonVisibility}"
+          android:focusable="@{viewModel.nextButtonVisibility}"
+          android:onClick="@{viewModel::onButtonNextClick}"
+          android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          app:srcCompat="@drawable/ic_navigate_next_primary"
+          />
+
+    </LinearLayout>
 
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:elevation="2dp"
-            android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop"
-            tools:visibility="gone"
-            >
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:focusable="true"
+        android:visibility="@{viewModel.loadingState ? View.VISIBLE : View.GONE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop"
+        tools:visibility="gone"
+        >
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@color/black_transparent"
-                />
+      <androidx.appcompat.widget.AppCompatImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:srcCompat="@color/black_transparent"
+          />
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+      <androidx.core.widget.ContentLoadingProgressBar
+          style="?android:attr/progressBarStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          />
 
-        </FrameLayout>
+    </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
