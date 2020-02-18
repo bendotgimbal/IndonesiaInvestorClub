@@ -2,6 +2,7 @@ package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
@@ -21,20 +22,27 @@ public class UpdateImageProofOfIDViewModel extends BaseViewModelWithCallback {
 
     private UpdateImageProofOfIdActivityBinding binding;
     public ObservableBoolean loadingState;
+    public ObservableBoolean uploadImageButtonEnable;
 
     public UpdateImageProofOfIDViewModel(Context context, UpdateImageProofOfIdActivityBinding binding) {
         super(context);
         this.binding = binding;
 
         loadingState = new ObservableBoolean(false);
+        uploadImageButtonEnable = new ObservableBoolean(false);
         binding.ivPickImage.setImageResource(R.drawable.ic_camera);
 
+        this.binding.btnUploadImage.setBackgroundColor(Color.rgb(239, 220, 238));
     }
 
     public void start(File fileimage) {
         if (fileimage == null) return;
-        ImageHelper.loadLocalImage(binding.ivPickImage, fileimage.getAbsolutePath());
-        Toast.makeText(context, "Image Name " + fileimage.getName(), Toast.LENGTH_LONG).show();
+        if (fileimage != null) {
+            this.binding.btnUploadImage.setBackgroundColor(Color.rgb(175, 76, 168));
+            uploadImageButtonEnable.set(true);
+            ImageHelper.loadLocalImage(binding.ivPickImage, fileimage.getAbsolutePath());
+            Toast.makeText(context, "Image Name " + fileimage.getName(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void loading(boolean load){
@@ -47,6 +55,11 @@ public class UpdateImageProofOfIDViewModel extends BaseViewModelWithCallback {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickPhoto.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         ((UpdateImageProofOfIDActivity) context).startActivityForResult(pickPhoto, REQUEST_GALLERY_PHOTO);
+    }
+
+    @SuppressWarnings("unused")
+    public void onButtonUploadImageClick(View view) {
+        Toast.makeText(context, "Button Upload ", Toast.LENGTH_LONG).show();
     }
 
     @Override public void hideLoading() {

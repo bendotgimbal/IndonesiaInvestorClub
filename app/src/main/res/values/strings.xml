@@ -207,4 +207,5 @@
 
   <string name="button_request_wd_label">Request WD</string>
   <string name="button_upload_bukti_transfer_label">Upload Bukti Transfer</string>
+  <string name="button_upload_image">Upload</string>
 </resources>

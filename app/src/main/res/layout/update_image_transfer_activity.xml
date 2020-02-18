@@ -115,6 +115,24 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnUploadImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_radius_button"
+                android:onClick="@{viewModel::onButtonUploadImageClick}"
+                android:clickable="@{viewModel.uploadImageButtonEnable}"
+                android:focusable="@{viewModel.uploadImageButtonEnable}"
+                android:layout_margin="20dp"
+                android:elevation="0dp"
+                android:text="@string/button_upload_image"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop"
+                />
+
         </LinearLayout>
 
         <FrameLayout
