@@ -38,8 +38,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   public ObservableField<String> pageState;
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
-  public ObservableBoolean requestWDButtonVisibility;
-  public ObservableBoolean uploadBuktiTransferButtonVisibility;
+  public ObservableBoolean requestWDButtonEnable;
+  public ObservableBoolean uploadBuktiTransferButtonEnable;
   public ObservableBoolean requestWDButtonColor;
   public ObservableBoolean uploadBuktiTransferButtonColor;
 
@@ -57,8 +57,8 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     pageState = new ObservableField<>("1/1");
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
-    requestWDButtonVisibility = new ObservableBoolean(false);
-    uploadBuktiTransferButtonVisibility = new ObservableBoolean(false);
+      requestWDButtonEnable = new ObservableBoolean(false);
+      uploadBuktiTransferButtonEnable = new ObservableBoolean(false);
 //    requestWDButtonColor = new ObservableBoolean(Boolean.parseBoolean("#AF4CAC"));
 
     adapter = new TransactionsAdapter();
@@ -189,17 +189,17 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   private void toogleButtonWDEnable(int enableWd) {
     if (WDSTATUS == enableWd) {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
-      requestWDButtonVisibility.set(true);
+        requestWDButtonEnable.set(true);
                   Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
     } else if (enableWd > 1) {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-      requestWDButtonVisibility.set(false);
+        requestWDButtonEnable.set(false);
                   Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
     } else {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-      requestWDButtonVisibility.set(false);
+        requestWDButtonEnable.set(false);
       Toast.makeText(context, "WD Others || " + enableWd, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", String.valueOf(enableWd));
     }
@@ -208,17 +208,17 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   private void toogleButtonUploadBuktiTransferEnable(int uploadValue) {
     if (DPSTATUS == uploadValue) {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(175, 76, 168));
-      uploadBuktiTransferButtonVisibility.set(true);
+        uploadBuktiTransferButtonEnable.set(true);
                   Toast.makeText(context, "Upload = 0 || " + uploadValue, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", "Upload = 0 || " + String.valueOf(uploadValue));
     } else if (uploadValue > 1) {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
-      uploadBuktiTransferButtonVisibility.set(false);
+        uploadBuktiTransferButtonEnable.set(false);
                   Toast.makeText(context, "Upload > 0 || " + uploadValue, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", "Upload > 0 || " + String.valueOf(uploadValue));
     } else {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
-      uploadBuktiTransferButtonVisibility.set(false);
+        uploadBuktiTransferButtonEnable.set(false);
       Toast.makeText(context, "Upload Others || " + uploadValue, Toast.LENGTH_LONG).show();
 //      Log.d("DEBUG", String.valueOf(uploadValue));
     }
