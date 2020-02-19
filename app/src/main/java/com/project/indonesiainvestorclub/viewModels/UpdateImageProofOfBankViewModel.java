@@ -12,17 +12,23 @@ import androidx.databinding.ObservableBoolean;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.UpdateImageProofOfBankActivityBinding;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
+import com.project.indonesiainvestorclub.models.response.UpdateImageProofOfBankRes;
+import com.project.indonesiainvestorclub.views.ProfileEditActivity;
 import com.project.indonesiainvestorclub.views.UpdateImageProofOfBankActivity;
 
 import java.io.File;
 
+import static android.app.Activity.RESULT_OK;
 import static com.project.indonesiainvestorclub.views.UpdateImageProofOfIDActivity.REQUEST_GALLERY_PHOTO;
 
 public class UpdateImageProofOfBankViewModel extends BaseViewModelWithCallback {
 
+    private final static String UPLOAD_MESSAGE = "File Upload Successfull";
+
     private UpdateImageProofOfBankActivityBinding binding;
     public ObservableBoolean loadingState;
     public ObservableBoolean uploadImageButtonEnable;
+    public File imageFileProofOfBank;
 
     public UpdateImageProofOfBankViewModel(Context context, UpdateImageProofOfBankActivityBinding binding) {
         super(context);
@@ -47,6 +53,16 @@ public class UpdateImageProofOfBankViewModel extends BaseViewModelWithCallback {
 
     private void loading(boolean load){
         loadingState.set(load);
+    }
+
+    private void onSuccessUpdate(UpdateImageProofOfBankRes updateImageProofOfBankRes){
+        if (updateImageProofOfBankRes != null && updateImageProofOfBankRes.getUpload().equalsIgnoreCase(UPLOAD_MESSAGE)) {
+            Toast.makeText(getContext(), "Selamat Anda Berhasil Update", Toast.LENGTH_SHORT).show();
+            ((ProfileEditActivity) context).setResult(RESULT_OK);
+            ((ProfileEditActivity) context).finish();
+        } else {
+            Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @SuppressWarnings("unused")

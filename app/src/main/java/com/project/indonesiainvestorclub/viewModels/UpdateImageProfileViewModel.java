@@ -8,12 +8,24 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 
+import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.databinding.UpdateImageProfileActivityBinding;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
+import com.project.indonesiainvestorclub.models.response.UpdateImageProfileRes;
+import com.project.indonesiainvestorclub.services.CallbackWrapper;
+import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.project.indonesiainvestorclub.views.UpdateImageProfileActivity;
 
 import java.io.File;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Response;
 
 import static com.project.indonesiainvestorclub.views.UpdateImageProfileActivity.REQUEST_GALLERY_PHOTO;
 
@@ -22,6 +34,7 @@ public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
   private UpdateImageProfileActivityBinding binding;
   public ObservableBoolean loadingState;
   public ObservableBoolean uploadImageButtonEnable;
+  public File imageFileProfile;
 
   public UpdateImageProfileViewModel(Context context, UpdateImageProfileActivityBinding binding) {
     super(context);
@@ -41,11 +54,40 @@ public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
       uploadImageButtonEnable.set(true);
       ImageHelper.loadLocalImage(binding.ivPickImage, fileimage.getAbsolutePath());
       Toast.makeText(context, "Image Name " + fileimage.getName(), Toast.LENGTH_LONG).show();
+      imageFileProfile = fileimage;
     }
   }
 
   private void loading(boolean load) {
     loadingState.set(load);
+  }
+
+  //API CALL
+  private void postImage(File fileimageProfile) {
+//    loading(true);
+
+    Toast.makeText(context, "Image Name " + fileimageProfile.getName(), Toast.LENGTH_LONG).show();
+    RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"),fileimageProfile);
+    MultipartBody.Part bodyFile = MultipartBody.Part.createFormData("user_avatar",fileimageProfile.getName(),requestFile);
+
+    Disposable disposable = ServiceGenerator.service.uploadProfileRequest(bodyFile)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, () -> postImage(fileimageProfile)) {
+              @Override
+              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+                if (jsonElementResponse.body() != null) {
+                  loading(false);
+                  readUpdateImageJSON(jsonElementResponse.body());
+                }
+              }
+            });
+    compositeDisposable.add(disposable);
+  }
+
+  private void readUpdateImageJSON(JsonElement response){
+//    Toast.makeText(getContext(), "Selamat Berhasil Upload", Toast.LENGTH_SHORT).show();
+    Toast.makeText(getContext(), "Response "+response, Toast.LENGTH_SHORT).show();
   }
 
   @SuppressWarnings("unused")
@@ -59,6 +101,8 @@ public class UpdateImageProfileViewModel extends BaseViewModelWithCallback {
   @SuppressWarnings("unused")
   public void onButtonUploadImageClick(View view) {
     Toast.makeText(context, "Button Upload ", Toast.LENGTH_LONG).show();
+//    Toast.makeText(context, "Button Upload "+imageFileProfile.getName(), Toast.LENGTH_LONG).show();
+    postImage(imageFileProfile);
   }
 
   @Override public void hideLoading() {

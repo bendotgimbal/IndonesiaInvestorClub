@@ -5,6 +5,9 @@ import com.project.indonesiainvestorclub.models.response.LogoutRes;
 import com.project.indonesiainvestorclub.models.response.ProfileUpdateRes;
 import com.project.indonesiainvestorclub.models.response.SignUpRes;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.models.response.UpdateImageProofOfBankRes;
+import com.project.indonesiainvestorclub.models.response.UpdateImageProofOfIDRes;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -73,6 +76,16 @@ public interface InvestorClubService {
   Observable<Response<JsonElement>> transactionsRequest(@Path("page") int page);
 
   @Multipart
-  @GET("avatar")
+  @POST("avatar")
   Observable<Response<JsonElement>> uploadProfileRequest(@Part MultipartBody.Part profile_image);
+
+  @Multipart
+  @POST("documents")
+//  Observable<Response<JsonElement>> uploadProofIDRequest(@Part MultipartBody.Part proof_id_image);
+  Observable<Response<UpdateImageProofOfIDRes>> uploadProofIDRequest(@Part MultipartBody.Part proof_id_image);
+
+  @Multipart
+  @POST("banks")
+//  Observable<Response<JsonElement>> uploadProofBankRequest(@Part MultipartBody.Part proof_bank_image);
+  Observable<Response<UpdateImageProofOfBankRes>> uploadProofBankRequest(@Part MultipartBody.Part proof_bank_image);
 }
