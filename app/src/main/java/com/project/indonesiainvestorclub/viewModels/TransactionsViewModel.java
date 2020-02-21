@@ -125,7 +125,9 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
             objTransactions.getString("WDDate"),
             objTransactions.getString("WDAmount"),
             objTransactions.getString("WDID"),
-            objTransactions.getString("WDStatus")
+            objTransactions.getString("WDStatus"),
+                objTransactions.getString("WDStart"),
+                objTransactions.getString("WDEnd")
         );
         transactionslist.add(transactions);
       }

@@ -17,12 +17,14 @@ public class Transactions {
     private String wd_amount;
     private String wd_id;
     private String wd_status;
+    private String wd_start;
+    private String wd_end;
 
     int index;
 
     public Transactions(String name, String invest_date, String invest_usd, String invest_idr, String dp_date, String dp_amount,
                         String dp_id, String dp_status, String dp_proof, String start_date, String end_date, String status,
-                        String wd_date, String wd_amount, String wd_id, String wd_status) {
+                        String wd_date, String wd_amount, String wd_id, String wd_status, String wd_start, String wd_end) {
         this.name = name;
         this.invest_date = invest_date;
         this.invest_usd = invest_usd;
@@ -39,6 +41,8 @@ public class Transactions {
         this.wd_amount = wd_amount;
         this.wd_id = wd_id;
         this.wd_status = wd_status;
+        this.wd_start = wd_start;
+        this.wd_end = wd_end;
     }
 
     public int getIndex() {
@@ -175,5 +179,21 @@ public class Transactions {
 
     public void setWDStatus(String wd_status) {
         this.wd_status = wd_status;
+    }
+
+    public String getWDStart() {
+        return wd_start;
+    }
+
+    public void setWDStart(String wd_start) {
+        this.wd_start = wd_start;
+    }
+
+    public String getWDEnd() {
+        return wd_end;
+    }
+
+    public void setWDEnd(String wd_end) {
+        this.wd_end = wd_end;
     }
 }
