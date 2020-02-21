@@ -240,52 +240,76 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
+<!--                <TextView-->
+<!--                    android:id="@+id/start_date_transaction_label"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="@string/start_date_transaction_label"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/empty_label"-->
+<!--                    tools:text="Start Date"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/start_date_transaction_value"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{obj.startDate}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/start_date_transaction_label"-->
+<!--                    tools:text="Start Date Value"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/end_date_transaction_label"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="@string/end_date_transaction_label"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/start_date_transaction_value"-->
+<!--                    tools:text="End Date"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/end_date_transaction_value"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{obj.endDate}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/end_date_transaction_label"-->
+<!--                    tools:text="End Date Value"-->
+<!--                    />-->
+
                 <TextView
-                    android:id="@+id/start_date_transaction_label"
+                    android:id="@+id/start_end_date_transaction_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/start_date_transaction_label"
+                    android:text="@string/start_end_date_transaction_label"
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/empty_label"
-                    tools:text="Start Date"
+                    tools:text="Start Date - End Date"
                     />
 
                 <TextView
-                    android:id="@+id/start_date_transaction_value"
+                    android:id="@+id/start_end_date_transaction_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.startDate}"
+                    android:text="@{obj.startEndDate}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/start_date_transaction_label"
-                    tools:text="Start Date Value"
-                    />
-
-                <TextView
-                    android:id="@+id/end_date_transaction_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/end_date_transaction_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/start_date_transaction_value"
-                    tools:text="End Date"
-                    />
-
-                <TextView
-                    android:id="@+id/end_date_transaction_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.endDate}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/end_date_transaction_label"
-                    tools:text="End Date Value"
+                    app:layout_constraintTop_toBottomOf="@id/start_end_date_transaction_label"
+                    tools:text="Value"
                     />
 
                 <TextView
@@ -297,7 +321,7 @@
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/end_date_transaction_value"
+                    app:layout_constraintTop_toBottomOf="@id/start_end_date_transaction_value"
                     tools:text="Status"
                     />
 

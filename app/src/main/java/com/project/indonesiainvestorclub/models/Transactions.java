@@ -141,6 +141,10 @@ public class Transactions {
         this.end_date = end_date;
     }
 
+    public String getStartEndDate(){
+        return getStartDate()+" - "+getEndDate();
+    }
+
     public String getStatus() {
         return status;
     }

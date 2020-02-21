@@ -156,6 +156,7 @@
   <string name="dp_proof_transaction_label">DP Proof</string>
   <string name="start_date_transaction_label">Start Date</string>
   <string name="end_date_transaction_label">End Date</string>
+  <string name="start_end_date_transaction_label">Start Date - End Date</string>
   <string name="status_transaction_label">Status</string>
   <string name="wd_date_transaction_label">WD Date</string>
   <string name="wd_amount_transaction_label">WD Amount</string>
