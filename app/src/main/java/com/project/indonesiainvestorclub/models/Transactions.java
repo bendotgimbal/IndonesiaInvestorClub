@@ -200,4 +200,8 @@ public class Transactions {
     public void setWDEnd(String wd_end) {
         this.wd_end = wd_end;
     }
+
+    public String getWDStartEnd(){
+        return getWDStart()+" - "+getWDEnd();
+    }
 }
