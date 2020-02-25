@@ -219,4 +219,8 @@ public class Transactions {
     }
     return "";
   }
+
+  public String getWDStartEnd(){
+    return getWDStart()+" - "+getWDEnd();
+  }
 }

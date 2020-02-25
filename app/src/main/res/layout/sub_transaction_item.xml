@@ -395,7 +395,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/wd_amount_transaction_value"
                     tools:text="WD ID"
-                    tools:visibility="gone"
+                    android:visibility="gone"
                     />
 
                 <TextView
@@ -407,7 +407,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/wd_id_transaction_label"
                     tools:text="WD ID Value"
-                    tools:visibility="gone"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_start_end_date_transaction_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/wd_start_end_date_transaction_label"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_id_transaction_value"
+                    tools:text="WD Start - WD End"
+                    />
+
+                <TextView
+                    android:id="@+id/wd_start_end_date_transaction_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{obj.wDStartEnd}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wd_start_end_date_transaction_label"
+                    tools:text="Value"
                     />
 
                 <TextView
@@ -419,7 +443,7 @@
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/wd_id_transaction_value"
+                    app:layout_constraintTop_toBottomOf="@id/wd_start_end_date_transaction_value"
                     tools:text="WD Status"
                     />
 

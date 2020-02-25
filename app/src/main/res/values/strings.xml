@@ -162,6 +162,7 @@
   <string name="wd_amount_transaction_label">WD Amount</string>
   <string name="wd_id_transaction_label">WD ID</string>
   <string name="wd_status_transaction_label">WD Status</string>
+  <string name="wd_start_end_date_transaction_label">WD Start - WD End</string>
 
   <string name="performance_ytd_label">Year to Date</string>
   <string name="performance_year_label">Year</string>
