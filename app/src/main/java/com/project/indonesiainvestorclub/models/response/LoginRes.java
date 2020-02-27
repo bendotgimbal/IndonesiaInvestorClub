@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.models.response;
 
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 import com.project.indonesiainvestorclub.models.Groups;
 
@@ -11,21 +12,12 @@ public class LoginRes {
   private String username;
   @SerializedName("Avatar")
   private String avatar;
-  private List<Groups> groups;
+  @SerializedName("Groups")
+  private JsonElement groups;
   @SerializedName("FirstName")
   private String firstName;
   @SerializedName("LastName")
   private String lastName;
-
-  public LoginRes(String token, String username, String avatar, List<Groups> groups, String firstName,
-                  String lastName) {
-    this.token = token;
-    this.username = username;
-    this.avatar = avatar;
-    this.groups = groups;
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
 
   public String getToken() {
     return token;
@@ -51,11 +43,11 @@ public class LoginRes {
     this.avatar = avatar;
   }
 
-  public List<Groups> getGroups() {
+  public JsonElement getGroups() {
     return groups;
   }
 
-  public void setGroups(List<Groups> groups) {
+  public void setGroups(JsonElement groups) {
     this.groups = groups;
   }
 

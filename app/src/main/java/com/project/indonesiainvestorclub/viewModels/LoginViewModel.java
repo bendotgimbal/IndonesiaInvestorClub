@@ -9,6 +9,7 @@ import androidx.databinding.ObservableField;
 import com.project.indonesiainvestorclub.databinding.LoginActivityBinding;
 import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.project.indonesiainvestorclub.helper.StringHelper;
+import com.project.indonesiainvestorclub.models.Groups;
 import com.project.indonesiainvestorclub.models.response.LoginRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
@@ -18,8 +19,12 @@ import com.project.indonesiainvestorclub.views.SignUpActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import org.json.JSONException;
+import org.json.JSONObject;
 import retrofit2.Response;
 
 public class LoginViewModel extends BaseViewModelWithCallback{
@@ -89,13 +94,27 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       SharedPreferenceHelper.setUserRealName(loginRes.getFirstName()+""+loginRes.getLastName());
       SharedPreferenceHelper.setUserAva(loginRes.getAvatar());
 
-      String strGroup1 = loginRes.getGroups().get(0).getDepartment();
-      String strGroup2 = loginRes.getGroups().get(1).getDepartment();
+      List<Groups> groups = new ArrayList<>();
+      JSONObject jsonObject;
+      try {
+        jsonObject = new JSONObject(loginRes.getGroups().toString());
 
-      if(strGroup2 != null){
-        Toast.makeText(getContext(), "Group Marketing", Toast.LENGTH_SHORT).show();
-      }else{
-        Toast.makeText(getContext(), "Group Biasa", Toast.LENGTH_SHORT).show();
+        for (int i = 1; i <= jsonObject.length(); i++) {
+          Groups objGroup = new Groups();
+          objGroup.setDepartment(jsonObject.getString(i + ""));
+
+          groups.add(objGroup);
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      if (groups.size() > 0){
+        if (groups.get(1).getDepartment() != null){
+          Toast.makeText(getContext(), "Group Marketing", Toast.LENGTH_SHORT).show();
+        } else {
+          Toast.makeText(getContext(), "Group Biasa", Toast.LENGTH_SHORT).show();
+        }
       }
 
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
