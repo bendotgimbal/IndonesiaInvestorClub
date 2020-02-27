@@ -174,29 +174,29 @@
                     tools:text="DP Amount Value"
                     />
 
-                <TextView
-                    android:id="@+id/dp_id_transaction_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/dp_id_transaction_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dp_amount_transaction_value"
-                    tools:text="DP ID"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/dp_id_transaction_label"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="@string/dp_id_transaction_label"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/dp_amount_transaction_value"-->
+<!--                    tools:text="DP ID"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/dp_id_transaction_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{obj.dPID}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_label"
-                    tools:text="DP ID Value"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/dp_id_transaction_value"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{obj.dPIDText}"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_label"-->
+<!--                    tools:text="DP ID Value"-->
+<!--                    />-->
 
                 <TextView
                     android:id="@+id/dp_status_transaction_label"
@@ -207,7 +207,7 @@
                     android:textColor="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_value"
+                    app:layout_constraintTop_toBottomOf="@id/dp_amount_transaction_value"
                     tools:text="DP Status"
                     />
 
@@ -215,7 +215,7 @@
                     android:id="@+id/dp_status_transaction_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.dPStatus}"
+                    android:text="@{obj.dPIDText}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dp_status_transaction_label"

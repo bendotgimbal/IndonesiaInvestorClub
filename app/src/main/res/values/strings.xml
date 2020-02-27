@@ -11,6 +11,7 @@
   <string name="label_profile_edit">Edit Profile</string>
   <string name="label_email">Email</string>
   <string name="label_website">Website</string>
+  <string name="label_invest_funds">Invest Funds</string>
   <string name="title_activity_main">MainActivity</string>
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
