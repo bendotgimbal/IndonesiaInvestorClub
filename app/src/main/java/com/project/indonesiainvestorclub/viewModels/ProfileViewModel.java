@@ -10,6 +10,7 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import com.project.indonesiainvestorclub.databinding.ProfileFragmentBinding;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
+import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.project.indonesiainvestorclub.models.Bank;
 import com.project.indonesiainvestorclub.models.Documents;
 import com.project.indonesiainvestorclub.models.DocumentsBank;
@@ -90,7 +91,8 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   private ProfileFragment profileFragment;
 
-  public ProfileViewModel(Context context, ProfileFragmentBinding binding, ProfileFragment profileFragment) {
+  public ProfileViewModel(Context context, ProfileFragmentBinding binding,
+      ProfileFragment profileFragment) {
     super(context);
     this.binding = binding;
     this.profileFragment = profileFragment;
@@ -258,14 +260,25 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
     if (profileRes == null) return;
 
+    //replace avatar
     ImageHelper.loadImage(binding.profileImage, profileRes.getLogin().getAvatar());
+    SharedPreferenceHelper.setUserAva(profileRes.getLogin().getAvatar());
 
     idNumberTx.set(profileRes.getLogin().getID());
     refCodeTx.set(profileRes.getLogin().getRefCode());
+
+    //replace full name
     nameTx.set(
         profileRes.getProfile().getFirstName() + " " + profileRes.getProfile().getLastName());
+    SharedPreferenceHelper.setUserRealName(
+        profileRes.getProfile().getFirstName() + " " + profileRes.getProfile().getLastName());
+
     phoneNumberTx.set(profileRes.getProfile().getPhoneNo());
+
+    //replace email
     emailTx.set(profileRes.getLogin().getEmail());
+    SharedPreferenceHelper.setUserName(profileRes.getLogin().getEmail());
+
     sponsorTx.set(profileRes.getLogin().getSponsor());
     networkTx.set(profileRes.getLogin().getNetwork());
     grupTx.set(profileRes.getLogin().getGroups().get(0).getDepartment() + "\n"
@@ -321,7 +334,7 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onUpdateImageProfileInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Profile Click",Toast.LENGTH_LONG).show();
+    Toast.makeText(getContext(), "Update Image Profile Click", Toast.LENGTH_LONG).show();
     Intent intent = new Intent(context, UpdateImageProfileActivity.class);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
@@ -329,15 +342,15 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onUpdateImageProofOfIDInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Proof Of ID Click",Toast.LENGTH_LONG).show();
-      Intent intent = new Intent(context, UpdateImageProofOfIDActivity.class);
-      Activity activity = (Activity) context;
-      activity.startActivityForResult(intent, FUND_MENU);
+    Toast.makeText(getContext(), "Update Image Proof Of ID Click", Toast.LENGTH_LONG).show();
+    Intent intent = new Intent(context, UpdateImageProofOfIDActivity.class);
+    Activity activity = (Activity) context;
+    activity.startActivityForResult(intent, FUND_MENU);
   }
 
   @SuppressWarnings("unused")
   public void onUpdateImageProofOfBankInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Proof Of Bank Click",Toast.LENGTH_LONG).show();
+    Toast.makeText(getContext(), "Update Image Proof Of Bank Click", Toast.LENGTH_LONG).show();
     Intent intent = new Intent(context, UpdateImageProofOfBankActivity.class);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);

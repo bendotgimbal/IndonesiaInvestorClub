@@ -191,7 +191,7 @@
                     android:id="@+id/dp_id_transaction_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{obj.dPID}"
+                    android:text="@{obj.DPIDText}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dp_id_transaction_label"
@@ -461,6 +461,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 
