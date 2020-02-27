@@ -16,25 +16,24 @@ import com.project.indonesiainvestorclub.viewModels.TransactionsViewModel;
 
 public class TransactionsFragment extends BaseFragment {
 
-    private TransactionsFragmentBinding binding;
-    private TransactionsViewModel transactionsViewModel;
-    private ListView lv;
+  private TransactionsFragmentBinding binding;
+  private TransactionsViewModel transactionsViewModel;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        binding = DataBindingUtil.inflate(inflater, R.layout.transactions_fragment, container, false);
-        return binding.getRoot();
-    }
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    super.onCreateView(inflater, container, savedInstanceState);
+    binding = DataBindingUtil.inflate(inflater, R.layout.transactions_fragment, container, false);
+    return binding.getRoot();
+  }
 
-    @Override
-    protected void initDataBinding() {
-        transactionsViewModel = new TransactionsViewModel(this.getContext(), binding);
-        binding.setViewModel(transactionsViewModel);
-    }
+  @Override
+  protected void initDataBinding() {
+    transactionsViewModel = new TransactionsViewModel(this.getContext(), binding);
+    binding.setViewModel(transactionsViewModel);
+  }
 }
