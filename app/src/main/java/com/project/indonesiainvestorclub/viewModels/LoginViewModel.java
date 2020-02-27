@@ -89,6 +89,15 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       SharedPreferenceHelper.setUserRealName(loginRes.getFirstName()+""+loginRes.getLastName());
       SharedPreferenceHelper.setUserAva(loginRes.getAvatar());
 
+      String strGroup1 = loginRes.getGroups().get(0).getDepartment();
+      String strGroup2 = loginRes.getGroups().get(1).getDepartment();
+
+      if(strGroup2 != null){
+        Toast.makeText(getContext(), "Group Marketing", Toast.LENGTH_SHORT).show();
+      }else{
+        Toast.makeText(getContext(), "Group Biasa", Toast.LENGTH_SHORT).show();
+      }
+
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
       ((LoginActivity)context).finish();
     }
