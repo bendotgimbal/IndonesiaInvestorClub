@@ -20,6 +20,7 @@ public class SharedPreferenceHelper {
   private static final String USER_KEY = "user_key";
   private static final String USER_REAL_NAME = "user_real_name";
   private static final String USER_AVA = "user_ava";
+  private static final String USER_MARKETING = "user_marketing";
 
   @Nullable
   private static SharedPreferences getUserPreferences() {
@@ -108,5 +109,16 @@ public class SharedPreferenceHelper {
   public static String getUserAva() {
     if (getUserPreferences() == null) return null;
     return getUserPreferences().getString(USER_AVA, "");
+  }
+
+  //MARKETING
+  public static void setUserMarketing(boolean userMarketing) {
+    if (getUserPreferences() == null) return;
+    getUserPreferences().edit().putBoolean(USER_MARKETING, userMarketing).apply();
+  }
+
+  public static boolean isUserMarketing() {
+    if (getUserPreferences() == null) return false;
+    return getUserPreferences().getBoolean(USER_MARKETING, false);
   }
 }

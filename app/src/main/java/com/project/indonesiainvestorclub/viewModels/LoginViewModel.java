@@ -110,10 +110,8 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       }
 
       if (groups.size() > 0){
-        if (groups.get(1).getDepartment() != null){
-          Toast.makeText(getContext(), "Group Marketing", Toast.LENGTH_SHORT).show();
-        } else {
-          Toast.makeText(getContext(), "Group Biasa", Toast.LENGTH_SHORT).show();
+        if (groups.get(1).getDepartment() != null && groups.get(1).getDepartment().equalsIgnoreCase("MARKETING")){
+          SharedPreferenceHelper.setUserMarketing(true);
         }
       }
 

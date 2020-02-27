@@ -77,7 +77,11 @@ public class MainViewModel extends BaseViewModelWithCallback {
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_portfolio).setVisible(visible);
-    binding.navView.getMenu().findItem(R.id.nav_network).setVisible(visible);
+    if (SharedPreferenceHelper.isUserMarketing()){
+      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(true);
+    }else {
+      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(false);
+    }
     binding.navView.getMenu().findItem(R.id.nav_lounge).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_agreement).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_funds).setVisible(visible);
