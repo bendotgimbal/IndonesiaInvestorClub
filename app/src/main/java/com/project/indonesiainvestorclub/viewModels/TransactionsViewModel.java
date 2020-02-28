@@ -171,14 +171,22 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     currentDateWDStart = transactionsRes.getTransactions().get(0).getWDStart();
     currentDateWDEnd = transactionsRes.getTransactions().get(0).getWDEnd();
-    if (currentDateWDStart.compareTo(currentDateNow) >= 0){
-      if(currentDateWDEnd.compareTo(currentDateNow) <= 0){
-        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Lebih Kecil Dari Tgl "+currentDateWDEnd);
-        statusWD = 1;
-      } else {
-        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Tgl "+currentDateWDEnd);
-        statusWD = 2;
-      }
+//    if (currentDateWDStart.compareTo(currentDateNow) > 0){
+//      if(currentDateWDEnd.compareTo(currentDateNow) < 0){
+//        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Lebih Kecil Dari Tgl "+currentDateWDEnd);
+//        statusWD = 1;
+//      } else {
+//        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Tgl "+currentDateWDEnd);
+//        statusWD = 2;
+//      }
+//    } else {
+//      Log.d("DEBUG", "Tgl "+currentDateNow+" Di Bawah Tgl "+currentDateWDStart);
+//      statusWD = 0;
+//    }
+
+    if (currentDateWDStart.compareTo(currentDateNow) > 0 && currentDateNow.compareTo(currentDateWDEnd) < 0){
+      Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Lebih Kecil Dari Tgl "+currentDateWDEnd);
+      statusWD = 1;
     } else {
       Log.d("DEBUG", "Tgl "+currentDateNow+" Di Bawah Tgl "+currentDateWDStart);
       statusWD = 0;
@@ -244,15 +252,28 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 //  }
 
   private void toogleButtonWDEnable(int statusWDDate) {
+//    if (statusWDDate == 1) {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
+//      requestWDButtonEnable.set(true);
+//      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
+//    } else if (statusWDDate > 1) {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
+//      requestWDButtonEnable.set(false);
+//      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
+//    } else {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
+//      requestWDButtonEnable.set(false);
+//      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
+//    }
+
     if (statusWDDate == 1) {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
       requestWDButtonEnable.set(true);
-    } else if (statusWDDate > 1) {
-      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-      requestWDButtonEnable.set(false);
+      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
     } else {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
       requestWDButtonEnable.set(false);
+      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
     }
   }
 
