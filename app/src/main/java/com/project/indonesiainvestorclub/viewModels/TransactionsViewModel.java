@@ -22,7 +22,11 @@ import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,6 +52,10 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
   private int PAGE = 1;
   private int DPSTATUS = 0;
   private int WDSTATUS = 0;
+  private int statusWD;
+  private Date currentTime, currentDate, dateWDStart, dateWDEnd;
+  private SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MM-yyyy");
+  private String currentDateNow, currentDateWDStart, currentDateWDEnd;
 
   public TransactionsViewModel(Context context, TransactionsFragmentBinding binding) {
     super(context);
@@ -63,6 +71,15 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     adapter = new TransactionsAdapter();
     adapter.setListener(this);
+
+    currentTime = Calendar.getInstance().getTime();
+    currentDateNow = simpleDateFormat.format(new Date());
+//    currentDateNow = simpleDateFormat.format(currentTime.getDate());
+//    try {
+//      currentDate = simpleDateFormat.parse(currentDateNow);
+//    } catch (ParseException e) {
+//      e.printStackTrace();
+//    }
 
     this.binding.transactionslist.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -152,8 +169,24 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     pageState.set(transactionsRes.getPage() + " / " + transactionsRes.getPages());
 
+    currentDateWDStart = transactionsRes.getTransactions().get(0).getWDStart();
+    currentDateWDEnd = transactionsRes.getTransactions().get(0).getWDEnd();
+    if (currentDateWDStart.compareTo(currentDateNow) >= 0){
+      if(currentDateWDEnd.compareTo(currentDateNow) <= 0){
+        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Lebih Kecil Dari Tgl "+currentDateWDEnd);
+        statusWD = 1;
+      } else {
+        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Tgl "+currentDateWDEnd);
+        statusWD = 2;
+      }
+    } else {
+      Log.d("DEBUG", "Tgl "+currentDateNow+" Di Bawah Tgl "+currentDateWDStart);
+      statusWD = 0;
+    }
+
     toogleButton(transactionsRes.getPages());
-    toogleButtonWDEnable(Integer.parseInt(transactionsRes.getTransactions().get(0).getWDID()));
+//    toogleButtonWDEnable(Integer.parseInt(transactionsRes.getTransactions().get(0).getWDID()));
+    toogleButtonWDEnable(statusWD);
     toogleButtonUploadBuktiTransferEnable(
         Integer.parseInt(transactionsRes.getTransactions().get(0).getDPID()));
   }
@@ -188,22 +221,38 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     }
   }
 
-  private void toogleButtonWDEnable(int enableWd) {
-    if (WDSTATUS == enableWd) {
+//  private void toogleButtonWDEnable(int enableWd) {
+//    if (WDSTATUS == enableWd) {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
+//        requestWDButtonEnable.set(true);
+////                  Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "WD = 0 || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
+//    } else if (enableWd > 1) {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
+//        requestWDButtonEnable.set(false);
+////                  Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "WD > 0 || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
+//    } else {
+//      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
+//        requestWDButtonEnable.set(false);
+////      Toast.makeText(context, "WD Others || " + enableWd, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "WD Others || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", String.valueOf(enableWd));
+//    }
+//  }
+
+  private void toogleButtonWDEnable(int statusWDDate) {
+    if (statusWDDate == 1) {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
-        requestWDButtonEnable.set(true);
-                  Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
-    } else if (enableWd > 1) {
+      requestWDButtonEnable.set(true);
+    } else if (statusWDDate > 1) {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-        requestWDButtonEnable.set(false);
-                  Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
+      requestWDButtonEnable.set(false);
     } else {
       this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-        requestWDButtonEnable.set(false);
-      Toast.makeText(context, "WD Others || " + enableWd, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", String.valueOf(enableWd));
+      requestWDButtonEnable.set(false);
     }
   }
 
@@ -211,18 +260,21 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     if (DPSTATUS == uploadValue) {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(175, 76, 168));
         uploadBuktiTransferButtonEnable.set(true);
-                  Toast.makeText(context, "Upload = 0 || " + uploadValue, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", "Upload = 0 || " + String.valueOf(uploadValue));
+////                  Toast.makeText(context, "Upload = 0 || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "Upload = 0 || " +uploadValue+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", "Upload = 0 || " + String.valueOf(uploadValue));
     } else if (uploadValue > 1) {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
         uploadBuktiTransferButtonEnable.set(false);
-                  Toast.makeText(context, "Upload > 0 || " + uploadValue, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", "Upload > 0 || " + String.valueOf(uploadValue));
+////                  Toast.makeText(context, "Upload > 0 || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "Upload > 0 || " +uploadValue+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", "Upload > 0 || " + String.valueOf(uploadValue));
     } else {
       this.binding.btnUploadBuktiFransfer.setBackgroundColor(Color.rgb(239, 220, 238));
         uploadBuktiTransferButtonEnable.set(false);
-      Toast.makeText(context, "Upload Others || " + uploadValue, Toast.LENGTH_LONG).show();
-//      Log.d("DEBUG", String.valueOf(uploadValue));
+////      Toast.makeText(context, "Upload Others || " + uploadValue, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "Upload Others || " +uploadValue+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
+////      Log.d("DEBUG", String.valueOf(uploadValue));
     }
   }
 
