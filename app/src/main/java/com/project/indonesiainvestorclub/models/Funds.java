@@ -12,12 +12,13 @@ public class Funds {
   private String roi;
   private Meta meta;
   private Bank bank;
-  private String usdidr;
+//  private String usdidr;
+  private String idr_value;
 
   int index;
 
   public Funds(String id, String name, String type, String manager, String invested, String equity,
-      String slots, String compounding, String roi, Meta meta) {
+      String slots, String compounding, String roi, Meta meta, String idr_value) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -28,22 +29,23 @@ public class Funds {
     this.compounding = compounding;
     this.roi = roi;
     this.meta = meta;
+    this.idr_value = idr_value;
   }
 
-  public Funds(String name, String type, String manager, String invested, String equity,
-      String slots, String compounding, String roi, Meta meta, Bank bank, String usdidr) {
-    this.name = name;
-    this.type = type;
-    this.manager = manager;
-    this.invested = invested;
-    this.equity = equity;
-    this.slots = slots;
-    this.compounding = compounding;
-    this.roi = roi;
-    this.meta = meta;
-    this.bank = bank;
-    this.usdidr = usdidr;
-  }
+//  public Funds(String name, String type, String manager, String invested, String equity,
+//      String slots, String compounding, String roi, Meta meta, Bank bank, String usdidr) {
+//    this.name = name;
+//    this.type = type;
+//    this.manager = manager;
+//    this.invested = invested;
+//    this.equity = equity;
+//    this.slots = slots;
+//    this.compounding = compounding;
+//    this.roi = roi;
+//    this.meta = meta;
+//    this.bank = bank;
+//    this.usdidr = usdidr;
+//  }
 
   public int getIndex() {
     return index;
@@ -145,11 +147,19 @@ public class Funds {
     this.bank = bank;
   }
 
-  public String getUsdidr() {
-    return usdidr;
+//  public String getUsdidr() {
+//    return usdidr;
+//  }
+//
+//  public void setUsdidr(String usdidr) {
+//    this.usdidr = usdidr;
+//  }
+
+  public String getIDRValue() {
+    return idr_value;
   }
 
-  public void setUsdidr(String usdidr) {
-    this.usdidr = usdidr;
+  public void setIDRValue(String idr_value) {
+    this.idr_value = idr_value;
   }
 }

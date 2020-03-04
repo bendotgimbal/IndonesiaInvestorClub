@@ -138,6 +138,9 @@
   <string name="profit_idr_label">Profit (IDR)</string>
   <string name="usdidr_label">USDIDR</string>
 
+  <string name="invest_slot">Slot</string>
+  <string name="invest_button">Invest</string>
+
   <string name="overview_label">Overview</string>
 
   <string name="invest_labels">Invest</string>
@@ -205,6 +208,7 @@
   <string name="current_label">Current</string>
 
   <string name="more_info_label">MORE INFO</string>
+  <string name="invest_label">INVEST</string>
 
   <string name="about_label">About Us</string>
 

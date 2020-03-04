@@ -51,6 +51,46 @@
             app:layout_constraintBottom_toBottomOf="parent"
             >
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtInvestSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/invest_slot"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:text="@={viewModel.mInvestSlot}"
+                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onSlotTextChanged(text)}"
+                    />
+
+<!--                <androidx.appcompat.widget.AppCompatEditText-->
+<!--                    android:id="@+id/edtInvestSlot"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/invest_slot"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:text="@={viewModel.mInvestSlot}"-->
+<!--                    android:inputType="number"-->
+<!--                    />-->
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:onClick="@{viewModel::onClickInvest}"
+                android:text="@string/invest_button"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                />
+
         </LinearLayout>
 
         <FrameLayout

@@ -18,7 +18,8 @@ import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.project.indonesiainvestorclub.views.InvestActivity;
 import com.google.gson.JsonElement;
 
-import com.project.indonesiainvestorclub.views.MainActivity;
+import com.project.indonesiainvestorclub.views.InvestFundsActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,6 +50,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsServerValueTx;
 
   private String investId;
+  private String investSlot;
+  private String investIDRValue;
 
   public FundsViewModel(Context context, FundsFragmentBinding binding) {
     super(context);
@@ -109,6 +112,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
       for (int i = 1; i <= objectFunds.length(); i++) {
         JSONObject objFunds = objectFunds.getJSONObject(i + "");
         investId = objFunds.getString("ID");
+        investSlot = objectFunds.getString("Slots");
+        investIDRValue = objectFunds.getString("IDR_Value");
 
         Funds funds;
         Meta meta;
@@ -131,7 +136,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
             objFunds.getString("Slots"),
             objFunds.getString("Compounding"),
             objFunds.getString("ROI"),
-            meta
+            meta,
+                objFunds.getString("IDR_Value")
         );
 
         fundsList.add(funds);
@@ -166,6 +172,13 @@ public class FundsViewModel extends BaseViewModelWithCallback
   public void onButtonMoreInfoClick(View view) {
     Intent intent = new Intent(context, InvestActivity.class);
     intent.putExtra("investId", investId);
+    Activity activity = (Activity) context;
+    activity.startActivityForResult(intent, FUND_MENU);
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonInvestClick(View view) {
+    Intent intent = new Intent(context, InvestFundsActivity.class);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
   }

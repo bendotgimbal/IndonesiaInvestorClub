@@ -97,6 +97,10 @@
         android:name="com.project.indonesiainvestorclub.views.UpdateImageTransferActivity"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+        android:name="com.project.indonesiainvestorclub.views.InvestFundsActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.NoActionBar" />
   </application>
 
 </manifest>
