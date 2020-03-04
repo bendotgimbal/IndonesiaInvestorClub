@@ -12,6 +12,10 @@ import androidx.databinding.ObservableField;
 
 import com.project.indonesiainvestorclub.databinding.InvestFundsActivityBinding;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
     private InvestFundsActivityBinding binding;
@@ -34,88 +38,39 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() > 1){
-                    Log.d("Debug", "Empty a3");
-                    if(s.toString().matches("^00")){
-                        Log.d("Debug", "Empty a3a");
-                    }
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (s.length()==0){
-//                    binding.edtInvestSlot.append("0");
-//                }else if (s.length() > 0){
-//                    if (s.toString().equals("0")){
-//                        mInvestSlot.set("0");
-//                    }
-////                    mInvestSlot.set(String.valueOf(s));
-////                    binding.edtInvestSlot.append(s);
-//                }else{
-//                    mInvestSlot.set(String.valueOf(s));
-//                }
-
-//                if(s.length() > 0 && s.toString().charAt(s.length()-1) == 0)
-//                {
-//                    final String newText = s.toString().substring(0, s.length()-1) + 0;
-////                    binding.edtInvestSlot.setText(newText);
-////                    mInvestSlot.set(newText);
-//                    binding.edtInvestSlot.append("0");
-//                }
-
-//                if (s.length()==0){
-//                    binding.edtInvestSlot.append("0");
-//                } else if(s.length() > 0 && s.toString().charAt(s.length()-1) == 0)
-//                {
-//                    final String newText = s.toString().substring(0, s.length()-1) + 0;
-////                    mInvestSlot.set(newText);
-////                    binding.edtInvestSlot.append("0");
-//                    binding.edtInvestSlot.append(newText);
-//                }
-
-//                if (s.length()==0){
-//                    mInvestSlot.set("0");
-//                } else if(s.toString().charAt(s.length()-1) == 0){
-//                    final String newText = s.toString().substring(0, s.length()-1) + 0;
-//                    binding.edtInvestSlot.append(newText);
-//                }
-
-//                if(s.toString().matches("^0")){
-//                    Log.d("Debug", "Empty 1");
-//                    mInvestSlot.set("1");
-//                }else if(s.toString().matches("^0"+s)){
-//                    Log.d("Debug", "Empty 2");
-//                    mInvestSlot.set("2");
-//                }else{
-//                    Log.d("Debug", "Empty 3");
-//                    mInvestSlot.set("0");
-//                }
-
-//                if(s.toString().matches("^0")){
-//                    Log.d("Debug", "Empty");
-//                    mInvestSlot.set("1");
-//                }else if(s.toString().equals("")){
-//                    Log.d("Debug", "Empty 2");
-//                    mInvestSlot.set("2");
-//                } else if(s.length() > 1){
-//                    Log.d("Debug", "Empty 3");
-//                    if(s.toString().matches("^00")){
-//                        Log.d("Debug", "Empty 3a");
-//                    }
-//                }
-
-                if(s.toString().matches("^0")){
-                    Log.d("Debug", "Empty");
-                    mInvestSlot.set("1");
+                if (s.toString().equals("")){
+                    Log.d("Debug", "Null");
+                    binding.edtInvestSlot.append("0");
                 }
-                if(s.toString().equals("")){
-                    Log.d("Debug", "Empty 2");
-                    mInvestSlot.set("2");
+
+                binding.edtInvestSlot.removeTextChangedListener(this);
+
+                try {
+                    String originalString = s.toString();
+
+                    Long longval;
+                    if (originalString.contains(",")) {
+                        originalString = originalString.replaceAll(",", "");
+                    }
+                    longval = Long.parseLong(originalString);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longval);
+
+                    //setting text after format to EditText
+                    binding.edtInvestSlot.setText(formattedString);
+                    binding.edtInvestSlot.setSelection(binding.edtInvestSlot.getText().length());
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
                 }
-//                if(s.length() > 1){
-//                    Log.d("Debug", "Empty 3");
-//                }
+
+                binding.edtInvestSlot.addTextChangedListener(this);
 
             }
         });
