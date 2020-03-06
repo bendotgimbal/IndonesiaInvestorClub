@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -58,16 +59,16 @@ public class FundsViewModel extends BaseViewModelWithCallback
     this.binding = binding;
 
     loadingState = new ObservableBoolean(false);
-    fundsNameLabelTx = new ObservableField<>("");
-    fundsTypeValueTx = new ObservableField<>("");
-    fundsEquityProgressValueTx = new ObservableField<>("");
-    fundsSlotsValueTx = new ObservableField<>("");
-    fundsRoiValueTx = new ObservableField<>("");
-    fundsCompoundingValueTx = new ObservableField<>("");
-    fundsYouInvestValueTx = new ObservableField<>("");
-    fundsCcNoValueTx = new ObservableField<>("");
-    fundsInvestorPassValueTx = new ObservableField<>("");
-    fundsServerValueTx = new ObservableField<>("");
+    fundsNameLabelTx = new ObservableField<>("-");
+    fundsTypeValueTx = new ObservableField<>("-");
+    fundsEquityProgressValueTx = new ObservableField<>("-");
+    fundsSlotsValueTx = new ObservableField<>("-");
+    fundsRoiValueTx = new ObservableField<>("-");
+    fundsCompoundingValueTx = new ObservableField<>("-");
+    fundsYouInvestValueTx = new ObservableField<>("-");
+    fundsCcNoValueTx = new ObservableField<>("-");
+    fundsInvestorPassValueTx = new ObservableField<>("-");
+    fundsServerValueTx = new ObservableField<>("-");
 
     start();
   }
@@ -174,6 +175,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
     intent.putExtra("investId", investId);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
+    Toast.makeText(getContext(), "Result "+fundsNameLabelTx.get(), Toast.LENGTH_SHORT).show();
   }
 
   @SuppressWarnings("unused")
