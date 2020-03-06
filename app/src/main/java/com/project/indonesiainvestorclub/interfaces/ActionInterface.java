@@ -12,4 +12,7 @@ public interface ActionInterface {
     void onClickNegativeButton();
   }
 
+  interface DatePickerDialog{
+    void setDate(int day, int month, int year);
+  }
 }

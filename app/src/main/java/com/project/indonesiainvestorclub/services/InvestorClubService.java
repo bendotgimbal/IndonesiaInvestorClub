@@ -43,7 +43,7 @@ public interface InvestorClubService {
   Observable<Response<ProfileUpdateRes>> profileUpdateRequest(@Field("first_name") String first_name, @Field("last_name") String last_name
           , @Field("date_of_birth") String date_of_birth, @Field("gender") String gender, @Field("marital_status") String marital_status
           , @Field("nationality") String nationality, @Field("address") String address, @Field("city") String city, @Field("postal_code") String postal_code
-          , @Field("country") String country, @Field("phone_no") String phone_no, @Field("accupation") String accupation);
+          , @Field("country") String country, @Field("phone_no") String phone_no, @Field("occupation") String occupation);
 
   @GET("profile")
   Observable<Response<JsonElement>> profileRequest();

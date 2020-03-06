@@ -15,31 +15,43 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         >
 
         <LinearLayout
             android:id="@+id/ptofile_edit_header"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             android:gravity="center|top"
             android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:padding="40dp"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{viewModel::onClickBack}"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
+
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start|center"
                 tools:text="Edit Profile"
                 android:text="@string/label_profile_edit"
-                android:gravity="center|start"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
@@ -55,8 +67,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 >
 
@@ -74,25 +84,14 @@
                     tools:targetApi="lollipop"
                     >
 
-                    <TextView
-                        android:id="@+id/empty_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="gone"
-                        />
-
                     <LinearLayout
                         android:id="@+id/login_column1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/empty_label">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
@@ -156,12 +155,24 @@
                             android:id="@+id/edtDOB"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:cursorVisible="false"
                             android:hint="@string/edit_dob_label"
                             android:singleLine="true"
                             android:text="@={viewModel.dobValueTx}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:onClick="@{viewModel::showDatePickerDialog}"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintTop_toTopOf="@id/txtDOB"
+                        app:layout_constraintBottom_toBottomOf="@id/txtDOB"
+                        app:layout_constraintStart_toStartOf="@id/txtDOB"
+                        app:layout_constraintEnd_toEndOf="@id/txtDOB"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txtGender"
@@ -352,16 +363,17 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnEditProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/colorPrimary"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/button_accent_color"
                         android:onClick="@{viewModel::onClickEditProfile}"
                         android:text="@string/label_profile_edit_proses"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
+                        style="?android:attr/borderlessButtonStyle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/txtOccupation"
