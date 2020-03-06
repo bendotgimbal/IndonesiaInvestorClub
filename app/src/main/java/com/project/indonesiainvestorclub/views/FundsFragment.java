@@ -18,7 +18,6 @@ public class FundsFragment extends BaseFragment {
 
   private FundsFragmentBinding binding;
   private FundsViewModel fundsviewModel;
-  private ListView lv;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {

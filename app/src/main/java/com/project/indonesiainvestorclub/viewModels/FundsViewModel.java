@@ -113,8 +113,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
       for (int i = 1; i <= objectFunds.length(); i++) {
         JSONObject objFunds = objectFunds.getJSONObject(i + "");
         investId = objFunds.getString("ID");
-        investSlot = objectFunds.getString("Slots");
-        investIDRValue = objectFunds.getString("IDR_Value");
+        investSlot = objFunds.getString("Slots");
+        investIDRValue = objFunds.getString("IDR_Value");
 
         Funds funds;
         Meta meta;
@@ -137,8 +137,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
             objFunds.getString("Slots"),
             objFunds.getString("Compounding"),
             objFunds.getString("ROI"),
-            meta,
-                objFunds.getString("IDR_Value")
+            meta, objFunds.getString("IDR_Value")
         );
 
         fundsList.add(funds);

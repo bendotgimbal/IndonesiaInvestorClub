@@ -7,11 +7,14 @@ import android.widget.Toast;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import androidx.fragment.app.DialogFragment;
 import com.project.indonesiainvestorclub.databinding.ProfileEditActivityBinding;
 import com.project.indonesiainvestorclub.helper.StringHelper;
+import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.response.ProfileUpdateRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
+import com.project.indonesiainvestorclub.views.DatePickerFragment;
 import com.project.indonesiainvestorclub.views.ProfileEditActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +24,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ProfileEditViewModel extends BaseViewModelWithCallback {
+public class ProfileEditViewModel extends BaseViewModelWithCallback implements ActionInterface.DatePickerDialog {
 
   private final static String UPDATE = "Patch User Success";
   private final static String STATUS = "true";
@@ -31,6 +34,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
   public ObservableField<String> firstNameValueTx;
   public ObservableField<String> lastNameValueTx;
   public ObservableField<String> dobValueTx;
+  public ObservableField<String> dobValueToApi;
   public ObservableField<String> maritalStatusValueTx;
   public ObservableField<String> addressValueTx;
   public ObservableField<String> postalCodeValueTx;
@@ -49,6 +53,7 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
     firstNameValueTx = new ObservableField<>("");
     lastNameValueTx = new ObservableField<>("");
     dobValueTx = new ObservableField<>("");
+    dobValueToApi = new ObservableField<>("");
     maritalStatusValueTx = new ObservableField<>("");
     addressValueTx = new ObservableField<>("");
     postalCodeValueTx = new ObservableField<>("");
@@ -68,7 +73,6 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
       String addressStr, String postalCodeStr, String genderStr
       , String nationalityStr, String cityStr, String countryStr, String phoneNumberStr,
       String occupationStr) {
-    //        hideLoading();
 
     firstNameValueTx.set(firstNameStr);
     lastNameValueTx.set(lastNameStr);
@@ -97,6 +101,11 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
   private String getDOB() {
     if (dobValueTx.get() == null) return "";
     return dobValueTx.get();
+  }
+
+  private String getDOBToApi(){
+    if (dobValueToApi.get() == null) return "";
+    return dobValueToApi.get();
   }
 
   private String getMaritalStatus() {
@@ -147,11 +156,9 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
   @SuppressWarnings("unused")
   public void onClickEditProfile(View view) {
     loading(true);
-    //        Toast.makeText(context, "Update "+getFirstName(), Toast.LENGTH_SHORT).show();
-    //        Toast.makeText(context, "Update "+firstNameValueTx.get(), Toast.LENGTH_SHORT).show();
 
     Disposable disposable =
-        ServiceGenerator.service.profileUpdateRequest(getFirstName(), getLastName(), getDOB(),
+        ServiceGenerator.service.profileUpdateRequest(getFirstName(), getLastName(), getDOBToApi(),
             getGender(), getMaritalStatus(), getNationality()
             , getAddress(), getCity(), getPostalCode(), getCountry(), getPhoneNumber(),
             getOccupation())
@@ -184,7 +191,24 @@ public class ProfileEditViewModel extends BaseViewModelWithCallback {
     }
   }
 
+  @SuppressWarnings("unused")
+  public void onClickBack(View view){
+    ((ProfileEditActivity)context).finish();
+  }
+
+  @SuppressWarnings("unused")
+  public void showDatePickerDialog(View v) {
+    DialogFragment newFragment = new DatePickerFragment((ProfileEditActivity)context, this);
+    newFragment.show(((ProfileEditActivity)context).getSupportFragmentManager(), "datePicker");
+  }
+
+
   @Override public void hideLoading() {
     loading(false);
+  }
+
+  @Override public void setDate(int day, int month, int year) {
+    dobValueTx.set(day+"/"+month+"/"+year);
+    dobValueToApi.set(year+"/"+month+"/"+day);
   }
 }
