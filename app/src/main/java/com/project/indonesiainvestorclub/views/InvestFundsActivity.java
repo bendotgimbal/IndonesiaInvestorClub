@@ -16,6 +16,10 @@ public class InvestFundsActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent().hasExtra("investSlot") && getIntent().hasExtra("investIDRValue")) {
+            viewModel.start(getIntent().getStringExtra("investSlot"), getIntent().getStringExtra("investSlot"));
+        }
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Funds {
   private String compounding;
   private String roi;
   private Meta meta;
-  private Bank bank;
+//  private Bank bank;
 //  private String usdidr;
   private String idr_value;
 
@@ -139,13 +139,13 @@ public class Funds {
     this.meta = meta;
   }
 
-  public Bank getBank() {
-    return bank;
-  }
-
-  public void setBank(Bank bank) {
-    this.bank = bank;
-  }
+//  public Bank getBank() {
+//    return bank;
+//  }
+//
+//  public void setBank(Bank bank) {
+//    this.bank = bank;
+//  }
 
 //  public String getUsdidr() {
 //    return usdidr;
