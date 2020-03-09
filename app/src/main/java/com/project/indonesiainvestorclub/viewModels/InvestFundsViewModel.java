@@ -23,6 +23,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     public ObservableField<String> mInvestSlot;
     private String strInvestUSDValue;
     private String strInvestIDRValue;
+    private String strInputReplace;
     private Double dblInvestUSDValueTotal;
     private Double dblInvestIDRValueTotal;
 
@@ -42,7 +43,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                calculate((String) s);
+//                calculate((String) s);
             }
 
             @Override
@@ -88,9 +89,10 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     }
 
     private void calculate(String edtInvestUSDValue) {
-        dblInvestUSDValueTotal = Double.valueOf(edtInvestUSDValue.toString()) * Double.valueOf(strInvestUSDValue);
-//        Toast.makeText(getContext(), String.valueOf(dblInvestUSDValueTotal), Toast.LENGTH_SHORT).show();
-        Log.d("Debug", "USD Value Total "+String.valueOf(dblInvestUSDValueTotal));
+//        dblInvestUSDValueTotal = Double.valueOf(edtInvestUSDValue.toString()) * Double.valueOf(strInvestUSDValue);
+////        Toast.makeText(getContext(), String.valueOf(dblInvestUSDValueTotal), Toast.LENGTH_SHORT).show();
+//        Log.d("Debug", "USD Value Total "+String.valueOf(dblInvestUSDValueTotal));
+//        Log.d("Debug", "Input Total "+edtInvestUSDValue);
     }
 
     private void loading(boolean load) {
@@ -99,7 +101,24 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
     public void onSlotTextChanged(CharSequence text) {
         // TODO do something with text
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        String strCharText = String.valueOf(text);
+        String strReplaceUSDValue = strInvestUSDValue.replaceAll("[@]","");
+        Log.d("Debug", "Replace "+strReplaceUSDValue);
+        if (strCharText.substring(0,1).equals("0") ){
+            Log.d("Debug", "Input Number = "+strCharText.substring(1,strCharText.length()));
+            strInputReplace = strCharText.substring(1,strCharText.length());
+        }
+        Log.d("Debug", "Input Number 2 = "+strInputReplace);
+//        Log.d("Debug", "Input Number 2 = "+strCharText);
+//        dblInvestUSDValueTotal = Double.valueOf(String.valueOf(strCharText)) * Double.valueOf(strReplaceUSDValue);
+//        dblInvestUSDValueTotal = Double.valueOf(strCharText) * Double.valueOf(strReplaceUSDValue);
+//        String strInvestUSDValueTottal = String.valueOf(dblInvestUSDValueTotal);
+//        Log.d("Debug", "Invest USD Total "+strInvestUSDValueTottal);
+//        Integer InvestUSDValueTotal = Integer.valueOf(String.valueOf(strCharText)) * Integer.valueOf(strReplaceUSDValue);
+        Integer InvestUSDValueTotal = Integer.valueOf(strInputReplace) * Integer.valueOf(strReplaceUSDValue);
+        Log.d("Debug", "Invest USD Total "+InvestUSDValueTotal);
+        Toast.makeText(getContext(), strCharText, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressWarnings("unused")
