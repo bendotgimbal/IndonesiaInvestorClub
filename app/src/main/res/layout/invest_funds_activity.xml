@@ -51,10 +51,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
                 >
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -79,6 +84,111 @@
 <!--                    />-->
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:id="@+id/tvInvestUSDValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invest_usd_value"
+                    android:layout_marginTop="20dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="@string/invest_usd_value"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:id="@+id/tvInvestIDRValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invest_idr_value"
+                    android:layout_marginTop="20dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="@string/invest_idr_value"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvTextTitleTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invest_text_title_total"
+                        android:layout_marginTop="20dp"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="@string/invest_text_title_total"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvTextUSDTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invest_text_usd_total"
+                        android:layout_marginTop="20dp"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="@string/invest_text_usd_total"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvTextIDRTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invest_text_idr_total"
+                        android:layout_marginTop="20dp"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="@string/invest_text_idr_total"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSignUp"

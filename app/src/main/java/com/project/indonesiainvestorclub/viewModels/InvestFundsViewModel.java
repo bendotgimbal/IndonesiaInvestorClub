@@ -21,6 +21,10 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     private InvestFundsActivityBinding binding;
     public ObservableBoolean loadingState;
     public ObservableField<String> mInvestSlot;
+    private String strInvestUSDValue;
+    private String strInvestIDRValue;
+    private Double dblInvestUSDValueTotal;
+    private Double dblInvestIDRValueTotal;
 
     public InvestFundsViewModel(Context context, InvestFundsActivityBinding binding) {
         super(context);
@@ -38,7 +42,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                calculate((String) s);
             }
 
             @Override
@@ -74,6 +78,19 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
             }
         });
+    }
+
+    public void start(String investSlot, String investIDRValue) {
+        Log.d("Debug", "InvestSlot "+investSlot+" || "+" InvestIDRValue "+investIDRValue);
+        strInvestUSDValue = investSlot;
+        strInvestIDRValue = investIDRValue;
+        Log.d("Debug", "InvestSlot 2 "+strInvestUSDValue+" || "+" InvestIDRValue 2 "+strInvestIDRValue);
+    }
+
+    private void calculate(String edtInvestUSDValue) {
+        dblInvestUSDValueTotal = Double.valueOf(edtInvestUSDValue.toString()) * Double.valueOf(strInvestUSDValue);
+//        Toast.makeText(getContext(), String.valueOf(dblInvestUSDValueTotal), Toast.LENGTH_SHORT).show();
+        Log.d("Debug", "USD Value Total "+String.valueOf(dblInvestUSDValueTotal));
     }
 
     private void loading(boolean load) {
