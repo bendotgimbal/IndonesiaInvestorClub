@@ -49,10 +49,10 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().equals("")){
-                    Log.d("Debug", "Null");
-                    binding.edtInvestSlot.append("0");
-                }
+//                if (s.toString().equals("") || s.toString().isEmpty()){
+//                    Log.d("Debug", "Null");
+//                    binding.edtInvestSlot.append("0");
+//                }
 
                 binding.edtInvestSlot.removeTextChangedListener(this);
 
@@ -105,13 +105,18 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
     public void onSlotTextChanged(CharSequence text) {
         // TODO do something with text
+        if (text.equals("") || text == null){
+            Log.d("Debug", "Null");
+            binding.edtInvestSlot.append("0");
+        }
+
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
         Log.d("Debug", "Input "+text);
         String strCharText = String.valueOf(text);
-        String strReplaceUSDValue = strInvestUSDValue.replaceAll("[@]","");
+        String strReplaceUSDValue = strInvestUSDValue.replaceAll("[@, USD]","").replace(" ", "");
         Log.d("Debug", "Replace "+strReplaceUSDValue);
-        String strReplaceUSDValue2 = strReplaceUSDValue.replaceAll("[USD]","");
-        Log.d("Debug", "Replace 2 "+strReplaceUSDValue2);
+//        String strReplaceUSDValue2 = strReplaceUSDValue.replaceAll("[USD]","");
+//        Log.d("Debug", "Replace 2 "+strReplaceUSDValue2);
         if (strCharText.substring(0,1).equals("0") ){
             Log.d("Debug", "Input Number = "+strCharText.substring(1,strCharText.length()));
             strInputReplace = strCharText.substring(1,strCharText.length());
@@ -129,7 +134,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 ////        Integer InvestUSDValueTotal = Integer.valueOf(String.valueOf(strCharText)) * Integer.valueOf(strReplaceUSDValue);
 //        InvestUSDValueTotal = Integer.valueOf(strInputReplace) * Integer.valueOf(strReplaceUSDValue2);
 //        Log.d("Debug", "Invest USD Total "+InvestUSDValueTotal);
-        InvestUSDValueTotal = Integer.parseInt(strInputReplace) * Integer.parseInt(strReplaceUSDValue2);
+        InvestUSDValueTotal = Integer.parseInt(strInputReplace) * Integer.parseInt(strReplaceUSDValue);
         Log.d("Debug", "Invest USD Total "+String.valueOf(InvestUSDValueTotal));
 //        Toast.makeText(getContext(), strCharText, Toast.LENGTH_SHORT).show();
     }
