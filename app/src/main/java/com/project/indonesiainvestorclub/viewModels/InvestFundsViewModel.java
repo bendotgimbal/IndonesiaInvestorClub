@@ -26,6 +26,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     private String strInputReplace;
     private Double dblInvestUSDValueTotal;
     private Double dblInvestIDRValueTotal;
+    private int InvestUSDValueTotal;
 
     public InvestFundsViewModel(Context context, InvestFundsActivityBinding binding) {
         super(context);
@@ -75,7 +76,10 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
                     nfe.printStackTrace();
                 }
 
+                Log.d("Debug", "Input Text "+s);
+
                 binding.edtInvestSlot.addTextChangedListener(this);
+                Log.d("Debug", "Input Text 2 "+binding.edtInvestSlot.getText().toString());
 
             }
         });
@@ -101,24 +105,33 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
     public void onSlotTextChanged(CharSequence text) {
         // TODO do something with text
-//        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Log.d("Debug", "Input "+text);
         String strCharText = String.valueOf(text);
         String strReplaceUSDValue = strInvestUSDValue.replaceAll("[@]","");
         Log.d("Debug", "Replace "+strReplaceUSDValue);
+        String strReplaceUSDValue2 = strReplaceUSDValue.replaceAll("[USD]","");
+        Log.d("Debug", "Replace 2 "+strReplaceUSDValue2);
         if (strCharText.substring(0,1).equals("0") ){
             Log.d("Debug", "Input Number = "+strCharText.substring(1,strCharText.length()));
             strInputReplace = strCharText.substring(1,strCharText.length());
+            Log.d("Debug", "Input TextWatcher = "+strInputReplace);
+//            dblInvestUSDValueTotal = Double.valueOf(strInputReplace) * Double.valueOf(strReplaceUSDValue2);
+//            String strInvestUSDValueTottal = String.valueOf(dblInvestUSDValueTotal);
+//            Log.d("Debug", "Invest USD Total "+strInvestUSDValueTottal);
         }
-        Log.d("Debug", "Input Number 2 = "+strInputReplace);
-//        Log.d("Debug", "Input Number 2 = "+strCharText);
-//        dblInvestUSDValueTotal = Double.valueOf(String.valueOf(strCharText)) * Double.valueOf(strReplaceUSDValue);
-//        dblInvestUSDValueTotal = Double.valueOf(strCharText) * Double.valueOf(strReplaceUSDValue);
+//        Log.d("Debug", "Input Number 2 = "+strInputReplace);
+////        Log.d("Debug", "Input Number 2 = "+strCharText);
+//        dblInvestUSDValueTotal = Double.valueOf(String.valueOf(strInputReplace)) * Double.valueOf(strReplaceUSDValue2);
+//        dblInvestUSDValueTotal = Double.valueOf(strInputReplace) * Double.valueOf(strReplaceUSDValue2);
 //        String strInvestUSDValueTottal = String.valueOf(dblInvestUSDValueTotal);
 //        Log.d("Debug", "Invest USD Total "+strInvestUSDValueTottal);
-//        Integer InvestUSDValueTotal = Integer.valueOf(String.valueOf(strCharText)) * Integer.valueOf(strReplaceUSDValue);
-        Integer InvestUSDValueTotal = Integer.valueOf(strInputReplace) * Integer.valueOf(strReplaceUSDValue);
-        Log.d("Debug", "Invest USD Total "+InvestUSDValueTotal);
-        Toast.makeText(getContext(), strCharText, Toast.LENGTH_SHORT).show();
+////        Integer InvestUSDValueTotal = Integer.valueOf(String.valueOf(strCharText)) * Integer.valueOf(strReplaceUSDValue);
+//        InvestUSDValueTotal = Integer.valueOf(strInputReplace) * Integer.valueOf(strReplaceUSDValue2);
+//        Log.d("Debug", "Invest USD Total "+InvestUSDValueTotal);
+        InvestUSDValueTotal = Integer.parseInt(strInputReplace) * Integer.parseInt(strReplaceUSDValue2);
+        Log.d("Debug", "Invest USD Total "+String.valueOf(InvestUSDValueTotal));
+//        Toast.makeText(getContext(), strCharText, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressWarnings("unused")
