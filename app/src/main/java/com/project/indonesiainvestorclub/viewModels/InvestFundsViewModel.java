@@ -54,6 +54,11 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 //                    binding.edtInvestSlot.append("0");
 //                }
 
+                if (s.toString().equals("")){
+                    Log.d("Debug", "Null");
+                    binding.edtInvestSlot.append("0");
+                }
+
                 binding.edtInvestSlot.removeTextChangedListener(this);
 
                 try {

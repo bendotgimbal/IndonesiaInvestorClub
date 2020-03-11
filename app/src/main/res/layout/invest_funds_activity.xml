@@ -62,26 +62,26 @@
                 android:layout_weight="1"
                 >
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edtInvestSlot"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/invest_slot"
-                    android:singleLine="true"
-                    android:inputType="number"
-                    android:text="@={viewModel.mInvestSlot}"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onSlotTextChanged(text)}"
-                    />
-
 <!--                <androidx.appcompat.widget.AppCompatEditText-->
 <!--                    android:id="@+id/edtInvestSlot"-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:hint="@string/invest_slot"-->
 <!--                    android:singleLine="true"-->
-<!--                    android:text="@={viewModel.mInvestSlot}"-->
 <!--                    android:inputType="number"-->
+<!--                    android:text="@={viewModel.mInvestSlot}"-->
+<!--                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onSlotTextChanged(text)}"-->
 <!--                    />-->
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtInvestSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/invest_slot"
+                    android:singleLine="true"
+                    android:text="@={viewModel.mInvestSlot}"
+                    android:inputType="number"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
