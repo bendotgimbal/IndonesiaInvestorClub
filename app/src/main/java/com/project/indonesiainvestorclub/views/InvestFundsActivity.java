@@ -18,7 +18,7 @@ public class InvestFundsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (getIntent().hasExtra("investSlot") && getIntent().hasExtra("investIDRValue")) {
-            viewModel.start(getIntent().getStringExtra("investSlot"), getIntent().getStringExtra("investSlot"));
+            viewModel.start(getIntent().getStringExtra("investSlot"), getIntent().getStringExtra("investIDRValue"));
         }
     }
 
@@ -32,7 +32,6 @@ public class InvestFundsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        finish();
         setResult(RESULT_CANCELED);
     }
 
