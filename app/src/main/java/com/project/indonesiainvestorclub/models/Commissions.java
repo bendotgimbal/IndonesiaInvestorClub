@@ -74,7 +74,7 @@ public class Commissions {
     }
 
     public void setCommissionID(String commission_idr) {
-        this.date = commission_idr;
+        this.commission_idr = commission_idr;
     }
 
     public String getUSDIDR() {

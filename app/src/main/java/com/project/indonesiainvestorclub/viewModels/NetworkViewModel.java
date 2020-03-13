@@ -146,8 +146,13 @@ public class NetworkViewModel extends BaseViewModelWithCallback
               objectNetworkNew.getString("ID"),
               objectNetworkNew.getString("UplineID"),
               objectNetworkNew.getString("Name"),
-              networkDataList
+              networkDataList,
+              objectNetworkNew.getString("Commission(USD)"),
+              objectNetworkNew.getString("Commission(IDR)")
       );
+
+      networkResNew = new NetworkResNew(network);
+      showNetworkNew(networkResNew);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -169,6 +174,18 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   }
 
   private void showNetworkNew(NetworkResNew networkResNew) {
+    hideLoading();
+
+    if (networkResNew == null) return;
+
+    String strNetworkID = networkResNew.getNetwork().getID();
+    String strNetworkUplineID = networkResNew.getNetwork().getUplineID();
+    String strNetworkName = networkResNew.getNetwork().getName();
+    String strNetworkData = networkResNew.getNetwork().getNetworkData().get(0).getPhrase();
+    String strNetworkCommissionUSD = networkResNew.getNetwork().getCommissionUSD();
+    String strNetworkCommissionIDR = networkResNew.getNetwork().getCommissionIDR();
+    Log.d("Debug", "Network --> ID = "+ strNetworkID +" || Upline ID = "+ strNetworkUplineID +" || Name = "+ strNetworkName
+            +" || Data = "+ strNetworkData+" || Commission(USD) = "+ strNetworkCommissionUSD+" || Commission(IDR) = "+ strNetworkCommissionIDR);
 
   }
 

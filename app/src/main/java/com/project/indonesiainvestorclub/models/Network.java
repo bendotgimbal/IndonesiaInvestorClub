@@ -7,12 +7,16 @@ public class Network {
     private String uplineid;
     private String name;
     private List<NetworkData> networkdata;
+    private String commission_usd;
+    private String commission_idr;
 
-    public Network(String id, String uplineid, String name, List<NetworkData> networkdata) {
+    public Network(String id, String uplineid, String name, List<NetworkData> networkdata, String commission_usd, String commission_idr) {
         this.id = id;
         this.uplineid = uplineid;
         this.name = name;
         this.networkdata = networkdata;
+        this.commission_usd = commission_usd;
+        this.commission_idr = commission_idr;
     }
 
     public String getID() {
@@ -45,5 +49,21 @@ public class Network {
 
     public void setNetworkData(List<NetworkData> networkdata) {
         this.networkdata = networkdata;
+    }
+
+    public String getCommissionUSD() {
+        return commission_usd;
+    }
+
+    public void setCommissionUSD(String commission_usd) {
+        this.commission_usd = commission_usd;
+    }
+
+    public String getCommissionIDR() {
+        return commission_idr;
+    }
+
+    public void setCommissionID(String commission_idr) {
+        this.commission_idr = commission_idr;
     }
 }
