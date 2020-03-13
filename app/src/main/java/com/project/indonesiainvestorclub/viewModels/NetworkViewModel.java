@@ -15,6 +15,8 @@ import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.Groups;
 import com.project.indonesiainvestorclub.models.Network;
 import com.project.indonesiainvestorclub.models.NetworkData;
+import com.project.indonesiainvestorclub.models.NetworkDownline;
+import com.project.indonesiainvestorclub.models.NetworkDownlineDownline;
 import com.project.indonesiainvestorclub.models.response.NetworkRes;
 import com.project.indonesiainvestorclub.models.response.NetworkResNew;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
@@ -134,12 +136,43 @@ public class NetworkViewModel extends BaseViewModelWithCallback
       Log.d("Debug", "Network ID " + networkId);
       List<NetworkData> networkDataList = new ArrayList<>();
 
-      JSONObject groupObj = objectNetworkNew.getJSONObject("Data");
-      for (int i = 1; i <= groupObj.length(); i++) {
+      JSONObject dataObj = objectNetworkNew.getJSONObject("Data");
+      for (int i = 1; i <= dataObj.length(); i++) {
         NetworkData loop = new NetworkData();
-        loop.setPhrase(groupObj.getString(i + ""));
+        loop.setPhrase(dataObj.getString(i + ""));
 
         networkDataList.add(loop);
+      }
+
+      JSONObject downlineObj = objectNetworkNew.getJSONObject("Downline");
+      List<NetworkDownline> downlinelist = new ArrayList<>();
+      for (int t = 1; t <= downlineObj.length(); t++) {
+        JSONObject objDownline = downlineObj.getJSONObject(t + "");
+
+        List<NetworkData> networkDataDownlineList = new ArrayList<>();
+        JSONObject dataDownlineObj = objDownline.getJSONObject("Data");
+        for (int i = 1; i <= dataDownlineObj.length(); i++) {
+          NetworkData loop = new NetworkData();
+          loop.setPhrase(dataDownlineObj.getString(i + ""));
+
+          networkDataDownlineList.add(loop);
+        }
+
+        JSONObject objectDownlineDownline = objDownline.getJSONObject("Downline");
+        NetworkDownlineDownline networkDownlineDownline = new NetworkDownlineDownline(
+                objectDownlineDownline.getString("Group"),
+                objectDownlineDownline.getString("Commission(USD)"),
+                objectDownlineDownline.getString("Commission(IDR)")
+        );
+
+        NetworkDownline networkDownline = new NetworkDownline(
+                objDownline.getString("ID"),
+                objDownline.getString("UplineID"),
+                objDownline.getString("Name"),
+                networkDataDownlineList,
+                networkDownlineDownline
+        );
+        downlinelist.add(networkDownline);
       }
 
       Network network = new Network(
@@ -148,7 +181,8 @@ public class NetworkViewModel extends BaseViewModelWithCallback
               objectNetworkNew.getString("Name"),
               networkDataList,
               objectNetworkNew.getString("Commission(USD)"),
-              objectNetworkNew.getString("Commission(IDR)")
+              objectNetworkNew.getString("Commission(IDR)"),
+              downlinelist
       );
 
       networkResNew = new NetworkResNew(network);
@@ -186,6 +220,11 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     String strNetworkCommissionIDR = networkResNew.getNetwork().getCommissionIDR();
     Log.d("Debug", "Network --> ID = "+ strNetworkID +" || Upline ID = "+ strNetworkUplineID +" || Name = "+ strNetworkName
             +" || Data = "+ strNetworkData+" || Commission(USD) = "+ strNetworkCommissionUSD+" || Commission(IDR) = "+ strNetworkCommissionIDR);
+    String strNetworkDownlineID = networkResNew.getNetwork().getNetworkDownline().get(0).getID();
+    String strNetworkDownlineData = networkResNew.getNetwork().getNetworkDownline().get(0).getNetworkData().get(0).getPhrase();
+    Log.d("Debug", "Network Downline --> ID = "+ strNetworkDownlineID+" || Data = "+ strNetworkDownlineData);
+    String strNetworkDownlineDownlineGroup = networkResNew.getNetwork().getNetworkDownline().get(0).getNetworkDownlineDownline().getGroup();
+    Log.d("Debug", "Network Downline Downline --> Group = "+ strNetworkDownlineDownlineGroup);
 
   }
 

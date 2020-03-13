@@ -6,13 +6,15 @@ public class NetworkDownline {
     private String id;
     private String uplineid;
     private String name;
-    private List<NetworkData> networkdata;
+    private List<NetworkData> networkData;
+    private NetworkDownlineDownline networkDownlineDownline;
 
-    public NetworkDownline(String id, String uplineid, String name, List<NetworkData> networkdata) {
+    public NetworkDownline(String id, String uplineid, String name, List<NetworkData> networkData, NetworkDownlineDownline networkDownlineDownline) {
         this.id = id;
         this.uplineid = uplineid;
         this.name = name;
-        this.networkdata = networkdata;
+        this.networkData = networkData;
+        this.networkDownlineDownline = networkDownlineDownline;
     }
 
     public String getID() {
@@ -40,10 +42,18 @@ public class NetworkDownline {
     }
 
     public List<NetworkData> getNetworkData() {
-        return networkdata;
+        return networkData;
     }
 
-    public void setNetworkData(List<NetworkData> networkdata) {
-        this.networkdata = networkdata;
+    public void setNetworkData(List<NetworkData> networkData) {
+        this.networkData = networkData;
+    }
+
+    public NetworkDownlineDownline getNetworkDownlineDownline() {
+        return networkDownlineDownline;
+    }
+
+    public void setNetworkDownlineDownline(NetworkDownlineDownline networkDownlineDownline) {
+        this.networkDownlineDownline = networkDownlineDownline;
     }
 }

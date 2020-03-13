@@ -9,14 +9,16 @@ public class Network {
     private List<NetworkData> networkdata;
     private String commission_usd;
     private String commission_idr;
+    private List<NetworkDownline> networkdownline;
 
-    public Network(String id, String uplineid, String name, List<NetworkData> networkdata, String commission_usd, String commission_idr) {
+    public Network(String id, String uplineid, String name, List<NetworkData> networkdata, String commission_usd, String commission_idr, List<NetworkDownline> networkdownline) {
         this.id = id;
         this.uplineid = uplineid;
         this.name = name;
         this.networkdata = networkdata;
         this.commission_usd = commission_usd;
         this.commission_idr = commission_idr;
+        this.networkdownline = networkdownline;
     }
 
     public String getID() {
@@ -65,5 +67,13 @@ public class Network {
 
     public void setCommissionID(String commission_idr) {
         this.commission_idr = commission_idr;
+    }
+
+    public List<NetworkDownline> getNetworkDownline() {
+        return networkdownline;
+    }
+
+    public void setNetworkDownline(List<NetworkDownline> networkdownline) {
+        this.networkdownline = networkdownline;
     }
 }
