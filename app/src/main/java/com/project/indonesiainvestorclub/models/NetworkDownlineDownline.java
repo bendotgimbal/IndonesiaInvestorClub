@@ -5,6 +5,13 @@ public class NetworkDownlineDownline {
     private String commission_usd;
     private String commission_idr;
 
+    public NetworkDownlineDownline() {
+    }
+
+    public NetworkDownlineDownline(String group) {
+        this.group = group;
+    }
+
     public NetworkDownlineDownline(String group, String commission_usd, String commission_idr) {
         this.group = group;
         this.commission_usd = commission_usd;

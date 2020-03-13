@@ -35,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class NetworkViewModel extends BaseViewModelWithCallback
-        implements ActionInterface.AdapterItemListener<Commissions>{
+    implements ActionInterface.AdapterItemListener<Commissions> {
 
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
@@ -62,7 +62,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     adapter.setListener(this);
 
     this.binding.commissionslist.setLayoutManager(
-            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.commissionslist.setAdapter(adapter);
 
     start();
@@ -81,54 +81,54 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     loading(true);
 
     Disposable disposable = ServiceGenerator.service.networkRequest()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getNetwork) {
-              @Override
-              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
-                if (jsonElementResponse.body() != null) {
-                  loading(false);
-                  readNetworkJSON(jsonElementResponse.body());
-                }
-              }
-            });
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getNetwork) {
+          @Override
+          protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+            if (jsonElementResponse.body() != null) {
+              loading(false);
+              readNetworkJSON(jsonElementResponse.body());
+            }
+          }
+        });
     compositeDisposable.add(disposable);
   }
 
   private void readNetworkJSON(JsonElement response) {
-//    JSONObject jsonObjectNetwork;
+    //    JSONObject jsonObjectNetwork;
     JSONObject jsonObjectNetworkNew;
     try {
-//      NetworkRes networkRes;
-//
-//      jsonObjectNetwork = new JSONObject(response.toString());
-//      JSONObject objectNetwork = jsonObjectNetwork.getJSONObject("Commissions");
-//
-//      int page = jsonObjectNetwork.getInt("Page");
-//      int pages = jsonObjectNetwork.getInt("Pages");
-//
-//      List<Commissions> commissionslist = new ArrayList<>();
-//      for (int t = 1; t <= objectNetwork.length(); t++) {
-//        JSONObject objNetwork = objectNetwork.getJSONObject(t + "");
-//        Commissions commissions;
-//
-//        commissions = new Commissions(
-//                objNetwork.getString("Date"),
-//                objNetwork.getString("PerLots(USD)"),
-//                objNetwork.getString("Invest(USD)"),
-//                objNetwork.getString("Commission(USD)"),
-//                objNetwork.getString("Invest(IDR)"),
-//                objNetwork.getString("Commission(IDR)"),
-//                objNetwork.getString("USDIDR")
-//        );
-//        commissionslist.add(commissions);
-//        networkRes = new NetworkRes(page, pages, commissionslist);
-//        showNetwork(networkRes);
-//      }
+      //      NetworkRes networkRes;
+      //
+      //      jsonObjectNetwork = new JSONObject(response.toString());
+      //      JSONObject objectNetwork = jsonObjectNetwork.getJSONObject("Commissions");
+      //
+      //      int page = jsonObjectNetwork.getInt("Page");
+      //      int pages = jsonObjectNetwork.getInt("Pages");
+      //
+      //      List<Commissions> commissionslist = new ArrayList<>();
+      //      for (int t = 1; t <= objectNetwork.length(); t++) {
+      //        JSONObject objNetwork = objectNetwork.getJSONObject(t + "");
+      //        Commissions commissions;
+      //
+      //        commissions = new Commissions(
+      //                objNetwork.getString("Date"),
+      //                objNetwork.getString("PerLots(USD)"),
+      //                objNetwork.getString("Invest(USD)"),
+      //                objNetwork.getString("Commission(USD)"),
+      //                objNetwork.getString("Invest(IDR)"),
+      //                objNetwork.getString("Commission(IDR)"),
+      //                objNetwork.getString("USDIDR")
+      //        );
+      //        commissionslist.add(commissions);
+      //        networkRes = new NetworkRes(page, pages, commissionslist);
+      //        showNetwork(networkRes);
+      //      }
 
       NetworkResNew networkResNew;
-//      Network network;
-//      NetworkData networkData;
+      //      Network network;
+      //      NetworkData networkData;
 
       jsonObjectNetworkNew = new JSONObject(response.toString());
       JSONObject objectNetworkNew = jsonObjectNetworkNew.getJSONObject("Networks");
@@ -159,30 +159,38 @@ public class NetworkViewModel extends BaseViewModelWithCallback
         }
 
         JSONObject objectDownlineDownline = objDownline.getJSONObject("Downline");
-        NetworkDownlineDownline networkDownlineDownline = new NetworkDownlineDownline(
-                objectDownlineDownline.getString("Group"),
-                objectDownlineDownline.getString("Commission(USD)"),
-                objectDownlineDownline.getString("Commission(IDR)")
-        );
+        NetworkDownlineDownline networkDownlineDownline = new NetworkDownlineDownline();
+
+        if (objectDownlineDownline.has("Commission(USD)") && objectDownlineDownline.has(
+            "Commission(IDR)")) {
+          networkDownlineDownline = new NetworkDownlineDownline(
+              objectDownlineDownline.getString("Group"),
+              objectDownlineDownline.getString("Commission(USD)"),
+              objectDownlineDownline.getString("Commission(IDR)")
+          );
+        } else {
+          networkDownlineDownline = new NetworkDownlineDownline(
+              objectDownlineDownline.getString("Group"));
+        }
 
         NetworkDownline networkDownline = new NetworkDownline(
-                objDownline.getString("ID"),
-                objDownline.getString("UplineID"),
-                objDownline.getString("Name"),
-                networkDataDownlineList,
-                networkDownlineDownline
+            objDownline.getString("ID"),
+            objDownline.getString("UplineID"),
+            objDownline.getString("Name"),
+            networkDataDownlineList,
+            networkDownlineDownline
         );
         downlinelist.add(networkDownline);
       }
 
       Network network = new Network(
-              objectNetworkNew.getString("ID"),
-              objectNetworkNew.getString("UplineID"),
-              objectNetworkNew.getString("Name"),
-              networkDataList,
-              objectNetworkNew.getString("Commission(USD)"),
-              objectNetworkNew.getString("Commission(IDR)"),
-              downlinelist
+          objectNetworkNew.getString("ID"),
+          objectNetworkNew.getString("UplineID"),
+          objectNetworkNew.getString("Name"),
+          networkDataList,
+          objectNetworkNew.getString("Commission(USD)"),
+          objectNetworkNew.getString("Commission(IDR)"),
+          downlinelist
       );
 
       networkResNew = new NetworkResNew(network);
@@ -218,14 +226,31 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     String strNetworkData = networkResNew.getNetwork().getNetworkData().get(0).getPhrase();
     String strNetworkCommissionUSD = networkResNew.getNetwork().getCommissionUSD();
     String strNetworkCommissionIDR = networkResNew.getNetwork().getCommissionIDR();
-    Log.d("Debug", "Network --> ID = "+ strNetworkID +" || Upline ID = "+ strNetworkUplineID +" || Name = "+ strNetworkName
-            +" || Data = "+ strNetworkData+" || Commission(USD) = "+ strNetworkCommissionUSD+" || Commission(IDR) = "+ strNetworkCommissionIDR);
+    Log.d("Debug", "Network --> ID = "
+        + strNetworkID
+        + " || Upline ID = "
+        + strNetworkUplineID
+        + " || Name = "
+        + strNetworkName
+        + " || Data = "
+        + strNetworkData
+        + " || Commission(USD) = "
+        + strNetworkCommissionUSD
+        + " || Commission(IDR) = "
+        + strNetworkCommissionIDR);
     String strNetworkDownlineID = networkResNew.getNetwork().getNetworkDownline().get(0).getID();
-    String strNetworkDownlineData = networkResNew.getNetwork().getNetworkDownline().get(0).getNetworkData().get(0).getPhrase();
-    Log.d("Debug", "Network Downline --> ID = "+ strNetworkDownlineID+" || Data = "+ strNetworkDownlineData);
-    String strNetworkDownlineDownlineGroup = networkResNew.getNetwork().getNetworkDownline().get(0).getNetworkDownlineDownline().getGroup();
-    Log.d("Debug", "Network Downline Downline --> Group = "+ strNetworkDownlineDownlineGroup);
-
+    String strNetworkDownlineData =
+        networkResNew.getNetwork().getNetworkDownline().get(0).getNetworkData().get(0).getPhrase();
+    Log.d("Debug", "Network Downline --> ID = "
+        + strNetworkDownlineID
+        + " || Data = "
+        + strNetworkDownlineData);
+    String strNetworkDownlineDownlineGroup = networkResNew.getNetwork()
+        .getNetworkDownline()
+        .get(0)
+        .getNetworkDownlineDownline()
+        .getGroup();
+    Log.d("Debug", "Network Downline Downline --> Group = " + strNetworkDownlineDownlineGroup);
   }
 
   @SuppressWarnings("unused")
@@ -240,7 +265,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     getNetwork();
   }
 
-  private void toogleButton(int maxPages){
+  private void toogleButton(int maxPages) {
     if (PAGE >= 1) {
       nextButtonVisibility.set(true);
       beforeButtonVisibility.set(false);
@@ -252,7 +277,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     if (PAGE == maxPages) {
       nextButtonVisibility.set(false);
       beforeButtonVisibility.set(true);
-      if (maxPages == 1){
+      if (maxPages == 1) {
         beforeButtonVisibility.set(false);
       }
     }
