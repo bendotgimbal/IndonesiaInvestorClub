@@ -69,8 +69,11 @@ public interface InvestorClubService {
   @GET("lounge")
   Observable<Response<JsonElement>> loungeRequest();
 
-  @GET("network/{page}")
-  Observable<Response<JsonElement>> networkRequest(@Path("page") int page);
+//  @GET("network/{page}")
+//  Observable<Response<JsonElement>> networkRequest(@Path("page") int page);
+
+  @GET("network")
+  Observable<Response<JsonElement>> networkRequest();
 
   @GET("transactions/{page}")
   Observable<Response<JsonElement>> transactionsRequest(@Path("page") int page);

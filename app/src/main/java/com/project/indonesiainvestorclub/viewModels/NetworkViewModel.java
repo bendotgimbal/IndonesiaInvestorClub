@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.ObservableBoolean;
@@ -11,7 +12,11 @@ import com.project.indonesiainvestorclub.adapter.CommissionsAdapter;
 import com.project.indonesiainvestorclub.databinding.NetworkFragmentBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Commissions;
+import com.project.indonesiainvestorclub.models.Groups;
+import com.project.indonesiainvestorclub.models.Network;
+import com.project.indonesiainvestorclub.models.NetworkData;
 import com.project.indonesiainvestorclub.models.response.NetworkRes;
+import com.project.indonesiainvestorclub.models.response.NetworkResNew;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
@@ -35,6 +40,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   public ObservableField<String> pageState;
   public ObservableBoolean beforeButtonVisibility;
   public ObservableBoolean nextButtonVisibility;
+  public ObservableBoolean networkListVisibility;
 
   private int PAGE = 1;
 
@@ -48,6 +54,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     pageState = new ObservableField<>("1/1");
     beforeButtonVisibility = new ObservableBoolean(false);
     nextButtonVisibility = new ObservableBoolean(true);
+    networkListVisibility = new ObservableBoolean(false);
 
     adapter = new CommissionsAdapter();
     adapter.setListener(this);
@@ -71,7 +78,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   private void getNetwork() {
     loading(true);
 
-    Disposable disposable = ServiceGenerator.service.networkRequest(PAGE)
+    Disposable disposable = ServiceGenerator.service.networkRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getNetwork) {
@@ -87,34 +94,60 @@ public class NetworkViewModel extends BaseViewModelWithCallback
   }
 
   private void readNetworkJSON(JsonElement response) {
-    JSONObject jsonObjectNetwork;
+//    JSONObject jsonObjectNetwork;
+    JSONObject jsonObjectNetworkNew;
     try {
-      NetworkRes networkRes;
+//      NetworkRes networkRes;
+//
+//      jsonObjectNetwork = new JSONObject(response.toString());
+//      JSONObject objectNetwork = jsonObjectNetwork.getJSONObject("Commissions");
+//
+//      int page = jsonObjectNetwork.getInt("Page");
+//      int pages = jsonObjectNetwork.getInt("Pages");
+//
+//      List<Commissions> commissionslist = new ArrayList<>();
+//      for (int t = 1; t <= objectNetwork.length(); t++) {
+//        JSONObject objNetwork = objectNetwork.getJSONObject(t + "");
+//        Commissions commissions;
+//
+//        commissions = new Commissions(
+//                objNetwork.getString("Date"),
+//                objNetwork.getString("PerLots(USD)"),
+//                objNetwork.getString("Invest(USD)"),
+//                objNetwork.getString("Commission(USD)"),
+//                objNetwork.getString("Invest(IDR)"),
+//                objNetwork.getString("Commission(IDR)"),
+//                objNetwork.getString("USDIDR")
+//        );
+//        commissionslist.add(commissions);
+//        networkRes = new NetworkRes(page, pages, commissionslist);
+//        showNetwork(networkRes);
+//      }
 
-      jsonObjectNetwork = new JSONObject(response.toString());
-      JSONObject objectNetwork = jsonObjectNetwork.getJSONObject("Commissions");
+      NetworkResNew networkResNew;
+//      Network network;
+//      NetworkData networkData;
 
-      int page = jsonObjectNetwork.getInt("Page");
-      int pages = jsonObjectNetwork.getInt("Pages");
+      jsonObjectNetworkNew = new JSONObject(response.toString());
+      JSONObject objectNetworkNew = jsonObjectNetworkNew.getJSONObject("Networks");
+      String networkId = objectNetworkNew.getString("ID");
+      Log.d("Debug", "Network ID " + networkId);
+      List<NetworkData> networkDataList = new ArrayList<>();
 
-      List<Commissions> commissionslist = new ArrayList<>();
-      for (int t = 1; t <= objectNetwork.length(); t++) {
-        JSONObject objNetwork = objectNetwork.getJSONObject(t + "");
-        Commissions commissions;
+      JSONObject groupObj = objectNetworkNew.getJSONObject("Data");
+      for (int i = 1; i <= groupObj.length(); i++) {
+        NetworkData loop = new NetworkData();
+        loop.setPhrase(groupObj.getString(i + ""));
 
-        commissions = new Commissions(
-                objNetwork.getString("Date"),
-                objNetwork.getString("PerLots(USD)"),
-                objNetwork.getString("Invest(USD)"),
-                objNetwork.getString("Commission(USD)"),
-                objNetwork.getString("Invest(IDR)"),
-                objNetwork.getString("Commission(IDR)"),
-                objNetwork.getString("USDIDR")
-        );
-        commissionslist.add(commissions);
-        networkRes = new NetworkRes(page, pages, commissionslist);
-        showNetwork(networkRes);
+        networkDataList.add(loop);
       }
+
+      Network network = new Network(
+              objectNetworkNew.getString("ID"),
+              objectNetworkNew.getString("UplineID"),
+              objectNetworkNew.getString("Name"),
+              networkDataList
+      );
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -133,6 +166,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     pageState.set(networkRes.getPage() + " / " + networkRes.getPages());
 
     toogleButton(networkRes.getPages());
+  }
+
+  private void showNetworkNew(NetworkResNew networkResNew) {
+
   }
 
   @SuppressWarnings("unused")
@@ -163,6 +200,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback
         beforeButtonVisibility.set(false);
       }
     }
+  }
+
+  public void onClickNetworkListHideShow(View view) {
+
   }
 
   @Override

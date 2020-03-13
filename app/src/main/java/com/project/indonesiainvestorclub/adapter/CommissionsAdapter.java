@@ -40,7 +40,7 @@ public class CommissionsAdapter extends RVBaseAdapter {
     }
 
     @Override public int getLayoutIdForType(int viewType) {
-        return R.layout.sub_network_item;
+        return R.layout.sub_network_new_item;
     }
 
     @Override public int getItemCount() {
