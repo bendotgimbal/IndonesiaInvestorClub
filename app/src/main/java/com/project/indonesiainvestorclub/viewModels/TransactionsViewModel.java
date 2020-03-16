@@ -265,10 +265,12 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     if (statusWDDate == 1) {
       requestWDButtonEnable.set(true);
-      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
+      Log.d("DEBUG", "Status WD Date " + statusWDDate);
     } else {
       requestWDButtonEnable.set(false);
-      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
+//      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
+      Log.d("DEBUG", "Status WD Date " + statusWDDate);
     }
   }
 
@@ -284,12 +286,14 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
   @SuppressWarnings("unused")
   public void onButtonRequestWDClick(View view) {
-    Toast.makeText(context, "Button Request WD ", Toast.LENGTH_LONG).show();
+//    Toast.makeText(context, "Button Request WD ", Toast.LENGTH_LONG).show();
+    Log.d("DEBUG", "Button Request WD");
   }
 
   @SuppressWarnings("unused")
   public void onButtonUploadBuktiTransferClick(View view) {
-    Toast.makeText(context, "Button Upload Bukti Transfer ", Toast.LENGTH_LONG).show();
+//    Toast.makeText(context, "Button Upload Bukti Transfer ", Toast.LENGTH_LONG).show();
+    Log.d("DEBUG", "Button Upload Bukti Transfer");
   }
 
   @Override
