@@ -9,12 +9,22 @@ public class NetworkDownline {
     private List<NetworkData> networkData;
     private NetworkDownlineDownline networkDownlineDownline;
 
+    int index;
+
     public NetworkDownline(String id, String uplineid, String name, List<NetworkData> networkData, NetworkDownlineDownline networkDownlineDownline) {
         this.id = id;
         this.uplineid = uplineid;
         this.name = name;
         this.networkData = networkData;
         this.networkDownlineDownline = networkDownlineDownline;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getID() {

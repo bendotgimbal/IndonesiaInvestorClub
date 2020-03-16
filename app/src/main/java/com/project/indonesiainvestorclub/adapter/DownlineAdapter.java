@@ -4,20 +4,21 @@ import com.project.indonesiainvestorclub.BR;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Commissions;
+import com.project.indonesiainvestorclub.models.NetworkDownline;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommissionsAdapter extends RVBaseAdapter {
+public class DownlineAdapter extends RVBaseAdapter {
 
-    private List<Commissions> models;
+    private List<NetworkDownline> models;
     private ActionInterface.AdapterItemListener<Commissions> listener;
 
-    public CommissionsAdapter() {
+    public DownlineAdapter() {
         this.models = new ArrayList<>();
     }
 
-    public void setModels(List<Commissions> models) {
+    public void setModels(List<NetworkDownline> models) {
         this.models = models;
     }
 
@@ -33,14 +34,14 @@ public class CommissionsAdapter extends RVBaseAdapter {
     }
 
     @Override public Object getDataAtPosition(int position) {
-        Commissions commissions = models.get(position);
-        commissions.setIndex(position);
+        NetworkDownline networkDownline = models.get(position);
+        networkDownline.setIndex(position);
 
-        return commissions;
+        return networkDownline;
     }
 
     @Override public int getLayoutIdForType(int viewType) {
-        return R.layout.sub_network_item;
+        return R.layout.sub_network_new_item;
     }
 
     @Override public int getItemCount() {

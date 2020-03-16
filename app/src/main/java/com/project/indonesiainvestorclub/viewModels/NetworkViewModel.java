@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.adapter.CommissionsAdapter;
+import com.project.indonesiainvestorclub.adapter.DownlineAdapter;
 import com.project.indonesiainvestorclub.databinding.NetworkFragmentBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Commissions;
@@ -46,6 +47,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     private int PAGE = 1;
 
     private CommissionsAdapter adapter;
+    private DownlineAdapter downlineAdapteradapter;
 
     public NetworkViewModel(Context context, NetworkFragmentBinding binding) {
         super(context);
