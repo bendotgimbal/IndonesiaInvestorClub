@@ -77,6 +77,13 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
         binding.edtInvestSlot.addTextChangedListener(this);
         Log.d("Debug", "Input Text 2 " + binding.edtInvestSlot.getText().toString());
+
+        int length = s.length();
+        Log.d("Debug", "Text Length = " + length);
+        if(length == 11){
+          Toast.makeText(getContext(), "Maksimal 9 Angka", Toast.LENGTH_SHORT).show();
+          return;
+        }
       }
     });
   }

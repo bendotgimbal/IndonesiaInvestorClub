@@ -70,6 +70,7 @@
                     android:singleLine="true"
                     android:inputType="number"
                     android:text="@={viewModel.mInvestSlot}"
+                    android:maxLength="11"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
