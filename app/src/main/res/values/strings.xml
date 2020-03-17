@@ -142,7 +142,10 @@
   <string name="invest_button">Invest</string>
   <string name="invest_usd_value">"@ 500"</string>
   <string name="invest_idr_value">Rp. 6.000.000</string>
+  <string name="invest_value">"@ 500 / Rp. 6.000.000"</string>
   <string name="invest_text_title_total">Total</string>
+  <string name="invest_usd_total">USD</string>
+  <string name="invest_idr_total">IDR</string>
   <string name="invest_text_usd_total">00</string>
   <string name="invest_text_idr_total">Rp. 00</string>
 

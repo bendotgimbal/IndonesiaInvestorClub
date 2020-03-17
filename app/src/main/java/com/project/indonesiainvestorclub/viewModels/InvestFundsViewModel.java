@@ -12,6 +12,7 @@ import androidx.databinding.ObservableField;
 
 import com.project.indonesiainvestorclub.databinding.InvestFundsActivityBinding;
 
+import com.project.indonesiainvestorclub.helper.DecimalHelper;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -25,6 +26,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
   public ObservableField<String> strInvestIDRValue;
   public ObservableField<String> investUSDValueTotal;
   public ObservableField<String> investIDRValueTotal;
+  public ObservableField<String> strInvestValue;
 
   public InvestFundsViewModel(Context context, InvestFundsActivityBinding binding) {
     super(context);
@@ -36,6 +38,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     strInvestIDRValue = new ObservableField<>("0");
     investUSDValueTotal = new ObservableField<>("0");
     investIDRValueTotal = new ObservableField<>("0");
+    strInvestValue = new ObservableField<>("0");
 
     binding.edtInvestSlot.append("0");
 
@@ -91,6 +94,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
   public void start(String investSlot, String investIDRValue) {
     strInvestUSDValue.set(investSlot);
     strInvestIDRValue.set(investIDRValue);
+    strInvestValue.set(investSlot + " / " + investIDRValue);
     Log.d("Debug", "USD" + getStrInvestUSDValue() + " / " + " IDR" + getStrInvestIDRValue());
   }
 
@@ -116,6 +120,8 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
   private void onSlotTextChanged(CharSequence s) {
     if (s == null || s.toString().isEmpty() || s.toString().equals("")) {
       binding.edtInvestSlot.append("0");
+      this.investUSDValueTotal.set(DecimalHelper.toUsd(0));
+      this.investIDRValueTotal.set(DecimalHelper.toRupiah(0));
       return;
     }
 
@@ -132,13 +138,13 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
       strInputReplace = strCharText.substring(1);
     }
 
-    int investUSDValueTotal =
-        Integer.parseInt(strInputReplace) * Integer.parseInt(strReplaceUSDValue);
-    this.investUSDValueTotal.set(String.valueOf(investUSDValueTotal));
+    double investUSDValueTotal =
+        Double.parseDouble(strInputReplace) * Double.parseDouble(strReplaceUSDValue);
+    this.investUSDValueTotal.set(DecimalHelper.toUsd(investUSDValueTotal));
 
-    int investIDRValueTotal =
-        Integer.parseInt(strInputReplace) * Integer.parseInt(strReplaceIDRValue);
-    this.investIDRValueTotal.set(String.valueOf(investIDRValueTotal));
+    double investIDRValueTotal =
+        Double.parseDouble(strInputReplace) * Double.parseDouble(strReplaceIDRValue);
+    this.investIDRValueTotal.set(DecimalHelper.toRupiah(investIDRValueTotal));
   }
 
   @SuppressWarnings("unused")
