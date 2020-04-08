@@ -1,51 +1,81 @@
 package com.project.indonesiainvestorclub.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.project.indonesiainvestorclub.BR;
 import com.project.indonesiainvestorclub.R;
+import com.project.indonesiainvestorclub.databinding.SubNetworkNewItemBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.NetworkDownline;
 
+import com.project.indonesiainvestorclub.viewModels.DownlineListItemViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownlineAdapter extends RVBaseAdapter {
+public class DownlineAdapter extends RecyclerView.Adapter<DownlineAdapter.DownlineItemHolder> {
 
-    private List<NetworkDownline> models;
-    private ActionInterface.AdapterItemListener<Commissions> listener;
+  private final List<DownlineItemHolder> holders;
+  private Context context;
+  private List<NetworkDownline> models;
+  private ActionInterface.AdapterItemListener<Commissions> listener;
 
-    public DownlineAdapter() {
-        this.models = new ArrayList<>();
+  public DownlineAdapter() {
+    models = new ArrayList<>();
+    holders = new ArrayList<>();
+  }
+
+  public void setModels(List<NetworkDownline> models) {
+    this.models = models;
+  }
+
+  public void setListener(
+      ActionInterface.AdapterItemListener<Commissions> listener) {
+    this.listener = listener;
+  }
+
+  @Override public DownlineItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    this.context = parent.getContext();
+    LayoutInflater layoutInflater = LayoutInflater.from(context);
+    SubNetworkNewItemBinding binding =
+        DataBindingUtil.inflate(layoutInflater, R.layout.sub_network_new_item, parent, false);
+    DownlineItemHolder holder = new DownlineItemHolder(context, binding);
+    synchronized (holders) {
+      holders.add(holder);
+    }
+    return holder;
+  }
+
+  @Override public void onBindViewHolder(DownlineItemHolder holder, int position) {
+    holder.bind(models.get(position));
+  }
+
+  @Override public int getItemCount() {
+    if (models == null) return 0;
+    return models.size();
+  }
+
+  public class DownlineItemHolder extends RecyclerView.ViewHolder {
+
+    private Context context;
+    private SubNetworkNewItemBinding binding;
+    private DownlineListItemViewModel viewModel;
+
+    DownlineItemHolder(Context context, SubNetworkNewItemBinding binding) {
+      super(binding.getRoot());
+      this.context = context;
+      this.binding = binding;
     }
 
-    public void setModels(List<NetworkDownline> models) {
-        this.models = models;
+    public void bind(NetworkDownline networkDownline) {
+      viewModel = new DownlineListItemViewModel(context, binding, networkDownline);
+      binding.setViewModel(viewModel);
+      binding.executePendingBindings();
     }
-
-    public void setListener(
-            ActionInterface.AdapterItemListener<Commissions> listener) {
-        this.listener = listener;
-    }
-
-    @Override public void onBindViewHolder(RVViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
-        holder.binding.setVariable(BR.listener, this.listener);
-        holder.binding.executePendingBindings();
-    }
-
-    @Override public Object getDataAtPosition(int position) {
-        NetworkDownline networkDownline = models.get(position);
-        networkDownline.setIndex(position);
-
-        return networkDownline;
-    }
-
-    @Override public int getLayoutIdForType(int viewType) {
-        return R.layout.sub_network_new_item;
-    }
-
-    @Override public int getItemCount() {
-        if (models == null) return 0;
-        return models.size();
-    }
+  }
 }
