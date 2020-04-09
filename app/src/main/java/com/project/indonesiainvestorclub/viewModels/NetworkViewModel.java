@@ -74,7 +74,7 @@ public class NetworkViewModel extends BaseViewModelWithCallback
 
     this.binding.downline.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    this.binding.downline.setAdapter(adapter);
+    this.binding.downline.setAdapter(downlineAdapteradapter);
 
     start();
   }

@@ -88,11 +88,17 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:onClick="@{viewModel::onClickDownline}"
+                android:text="Downline"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/downline"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
