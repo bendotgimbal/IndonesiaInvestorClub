@@ -23,7 +23,6 @@ public class DownlineAdapter extends RecyclerView.Adapter<DownlineAdapter.Downli
   private final List<DownlineItemHolder> holders;
   private Context context;
   private List<NetworkDownline> models;
-  private ActionInterface.AdapterItemListener<Commissions> listener;
 
   public DownlineAdapter() {
     models = new ArrayList<>();
@@ -32,11 +31,6 @@ public class DownlineAdapter extends RecyclerView.Adapter<DownlineAdapter.Downli
 
   public void setModels(List<NetworkDownline> models) {
     this.models = models;
-  }
-
-  public void setListener(
-      ActionInterface.AdapterItemListener<Commissions> listener) {
-    this.listener = listener;
   }
 
   @Override public DownlineItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -11,87 +11,94 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <LinearLayout
-            android:id="@+id/network_info_wrapper"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop">
+            android:descendantFocusability="blocksDescendants">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/network_info_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:elevation="1dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop">
 
-                <TextView
-                    android:id="@+id/network_name_label"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/network_name_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Name"
-                    />
+                    android:layout_marginBottom="10dp">
 
-                <TextView
-                    android:id="@+id/network_name_value"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/network_name_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/network_name_label"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Name"
+                        />
+
+                    <TextView
+                        android:id="@+id/network_name_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.name}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/network_name_label"
+                        tools:text="Name Value"
+                        />
+
+                    <TextView
+                        android:id="@+id/lots_invest_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/lots_invest_label"
+                        android:textColor="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/network_name_value"
+                        tools:text="IIC FX 1 :"
+                        />
+
+                    <TextView
+                        android:id="@+id/lots_invest_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.data}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lots_invest_label"
+                        tools:text="IIC FX 1 Value :"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/downline"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.name}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/network_name_label"
-                    tools:text="Name Value"
-                    />
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/sub_network_new_item"
+                    tools:itemCount="5"
+                    android:visibility="@{viewModel.downlineAvail ? View.VISIBLE : View.GONE}"/>
 
-                <TextView
-                    android:id="@+id/lots_invest_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/lots_invest_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/network_name_value"
-                    tools:text="IIC FX 1 :"
-                    />
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/lots_invest_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.data}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lots_invest_label"
-                    tools:text="IIC FX 1 Value :"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/downline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/sub_network_new_item"
-                tools:itemCount="5"
-                android:visibility="@{viewModel.downlineAvail ? View.VISIBLE : View.GONE}"/>
-
-        </LinearLayout>
-
+        </androidx.core.widget.NestedScrollView>
 
         <FrameLayout
             android:layout_width="0dp"
@@ -122,5 +129,5 @@
                 />
         </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

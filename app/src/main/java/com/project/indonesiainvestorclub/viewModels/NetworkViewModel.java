@@ -34,8 +34,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class NetworkViewModel extends BaseViewModelWithCallback
-    implements ActionInterface.AdapterItemListener<Commissions> {
+public class NetworkViewModel extends BaseViewModelWithCallback {
 
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
@@ -67,10 +66,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     networkListVisibility = new ObservableBoolean(false);
 
     adapter = new CommissionsAdapter();
-    adapter.setListener(this);
+    //adapter.setListener(this);
 
     downlineAdapteradapter = new DownlineAdapter();
-    downlineAdapteradapter.setListener(this);
+    //downlineAdapteradapter.setListener(this);
 
     this.binding.downline.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -251,8 +250,4 @@ public class NetworkViewModel extends BaseViewModelWithCallback
     loading(false);
   }
 
-  @Override
-  public void onClickAdapterItem(int index, Commissions model) {
-
-  }
 }

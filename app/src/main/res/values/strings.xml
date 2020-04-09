@@ -226,4 +226,7 @@
   <string name="button_request_wd_label">Request WD</string>
   <string name="button_upload_bukti_transfer_label">Upload Bukti Transfer</string>
   <string name="button_upload_image">Upload</string>
+
+  <string name="label_downline">Downline</string>
+  <string name="hint_no_downline">User belum mempunyai downline</string>
 </resources>

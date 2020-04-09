@@ -3,13 +3,12 @@ package com.project.indonesiainvestorclub.viewModels;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.adapter.DownlineAdapter;
 import com.project.indonesiainvestorclub.databinding.SubNetworkNewItemBinding;
-import com.project.indonesiainvestorclub.interfaces.ActionInterface;
-import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.Network;
 import com.project.indonesiainvestorclub.models.NetworkData;
 import com.project.indonesiainvestorclub.models.NetworkDownline;
@@ -26,12 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Response;
 
-public class DownlineListItemViewModel extends BaseViewModelWithCallback
-    implements ActionInterface.AdapterItemListener<Commissions>{
+public class DownlineListItemViewModel extends BaseViewModelWithCallback {
 
   private SubNetworkNewItemBinding binding;
   public ObservableField<String> name;
   public ObservableField<String> data;
+  public ObservableBoolean downlineActive;
+  public ObservableBoolean loading;
 
   private NetworkDownline downline;
   private DownlineAdapter downlineAdapteradapter;
@@ -41,22 +41,31 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback
     this.binding = binding;
     this.downline = downline;
 
+    downlineActive = new ObservableBoolean(true);
+    loading = new ObservableBoolean(false);
+
     name = new ObservableField<>(downline.getName());
     data = new ObservableField<>(downline.getNetworkData().get(0).getPhrase());
 
     downlineAdapteradapter = new DownlineAdapter();
-    downlineAdapteradapter.setListener(this);
 
     this.binding.downline.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     this.binding.downline.setAdapter(downlineAdapteradapter);
   }
 
+  @SuppressWarnings("unused")
   public void onClickDownline(View view){
     getNetwork();
   }
 
+  private void showLoading(){
+    loading.set(true);
+  }
+
   private void getNetwork() {
+    showLoading();
+
     Disposable disposable = ServiceGenerator.service.networkRequest(Integer.parseInt(downline.getID()))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -90,43 +99,58 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback
         networkDataList.add(loop);
       }
 
-      JSONObject downlineObj = objectNetworkNew.getJSONObject("Downline");
       List<NetworkDownline> downlinelist = new ArrayList<>();
-      for (int t = 1; t <= downlineObj.length(); t++) {
-        JSONObject objDownline = downlineObj.getJSONObject(t + "");
 
-        List<NetworkData> networkDataDownlineList = new ArrayList<>();
-        JSONObject dataDownlineObj = objDownline.getJSONObject("Data");
-        for (int i = 1; i <= dataDownlineObj.length(); i++) {
-          NetworkData loop = new NetworkData();
-          loop.setPhrase(dataDownlineObj.getString(i + ""));
+      if (objectNetworkNew.has("Downline")){
+        JSONObject downlineObj = objectNetworkNew.getJSONObject("Downline");
+        for (int t = 1; t <= downlineObj.length(); t++) {
+          JSONObject objDownline = downlineObj.getJSONObject(t + "");
 
-          networkDataDownlineList.add(loop);
+          List<NetworkData> networkDataDownlineList = new ArrayList<>();
+          JSONObject dataDownlineObj = objDownline.getJSONObject("Data");
+          for (int i = 1; i <= dataDownlineObj.length(); i++) {
+            NetworkData loop = new NetworkData();
+            loop.setPhrase(dataDownlineObj.getString(i + ""));
+
+            networkDataDownlineList.add(loop);
+          }
+
+
+          if (objDownline.has("Downline")){
+            JSONObject objectDownlineDownline = objDownline.getJSONObject("Downline");
+            NetworkDownlineDownline networkDownlineDownline;
+
+            if (objectDownlineDownline.has("Commission(USD)") && objectDownlineDownline.has(
+                "Commission(IDR)")) {
+              networkDownlineDownline = new NetworkDownlineDownline(
+                  objectDownlineDownline.getString("Group"),
+                  objectDownlineDownline.getString("Commission(USD)"),
+                  objectDownlineDownline.getString("Commission(IDR)")
+              );
+            } else {
+              networkDownlineDownline = new NetworkDownlineDownline(
+                  objectDownlineDownline.getString("Group"));
+            }
+
+            NetworkDownline networkDownline = new NetworkDownline(
+                objDownline.getString("ID"),
+                objDownline.getString("UplineID"),
+                objDownline.getString("Name"),
+                networkDataDownlineList,
+                networkDownlineDownline
+            );
+            downlinelist.add(networkDownline);
+          }
+
         }
+      }
 
-        JSONObject objectDownlineDownline = objDownline.getJSONObject("Downline");
-        NetworkDownlineDownline networkDownlineDownline;
+      String commissionUSD = "";
+      String commissionIDR = "";
 
-        if (objectDownlineDownline.has("Commission(USD)") && objectDownlineDownline.has(
-            "Commission(IDR)")) {
-          networkDownlineDownline = new NetworkDownlineDownline(
-              objectDownlineDownline.getString("Group"),
-              objectDownlineDownline.getString("Commission(USD)"),
-              objectDownlineDownline.getString("Commission(IDR)")
-          );
-        } else {
-          networkDownlineDownline = new NetworkDownlineDownline(
-              objectDownlineDownline.getString("Group"));
-        }
-
-        NetworkDownline networkDownline = new NetworkDownline(
-            objDownline.getString("ID"),
-            objDownline.getString("UplineID"),
-            objDownline.getString("Name"),
-            networkDataDownlineList,
-            networkDownlineDownline
-        );
-        downlinelist.add(networkDownline);
+      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
+        commissionUSD = objectNetworkNew.getString("Commission(USD)");
+        commissionIDR = objectNetworkNew.getString("Commission(IDR)");
       }
 
       Network network = new Network(
@@ -134,8 +158,8 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback
           objectNetworkNew.getString("UplineID"),
           objectNetworkNew.getString("Name"),
           networkDataList,
-          objectNetworkNew.getString("Commission(USD)"),
-          objectNetworkNew.getString("Commission(IDR)"),
+          commissionUSD,
+          commissionIDR,
           downlinelist
       );
 
@@ -147,17 +171,20 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback
   }
 
   private void showNetworkNew(NetworkResNew networkResNew) {
+    hideLoading();
+
     if (networkResNew == null) return;
+    if (networkResNew.getNetwork().getNetworkDownline() == null || networkResNew.getNetwork().getNetworkDownline().size() <= 0){
+      downlineActive.set(false);
+      return;
+    }
 
     downlineAdapteradapter.setModels(networkResNew.getNetwork().getNetworkDownline());
     downlineAdapteradapter.notifyDataSetChanged();
   }
 
   @Override public void hideLoading() {
-
+    loading.set(false);
   }
 
-  @Override public void onClickAdapterItem(int index, Commissions model) {
-
-  }
 }
