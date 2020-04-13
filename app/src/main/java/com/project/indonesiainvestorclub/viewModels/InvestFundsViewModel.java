@@ -95,7 +95,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     strInvestUSDValue.set(investSlot);
     strInvestIDRValue.set(investIDRValue);
     strInvestValue.set(investSlot + " / " + investIDRValue);
-    Log.d("Debug", "USD" + getStrInvestUSDValue() + " / " + " IDR" + getStrInvestIDRValue());
+    Log.d("Debug", "USD " + getStrInvestUSDValue() + " / " + " IDR " + getStrInvestIDRValue());
   }
 
   private void loading(boolean load) {
