@@ -16,28 +16,16 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="10dp">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/network_info_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:onClick="@{viewModel::onClickDownline}"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/network_name_label"
@@ -88,48 +76,41 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:onClick="@{viewModel::onClickDownline}"
-                android:text="@string/label_downline"/>
+        <ProgressBar
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone"/>
 
-            <ProgressBar
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
-                tools:visibility="gone"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}"
+            tools:visibility="visible">
 
-            <FrameLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/downline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}"
-                tools:visibility="visible">
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:overScrollMode="never"
+                android:visibility="@{viewModel.downlineActive ? View.VISIBLE : View.GONE}"
+                tools:listitem="@layout/sub_network_new_item"
+                tools:itemCount="5"
+                tools:visibility="visible"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/downline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:visibility="@{viewModel.downlineActive ? View.VISIBLE : View.GONE}"
-                    tools:listitem="@layout/sub_network_new_item"
-                    tools:itemCount="5"
-                    tools:visibility="visible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/hint_no_downline"
+                android:visibility="@{viewModel.downlineActive ? View.GONE : View.VISIBLE}"
+                tools:visibility="gone"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/hint_no_downline"
-                    android:visibility="@{viewModel.downlineActive ? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone"/>
+        </FrameLayout>
 
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </layout>

@@ -34,7 +34,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class NetworkViewModel extends BaseViewModelWithCallback {
+public class NetworkViewModel extends BaseViewModelWithCallback implements ActionInterface.AdapterItemListener<NetworkDownline> {
 
   private NetworkFragmentBinding binding;
   public ObservableBoolean loadingState;
@@ -46,9 +46,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback {
   public ObservableBoolean nextButtonVisibility;
   public ObservableBoolean networkListVisibility;
 
-  private int PAGE = 1;
-
-  private CommissionsAdapter adapter;
   private DownlineAdapter downlineAdapteradapter;
 
   public NetworkViewModel(Context context, NetworkFragmentBinding binding) {
@@ -65,11 +62,8 @@ public class NetworkViewModel extends BaseViewModelWithCallback {
     nextButtonVisibility = new ObservableBoolean(true);
     networkListVisibility = new ObservableBoolean(false);
 
-    adapter = new CommissionsAdapter();
-    //adapter.setListener(this);
-
     downlineAdapteradapter = new DownlineAdapter();
-    //downlineAdapteradapter.setListener(this);
+    downlineAdapteradapter.setListener(this);
 
     this.binding.downline.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -180,21 +174,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback {
     }
   }
 
-  private void showNetwork(NetworkRes networkRes) {
-    hideLoading();
-
-    if (networkRes == null) return;
-
-    adapter.setModels(networkRes.getCommissions());
-    adapter.notifyDataSetChanged();
-
-    adapter.getItemCount();
-
-    pageState.set(networkRes.getPage() + " / " + networkRes.getPages());
-
-    toogleButton(networkRes.getPages());
-  }
-
   private void showNetworkNew(NetworkResNew networkResNew) {
     hideLoading();
 
@@ -211,36 +190,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback {
     }
   }
 
-  @SuppressWarnings("unused")
-  public void onButtonBeforeClick(View view) {
-    PAGE--;
-    getNetwork();
-  }
-
-  @SuppressWarnings("unused")
-  public void onButtonNextClick(View view) {
-    PAGE++;
-    getNetwork();
-  }
-
-  private void toogleButton(int maxPages) {
-    if (PAGE >= 1) {
-      nextButtonVisibility.set(true);
-      beforeButtonVisibility.set(false);
-      if (PAGE > 1) {
-        beforeButtonVisibility.set(true);
-      }
-    }
-
-    if (PAGE == maxPages) {
-      nextButtonVisibility.set(false);
-      beforeButtonVisibility.set(true);
-      if (maxPages == 1) {
-        beforeButtonVisibility.set(false);
-      }
-    }
-  }
-
   public void onClickNetworkListHideShow(View view) {
 
   }
@@ -250,4 +199,8 @@ public class NetworkViewModel extends BaseViewModelWithCallback {
     loading(false);
   }
 
+  @Override
+  public void onClickAdapterItem(int index, NetworkDownline model) {
+
+  }
 }
