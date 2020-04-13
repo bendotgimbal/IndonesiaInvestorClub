@@ -13,20 +13,38 @@ import androidx.databinding.ObservableField;
 import com.project.indonesiainvestorclub.databinding.InvestFundsActivityBinding;
 
 import com.project.indonesiainvestorclub.helper.DecimalHelper;
+import com.project.indonesiainvestorclub.helper.StringHelper;
+import com.project.indonesiainvestorclub.models.response.InvestSlotFundsRes;
+import com.project.indonesiainvestorclub.services.CallbackWrapper;
+import com.project.indonesiainvestorclub.services.ServiceGenerator;
+import com.project.indonesiainvestorclub.views.InvestFundsActivity;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
+
 public class InvestFundsViewModel extends BaseViewModelWithCallback {
+
+    private final static String INVEST_STATUS = "true";
+    private final static String INVEST_MESSAGE = "Successfully Order Investment";
 
   private InvestFundsActivityBinding binding;
   public ObservableBoolean loadingState;
   public ObservableField<String> mInvestSlot;
   public ObservableField<String> strInvestUSDValue;
   public ObservableField<String> strInvestIDRValue;
+    public ObservableField<String> strInvestID;
   public ObservableField<String> investUSDValueTotal;
   public ObservableField<String> investIDRValueTotal;
   public ObservableField<String> strInvestValue;
+    public ObservableBoolean investSlotButtonEnable;
 
   public InvestFundsViewModel(Context context, InvestFundsActivityBinding binding) {
     super(context);
@@ -36,9 +54,11 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     mInvestSlot = new ObservableField<>("0");
     strInvestUSDValue = new ObservableField<>("0");
     strInvestIDRValue = new ObservableField<>("0");
+      strInvestID = new ObservableField<>("0");
     investUSDValueTotal = new ObservableField<>("0");
     investIDRValueTotal = new ObservableField<>("0");
     strInvestValue = new ObservableField<>("0");
+      investSlotButtonEnable = new ObservableBoolean(false);
 
     binding.edtInvestSlot.append("0");
 
@@ -91,11 +111,12 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     });
   }
 
-  public void start(String investSlot, String investIDRValue) {
+  public void start(String investSlot, String investIDRValue, String investId) {
     strInvestUSDValue.set(investSlot);
     strInvestIDRValue.set(investIDRValue);
+      strInvestID.set(investId);
     strInvestValue.set(investSlot + " / " + investIDRValue);
-    Log.d("Debug", "USD " + getStrInvestUSDValue() + " / " + " IDR " + getStrInvestIDRValue());
+    Log.d("Debug", "USD " + getStrInvestUSDValue() + " / " + " IDR " + getStrInvestIDRValue()+ " || " + " ID " + getStrInvestID());
   }
 
   private void loading(boolean load) {
@@ -116,6 +137,14 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     }
     return strInvestIDRValue.get();
   }
+
+    @SuppressWarnings("unused")
+    public String getStrInvestID() {
+        if (strInvestID.get() == null) {
+            return "";
+        }
+        return strInvestID.get();
+    }
 
   private void onSlotTextChanged(CharSequence s) {
     if (s == null || s.toString().isEmpty() || s.toString().equals("")) {
@@ -149,8 +178,47 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onClickInvest(View view) {
-    Toast.makeText(getContext(), "Invest Button", Toast.LENGTH_SHORT).show();
+//    Toast.makeText(getContext(), "Invest Button", Toast.LENGTH_SHORT).show();
+      postInvestSlot();
   }
+
+    //API CALL
+    private void postInvestSlot() {
+        Toast.makeText(getContext(), "Invest ID "+strInvestID.get()+" || "+"Invest Slot "+binding.edtInvestSlot.getText(), Toast.LENGTH_SHORT).show();
+        String strInvestSlotInput = String.valueOf(binding.edtInvestSlot.getText());
+        String strInvestSlotReplace = strInvestSlotInput.replaceAll("[-+.^:,]","");
+        Log.d("Debug", "InvestSlotReplace "+strInvestSlotReplace);
+
+      Disposable disposable =
+              ServiceGenerator.service.postinvestRequest(strInvestID.get(), strInvestSlotReplace)
+                      .subscribeOn(Schedulers.io())
+                      .observeOn(AndroidSchedulers.mainThread())
+                      .subscribeWith(new CallbackWrapper<Response<InvestSlotFundsRes>>(this,
+                              () -> postInvestSlot()) {
+                        @Override
+                        protected void onSuccess(Response<InvestSlotFundsRes> investResponse) {
+                          String cookie = investResponse.headers().get("Set-Cookie");
+                          StringHelper.getCookie(cookie);
+                          onSuccessInvestSlot(investResponse.body());
+                        }
+
+                        @Override public void onNext(Response<InvestSlotFundsRes> investResResponse) {
+                          super.onNext(investResResponse);
+                          loading(false);
+                        }
+                      });
+      compositeDisposable.add(disposable);
+    }
+
+    private void onSuccessInvestSlot(InvestSlotFundsRes investSlotFundsRes){
+        if (investSlotFundsRes != null && investSlotFundsRes.getStatus().equalsIgnoreCase(INVEST_STATUS) && investSlotFundsRes.getMessage().equalsIgnoreCase(INVEST_MESSAGE)) {
+            Toast.makeText(getContext(), "Selamat Anda Berhasil Invest", Toast.LENGTH_SHORT).show();
+            ((InvestFundsActivity) context).setResult(RESULT_OK);
+            ((InvestFundsActivity) context).finish();
+        } else {
+            Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+        }
+    }
 
   @Override
   public void hideLoading() {

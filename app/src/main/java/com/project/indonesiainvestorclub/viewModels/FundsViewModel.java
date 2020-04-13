@@ -181,9 +181,10 @@ public class FundsViewModel extends BaseViewModelWithCallback
     Intent intent = new Intent(context, InvestFundsActivity.class);
     intent.putExtra("investSlot", investSlot);
     intent.putExtra("investIDRValue", investIDRValue);
+      intent.putExtra("investId", investId);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
-    Toast.makeText(getContext(), "Result "+investSlot+" || "+investIDRValue, Toast.LENGTH_SHORT).show();
+//    Toast.makeText(getContext(), "Result "+investSlot+" || "+investIDRValue+" || "+investId, Toast.LENGTH_SHORT).show();
   }
 
   @Override

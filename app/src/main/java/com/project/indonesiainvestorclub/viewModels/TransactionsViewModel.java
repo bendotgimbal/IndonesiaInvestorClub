@@ -177,7 +177,7 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     if (currentDateWDStart.compareTo(currentDateNow) > 0
         && currentDateNow.compareTo(currentDateWDEnd) < 0) {
-      Log.d("DEBUG", "Tgl "
+      Log.d("Debug", "Tgl "
           + currentDateNow
           + ", Lebih Besar Dari Tgl "
           + currentDateWDStart
@@ -185,7 +185,7 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
           + currentDateWDEnd);
       statusWD = 1;
     } else {
-      Log.d("DEBUG", "Tgl " + currentDateNow + " Di Bawah Tgl " + currentDateWDStart);
+      Log.d("Debug", "Tgl " + currentDateNow + " Di Bawah Tgl " + currentDateWDStart);
       statusWD = 0;
     }
 
@@ -266,34 +266,37 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     if (statusWDDate == 1) {
       requestWDButtonEnable.set(true);
 //      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "Status WD Date " + statusWDDate);
+      Log.d("Debug", "Status WD Date " + statusWDDate);
     } else {
       requestWDButtonEnable.set(false);
 //      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
-      Log.d("DEBUG", "Status WD Date " + statusWDDate);
+      Log.d("Debug", "Status WD Date " + statusWDDate);
     }
   }
 
   private void toogleButtonUploadBuktiTransferEnable(int uploadValue) {
     if (DPSTATUS == uploadValue) {
       uploadBuktiTransferButtonEnable.set(true);
+      Log.d("Debug", "Button Bukti Transfer TRUE");
     } else if (uploadValue > 1) {
       uploadBuktiTransferButtonEnable.set(false);
+      Log.d("Debug", "Button Bukti Transfer FALSE Lebih Dari 1");
     } else {
       uploadBuktiTransferButtonEnable.set(false);
+      Log.d("Debug", "Button Bukti Transfer FALSE");
     }
   }
 
   @SuppressWarnings("unused")
   public void onButtonRequestWDClick(View view) {
 //    Toast.makeText(context, "Button Request WD ", Toast.LENGTH_LONG).show();
-    Log.d("DEBUG", "Button Request WD");
+    Log.d("Debug", "Button Request WD");
   }
 
   @SuppressWarnings("unused")
   public void onButtonUploadBuktiTransferClick(View view) {
 //    Toast.makeText(context, "Button Upload Bukti Transfer ", Toast.LENGTH_LONG).show();
-    Log.d("DEBUG", "Button Upload Bukti Transfer");
+    Log.d("Debug", "Button Upload Bukti Transfer");
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.services;
 
+import com.project.indonesiainvestorclub.models.Invest;
 import com.project.indonesiainvestorclub.models.response.LoginRes;
 import com.project.indonesiainvestorclub.models.response.LogoutRes;
 import com.project.indonesiainvestorclub.models.response.ProfileUpdateRes;
@@ -12,6 +13,7 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -59,7 +61,7 @@ public interface InvestorClubService {
   Observable<Response<JsonElement>> investRequest(@Path("id") String id);
 
   @GET("invest/{id}")
-  Observable<Response<JsonElement>> postinvestRequest(@Part MultipartBody.Part slot_invest);
+  Observable<Response<JsonElement>> postinvestRequest(@Path("id") String id, @Body Invest invest_slot);
 
   @GET("portfolio/{page}")
   Observable<Response<JsonElement>> portfolioRequest(@Path("page") int page);
