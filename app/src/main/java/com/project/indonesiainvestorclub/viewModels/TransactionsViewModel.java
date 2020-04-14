@@ -162,35 +162,15 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
     currentDateWDStart = transactionsRes.getTransactions().get(0).getWDStart();
     currentDateWDEnd = transactionsRes.getTransactions().get(0).getWDEnd();
-    //    if (currentDateWDStart.compareTo(currentDateNow) > 0){
-    //      if(currentDateWDEnd.compareTo(currentDateNow) < 0){
-    //        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Lebih Kecil Dari Tgl "+currentDateWDEnd);
-    //        statusWD = 1;
-    //      } else {
-    //        Log.d("DEBUG", "Tgl "+currentDateNow+", Lebih Besar Dari Tgl "+currentDateWDStart+" Dan Tgl "+currentDateWDEnd);
-    //        statusWD = 2;
-    //      }
-    //    } else {
-    //      Log.d("DEBUG", "Tgl "+currentDateNow+" Di Bawah Tgl "+currentDateWDStart);
-    //      statusWD = 0;
-    //    }
 
     if (currentDateWDStart.compareTo(currentDateNow) > 0
         && currentDateNow.compareTo(currentDateWDEnd) < 0) {
-      Log.d("Debug", "Tgl "
-          + currentDateNow
-          + ", Lebih Besar Dari Tgl "
-          + currentDateWDStart
-          + " Dan Lebih Kecil Dari Tgl "
-          + currentDateWDEnd);
       statusWD = 1;
     } else {
-      Log.d("Debug", "Tgl " + currentDateNow + " Di Bawah Tgl " + currentDateWDStart);
       statusWD = 0;
     }
 
     toogleButton(transactionsRes.getPages());
-    //    toogleButtonWDEnable(Integer.parseInt(transactionsRes.getTransactions().get(0).getWDID()));
     toogleButtonWDEnable(statusWD);
     toogleButtonUploadBuktiTransferEnable(
         Integer.parseInt(transactionsRes.getTransactions().get(0).getDPID()));
@@ -226,50 +206,12 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
     }
   }
 
-  //  private void toogleButtonWDEnable(int enableWd) {
-  //    if (WDSTATUS == enableWd) {
-  //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
-  //        requestWDButtonEnable.set(true);
-  ////                  Toast.makeText(context, "WD = 0 || " + enableWd, Toast.LENGTH_LONG).show();
-  //      Toast.makeText(context, "WD = 0 || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
-  ////      Log.d("DEBUG", "WD = 0 || " + String.valueOf(enableWd));
-  //    } else if (enableWd > 1) {
-  //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-  //        requestWDButtonEnable.set(false);
-  ////                  Toast.makeText(context, "WD > 0 || " + enableWd, Toast.LENGTH_LONG).show();
-  //      Toast.makeText(context, "WD > 0 || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
-  ////      Log.d("DEBUG", "WD > 0 || " + String.valueOf(enableWd));
-  //    } else {
-  //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-  //        requestWDButtonEnable.set(false);
-  ////      Toast.makeText(context, "WD Others || " + enableWd, Toast.LENGTH_LONG).show();
-  //      Toast.makeText(context, "WD Others || " +enableWd+" || DateTime "+currentDateNow, Toast.LENGTH_LONG).show();
-  ////      Log.d("DEBUG", String.valueOf(enableWd));
-  //    }
-  //  }
-
   private void toogleButtonWDEnable(int statusWDDate) {
-    //    if (statusWDDate == 1) {
-    //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(175, 76, 168));
-    //      requestWDButtonEnable.set(true);
-    //      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
-    //    } else if (statusWDDate > 1) {
-    //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-    //      requestWDButtonEnable.set(false);
-    //      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
-    //    } else {
-    //      this.binding.btnRequestWD.setBackgroundColor(Color.rgb(239, 220, 238));
-    //      requestWDButtonEnable.set(false);
-    //      Toast.makeText(context, "Status WD Date "+statusWDDate, Toast.LENGTH_LONG).show();
-    //    }
-
     if (statusWDDate == 1) {
       requestWDButtonEnable.set(true);
-//      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
       Log.d("Debug", "Status WD Date " + statusWDDate);
     } else {
       requestWDButtonEnable.set(false);
-//      Toast.makeText(context, "Status WD Date " + statusWDDate, Toast.LENGTH_LONG).show();
       Log.d("Debug", "Status WD Date " + statusWDDate);
     }
   }
@@ -289,13 +231,11 @@ public class TransactionsViewModel extends BaseViewModelWithCallback
 
   @SuppressWarnings("unused")
   public void onButtonRequestWDClick(View view) {
-//    Toast.makeText(context, "Button Request WD ", Toast.LENGTH_LONG).show();
     Log.d("Debug", "Button Request WD");
   }
 
   @SuppressWarnings("unused")
   public void onButtonUploadBuktiTransferClick(View view) {
-//    Toast.makeText(context, "Button Upload Bukti Transfer ", Toast.LENGTH_LONG).show();
     Log.d("Debug", "Button Upload Bukti Transfer");
   }
 

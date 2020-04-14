@@ -1,6 +1,7 @@
 package com.project.indonesiainvestorclub.views;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -18,6 +19,7 @@ import io.reactivex.annotations.Nullable;
 public class UpdateImageProfileActivity extends BaseActivity {
 
   public static final int REQUEST_GALLERY_PHOTO = 102;
+  private static final String UPLOAD_TITLE = "Upload Avatar";
 
   private UpdateImageProfileActivityBinding binding;
   private UpdateImageProfileViewModel viewModel;
@@ -25,6 +27,15 @@ public class UpdateImageProfileActivity extends BaseActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    setSupportActionBar(binding.toolbar);
+    if (getSupportActionBar() != null){
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setDisplayShowHomeEnabled(true);
+      getSupportActionBar().setTitle(UPLOAD_TITLE);
+      binding.toolbar.setTitleTextColor(Color.WHITE);
+    }
+
   }
 
   @Override

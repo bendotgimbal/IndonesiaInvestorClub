@@ -92,8 +92,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
-                    tools:listitem="@layout/sub_network_new_item"
-                    tools:itemCount="5"
                     android:visibility="@{viewModel.downlineAvail ? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>

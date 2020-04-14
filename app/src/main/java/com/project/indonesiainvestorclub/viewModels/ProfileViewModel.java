@@ -37,7 +37,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-import static com.project.indonesiainvestorclub.views.MainActivity.FUND_MENU;
 import static com.project.indonesiainvestorclub.views.ProfileFragment.REFRESH_PROFILE;
 
 public class ProfileViewModel extends BaseViewModelWithCallback {
@@ -334,26 +333,20 @@ public class ProfileViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onUpdateImageProfileInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Profile Click", Toast.LENGTH_LONG).show();
     Intent intent = new Intent(context, UpdateImageProfileActivity.class);
-    Activity activity = (Activity) context;
-    activity.startActivityForResult(intent, FUND_MENU);
+    profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
   }
 
   @SuppressWarnings("unused")
   public void onUpdateImageProofOfIDInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Proof Of ID Click", Toast.LENGTH_LONG).show();
     Intent intent = new Intent(context, UpdateImageProofOfIDActivity.class);
-    Activity activity = (Activity) context;
-    activity.startActivityForResult(intent, FUND_MENU);
+    profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
   }
 
   @SuppressWarnings("unused")
   public void onUpdateImageProofOfBankInfoPersonalClick(View view) {
-    Toast.makeText(getContext(), "Update Image Proof Of Bank Click", Toast.LENGTH_LONG).show();
     Intent intent = new Intent(context, UpdateImageProofOfBankActivity.class);
-    Activity activity = (Activity) context;
-    activity.startActivityForResult(intent, FUND_MENU);
+    profileFragment.startActivityForResult(intent, REFRESH_PROFILE);
   }
 
   @Override

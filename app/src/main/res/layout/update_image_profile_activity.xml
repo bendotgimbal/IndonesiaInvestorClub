@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+
   <data>
     <variable
         name="viewModel"
@@ -12,131 +13,76 @@
     <import type="android.view.View" />
   </data>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/colorPrimary"
-      >
+      android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pick_image_frame"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/square_radius_top_background3"
-        android:orientation="vertical"
-        android:paddingTop="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        >
+        android:layout_gravity="center">
 
-      <LinearLayout
-          android:id="@+id/pick_image_wrapper"
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="15dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginEnd="15dp"
-          android:layout_marginBottom="20dp"
-          android:background="@drawable/square_radius_background"
-          android:baselineAligned="false"
-          android:elevation="1dp"
-          android:orientation="horizontal"
-          android:padding="10dp"
-          tools:targetApi="lollipop"
-          >
+          android:background="@color/colorPrimary"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+      <LinearLayout
+          android:layout_width="250dp"
+          android:layout_height="250dp"
+          android:orientation="vertical"
+          android:gravity="center"
+          app:layout_constraintStart_toStartOf="@id/iv_pick_image"
+          app:layout_constraintEnd_toEndOf="@id/iv_pick_image"
+          app:layout_constraintTop_toTopOf="@id/iv_pick_image"
+          app:layout_constraintBottom_toBottomOf="@id/iv_pick_image">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/ic_add_a_photo"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            >
-
-          <TextView
-              android:id="@+id/personal_info_pick_image"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              android:text="@string/personal_info_pick_image_profile"
-              android:textSize="18sp"
-              android:textStyle="bold"
-              app:layout_constraintTop_toTopOf="parent"
-              />
-
-          <LinearLayout
-              android:id="@+id/ln_pick_image"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="30dp"
-              android:background="@drawable/square_radius_background2"
-              android:orientation="vertical"
-              android:padding="10dp"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="9dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/square_radius_background"
-                android:padding="3dp"
-                android:scaleType="centerInside"
-                tools:ignore="ContentDescription"
-                >
-
-              <LinearLayout
-                  android:id="@+id/ln_image"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintTop_toTopOf="parent"
-                  >
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_pick_image"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
-                    android:layout_margin="9dp"
-                    android:adjustViewBounds="true"
-                    android:onClick="@{viewModel::onButtonUpdateImageClick}"
-                    android:padding="3dp"
-                    android:scaleType="centerInside"
-                    tools:ignore="ContentDescription"
-                    />
-              </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-          </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/personal_info_pick_image_profile"/>
 
       </LinearLayout>
 
-      <Button
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/iv_pick_image"
+          android:layout_width="250dp"
+          android:layout_height="250dp"
+          android:onClick="@{viewModel::onButtonUpdateImageClick}"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          />
+
+      <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/btnUploadImage"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@drawable/square_radius_button"
+          android:background="@{viewModel.uploadImageButtonEnable ? @drawable/button_accent_color : @drawable/button_accent_color_inactive}"
           android:onClick="@{viewModel::onButtonUploadImageClick}"
           android:clickable="@{viewModel.uploadImageButtonEnable}"
           android:focusable="@{viewModel.uploadImageButtonEnable}"
-          android:layout_margin="20dp"
-          android:elevation="0dp"
           android:text="@string/button_upload_image"
+          android:layout_margin="20dp"
           android:textColor="@android:color/white"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:targetApi="lollipop"
+          app:layout_constraintBottom_toBottomOf="parent"
           />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -162,6 +108,6 @@
 
     </FrameLayout>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </FrameLayout>
 
 </layout>
