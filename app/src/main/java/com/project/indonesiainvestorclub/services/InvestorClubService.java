@@ -61,8 +61,9 @@ public interface InvestorClubService {
   @GET("invest/{id}")
   Observable<Response<JsonElement>> investRequest(@Path("id") String id);
 
-  @GET("invest/{id}")
-  Observable<Response<JsonElement>> postInvestRequest(@Path("id") String id, @Part("slot") RequestBody slot);
+  @Multipart
+  @POST("invest/{id}")
+  Observable<Response<GlobalResponse>> postInvestRequest(@Path("id") String id, @Part("slot") RequestBody slot);
 
   @GET("portfolio/{page}")
   Observable<Response<JsonElement>> portfolioRequest(@Path("page") int page);

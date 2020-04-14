@@ -15,6 +15,7 @@ import com.project.indonesiainvestorclub.databinding.InvestFundsActivityBinding;
 
 import com.project.indonesiainvestorclub.helper.DecimalHelper;
 import com.project.indonesiainvestorclub.helper.StringHelper;
+import com.project.indonesiainvestorclub.models.response.GlobalResponse;
 import com.project.indonesiainvestorclub.models.response.InvestSlotFundsRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
@@ -34,9 +35,6 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class InvestFundsViewModel extends BaseViewModelWithCallback {
-
-  private final static String INVEST_STATUS = "true";
-  private final static String INVEST_MESSAGE = "Successfully Order Investment";
 
   private InvestFundsActivityBinding binding;
   public ObservableBoolean loadingState;
@@ -195,12 +193,13 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
   @SuppressWarnings("unused")
   public void onClickInvest(View view) {
-    //    Toast.makeText(getContext(), "Invest Button", Toast.LENGTH_SHORT).show();
     postInvestSlot();
   }
 
   //API CALL
   private void postInvestSlot() {
+    loading(true);
+
     String strInvestSlotReplace = getInvestSlot().replaceAll("[-+.^:,]", "");
     RequestBody slot = RequestBody.create(MediaType.parse("text/plain"), strInvestSlotReplace);
 
@@ -208,33 +207,35 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
         ServiceGenerator.service.postInvestRequest(strInvestID.get(), slot)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this,
+            .subscribeWith(new CallbackWrapper<Response<GlobalResponse>>(this,
                 this::postInvestSlot) {
               @Override
-              protected void onSuccess(Response<JsonElement> investResponse) {
-                Toast.makeText(getContext(), "Selamat Anda Berhasil Invest", Toast.LENGTH_SHORT).show();
-                ((InvestFundsActivity) context).setResult(RESULT_OK);
-                ((InvestFundsActivity) context).finish();
+              protected void onSuccess(Response<GlobalResponse> investResponse) {
+                if (investResponse.body() != null){
+                  onSuccessInvestSlot(investResponse.body());
+                }
               }
 
-              @Override public void onNext(Response<JsonElement> investResResponse) {
+              @Override public void onNext(Response<GlobalResponse> investResResponse) {
                 super.onNext(investResResponse);
-                loading(false);
+                hideLoading();
+                if (!investResResponse.isSuccessful()){
+                  Toast.makeText(getContext(), investResResponse.message(), Toast.LENGTH_SHORT).show();
+                }
               }
             });
     compositeDisposable.add(disposable);
   }
 
-  private void onSuccessInvestSlot(InvestSlotFundsRes investSlotFundsRes) {
-    if (investSlotFundsRes != null
-        && investSlotFundsRes.getStatus().equalsIgnoreCase(INVEST_STATUS)
-        && investSlotFundsRes.getMessage().equalsIgnoreCase(INVEST_MESSAGE)) {
-      Toast.makeText(getContext(), "Selamat Anda Berhasil Invest", Toast.LENGTH_SHORT).show();
-      ((InvestFundsActivity) context).setResult(RESULT_OK);
-      ((InvestFundsActivity) context).finish();
-    } else {
-      Toast.makeText(getContext(), "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
-    }
+  private void onSuccessInvestSlot(GlobalResponse response) {
+    hideLoading();
+      if (response.getStatus()) {
+        Toast.makeText(getContext(), response.getMessage().replaceAll("[|]", ""), Toast.LENGTH_SHORT).show();
+        ((InvestFundsActivity)context).finish();
+      } else {
+        Toast.makeText(getContext(), "Terjadi kesalahan :\n" + response.getMessage(), Toast.LENGTH_SHORT).show();
+      }
+
   }
 
   @Override
