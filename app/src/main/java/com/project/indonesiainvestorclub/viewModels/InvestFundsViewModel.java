@@ -36,6 +36,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class InvestFundsViewModel extends BaseViewModelWithCallback {
 
+  private final static String INVEST_SUCCES_STATUS = "true";
+  private final static String INVEST_SUCCES_MESSAGE = "Successfully Order Investment";
+  private final static String INVEST_FAILED_STATUS = "false";
+  private final static String INVEST_FAILED_MESSAGE = "Please Deposit Your Investment";
+
   private InvestFundsActivityBinding binding;
   public ObservableBoolean loadingState;
   public ObservableField<String> mInvestSlot;

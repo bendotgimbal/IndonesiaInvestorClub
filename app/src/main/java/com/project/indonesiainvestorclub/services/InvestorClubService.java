@@ -2,6 +2,7 @@ package com.project.indonesiainvestorclub.services;
 
 import com.project.indonesiainvestorclub.models.Invest;
 import com.project.indonesiainvestorclub.models.response.GlobalResponse;
+import com.project.indonesiainvestorclub.models.response.InvestSlotFundsRes;
 import com.project.indonesiainvestorclub.models.response.LoginRes;
 import com.project.indonesiainvestorclub.models.response.LogoutRes;
 import com.project.indonesiainvestorclub.models.response.ProfileUpdateRes;
