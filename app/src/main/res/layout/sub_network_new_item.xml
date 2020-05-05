@@ -23,64 +23,78 @@
         android:background="@color/green_row_table">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{viewModel::onClickDownline}"
+            android:background="@drawable/square_radius_background"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp">
+
+          <androidx.appcompat.widget.AppCompatImageView
+              android:id="@+id/arrow_ic"
+              android:layout_width="25dp"
+              android:layout_height="30dp"
+              android:scaleType="fitXY"
+              app:srcCompat="@drawable/ic_keyboard_arrow_right_accent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/info_wrapper"
+              />
+
+          <LinearLayout
+              android:id="@+id/info_wrapper"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              app:layout_constraintStart_toEndOf="@id/arrow_ic"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/network_name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{viewModel::onClickDownline}"
-                android:padding="10dp">
+                android:text="@string/network_name_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="Name"
+                />
 
-                <TextView
-                    android:id="@+id/network_name_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/network_name_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Name"
-                    />
+            <TextView
+                android:id="@+id/network_name_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.name}"
+                tools:text="Name Value"
+                />
 
-                <TextView
-                    android:id="@+id/network_name_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.name}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/network_name_label"
-                    tools:text="Name Value"
-                    />
+            <TextView
+                android:id="@+id/lots_invest_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/lots_invest_label"
+                android:textColor="@color/colorPrimary"
+                tools:text="IIC FX 1 :"
+                />
 
-                <TextView
-                    android:id="@+id/lots_invest_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/lots_invest_label"
-                    android:textColor="@color/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/network_name_value"
-                    tools:text="IIC FX 1 :"
-                    />
+            <TextView
+                android:id="@+id/lots_invest_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.data}"
+                tools:text="IIC FX 1 Value :"
+                />
 
-                <TextView
-                    android:id="@+id/lots_invest_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.data}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lots_invest_label"
-                    tools:text="IIC FX 1 Value :"
-                    />
+          </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
             android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
             tools:visibility="gone"/>
 
@@ -94,18 +108,15 @@
                 android:id="@+id/downline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:overScrollMode="never"
                 android:visibility="@{viewModel.downlineActive ? View.VISIBLE : View.GONE}"
-                tools:listitem="@layout/sub_network_new_item"
-                tools:itemCount="5"
                 tools:visibility="visible"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:text="@string/hint_no_downline"
                 android:visibility="@{viewModel.downlineActive ? View.GONE : View.VISIBLE}"
                 tools:visibility="gone"/>
