@@ -247,23 +247,23 @@
               tools:text="No/Yes"
               />
 
-          <TextView
-              android:id="@+id/funds_acc_no_label"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="5dp"
-              android:text="@string/funds_acc_no_label"
-              android:textColor="@color/colorPrimary"
-              tools:text="Acc. No."
-              />
+<!--          <TextView-->
+<!--              android:id="@+id/funds_acc_no_label"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              android:layout_marginTop="5dp"-->
+<!--              android:text="@string/funds_acc_no_label"-->
+<!--              android:textColor="@color/colorPrimary"-->
+<!--              tools:text="Acc. No."-->
+<!--              />-->
 
-          <TextView
-              android:id="@+id/funds_cc_no_value"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@{viewModel.fundsCcNoValueTx}"
-              tools:text="0001234"
-              />
+<!--          <TextView-->
+<!--              android:id="@+id/funds_cc_no_value"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              android:text="@{viewModel.fundsCcNoValueTx}"-->
+<!--              tools:text="0001234"-->
+<!--              />-->
 
         </LinearLayout>
 
@@ -396,9 +396,43 @@
               tools:text="Bank AccNo Value"
               />
 
+          <TextView
+              android:id="@+id/funds_acc_no_label"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+              android:text="@string/funds_acc_no_label"
+              android:textColor="@color/colorPrimary"
+              tools:text="Acc. No."
+              />
+
+          <TextView
+              android:id="@+id/funds_cc_no_value"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@{viewModel.fundsCcNoValueTx}"
+              tools:text="0001234"
+              />
+
         </LinearLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <Button
+          android:id="@+id/investBtn"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:background="@drawable/square_radius_button"
+          android:onClick="@{viewModel::onButtonInvestClick}"
+          android:layout_margin="20dp"
+          android:elevation="0dp"
+          android:text="@string/invest_label"
+          android:textColor="@android:color/white"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/funds_info_wrapper"
+          tools:targetApi="lollipop"
+          />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

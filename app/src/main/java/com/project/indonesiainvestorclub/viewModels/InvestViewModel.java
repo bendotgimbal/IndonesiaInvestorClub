@@ -1,8 +1,10 @@
 package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
@@ -31,6 +33,7 @@ import com.project.indonesiainvestorclub.models.response.InvestRes;
 import com.project.indonesiainvestorclub.services.CallbackWrapper;
 import com.project.indonesiainvestorclub.services.ServiceGenerator;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.views.InvestFundsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -431,6 +434,12 @@ public class InvestViewModel extends BaseViewModelWithCallback
       participantTab.set(false);
       userTab.set(true);
     }
+  }
+
+  @SuppressWarnings("unused")
+  public void onButtonInvestClick(View view) {
+    Intent intent = new Intent(context, InvestFundsActivity.class);
+    Toast.makeText(getContext(), "Click Invest Button", Toast.LENGTH_SHORT).show();
   }
 
   @Override
