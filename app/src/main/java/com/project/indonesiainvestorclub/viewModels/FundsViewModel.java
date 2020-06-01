@@ -171,6 +171,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
   @SuppressWarnings("unused")
   public void onButtonMoreInfoClick(View view) {
     Intent intent = new Intent(context, InvestActivity.class);
+      intent.putExtra("investSlot", investSlot);
+      intent.putExtra("investIDRValue", investIDRValue);
     intent.putExtra("investId", investId);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
