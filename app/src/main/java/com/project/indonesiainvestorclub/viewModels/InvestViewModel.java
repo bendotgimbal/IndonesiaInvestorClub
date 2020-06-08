@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -46,6 +47,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static com.project.indonesiainvestorclub.views.MainActivity.FUND_MENU;
+
 public class InvestViewModel extends BaseViewModelWithCallback
     implements ActionInterface.AdapterItemListener<Invest> {
 
@@ -80,6 +83,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsUserStatusIDValueTx;
   public ObservableField<String> fundsUserStatusValueTx;
   public ObservableField<String> fundsUserWdIDValueTx;
+
+  public ObservableField<String> strInvestUSDValue;
+  public ObservableField<String> strInvestIDRValue;
+  public ObservableField<String> strInvestID;
 
   public ObservableField<String> previousDate;
   public ObservableField<String> previousInvest;
@@ -138,6 +145,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
     previousDate = new ObservableField<>("-");
     previousInvest = new ObservableField<>("-");
 
+    strInvestUSDValue = new ObservableField<>("0");
+    strInvestIDRValue = new ObservableField<>("0");
+    strInvestID = new ObservableField<>("0");
+
     fundsTab = new ObservableBoolean(true);
     performanceTab = new ObservableBoolean(false);
     participantTab = new ObservableBoolean(false);
@@ -183,8 +194,42 @@ public class InvestViewModel extends BaseViewModelWithCallback
     this.binding.yearColumn.addOnScrollListener(scrollListener);
   }
 
-  public void start(String id) {
+  public void start(String investSlot, String investIDRValue, String id) {
     getInvest(id);
+    strInvestUSDValue.set(investSlot);
+    strInvestIDRValue.set(investIDRValue);
+    strInvestID.set(id);
+    Log.d("Debug", "USD "
+            + getStrInvestUSDValue()
+            + " / "
+            + " IDR "
+            + getStrInvestIDRValue()
+            + " || "
+            + " ID "
+            + getStrInvestID());
+  }
+
+  public String getStrInvestUSDValue() {
+    if (strInvestUSDValue.get() == null) {
+      return "";
+    }
+    return strInvestUSDValue.get();
+  }
+
+  @SuppressWarnings("unused")
+  public String getStrInvestIDRValue() {
+    if (strInvestIDRValue.get() == null) {
+      return "";
+    }
+    return strInvestIDRValue.get();
+  }
+
+  @SuppressWarnings("unused")
+  public String getStrInvestID() {
+    if (strInvestID.get() == null) {
+      return "";
+    }
+    return strInvestID.get();
   }
 
   private void loading(boolean load) {
@@ -440,6 +485,22 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public void onButtonInvestClick(View view) {
     Intent intent = new Intent(context, InvestFundsActivity.class);
     Toast.makeText(getContext(), "Click Invest Button", Toast.LENGTH_SHORT).show();
+//    intent.putExtra("investSlot", strInvestUSDValue);
+//    intent.putExtra("investIDRValue", strInvestIDRValue);
+//    intent.putExtra("investId", strInvestID);
+    intent.putExtra("investSlot", getStrInvestUSDValue());
+    intent.putExtra("investIDRValue", getStrInvestIDRValue());
+    intent.putExtra("investId", getStrInvestID());
+    Log.d("Debug", "USD "
+            + getStrInvestUSDValue()
+            + " / "
+            + " IDR "
+            + getStrInvestIDRValue()
+            + " || "
+            + " ID "
+            + getStrInvestID());
+    Activity activity = (Activity) context;
+    activity.startActivityForResult(intent, FUND_MENU);
   }
 
   @Override
