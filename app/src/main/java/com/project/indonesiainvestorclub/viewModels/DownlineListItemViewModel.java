@@ -7,6 +7,7 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.JsonElement;
+import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.DownlineAdapter;
 import com.project.indonesiainvestorclub.databinding.SubNetworkNewItemBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
@@ -178,10 +179,12 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
 
     if (networkResNew == null) return;
     if (networkResNew.getNetwork().getNetworkDownline() == null || networkResNew.getNetwork().getNetworkDownline().size() <= 0){
+      binding.arrowIc.setImageResource(R.drawable.ic_parent_user_no_downline);
       downlineActive.set(false);
       return;
     }
 
+    binding.arrowIc.setImageResource(R.drawable.ic_parent_user);
     downlineAdapteradapter.setModels(networkResNew.getNetwork().getNetworkDownline());
     downlineAdapteradapter.notifyDataSetChanged();
   }
