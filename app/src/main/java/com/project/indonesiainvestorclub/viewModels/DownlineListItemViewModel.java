@@ -51,6 +51,8 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
     name = new ObservableField<>(downline.getName());
     data = new ObservableField<>(downline.getNetworkData().get(0).getPhrase());
 
+    binding.arrowIc.setImageResource(R.drawable.ic_child_user);
+
     downlineAdapteradapter = new DownlineAdapter();
 
     this.binding.downline.setLayoutManager(
