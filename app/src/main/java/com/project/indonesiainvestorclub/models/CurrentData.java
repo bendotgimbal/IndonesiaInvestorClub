@@ -38,12 +38,20 @@ public class CurrentData {
         this.date = date;
     }
 
+    public String getDateText(){
+        return "Date : " +getDate();
+    }
+
     public String getUserID() {
         return userid;
     }
 
     public void setUserID(String userid) {
         this.userid = userid;
+    }
+
+    public String getUserIDText(){
+        return "User ID : " +getUserID();
     }
 
     public String getName() {
@@ -62,8 +70,12 @@ public class CurrentData {
         return invest;
     }
 
+//    public String getInvestText(){
+//        return "Invest : "+getInvest();
+//    }
+
     public String getInvestText(){
-        return "Invest : "+getInvest();
+        return "Total invest : " +getInvest();
     }
 
     public void setInvest(String invest) {
@@ -78,6 +90,10 @@ public class CurrentData {
         this.statusid = statusid;
     }
 
+    public String getUserIDValueText(){
+        return "User ID Status : " +getStatusID();
+    }
+
     public String getStatus() {
         return status;
     }
@@ -86,11 +102,19 @@ public class CurrentData {
         this.status = status;
     }
 
+    public String getStatusText(){
+        return "Status Payment : " + getStatus();
+    }
+
     public String getWdID() {
         return wdid;
     }
 
     public void setWdID(String wdid) {
         this.wdid = wdid;
+    }
+
+    public String getWdIDText(){
+        return "WD ID : " + getWdID();
     }
 }

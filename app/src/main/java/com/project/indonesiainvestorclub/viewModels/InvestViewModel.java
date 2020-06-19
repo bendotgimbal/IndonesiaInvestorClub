@@ -18,6 +18,7 @@ import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.ParticipantAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceAdapter;
 import com.project.indonesiainvestorclub.adapter.PerformanceYearAdapter;
+import com.project.indonesiainvestorclub.adapter.UserAdapter;
 import com.project.indonesiainvestorclub.databinding.InvestActivityBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.BankFundInvest;
@@ -104,6 +105,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private PerformanceAdapter performanceAdapter;
   private ParticipantAdapter participantAdapter;
   private PerformanceYearAdapter performanceYearAdapter;
+  private UserAdapter userAdapter;
 
   public InvestViewModel(Context context, InvestActivityBinding binding) {
     super(context);
@@ -169,6 +171,10 @@ public class InvestViewModel extends BaseViewModelWithCallback
     this.binding.participantList.setLayoutManager(
         new GridLayoutManager(getContext(), 2));
     this.binding.participantList.setAdapter(participantAdapter);
+
+//    this.binding.userList.setLayoutManager(
+//            new GridLayoutManager(getContext(), 2));
+//    this.binding.userList.setAdapter(userAdapter);
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
       @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -425,13 +431,20 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsBankNameValueTx.set(investRes.getFunds().getBankFundInvest().getName());
     fundsBankAccNameValueTx.set(investRes.getFunds().getBankFundInvest().getAccName());
     fundsBankAccNoValueTx.set(investRes.getFunds().getBankFundInvest().getAccNo());
-    fundsUserDateValueTx.set(investRes.getUser().get(0).getDate());
-    fundsUserIDValueTx.set(investRes.getUser().get(0).getUserID());
-    fundsUserNameValueTx.set(investRes.getUser().get(0).getName());
-    fundsUserInvestValueTx.set(investRes.getUser().get(0).getInvest());
-    fundsUserStatusIDValueTx.set(investRes.getUser().get(0).getStatusID());
-    fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatus());
-    fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdID());
+//    fundsUserDateValueTx.set(investRes.getUser().get(0).getDate());
+    fundsUserDateValueTx.set(investRes.getUser().get(0).getDateText());
+//    fundsUserIDValueTx.set(investRes.getUser().get(0).getUserID());
+    fundsUserIDValueTx.set(investRes.getUser().get(0).getUserIDText());
+//    fundsUserNameValueTx.set(investRes.getUser().get(0).getName());
+    fundsUserNameValueTx.set(investRes.getUser().get(0).getNameText());
+//    fundsUserInvestValueTx.set(investRes.getUser().get(0).getInvest());
+    fundsUserInvestValueTx.set(investRes.getUser().get(0).getInvestText());
+//    fundsUserStatusIDValueTx.set(investRes.getUser().get(0).getStatusID());
+    fundsUserStatusIDValueTx.set(investRes.getUser().get(0).getUserIDValueText());
+//    fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatus());
+    fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatusText());
+//    fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdID());
+    fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdIDText());
 
     previousDate.set(investRes.getParticipant().getParticipantInvestPrevious().getDateText());
     previousInvest.set(investRes.getParticipant().getParticipantInvestPrevious().getInvestText());

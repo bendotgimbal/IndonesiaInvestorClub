@@ -4,6 +4,8 @@ import com.project.indonesiainvestorclub.models.CurrentData;
 import com.project.indonesiainvestorclub.models.FundInvest;
 import com.project.indonesiainvestorclub.models.Invest;
 import com.project.indonesiainvestorclub.models.ParticipantInvest;
+import com.project.indonesiainvestorclub.models.UserDetailInvest;
+
 import java.util.List;
 
 public class InvestRes {
@@ -11,6 +13,7 @@ public class InvestRes {
   private FundInvest funds;
   private ParticipantInvest participant;
   private List<CurrentData> user;
+  private UserDetailInvest userInvest;
 
   public InvestRes(Invest invests, FundInvest funds,
       ParticipantInvest participant,
@@ -51,5 +54,13 @@ public class InvestRes {
 
   public void setUser(List<CurrentData> user) {
     this.user = user;
+  }
+
+  public UserDetailInvest getUserDetailInvest() {
+    return userInvest;
+  }
+
+  public void setUserDetailInvest(UserDetailInvest participant) {
+    this.userInvest = userInvest;
   }
 }
