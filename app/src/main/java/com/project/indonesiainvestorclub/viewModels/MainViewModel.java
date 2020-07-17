@@ -73,14 +73,17 @@ public class MainViewModel extends BaseViewModelWithCallback {
   }
 
   private void menuVisible(boolean visible) {
-    binding.navView.getMenu().findItem(R.id.nav_about).setVisible(visible);
+//    binding.navView.getMenu().findItem(R.id.nav_about).setVisible(visible);
+    binding.navView.getMenu().findItem(R.id.nav_network).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_profile).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_transaction).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_portfolio).setVisible(visible);
     if (SharedPreferenceHelper.isUserMarketing()){
-      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(true);
+//      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(true);
+      binding.navView.getMenu().findItem(R.id.nav_about).setVisible(true);
     }else {
-      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(false);
+//      binding.navView.getMenu().findItem(R.id.nav_network).setVisible(false);
+      binding.navView.getMenu().findItem(R.id.nav_about).setVisible(false);
     }
     binding.navView.getMenu().findItem(R.id.nav_lounge).setVisible(visible);
     binding.navView.getMenu().findItem(R.id.nav_agreement).setVisible(visible);

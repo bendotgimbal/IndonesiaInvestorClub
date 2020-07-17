@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ExpandableListView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
@@ -15,9 +17,15 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.project.indonesiainvestorclub.R;
+import com.project.indonesiainvestorclub.adapter.ExpandableListAdapter;
 import com.project.indonesiainvestorclub.databinding.ActivityMainBinding;
 import com.project.indonesiainvestorclub.databinding.NavHeaderMainBinding;
+import com.project.indonesiainvestorclub.models.MenuModel;
 import com.project.indonesiainvestorclub.viewModels.MainViewModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -25,6 +33,11 @@ public class MainActivity extends BaseActivity {
   private NavHeaderMainBinding navHeaderMainBinding;
   private MainViewModel viewModel;
   private AppBarConfiguration appBarConfiguration;
+
+  ExpandableListAdapter expandableListAdapter;
+  ExpandableListView expandableListView;
+  List<MenuModel> headerList = new ArrayList<>();
+  HashMap<MenuModel, List<MenuModel>> childList = new HashMap<>();
 
   public static final int REQ_LOGIN = 1001;
   public static final int REQ_SIGNUP = 1002;
@@ -34,6 +47,9 @@ public class MainActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setSupportActionBar(binding.appbar.toolbar);
+
+    expandableListView = findViewById(R.id.expandableListView);
+
     initDrawerIcon();
 
     initAppBarConfiguration();

@@ -9,8 +9,8 @@ android {
         applicationId "com.project.indonesiainvestorclub"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 5
-        versionName "1.2.1"
+        versionCode 6
+        versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -35,8 +35,8 @@ android {
         javaMaxHeapSize "4g"
     }
     lintOptions {
-        checkReleaseBuilds true
-        abortOnError true
+        checkReleaseBuilds false
+        abortOnError false
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
