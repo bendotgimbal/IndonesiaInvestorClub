@@ -28,8 +28,8 @@ android {
             ext.enableCrashlytics = false
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
     dexOptions {
         javaMaxHeapSize "4g"
