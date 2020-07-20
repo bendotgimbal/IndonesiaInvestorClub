@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.project.indonesiainvestorclub.viewModels.InvestViewModel"
+        />
+    <import type="android.view.View" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/participant_info_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="15dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="15dp"
+          android:text="@string/previous_label"
+          android:textColor="@color/colorPrimary"
+          android:textSize="14sp"
+          />
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="15dp"
+          android:layout_marginEnd="15dp"
+          android:background="@drawable/square_radius_background"
+          android:elevation="1dp"
+          android:padding="10dp"
+          tools:targetApi="lollipop"
+          >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="@{viewModel.previousDate}"
+            android:textSize="14sp"
+            tools:text="01-01-1999"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@{viewModel.previousInvest}"
+            android:textSize="14sp"
+            tools:text="2000 USD"
+            />
+
+
+      </FrameLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="15dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="15dp"
+          android:text="@string/current_label"
+          android:textColor="@color/colorPrimary"
+          android:textSize="14sp"
+          />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/participantList"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="15dp"
+          android:layout_marginEnd="15dp"
+          android:overScrollMode="never"
+          tools:itemCount="2"
+          tools:listitem="@layout/sub_participant_item"
+          />
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

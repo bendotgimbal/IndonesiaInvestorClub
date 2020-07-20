@@ -17,9 +17,6 @@ public class InvestActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-//    if (getIntent().hasExtra("investId")) {
-//      investModel.start(getIntent().getStringExtra("investId"));
-//    }
     if (getIntent().hasExtra("investSlot") && getIntent().hasExtra("investIDRValue") && getIntent().hasExtra("investId")) {
       investModel.start(getIntent().getStringExtra("investSlot"), getIntent().getStringExtra("investIDRValue"), getIntent().getStringExtra("investId"));
     }

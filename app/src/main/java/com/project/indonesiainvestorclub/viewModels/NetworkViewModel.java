@@ -108,6 +108,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
       JSONObject objectNetworkNew = jsonObjectNetworkNew.getJSONObject("Networks");
       String networkId = objectNetworkNew.getString("ID");
       Log.d("Debug", "Network ID " + networkId);
+
+      String usd = "";
+      String idr = "";
+
       List<NetworkData> networkDataList = new ArrayList<>();
 
       JSONObject dataObj = objectNetworkNew.getJSONObject("Data");
@@ -157,13 +161,18 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
         downlinelist.add(networkDownline);
       }
 
+      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
+        usd = objectNetworkNew.getString("Commission(USD)");
+        idr = objectNetworkNew.getString("Commission(IDR)");
+      }
+
       Network network = new Network(
           objectNetworkNew.getString("ID"),
           objectNetworkNew.getString("UplineID"),
           objectNetworkNew.getString("Name"),
           networkDataList,
-          objectNetworkNew.getString("Commission(USD)"),
-          objectNetworkNew.getString("Commission(IDR)"),
+          usd,
+          idr,
           downlinelist
       );
 

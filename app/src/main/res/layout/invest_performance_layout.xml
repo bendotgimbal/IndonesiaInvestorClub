@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <data>
+    <variable
+        name="viewModel"
+        type="com.project.indonesiainvestorclub.viewModels.InvestViewModel"
+        />
+    <import type="android.view.View" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_table_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/yearTable"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            >
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/january_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/february_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/march_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/april_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/may_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/june_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/july_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/august_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/september_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/ocktober_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/november_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/december_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+          <TextView
+              android:layout_width="80dp"
+              android:layout_height="match_parent"
+              android:gravity="center|start"
+              android:padding="15dp"
+              android:text="@string/ytd_label"
+              android:textColor="@android:color/white"
+              android:textSize="14sp"
+              />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/table_performance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            tools:itemCount="3"
+            tools:listitem="@layout/sub_performance_table"
+            />
+
+      </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/yearTable"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginStart="12dp"
+          android:layout_marginLeft="12dp"
+          android:background="@color/colorPrimary"
+          android:gravity="center|start"
+          android:padding="15dp"
+          android:text="@string/year_label"
+          android:textColor="@android:color/white"
+          android:textSize="14sp"
+          />
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/year_column"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:overScrollMode="never"
+          tools:itemCount="3"
+          tools:listitem="@layout/sub_fixed_column"
+          />
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -160,44 +160,42 @@ public class InvestViewModel extends BaseViewModelWithCallback
     participantAdapter = new ParticipantAdapter();
     performanceYearAdapter = new PerformanceYearAdapter();
 
-    this.binding.tablePerformance.setLayoutManager(
+    this.binding.investPerformance.tablePerformance.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    this.binding.tablePerformance.setAdapter(performanceAdapter);
+    this.binding.investPerformance.tablePerformance.setAdapter(performanceAdapter);
 
-    this.binding.yearColumn.setLayoutManager(
+    this.binding.investPerformance.yearColumn.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    this.binding.yearColumn.setAdapter(performanceYearAdapter);
+    this.binding.investPerformance.yearColumn.setAdapter(performanceYearAdapter);
 
-    this.binding.participantList.setLayoutManager(
-        new GridLayoutManager(getContext(), 2));
-    this.binding.participantList.setAdapter(participantAdapter);
-
-//    this.binding.userList.setLayoutManager(
-//            new GridLayoutManager(getContext(), 2));
-//    this.binding.userList.setAdapter(userAdapter);
+    //this.binding.investParticipant.participantList.setLayoutManager(
+    //    new GridLayoutManager(getContext(), 2));
+    this.binding.investParticipant.participantList.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    this.binding.investParticipant.participantList.setAdapter(participantAdapter);
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
       @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        if (binding.tablePerformance == recyclerView
+        if (binding.investPerformance.tablePerformance == recyclerView
             && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
           draggingView = 1;
-        } else if (binding.yearColumn == recyclerView
+        } else if (binding.investPerformance.yearColumn == recyclerView
             && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
           draggingView = 2;
         }
       }
 
       @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-        if (draggingView == 1 && recyclerView == binding.tablePerformance) {
-          binding.yearColumn.scrollBy(dx, dy);
-        } else if (draggingView == 2 && recyclerView == binding.yearColumn) {
-          binding.tablePerformance.scrollBy(dx, dy);
+        if (draggingView == 1 && recyclerView == binding.investPerformance.tablePerformance) {
+          binding.investPerformance.yearColumn.scrollBy(dx, dy);
+        } else if (draggingView == 2 && recyclerView == binding.investPerformance.yearColumn) {
+          binding.investPerformance.tablePerformance.scrollBy(dx, dy);
         }
       }
     };
 
-    this.binding.tablePerformance.addOnScrollListener(scrollListener);
-    this.binding.yearColumn.addOnScrollListener(scrollListener);
+    this.binding.investPerformance.tablePerformance.addOnScrollListener(scrollListener);
+    this.binding.investPerformance.yearColumn.addOnScrollListener(scrollListener);
   }
 
   public void start(String investSlot, String investIDRValue, String id) {
@@ -373,16 +371,16 @@ public class InvestViewModel extends BaseViewModelWithCallback
       JSONObject objectUser = jsonObject.getJSONObject("User");
       List<CurrentData> users = new ArrayList<>();
       for (int i = 1; i <= objectUser.length(); i++) {
-        JSONObject objCurrent = participantCurrentObj.getJSONObject(i + "");
+        JSONObject objUser = objectUser.getJSONObject(i + "");
 
         CurrentData currentData = new CurrentData(
-            objCurrent.getString("Date"),
-            objCurrent.getString("UserID"),
-            objCurrent.getString("Name"),
-            objCurrent.getString("Invest"),
-            objCurrent.getString("StatusID"),
-            objCurrent.getString("Status"),
-            objCurrent.getString("WdID")
+            objUser.getString("Date"),
+            objUser.getString("UserID"),
+            objUser.getString("Name"),
+            objUser.getString("Invest"),
+            objUser.getString("StatusID"),
+            objUser.getString("Status"),
+            objUser.getString("WdID")
         );
 
         users.add(currentData);
@@ -431,19 +429,13 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsBankNameValueTx.set(investRes.getFunds().getBankFundInvest().getName());
     fundsBankAccNameValueTx.set(investRes.getFunds().getBankFundInvest().getAccName());
     fundsBankAccNoValueTx.set(investRes.getFunds().getBankFundInvest().getAccNo());
-//    fundsUserDateValueTx.set(investRes.getUser().get(0).getDate());
+
     fundsUserDateValueTx.set(investRes.getUser().get(0).getDateText());
-//    fundsUserIDValueTx.set(investRes.getUser().get(0).getUserID());
     fundsUserIDValueTx.set(investRes.getUser().get(0).getUserIDText());
-//    fundsUserNameValueTx.set(investRes.getUser().get(0).getName());
     fundsUserNameValueTx.set(investRes.getUser().get(0).getNameText());
-//    fundsUserInvestValueTx.set(investRes.getUser().get(0).getInvest());
     fundsUserInvestValueTx.set(investRes.getUser().get(0).getInvestText());
-//    fundsUserStatusIDValueTx.set(investRes.getUser().get(0).getStatusID());
     fundsUserStatusIDValueTx.set(investRes.getUser().get(0).getUserIDValueText());
-//    fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatus());
     fundsUserStatusValueTx.set(investRes.getUser().get(0).getStatusText());
-//    fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdID());
     fundsUserWdIDValueTx.set(investRes.getUser().get(0).getWdIDText());
 
     previousDate.set(investRes.getParticipant().getParticipantInvestPrevious().getDateText());
@@ -498,9 +490,6 @@ public class InvestViewModel extends BaseViewModelWithCallback
   public void onButtonInvestClick(View view) {
     Intent intent = new Intent(context, InvestFundsActivity.class);
     Toast.makeText(getContext(), "Click Invest Button", Toast.LENGTH_SHORT).show();
-//    intent.putExtra("investSlot", strInvestUSDValue);
-//    intent.putExtra("investIDRValue", strInvestIDRValue);
-//    intent.putExtra("investId", strInvestID);
     intent.putExtra("investSlot", getStrInvestUSDValue());
     intent.putExtra("investIDRValue", getStrInvestIDRValue());
     intent.putExtra("investId", getStrInvestID());
