@@ -44,7 +44,7 @@
         android:layout_gravity="center"
         android:background="@drawable/square_radius_top_background"
         android:orientation="vertical"
-        android:padding="40dp"
+        android:padding="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,8 @@
           android:id="@+id/btnLogin"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@color/colorPrimary"
+          android:layout_marginTop="20dp"
+          android:background="@color/colorAccent"
           android:onClick="@{viewModel::onClickLogin}"
           android:text="@string/label_login"
           android:textColor="@android:color/white"
@@ -113,6 +114,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/hint_register"
+          android:layout_marginRight="5dp"
+          android:layout_marginEnd="5dp"
           tools:text="Belum memiliki akun? "
           android:gravity="end"/>
 
@@ -124,7 +127,7 @@
           android:focusable="true"
           tools:text="Sign Up"
           android:text="@string/label_register"
-          android:textColor="@color/colorPrimary"
+          android:textColor="@color/colorAccent"
           android:onClick="@{viewModel::onButtonSignUpClick}"
           android:gravity="start"/>
 

@@ -44,7 +44,7 @@
           android:layout_marginStart="15dp"
           android:layout_marginEnd="15dp"
           android:background="@drawable/square_radius_background"
-          android:elevation="1dp"
+          android:elevation="2dp"
           android:padding="10dp"
           tools:targetApi="lollipop"
           >
@@ -56,6 +56,7 @@
             android:text="@{viewModel.previousDate}"
             android:textSize="14sp"
             tools:text="01-01-1999"
+            android:textStyle="bold"
             />
 
         <TextView

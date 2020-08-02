@@ -117,4 +117,8 @@ public class CurrentData {
     public String getWdIDText(){
         return "WD ID : " + getWdID();
     }
+
+    public boolean colourIndex(){
+        return getIndex() % 2 == 0;
+    }
 }

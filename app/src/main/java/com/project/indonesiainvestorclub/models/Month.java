@@ -159,10 +159,6 @@ public class Month {
     }
 
     public boolean colourIndex(){
-        if (getIndex()%2 == 0){
-            return true;
-        }
-
-        return false;
+        return getIndex() % 2 == 0;
     }
 }
