@@ -179,7 +179,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
     String strCharText = String.valueOf(s).replace(",", "");
     String strReplaceUSDValue = getStrInvestUSDValue().replaceAll("[@, USD]", "");
     String strReplaceIDRValue =
-        getStrInvestIDRValue().replaceAll("[Rp,. ID]", "").replace(".", " ");
+        getStrInvestIDRValue().replaceAll("[Rp,. ID@]", "").replace(".", " ");
 
     String strInputReplace = strCharText;
 

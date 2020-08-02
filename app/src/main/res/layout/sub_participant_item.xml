@@ -12,12 +12,12 @@
   </data>
 
   <androidx.cardview.widget.CardView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="3dp">
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:orientation="vertical"
