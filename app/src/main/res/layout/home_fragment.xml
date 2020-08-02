@@ -47,7 +47,7 @@
           android:layout_marginLeft="20dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/horizontal_table_view"
+          app:layout_constraintBottom_toTopOf="@id/paging"
           />
 
       <TextView
@@ -62,7 +62,50 @@
           android:layout_marginLeft="8dp"
           app:layout_constraintStart_toEndOf="@id/performance_icon"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/horizontal_table_view"/>
+          app:layout_constraintBottom_toTopOf="@id/paging"/>
+
+      <LinearLayout
+          android:id="@+id/paging"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:visibility="@{viewModel.pageVisibility}"
+          app:layout_constraintTop_toBottomOf="@id/performance_icon"
+          app:layout_constraintBottom_toTopOf="@id/horizontal_table_view"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickPrevious}"
+            android:visibility="@{viewModel.page == 1 ? View.INVISIBLE : View.VISIBLE}"
+            app:srcCompat="@drawable/ic_baseline_arrow_left"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@{viewModel.pageText}"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            tools:text="2/2"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickNext}"
+            android:visibility="@{viewModel.page == viewModel.pages ? View.INVISIBLE : View.VISIBLE}"
+            app:srcCompat="@drawable/ic_baseline_arrow_right"
+            android:layout_weight="1"/>
+
+      </LinearLayout>
 
       <HorizontalScrollView
           android:id="@+id/horizontal_table_view"
@@ -216,7 +259,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center|start"
                 android:padding="15dp"
-                android:text="@string/ytd_label"
+                android:text="@{viewModel.percentageText}"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"

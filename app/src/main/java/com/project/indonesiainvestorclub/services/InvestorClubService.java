@@ -51,8 +51,8 @@ public interface InvestorClubService {
   @GET("profile")
   Observable<Response<JsonElement>> profileRequest();
 
-  @GET("public/performance")
-  Observable<Response<JsonElement>> performanceRequest();
+  @GET("public/performance/{page}")
+  Observable<Response<JsonElement>> performanceRequest(@Path("page") int page);
 
   @GET("public/about")
   Observable<Response<JsonElement>> aboutRequest();

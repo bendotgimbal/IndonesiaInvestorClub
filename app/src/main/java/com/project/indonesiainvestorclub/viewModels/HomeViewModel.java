@@ -2,9 +2,12 @@ package com.project.indonesiainvestorclub.viewModels;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.indonesiainvestorclub.R;
@@ -36,6 +39,13 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
   private HomeFragmentBinding binding;
   public ObservableBoolean loadingState;
+
+  public ObservableInt pageVisibility;
+  public ObservableField<String> pageText;
+  public ObservableInt page;
+  public ObservableInt pages;
+  public ObservableField<String> percentageText;
+
   public ObservableField<String> titlePerformance;
   private PerformanceAdapter performanceAdapter;
   private PerformanceYearAdapter performanceYearAdapter;
@@ -48,6 +58,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
     loadingState = new ObservableBoolean(false);
     titlePerformance = new ObservableField<>("");
+
+    pageVisibility = new ObservableInt(View.GONE);
+    pageText = new ObservableField<>("");
+    page = new ObservableInt(1);
+    pages = new ObservableInt(1);
+    percentageText = new ObservableField<>("YTD");
 
     performanceAdapter = new PerformanceAdapter();
     performanceYearAdapter = new PerformanceYearAdapter();
@@ -98,7 +114,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
   private void getPerformance() {
     loading(true);
 
-    Disposable disposable = ServiceGenerator.service.performanceRequest()
+    Disposable disposable = ServiceGenerator.service.performanceRequest(page.get())
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getPerformance) {
@@ -118,13 +134,17 @@ public class HomeViewModel extends BaseViewModelWithCallback
       PerformanceRes performanceRes = new PerformanceRes();
 
       jsonObject = new JSONObject(response.toString());
+
+      int page = jsonObject.getInt("Page");
+      int pages = jsonObject.getInt("Pages");
       JSONObject object = jsonObject.getJSONObject("Performances");
 
       List<Performance> performances = new ArrayList<>();
       List<Month> monthList = new ArrayList<>();
 
-      for (int i = 1; i <= object.length(); i++) {
-        JSONObject obj = object.getJSONObject(i + "");
+//      for (int i = 1; i <= object.length(); i++) {
+//        JSONObject obj = object.getJSONObject(i + "");
+      JSONObject obj = object.getJSONObject(page +"");
         Performance performance;
         Datas data;
 
@@ -133,6 +153,15 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
+
+          String percentage;
+          if (obj1.has("YTD")){
+            percentage = obj1.getString("YTD");
+            percentageText.set("YTD");
+          }else {
+            percentage = obj1.getString("YTO");
+            percentageText.set("YTO");
+          }
 
           Month month = new Month(
               obj1.getString("YEAR"),
@@ -148,7 +177,7 @@ public class HomeViewModel extends BaseViewModelWithCallback
               obj1.getString("Oct"),
               obj1.getString("Nov"),
               obj1.getString("Dec"),
-              obj1.getString("YTD")
+              percentage
           );
           monthList.add(month);
         }
@@ -157,9 +186,9 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
         performance = new Performance(name, data);
         performances.add(performance);
-      }
+//      }
 
-      performanceRes.setPerformances(performances);
+      performanceRes.setPerformances(page, pages, performances);
 
       showPerformanceTable(performanceRes);
 
@@ -171,6 +200,12 @@ public class HomeViewModel extends BaseViewModelWithCallback
   }
 
   private void showPerformanceTable(PerformanceRes performanceRes) {
+    if (performanceRes.getPages() > 1) {
+      pageVisibility.set(View.VISIBLE);
+      pageText.set(performanceRes.getPage() +"/"+ performanceRes.getPages());
+      page.set(performanceRes.getPage());
+      pages.set(performanceRes.getPages());
+    }
     titlePerformance.set(performanceRes.getPerformances().get(0).getNameText());
     performanceAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
     performanceYearAdapter.setModels(performanceRes.getPerformances().get(0).getData().getMonths());
@@ -184,5 +219,17 @@ public class HomeViewModel extends BaseViewModelWithCallback
 
   @Override public void onClickAdapterItem(int index, Month model) {
 
+  }
+
+  public void onClickPrevious(View view){
+    if (page.get() == 1) return;
+    page.set(page.get()-1);
+    getPerformance();
+  }
+
+  public void onClickNext(View view){
+    if (page.get() == pages.get()) return;
+    page.set(page.get()+1);
+    getPerformance();
   }
 }

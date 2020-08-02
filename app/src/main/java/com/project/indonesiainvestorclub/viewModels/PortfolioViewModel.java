@@ -157,6 +157,10 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
       PerformanceRes performanceRes = new PerformanceRes();
 
       jsonObject = new JSONObject(response.toString());
+
+      int page = jsonObject.getInt("Page");
+      int pages = jsonObject.getInt("Pages");
+
       JSONObject object = jsonObject.getJSONObject("Performances");
 
       List<Performance> performances = new ArrayList<>();
@@ -198,7 +202,7 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         performances.add(performance);
       }
 
-      performanceRes.setPerformances(performances);
+      performanceRes.setPerformances(page, pages, performances);
 
       showPerformanceTable(performanceRes);
     } catch (JSONException e) {
