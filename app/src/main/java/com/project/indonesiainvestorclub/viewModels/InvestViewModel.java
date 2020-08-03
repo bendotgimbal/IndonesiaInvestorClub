@@ -238,7 +238,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
   }
 
   public void start(String investSlot, String investIDRValue, String id, String pages) {
-    getInvest(id);
+//    getInvest(id);
 //    getSecondFunds(pages);
     getFunds();
     strInvestUSDValue.set(investSlot);
@@ -250,7 +250,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
             + " IDR "
             + getStrInvestIDRValue()
             + " || "
-            + " ID "
+            + " ID this page "
             + getStrInvestID());
     strPages.set(pages);
     Log.d("Debug", "page = "+getStrPages());
@@ -498,7 +498,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
       jsonObject = new JSONObject(response.toString());
       pageFirst = jsonObject.getInt("Page");
       pagesTotal = jsonObject.getString("Pages");
-      Log.d("Debug", "page = "+pageFirst+" || pages = "+pagesTotal);
+      Log.d("Debug", "this page = "+pageFirst+" || pages = "+pagesTotal);
 //      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
 
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
@@ -555,7 +555,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
       jsonObject = new JSONObject(response.toString());
       page = jsonObject.getInt("Page");
       pages = jsonObject.getString("Pages");
-      Log.d("Debug", "page = "+page+" || pages = "+pages);
+      Log.d("Debug", "this page = "+page+" || pages = "+pages);
 //      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
 
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
@@ -729,15 +729,15 @@ public class InvestViewModel extends BaseViewModelWithCallback
     Toast.makeText(getContext(), "Click Invest Button", Toast.LENGTH_SHORT).show();
     intent.putExtra("investSlot", getStrInvestUSDValue());
     intent.putExtra("investIDRValue", getStrInvestIDRValue());
-    intent.putExtra("investId", getStrInvestID());
-    Log.d("Debug", "USD "
+    intent.putExtra("investId", String.valueOf(pageFirst));
+    Log.d("Debug", "2nd Invest - USD "
             + getStrInvestUSDValue()
             + " / "
             + " IDR "
             + getStrInvestIDRValue()
             + " || "
-            + " ID "
-            + getStrInvestID());
+            + " ID For Invest "
+            + pageFirst);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
   }

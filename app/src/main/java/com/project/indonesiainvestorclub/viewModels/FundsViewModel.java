@@ -155,7 +155,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
       jsonObject = new JSONObject(response.toString());
       pageFirst = jsonObject.getInt("Page");
       pagesTotal = jsonObject.getString("Pages");
-      Log.d("Debug", "page = "+pageFirst+" || pages = "+pagesTotal);
+      Log.d("Debug", "this page = "+pageFirst+" || pages = "+pagesTotal);
 //      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
 
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
@@ -312,7 +312,15 @@ public class FundsViewModel extends BaseViewModelWithCallback
     intent.putExtra("investSlot", investSlot);
     intent.putExtra("investIDRValue", investIDRValue);
 //      intent.putExtra("investId", investId);
-    intent.putExtra("investId", 1);
+    intent.putExtra("investId", String.valueOf(pageSecond));
+    Log.d("Debug", "1st Invest - USD "
+            + investSlot
+            + " / "
+            + " IDR "
+            + investIDRValue
+            + " || "
+            + " ID For Invest "
+            + pageSecond);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
 //    Toast.makeText(getContext(), "Result "+investSlot+" || "+investIDRValue+" || "+investId, Toast.LENGTH_SHORT).show();

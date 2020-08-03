@@ -128,7 +128,7 @@ public class InvestFundsViewModel extends BaseViewModelWithCallback {
         + " IDR "
         + getStrInvestIDRValue()
         + " || "
-        + " ID "
+        + " ID Page Invest "
         + getStrInvestID());
   }
 
