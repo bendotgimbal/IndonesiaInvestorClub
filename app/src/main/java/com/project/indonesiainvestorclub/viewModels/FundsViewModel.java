@@ -3,6 +3,7 @@ package com.project.indonesiainvestorclub.viewModels;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
   private String investId;
   private String investSlot;
   private String investIDRValue;
+  private int page;
+  private String pages;
 
   public FundsViewModel(Context context, FundsFragmentBinding binding) {
     super(context);
@@ -106,6 +109,11 @@ public class FundsViewModel extends BaseViewModelWithCallback
       FundsRes fundsRes;
 
       jsonObject = new JSONObject(response.toString());
+      page = jsonObject.getInt("Page");
+      pages = jsonObject.getString("Pages");
+      Log.d("Debug", "page = "+page+" || pages = "+pages);
+//      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
+
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
 
       List<Funds> fundsList = new ArrayList<>();
@@ -174,6 +182,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
       intent.putExtra("investSlot", investSlot);
       intent.putExtra("investIDRValue", investIDRValue);
     intent.putExtra("investId", investId);
+    intent.putExtra("Pages", pages);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
   }
