@@ -51,11 +51,24 @@ public class FundsViewModel extends BaseViewModelWithCallback
   public ObservableField<String> fundsInvestorPassValueTx;
   public ObservableField<String> fundsServerValueTx;
 
+  //SecondFunds
+  public ObservableField<String> fundsSecondNameLabelTx;
+  public ObservableField<String> fundsSecondTypeValueTx;
+  public ObservableField<String> fundsSecondEquityProgressValueTx;
+  public ObservableField<String> fundsSecondSlotsValueTx;
+  public ObservableField<String> fundsSecondRoiValueTx;
+  public ObservableField<String> fundsSecondCompoundingValueTx;
+  public ObservableField<String> fundsSecondYouInvestValueTx;
+  public ObservableField<String> fundsSecondCcNoValueTx;
+  public ObservableField<String> fundsSecondInvestorPassValueTx;
+  public ObservableField<String> fundsSecondServerValueTx;
+
   private String investId;
   private String investSlot;
   private String investIDRValue;
-  private int page;
-  private String pages;
+  private int pageFirst;
+  private int pageSecond;
+  private String pagesTotal;
 
   public FundsViewModel(Context context, FundsFragmentBinding binding) {
     super(context);
@@ -73,11 +86,24 @@ public class FundsViewModel extends BaseViewModelWithCallback
     fundsInvestorPassValueTx = new ObservableField<>("-");
     fundsServerValueTx = new ObservableField<>("-");
 
+    //SecondFunds
+    fundsSecondNameLabelTx = new ObservableField<>("-");
+    fundsSecondTypeValueTx = new ObservableField<>("-");
+    fundsSecondEquityProgressValueTx = new ObservableField<>("-");
+    fundsSecondSlotsValueTx = new ObservableField<>("-");
+    fundsSecondRoiValueTx = new ObservableField<>("-");
+    fundsSecondCompoundingValueTx = new ObservableField<>("-");
+    fundsSecondYouInvestValueTx = new ObservableField<>("-");
+    fundsSecondCcNoValueTx = new ObservableField<>("-");
+    fundsSecondInvestorPassValueTx = new ObservableField<>("-");
+    fundsSecondServerValueTx = new ObservableField<>("-");
+
     start();
   }
 
   private void start() {
     getFunds();
+//    getSecondFunds();
   }
 
   private void loading(boolean load) {
@@ -103,15 +129,33 @@ public class FundsViewModel extends BaseViewModelWithCallback
     compositeDisposable.add(disposable);
   }
 
+  private void getSecondFunds() {
+    loading(true);
+
+    Disposable disposable = ServiceGenerator.service.fundsSecondRequest(pagesTotal)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getSecondFunds) {
+              @Override
+              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+                if (jsonElementResponse.body() != null) {
+                  loading(false);
+                  readSecondFundsJSON(jsonElementResponse.body());
+                }
+              }
+            });
+    compositeDisposable.add(disposable);
+  }
+
   private void readFundsJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
       FundsRes fundsRes;
 
       jsonObject = new JSONObject(response.toString());
-      page = jsonObject.getInt("Page");
-      pages = jsonObject.getString("Pages");
-      Log.d("Debug", "page = "+page+" || pages = "+pages);
+      pageFirst = jsonObject.getInt("Page");
+      pagesTotal = jsonObject.getString("Pages");
+      Log.d("Debug", "page = "+pageFirst+" || pages = "+pagesTotal);
 //      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
 
       JSONObject objectFunds = jsonObject.getJSONObject("Funds");
@@ -154,6 +198,63 @@ public class FundsViewModel extends BaseViewModelWithCallback
       fundsRes = new FundsRes(fundsList);
 
       showFunds(fundsRes);
+      getSecondFunds();
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void readSecondFundsJSON(JsonElement response) {
+    JSONObject jsonObject;
+    try {
+      FundsRes fundsRes;
+
+      jsonObject = new JSONObject(response.toString());
+      pageSecond = jsonObject.getInt("Page");
+      pagesTotal = jsonObject.getString("Pages");
+      Log.d("Debug", "2nd page = "+pageSecond+" || 2nd pages = "+pagesTotal);
+      //      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
+
+      JSONObject objectFunds = jsonObject.getJSONObject("Funds");
+
+      List<Funds> fundsList = new ArrayList<>();
+
+      for (int i = 1; i <= objectFunds.length(); i++) {
+        JSONObject objFunds = objectFunds.getJSONObject(i + "");
+        investId = objFunds.getString("ID");
+        investSlot = objFunds.getString("Slots");
+        investIDRValue = objFunds.getString("IDR_Value");
+
+        Funds funds;
+        Meta meta;
+
+        JSONObject metaObject = objFunds.getJSONObject("Meta");
+
+        meta = new Meta(
+                metaObject.getString("AccNo"),
+                metaObject.getString("InvestorPass"),
+                metaObject.getString("Server")
+        );
+
+        funds = new Funds(
+                objFunds.getString("ID"),
+                objFunds.getString("Name"),
+                objFunds.getString("Type"),
+                objFunds.getString("Manager"),
+                objFunds.getString("Invested"),
+                objFunds.getString("Equity"),
+                objFunds.getString("Slots"),
+                objFunds.getString("Compounding"),
+                objFunds.getString("ROI"),
+                meta, objFunds.getString("IDR_Value")
+        );
+
+        fundsList.add(funds);
+      }
+
+      fundsRes = new FundsRes(fundsList);
+
+      showSecondFunds(fundsRes);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -176,13 +277,31 @@ public class FundsViewModel extends BaseViewModelWithCallback
     fundsServerValueTx.set(fundsRes.getFunds().get(0).getMeta().getServer());
   }
 
+  private void showSecondFunds(FundsRes fundsRes) {
+    hideLoading();
+
+    if (fundsRes == null) return;
+
+    fundsSecondNameLabelTx.set(fundsRes.getFunds().get(0).getName());
+    fundsSecondTypeValueTx.set(fundsRes.getFunds().get(0).getTypeManager());
+    fundsSecondEquityProgressValueTx.set(fundsRes.getFunds().get(0).getEquity());
+    fundsSecondSlotsValueTx.set(fundsRes.getFunds().get(0).getSlots());
+    fundsSecondRoiValueTx.set(fundsRes.getFunds().get(0).getROI());
+    fundsSecondCompoundingValueTx.set(fundsRes.getFunds().get(0).getCompounding());
+    fundsSecondYouInvestValueTx.set(fundsRes.getFunds().get(0).getInvested());
+    fundsSecondCcNoValueTx.set(fundsRes.getFunds().get(0).getMeta().getAccNo());
+    fundsSecondInvestorPassValueTx.set(fundsRes.getFunds().get(0).getMeta().getInvestorPass());
+    fundsSecondServerValueTx.set(fundsRes.getFunds().get(0).getMeta().getServer());
+
+  }
+
   @SuppressWarnings("unused")
   public void onButtonMoreInfoClick(View view) {
     Intent intent = new Intent(context, InvestActivity.class);
       intent.putExtra("investSlot", investSlot);
       intent.putExtra("investIDRValue", investIDRValue);
     intent.putExtra("investId", investId);
-    intent.putExtra("Pages", pages);
+    intent.putExtra("Pages", pagesTotal);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
   }
@@ -192,7 +311,8 @@ public class FundsViewModel extends BaseViewModelWithCallback
     Intent intent = new Intent(context, InvestFundsActivity.class);
     intent.putExtra("investSlot", investSlot);
     intent.putExtra("investIDRValue", investIDRValue);
-      intent.putExtra("investId", investId);
+//      intent.putExtra("investId", investId);
+    intent.putExtra("investId", 1);
     Activity activity = (Activity) context;
     activity.startActivityForResult(intent, FUND_MENU);
 //    Toast.makeText(getContext(), "Result "+investSlot+" || "+investIDRValue+" || "+investId, Toast.LENGTH_SHORT).show();

@@ -45,7 +45,7 @@
             android:id="@+id/funds_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsNameLabelTx}"
+            android:text="@{viewModel.fundsSecondNameLabelTx}"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="IIC FX 1"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@{viewModel.fundsTypeValueTx}"
+            android:text="@{viewModel.fundsSecondTypeValueTx}"
             android:textSize="12sp"
             tools:text="FX - Manager"
             />
@@ -75,7 +75,7 @@
             android:id="@+id/funds_invest_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsYouInvestValueTx}"
+            android:text="@{viewModel.fundsSecondYouInvestValueTx}"
             tools:text="0 USD"
             />
 
@@ -93,7 +93,7 @@
             android:id="@+id/funds_equity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsEquityProgressValueTx}"
+            android:text="@{viewModel.fundsSecondEquityProgressValueTx}"
             tools:text="0 USD"
             />
 
@@ -111,7 +111,7 @@
             android:id="@+id/funds_slots_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSlotsValueTx}"
+            android:text="@{viewModel.fundsSecondSlotsValueTx}"
             tools:text="0 USD"
             />
 
@@ -129,7 +129,7 @@
             android:id="@+id/funds_roi_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsRoiValueTx}"
+            android:text="@{viewModel.fundsSecondRoiValueTx}"
             tools:text="0 % p.a."
             />
 
@@ -147,7 +147,7 @@
             android:id="@+id/funds_compounding_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsCompoundingValueTx}"
+            android:text="@{viewModel.fundsSecondCompoundingValueTx}"
             tools:text="No/Yes"
             />
 
@@ -188,7 +188,7 @@
             android:id="@+id/funds_cc_no_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsCcNoValueTx}"
+            android:text="@{viewModel.fundsSecondCcNoValueTx}"
             tools:text="0001234"
             />
 
@@ -206,7 +206,7 @@
             android:id="@+id/funds_investor_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsInvestorPassValueTx}"
+            android:text="@{viewModel.fundsSecondInvestorPassValueTx}"
             tools:text="2016"
             />
 
@@ -224,7 +224,7 @@
             android:id="@+id/funds_server_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsServerValueTx}"
+            android:text="@{viewModel.fundsSecondServerValueTx}"
             tools:text="Server Value"
             />
 

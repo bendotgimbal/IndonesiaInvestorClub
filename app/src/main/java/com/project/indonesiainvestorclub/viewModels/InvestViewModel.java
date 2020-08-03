@@ -104,6 +104,9 @@ public class InvestViewModel extends BaseViewModelWithCallback
   private int page;
   private String pages;
   private int PAGES_SecondFunds;
+  private int pageFirst;
+  private int pageSecond;
+  private String pagesTotal;
 
   public ObservableField<String> strInvestUSDValue;
   public ObservableField<String> strInvestIDRValue;
@@ -166,6 +169,18 @@ public class InvestViewModel extends BaseViewModelWithCallback
     fundsUserStatusValueTx = new ObservableField<>("-");
     fundsUserWdIDValueTx = new ObservableField<>("-");
 
+    //SecondFunds
+    fundsSecondNameLabelTx = new ObservableField<>("-");
+    fundsSecondTypeValueTx = new ObservableField<>("-");
+    fundsSecondEquityProgressValueTx = new ObservableField<>("-");
+    fundsSecondSlotsValueTx = new ObservableField<>("-");
+    fundsSecondRoiValueTx = new ObservableField<>("-");
+    fundsSecondCompoundingValueTx = new ObservableField<>("-");
+    fundsSecondYouInvestValueTx = new ObservableField<>("-");
+    fundsSecondCcNoValueTx = new ObservableField<>("-");
+    fundsSecondInvestorPassValueTx = new ObservableField<>("-");
+    fundsSecondServerValueTx = new ObservableField<>("-");
+
     previousDate = new ObservableField<>("-");
     previousInvest = new ObservableField<>("-");
 
@@ -224,6 +239,8 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
   public void start(String investSlot, String investIDRValue, String id, String pages) {
     getInvest(id);
+//    getSecondFunds(pages);
+    getFunds();
     strInvestUSDValue.set(investSlot);
     strInvestIDRValue.set(investIDRValue);
     strInvestID.set(id);
@@ -294,13 +311,33 @@ public class InvestViewModel extends BaseViewModelWithCallback
     compositeDisposable.add(disposable);
   }
 
-  private void getSecondFunds() {
+  private void getFunds() {
     loading(true);
 
-    Disposable disposable = ServiceGenerator.service.fundsSecondRequest(PAGES_SecondFunds)
+    Disposable disposable = ServiceGenerator.service.fundsRequest()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getSecondFunds) {
+            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getFunds) {
+              @Override
+              protected void onSuccess(Response<JsonElement> jsonElementResponse) {
+                if (jsonElementResponse.body() != null) {
+                  loading(false);
+                  readFundsJSON(jsonElementResponse.body());
+                }
+              }
+            });
+    compositeDisposable.add(disposable);
+  }
+
+  private void getSecondFunds(String pages) {
+    loading(true);
+
+//    Disposable disposable = ServiceGenerator.service.fundsSecondRequest(PAGES_SecondFunds)
+    Disposable disposable = ServiceGenerator.service.fundsSecondRequest(pages)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, this::getSecondFunds) {
+            .subscribeWith(new CallbackWrapper<Response<JsonElement>>(this, () -> getSecondFunds(pages)) {
               @Override
               protected void onSuccess(Response<JsonElement> jsonElementResponse) {
                 if (jsonElementResponse.body() != null) {
@@ -453,6 +490,63 @@ public class InvestViewModel extends BaseViewModelWithCallback
     }
   }
 
+  private void readFundsJSON(JsonElement response) {
+    JSONObject jsonObject;
+    try {
+      FundsRes fundsRes;
+
+      jsonObject = new JSONObject(response.toString());
+      pageFirst = jsonObject.getInt("Page");
+      pagesTotal = jsonObject.getString("Pages");
+      Log.d("Debug", "page = "+pageFirst+" || pages = "+pagesTotal);
+//      Toast.makeText(getContext(), "page = "+page+" || pages = "+pages, Toast.LENGTH_SHORT).show();
+
+      JSONObject objectFunds = jsonObject.getJSONObject("Funds");
+
+      List<Funds> fundsList = new ArrayList<>();
+
+      for (int i = 1; i <= objectFunds.length(); i++) {
+        JSONObject objFunds = objectFunds.getJSONObject(i + "");
+        investId = objFunds.getString("ID");
+        investSlot = objFunds.getString("Slots");
+        investIDRValue = objFunds.getString("IDR_Value");
+
+        Funds funds;
+        Meta meta;
+
+        JSONObject metaObject = objFunds.getJSONObject("Meta");
+
+        meta = new Meta(
+                metaObject.getString("AccNo"),
+                metaObject.getString("InvestorPass"),
+                metaObject.getString("Server")
+        );
+
+        funds = new Funds(
+                objFunds.getString("ID"),
+                objFunds.getString("Name"),
+                objFunds.getString("Type"),
+                objFunds.getString("Manager"),
+                objFunds.getString("Invested"),
+                objFunds.getString("Equity"),
+                objFunds.getString("Slots"),
+                objFunds.getString("Compounding"),
+                objFunds.getString("ROI"),
+                meta, objFunds.getString("IDR_Value")
+        );
+
+        fundsList.add(funds);
+      }
+
+      fundsRes = new FundsRes(fundsList);
+
+      showFunds(fundsRes);
+//      getSecondFunds();
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void readSecondFundsJSON(JsonElement response) {
     JSONObject jsonObject;
     try {
@@ -524,16 +618,16 @@ public class InvestViewModel extends BaseViewModelWithCallback
     yearPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYear());
     ytdPerformancesValueTv.set(investRes.getInvests().getData().getMonths().get(0).getYtd());
 
-    fundsNameLabelTx.set(investRes.getFunds().getName());
-    fundsTypeValueTx.set(investRes.getFunds().getTypeManager());
-    fundsYouInvestValueTx.set(investRes.getFunds().getInvested());
-    fundsEquityProgressValueTx.set(investRes.getFunds().getEquity());
-    fundsSlotsValueTx.set(investRes.getFunds().getSlots());
-    fundsRoiValueTx.set(investRes.getFunds().getROI());
-    fundsCompoundingValueTx.set(investRes.getFunds().getCompounding());
-    fundsCcNoValueTx.set(investRes.getFunds().getMeta().getAccNo());
-    fundsInvestorPassValueTx.set(investRes.getFunds().getMeta().getInvestorPass());
-    fundsServerValueTx.set(investRes.getFunds().getMeta().getServer());
+//    fundsNameLabelTx.set(investRes.getFunds().getName());
+//    fundsTypeValueTx.set(investRes.getFunds().getTypeManager());
+//    fundsYouInvestValueTx.set(investRes.getFunds().getInvested());
+//    fundsEquityProgressValueTx.set(investRes.getFunds().getEquity());
+//    fundsSlotsValueTx.set(investRes.getFunds().getSlots());
+//    fundsRoiValueTx.set(investRes.getFunds().getROI());
+//    fundsCompoundingValueTx.set(investRes.getFunds().getCompounding());
+//    fundsCcNoValueTx.set(investRes.getFunds().getMeta().getAccNo());
+//    fundsInvestorPassValueTx.set(investRes.getFunds().getMeta().getInvestorPass());
+//    fundsServerValueTx.set(investRes.getFunds().getMeta().getServer());
     fundsUSDIDRValueTx.set(investRes.getFunds().getUSDIDR());
     fundsBankNameValueTx.set(investRes.getFunds().getBankFundInvest().getName());
     fundsBankAccNameValueTx.set(investRes.getFunds().getBankFundInvest().getAccName());
@@ -553,6 +647,23 @@ public class InvestViewModel extends BaseViewModelWithCallback
     participantAdapter.setModels(
         investRes.getParticipant().getParticipantInvestCurrent().getCurrent());
     participantAdapter.notifyDataSetChanged();
+  }
+
+  private void showFunds(FundsRes fundsRes) {
+    hideLoading();
+
+    if (fundsRes == null) return;
+
+    fundsNameLabelTx.set(fundsRes.getFunds().get(0).getName());
+    fundsTypeValueTx.set(fundsRes.getFunds().get(0).getTypeManager());
+    fundsEquityProgressValueTx.set(fundsRes.getFunds().get(0).getEquity());
+    fundsSlotsValueTx.set(fundsRes.getFunds().get(0).getSlots());
+    fundsRoiValueTx.set(fundsRes.getFunds().get(0).getROI());
+    fundsCompoundingValueTx.set(fundsRes.getFunds().get(0).getCompounding());
+    fundsYouInvestValueTx.set(fundsRes.getFunds().get(0).getInvested());
+    fundsCcNoValueTx.set(fundsRes.getFunds().get(0).getMeta().getAccNo());
+    fundsInvestorPassValueTx.set(fundsRes.getFunds().get(0).getMeta().getInvestorPass());
+    fundsServerValueTx.set(fundsRes.getFunds().get(0).getMeta().getServer());
   }
 
   private void showSecondFunds(FundsRes fundsRes) {
