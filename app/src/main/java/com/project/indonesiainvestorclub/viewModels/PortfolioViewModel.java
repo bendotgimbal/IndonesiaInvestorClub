@@ -50,6 +50,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
   public ObservableField<String> yearValueTv;
   public ObservableField<String> ytdValueTv;
 
+  public ObservableField<String> percentageText;
+
   public ObservableField<String> yearPerformancesValueTv;
   public ObservableField<String> ytdPerformancesValueTv;
 
@@ -72,6 +74,8 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
     nextButtonVisibility = new ObservableBoolean(true);
 
     portofolioListVisibility = new ObservableBoolean(false);
+
+    percentageText = new ObservableField<>("YTD");
 
     pageStatePerformances = new ObservableField<>("1/1");
 
@@ -158,9 +162,6 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
 
       jsonObject = new JSONObject(response.toString());
 
-      int page = jsonObject.getInt("Page");
-      int pages = jsonObject.getInt("Pages");
-
       JSONObject object = jsonObject.getJSONObject("Performances");
 
       List<Performance> performances = new ArrayList<>();
@@ -177,6 +178,15 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         for (int o = 1; o <= datas.length(); o++) {
           JSONObject obj1 = datas.getJSONObject(o + "");
 
+          String percentage;
+          if (obj1.has("YTD")){
+            percentage = obj1.getString("YTD");
+            percentageText.set("YTD");
+          }else {
+            percentage = obj1.getString("YTO");
+            percentageText.set("YTO");
+          }
+
           Month month = new Month(
               obj1.getString("YEAR"),
               obj1.getString("Jan"),
@@ -191,7 +201,7 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
               obj1.getString("Oct"),
               obj1.getString("Nov"),
               obj1.getString("Dec"),
-              obj1.getString("YTD")
+              percentage
           );
           monthList.add(month);
         }
@@ -202,7 +212,7 @@ public class PortfolioViewModel extends BaseViewModelWithCallback
         performances.add(performance);
       }
 
-      performanceRes.setPerformances(page, pages, performances);
+      performanceRes.setPerformances(0, 0, performances);
 
       showPerformanceTable(performanceRes);
     } catch (JSONException e) {

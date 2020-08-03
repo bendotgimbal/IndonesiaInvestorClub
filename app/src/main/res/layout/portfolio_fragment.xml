@@ -225,7 +225,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center|start"
                 android:padding="15dp"
-                android:text="@string/ytd_label"
+                android:text="@{viewModel.percentageText}"
+                tools:text="@string/ytd_label"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 />
