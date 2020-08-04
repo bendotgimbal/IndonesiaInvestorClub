@@ -95,6 +95,9 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
 
   private void prepareMenuData() {
+    headerList = new ArrayList<>();
+    childList = new HashMap<>();
+
     MenuModel home = new MenuModel(R.id.nav_home, R.drawable.ic_investment, getContext().getString(R.string.menu_home), true, false);
     headerList.add(home);
     childList.put(home, null);
