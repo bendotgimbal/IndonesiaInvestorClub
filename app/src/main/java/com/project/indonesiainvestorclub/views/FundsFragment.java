@@ -19,6 +19,10 @@ public class FundsFragment extends BaseFragment {
   private FundsFragmentBinding binding;
   private FundsViewModel fundsviewModel;
 
+  public static FundsFragment newInstance() {
+    return new FundsFragment();
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

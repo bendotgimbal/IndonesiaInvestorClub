@@ -19,6 +19,10 @@ public class TransactionsFragment extends BaseFragment {
   private TransactionsFragmentBinding binding;
   private TransactionsViewModel transactionsViewModel;
 
+  public static TransactionsFragment newInstance() {
+    return new TransactionsFragment();
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

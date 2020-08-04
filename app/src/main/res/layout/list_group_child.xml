@@ -2,12 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:padding="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/lblListImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@drawable/profit_icon"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"/>
 
     <TextView
         android:id="@+id/lblListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+        android:layout_gravity="center"
+        tools:text="Hello World"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"/>
+
 </LinearLayout>

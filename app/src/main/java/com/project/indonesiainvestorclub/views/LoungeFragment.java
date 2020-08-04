@@ -18,6 +18,10 @@ public class LoungeFragment extends BaseFragment {
   private LoungeFragmentBinding binding;
   private LoungeViewModel viewModel;
 
+  public static LoungeFragment newInstance() {
+    return new LoungeFragment();
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

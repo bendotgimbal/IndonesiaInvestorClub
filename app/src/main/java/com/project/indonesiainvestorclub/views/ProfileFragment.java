@@ -23,6 +23,10 @@ public class ProfileFragment extends BaseFragment {
   private ProfileFragmentBinding binding;
   private ProfileViewModel viewModel;
 
+  public static ProfileFragment newInstance() {
+    return new ProfileFragment();
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

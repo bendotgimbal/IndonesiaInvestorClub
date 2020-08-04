@@ -18,6 +18,10 @@ public class NetworkFragment extends BaseFragment {
   private NetworkFragmentBinding binding;
   private NetworkViewModel networkViewModel;
 
+  public static NetworkFragment newInstance() {
+    return new NetworkFragment();
+  }
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

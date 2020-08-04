@@ -19,6 +19,10 @@ public class HomeFragment extends BaseFragment {
   private HomeFragmentBinding binding;
   private HomeViewModel viewModel;
 
+  public static HomeFragment newInstance() {
+    return new HomeFragment();
+  }
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
