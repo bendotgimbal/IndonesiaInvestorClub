@@ -238,7 +238,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
   }
 
   public void start(String investSlot, String investIDRValue, String id, String pages) {
-//    getInvest(id);
+    getInvest(id);
 //    getSecondFunds(pages);
     getFunds();
     strInvestUSDValue.set(investSlot);
@@ -364,6 +364,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
       String name = objectInvest.getString("Name");
       JSONObject datasObj = objectInvest.getJSONObject("Datas");
+      Log.d("Debug", "RESULT " + datasObj);
 
       List<Month> monthList = new ArrayList<>();
 
