@@ -71,7 +71,6 @@ public interface InvestorClubService {
   Observable<Response<JsonElement>> fundsRequest();
 
   @GET("funds/{page}")
-//  Observable<Response<JsonElement>> fundsSecondRequest(@Path("page") int page);
   Observable<Response<JsonElement>> fundsSecondRequest(@Path("page") String page);
 
   @GET("agreement")
@@ -79,9 +78,6 @@ public interface InvestorClubService {
 
   @GET("lounge")
   Observable<Response<JsonElement>> loungeRequest();
-
-//  @GET("network/{page}")
-//  Observable<Response<JsonElement>> networkRequest(@Path("page") int page);
 
   @GET("network")
   Observable<Response<JsonElement>> networkRequest();
@@ -103,4 +99,7 @@ public interface InvestorClubService {
   @Multipart
   @POST("banks")
   Observable<Response<UpdateImageProofOfBankRes>> uploadProofBankRequest(@Part MultipartBody.Part proof_bank_image);
+
+  @GET("commissions/{page}")
+  Observable<Response<JsonElement>> commissionsRequest(@Path("page") int page);
 }

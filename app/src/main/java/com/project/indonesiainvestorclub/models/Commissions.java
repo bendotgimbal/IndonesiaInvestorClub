@@ -2,6 +2,7 @@ package com.project.indonesiainvestorclub.models;
 
 public class Commissions {
     private String date;
+    private String client;
     private String perlots_usd;
     private String invest_usd;
     private String commission_usd;
@@ -11,8 +12,9 @@ public class Commissions {
 
     int index;
 
-    public Commissions(String date, String perlots_usd, String invest_usd, String commission_usd, String invest_idr, String commission_idr, String usdidr) {
+    public Commissions(String date, String client, String perlots_usd, String invest_usd, String commission_usd, String invest_idr, String commission_idr, String usdidr) {
         this.date = date;
+        this.client = client;
         this.perlots_usd = perlots_usd;
         this.invest_usd = invest_usd;
         this.commission_usd = commission_usd;

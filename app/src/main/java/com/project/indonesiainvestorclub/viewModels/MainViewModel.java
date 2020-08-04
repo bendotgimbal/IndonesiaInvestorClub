@@ -18,9 +18,11 @@ import com.project.indonesiainvestorclub.helper.ActivityUtils;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
+import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.MenuModel;
 import com.project.indonesiainvestorclub.views.AboutFragment;
 import com.project.indonesiainvestorclub.views.AgreementFragment;
+import com.project.indonesiainvestorclub.views.CommissionFragment;
 import com.project.indonesiainvestorclub.views.FundsFragment;
 import com.project.indonesiainvestorclub.views.HomeFragment;
 import com.project.indonesiainvestorclub.views.LoginActivity;
@@ -93,7 +95,6 @@ public class MainViewModel extends BaseViewModelWithCallback {
     loadHome();
   }
 
-
   private void prepareMenuData() {
     headerList = new ArrayList<>();
     childList = new HashMap<>();
@@ -135,7 +136,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
         MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), false, false);
         userChildList.add(network);
 
-        MenuModel commission = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_commission), false, false);
+        MenuModel commission = new MenuModel(R.id.nav_commission, R.drawable.ic_network, getContext().getString(R.string.menu_commission), false, false);
         userChildList.add(commission);
       }
 
@@ -222,6 +223,11 @@ public class MainViewModel extends BaseViewModelWithCallback {
     transactFragment(PortfolioFragment.newInstance());
   }
 
+  private void loadCommission(){
+    binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_commission));
+    transactFragment(CommissionFragment.newInstance());
+  }
+
   private void logout(){
     Intent logout = new Intent(getContext(), LogoutActivity.class);
     context.startActivity(logout);
@@ -247,7 +253,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
       case R.id.nav_agreement : loadAgreement(); break;
       case R.id.nav_funds : loadFunds(); break;
       case R.id.nav_lounge : loadLounge(); break;
-      case R.id.nav_commission : break;
+      case R.id.nav_commission : loadCommission(); break;
       case R.id.nav_logout : logout();
     }
   }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.JsonElement;
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.adapter.DownlineAdapter;
-import com.project.indonesiainvestorclub.databinding.SubNetworkNewItemBinding;
+import com.project.indonesiainvestorclub.databinding.SubNetworkItemBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
 import com.project.indonesiainvestorclub.models.Network;
 import com.project.indonesiainvestorclub.models.NetworkData;
@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class DownlineListItemViewModel extends BaseViewModelWithCallback {
 
-  private SubNetworkNewItemBinding binding;
+  private SubNetworkItemBinding binding;
   public ObservableField<String> name;
   public ObservableField<String> data;
   public ObservableBoolean downlineActive;
@@ -39,7 +39,7 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
   private DownlineAdapter downlineAdapteradapter;
   private ActionInterface.AdapterItemListener<NetworkDownline> listener;
 
-  public DownlineListItemViewModel(Context context, SubNetworkNewItemBinding binding, NetworkDownline downline,  ActionInterface.AdapterItemListener<NetworkDownline> listener) {
+  public DownlineListItemViewModel(Context context, SubNetworkItemBinding binding, NetworkDownline downline,  ActionInterface.AdapterItemListener<NetworkDownline> listener) {
     super(context);
     this.binding = binding;
     this.downline = downline;

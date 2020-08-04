@@ -2,16 +2,14 @@ package com.project.indonesiainvestorclub.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-import com.project.indonesiainvestorclub.BR;
+
 import com.project.indonesiainvestorclub.R;
-import com.project.indonesiainvestorclub.databinding.SubNetworkNewItemBinding;
+import com.project.indonesiainvestorclub.databinding.SubNetworkItemBinding;
 import com.project.indonesiainvestorclub.interfaces.ActionInterface;
-import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.NetworkDownline;
 
 import com.project.indonesiainvestorclub.viewModels.DownlineListItemViewModel;
@@ -41,8 +39,8 @@ public class DownlineAdapter extends RecyclerView.Adapter<DownlineAdapter.Downli
   @Override public DownlineItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     this.context = parent.getContext();
     LayoutInflater layoutInflater = LayoutInflater.from(context);
-    SubNetworkNewItemBinding binding =
-        DataBindingUtil.inflate(layoutInflater, R.layout.sub_network_new_item, parent, false);
+    SubNetworkItemBinding binding =
+        DataBindingUtil.inflate(layoutInflater, R.layout.sub_network_item, parent, false);
     DownlineItemHolder holder = new DownlineItemHolder(context, binding);
     synchronized (holders) {
       holders.add(holder);
@@ -62,10 +60,10 @@ public class DownlineAdapter extends RecyclerView.Adapter<DownlineAdapter.Downli
   public class DownlineItemHolder extends RecyclerView.ViewHolder {
 
     private Context context;
-    private SubNetworkNewItemBinding binding;
+    private SubNetworkItemBinding binding;
     private DownlineListItemViewModel viewModel;
 
-    DownlineItemHolder(Context context, SubNetworkNewItemBinding binding) {
+    DownlineItemHolder(Context context, SubNetworkItemBinding binding) {
       super(binding.getRoot());
       this.context = context;
       this.binding = binding;
