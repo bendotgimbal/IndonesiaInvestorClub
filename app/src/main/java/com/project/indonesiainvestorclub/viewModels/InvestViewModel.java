@@ -364,7 +364,6 @@ public class InvestViewModel extends BaseViewModelWithCallback
 
       String name = objectInvest.getString("Name");
       JSONObject datasObj = objectInvest.getJSONObject("Datas");
-      Log.d("Debug", "RESULT " + datasObj);
 
       List<Month> monthList = new ArrayList<>();
 
