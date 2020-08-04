@@ -16,6 +16,10 @@ public class AgreementFragment extends BaseFragment {
   private AgreementFragmentBinding binding;
   private AgreementViewModel viewModel;
 
+  public static AgreementFragment newInstance() {
+    return new AgreementFragment();
+  }
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }

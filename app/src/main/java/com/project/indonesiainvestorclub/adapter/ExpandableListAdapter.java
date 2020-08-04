@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import com.project.indonesiainvestorclub.R;
 import com.project.indonesiainvestorclub.models.MenuModel;
 
@@ -19,8 +21,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<MenuModel> listDataHeader;
     private HashMap<MenuModel, List<MenuModel>> listDataChild;
 
-    public ExpandableListAdapter(Context context, List<MenuModel> listDataHeader,
-                                 HashMap<MenuModel, List<MenuModel>> listChildData) {
+    public ExpandableListAdapter(Context context, List<MenuModel> listDataHeader, HashMap<MenuModel, List<MenuModel>> listChildData) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listDataChild = listChildData;
@@ -28,8 +29,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public MenuModel getChild(int groupPosition, int childPosititon) {
-        return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                .get(childPosititon);
+        return this.listDataChild.get(this.listDataHeader.get(groupPosition)).get(childPosititon);
     }
 
     @Override
@@ -41,29 +41,30 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
+        final int childImg =  getChild(groupPosition, childPosition).img;
         final String childText = getChild(groupPosition, childPosition).menuName;
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group_child, null);
         }
 
-        TextView txtListChild = convertView
-                .findViewById(R.id.lblListItem);
+        AppCompatImageView imgListChild = convertView.findViewById(R.id.lblListImage);
+        TextView txtListChild = convertView.findViewById(R.id.lblListItem);
 
+
+        imgListChild.setImageResource(childImg);
         txtListChild.setText(childText);
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-
-        if (this.listDataChild.get(this.listDataHeader.get(groupPosition)) == null)
+        if (this.listDataChild.get(this.listDataHeader.get(groupPosition)) == null) {
             return 0;
-        else
-            return this.listDataChild.get(this.listDataHeader.get(groupPosition))
-                    .size();
+        } else {
+            return this.listDataChild.get(this.listDataHeader.get(groupPosition)).size();
+        }
     }
 
     @Override
@@ -74,7 +75,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getGroupCount() {
         return this.listDataHeader.size();
-
     }
 
     @Override
@@ -85,12 +85,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+        int headerImg = getGroup(groupPosition).img;
         String headerTitle = getGroup(groupPosition).menuName;
+
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group_header, null);
         }
+
+        AppCompatImageView lblListHeaderImg = convertView.findViewById(R.id.lblListImage);
+        lblListHeaderImg.setImageResource(headerImg);
 
         TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);

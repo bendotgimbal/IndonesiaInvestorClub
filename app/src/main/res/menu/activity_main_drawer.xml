@@ -31,6 +31,10 @@
         android:icon="@drawable/ic_network"
         android:title="@string/menu_network" />
     <item
+        android:id="@+id/nav_commission"
+        android:icon="@drawable/ic_network"
+        android:title="@string/menu_commission" />
+    <item
         android:id="@+id/nav_lounge"
         android:icon="@drawable/ic_lounge"
         android:title="@string/menu_lounge" />

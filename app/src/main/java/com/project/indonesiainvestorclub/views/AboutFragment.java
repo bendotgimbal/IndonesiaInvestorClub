@@ -18,6 +18,10 @@ public class AboutFragment extends BaseFragment{
     private AboutFragmentBinding binding;
     private AboutViewModel aboutviewModel;
 
+    public static AboutFragment newInstance() {
+        return new AboutFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

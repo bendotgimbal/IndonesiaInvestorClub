@@ -18,7 +18,10 @@ public class PortfolioFragment extends BaseFragment {
 
     private PortfolioFragmentBinding binding;
     private PortfolioViewModel portfolioViewModel;
-    private ListView lv;
+
+    public static PortfolioFragment newInstance() {
+        return new PortfolioFragment();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
