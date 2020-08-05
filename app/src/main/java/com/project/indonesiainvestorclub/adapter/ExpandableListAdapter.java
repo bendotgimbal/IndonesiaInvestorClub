@@ -85,6 +85,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+
         int headerImg = getGroup(groupPosition).img;
         String headerTitle = getGroup(groupPosition).menuName;
 
@@ -99,6 +100,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView lblListHeader = convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+
+        AppCompatImageView dropdown = convertView.findViewById(R.id.lblListArrow);
+        dropdown.setVisibility(View.GONE);
+        if (getChildrenCount(groupPosition) > 0){
+            dropdown.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

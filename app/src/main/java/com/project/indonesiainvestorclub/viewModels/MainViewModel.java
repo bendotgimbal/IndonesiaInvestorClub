@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -17,8 +18,6 @@ import com.project.indonesiainvestorclub.databinding.NavHeaderMainBinding;
 import com.project.indonesiainvestorclub.helper.ActivityUtils;
 import com.project.indonesiainvestorclub.helper.ImageHelper;
 import com.project.indonesiainvestorclub.helper.SharedPreferenceHelper;
-import com.project.indonesiainvestorclub.interfaces.ActionInterface;
-import com.project.indonesiainvestorclub.models.Commissions;
 import com.project.indonesiainvestorclub.models.MenuModel;
 import com.project.indonesiainvestorclub.views.AboutFragment;
 import com.project.indonesiainvestorclub.views.AgreementFragment;
@@ -164,6 +163,12 @@ public class MainViewModel extends BaseViewModelWithCallback {
     binding.expandableListView.setAdapter(expandableListAdapter);
 
     binding.expandableListView.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+      AppCompatImageView dropdown = v.findViewById(R.id.lblListArrow);
+      if (parent.isGroupExpanded(groupPosition)){
+        dropdown.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+      }else {
+        dropdown.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+      }
       MenuModel menuModel = headerList.get(groupPosition);
       if (menuModel.isGroup) {
         if (!menuModel.hasChildren) {
