@@ -313,6 +313,7 @@ public class FundsViewModel extends BaseViewModelWithCallback
     intent.putExtra("investIDRValue", investIDRValue);
 //      intent.putExtra("investId", investId);
     intent.putExtra("investId", String.valueOf(pageSecond));
+//    intent.putExtra("investId", String.valueOf(pageSecond-1));
     Log.d("Debug", "1st Invest - USD "
             + investSlot
             + " / "
