@@ -116,7 +116,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
       headerList.add(funds);
       childList.put(funds, null);
 
-      MenuModel user = new MenuModel(1, 0,"User Menu", true, true);
+      MenuModel user = new MenuModel(1, R.drawable.ic_user_menu,"User Menu", true, true);
       headerList.add(user);
 
       List<MenuModel> userChildList = new ArrayList<>();
@@ -136,14 +136,14 @@ public class MainViewModel extends BaseViewModelWithCallback {
         headerList.add(network);
 
       } else {
-        MenuModel marketing = new MenuModel(0, 0, "Marketing", true, true);
+        MenuModel marketing = new MenuModel(0, R.drawable.ic_marketing, "Marketing", true, true);
         headerList.add(marketing);
 
         List<MenuModel> marketingChildList = new ArrayList<>();
         MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), false, false);
         marketingChildList.add(network);
 
-        MenuModel commission = new MenuModel(R.id.nav_commission, R.drawable.ic_network, getContext().getString(R.string.menu_commission), false, false);
+        MenuModel commission = new MenuModel(R.id.nav_commission, R.drawable.ic_commission, getContext().getString(R.string.menu_commission), false, false);
         marketingChildList.add(commission);
 
         childList.put(marketing, marketingChildList);
