@@ -116,32 +116,38 @@ public class MainViewModel extends BaseViewModelWithCallback {
       headerList.add(funds);
       childList.put(funds, null);
 
-      MenuModel user;
+      MenuModel user = new MenuModel(1, 0,"User Menu", true, true);
+      headerList.add(user);
+
       List<MenuModel> userChildList = new ArrayList<>();
+      MenuModel profile = new MenuModel(R.id.nav_profile, R.drawable.ic_profile, getContext().getString(R.string.menu_profile), false, false);
+      userChildList.add(profile);
+
+      MenuModel transaction = new MenuModel(R.id.nav_transaction, R.drawable.ic_transactions, getContext().getString(R.string.menu_transactions), false, false);
+      userChildList.add(transaction);
+
+      MenuModel portfolio = new MenuModel(R.id.nav_portfolio, R.drawable.ic_portfolio, getContext().getString(R.string.menu_portfolio), false, false);
+      userChildList.add(portfolio);
+
+      childList.put(user, userChildList);
 
       if (!SharedPreferenceHelper.isUserMarketing()) {
-        user = new MenuModel(1, 0,"User Menu", true, true);
-
-        MenuModel profile = new MenuModel(R.id.nav_profile, R.drawable.ic_profile, getContext().getString(R.string.menu_profile), false, false);
-        userChildList.add(profile);
-
-        MenuModel transaction = new MenuModel(R.id.nav_transaction, R.drawable.ic_transactions, getContext().getString(R.string.menu_transactions), false, false);
-        userChildList.add(transaction);
-
-        MenuModel portfolio = new MenuModel(R.id.nav_portfolio, R.drawable.ic_portfolio, getContext().getString(R.string.menu_portfolio), false, false);
-        userChildList.add(portfolio);
-      } else {
-        user = new MenuModel(0, 0, "Marketing", true, true);
-
         MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), false, false);
-        userChildList.add(network);
+        headerList.add(network);
+
+      } else {
+        MenuModel marketing = new MenuModel(0, 0, "Marketing", true, true);
+        headerList.add(marketing);
+
+        List<MenuModel> marketingChildList = new ArrayList<>();
+        MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), false, false);
+        marketingChildList.add(network);
 
         MenuModel commission = new MenuModel(R.id.nav_commission, R.drawable.ic_network, getContext().getString(R.string.menu_commission), false, false);
-        userChildList.add(commission);
-      }
+        marketingChildList.add(commission);
 
-      headerList.add(user);
-      childList.put(user, userChildList);
+        childList.put(marketing, marketingChildList);
+      }
 
       MenuModel agreement = new MenuModel(R.id.nav_agreement, R.drawable.ic_agreement, getContext().getString(R.string.menu_agreement), true, false);
       headerList.add(agreement);
