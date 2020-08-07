@@ -110,8 +110,10 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       }
 
       if (groups.size() > 0){
-        if (groups.get(1).getDepartment() != null && groups.get(1).getDepartment().equalsIgnoreCase("MARKETING")){
-          SharedPreferenceHelper.setUserMarketing(true);
+        for (Groups group : groups){
+          if (group.getDepartment().equalsIgnoreCase("MARKETING")){
+            SharedPreferenceHelper.setUserMarketing(true);
+          }
         }
       }
 

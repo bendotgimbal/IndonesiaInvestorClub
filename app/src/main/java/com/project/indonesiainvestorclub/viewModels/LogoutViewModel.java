@@ -46,10 +46,13 @@ public class LogoutViewModel extends BaseViewModelWithCallback {
             if (logoutResResponse.body() != null){
               if (logoutResResponse.body().getStatus()){
                 SharedPreferenceHelper.setLogin(false);
+                SharedPreferenceHelper.setUserMarketing(false);
                 SharedPreferenceHelper.setToken("");
                 SharedPreferenceHelper.setUserKey("");
-                SharedPreferenceHelper.setUserKey("");
                 SharedPreferenceHelper.setCookie("");
+                SharedPreferenceHelper.setUserRealName("");
+                SharedPreferenceHelper.setUserAva("");
+                SharedPreferenceHelper.setUserName("");
 
                 hideLoading();
                 ((LogoutActivity)getContext()).finish();
