@@ -67,8 +67,8 @@ public interface InvestorClubService {
   @GET("portfolio/{page}")
   Observable<Response<JsonElement>> portfolioRequest(@Path("page") int page);
 
-  @GET("funds")
-  Observable<Response<JsonElement>> fundsRequest();
+  @GET("funds/{page}")
+  Observable<Response<JsonElement>> fundsRequest(@Path("page") int page);
 
   @GET("funds/{page}")
   Observable<Response<JsonElement>> fundsSecondRequest(@Path("page") String page);

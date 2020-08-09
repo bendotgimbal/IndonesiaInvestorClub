@@ -20,10 +20,13 @@
         android:id="@+id/funds_info_wrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:background="@drawable/square_radius_background"
         android:elevation="2dp"
         android:padding="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{viewModel::onButtonMoreInfoClick}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +48,7 @@
             android:id="@+id/funds_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondNameLabelTx}"
+            android:text="@{viewModel.fundsNameLabelTx}"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="IIC FX 1"
@@ -56,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@{viewModel.fundsSecondTypeValueTx}"
+            android:text="@{viewModel.fundsTypeValueTx}"
             android:textSize="12sp"
             tools:text="FX - Manager"
             />
@@ -75,7 +78,7 @@
             android:id="@+id/funds_invest_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondYouInvestValueTx}"
+            android:text="@{viewModel.fundsYouInvestValueTx}"
             tools:text="0 USD"
             />
 
@@ -93,7 +96,7 @@
             android:id="@+id/funds_equity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondEquityProgressValueTx}"
+            android:text="@{viewModel.fundsEquityProgressValueTx}"
             tools:text="0 USD"
             />
 
@@ -111,7 +114,7 @@
             android:id="@+id/funds_slots_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondSlotsValueTx}"
+            android:text="@{viewModel.fundsSlotsValueTx}"
             tools:text="0 USD"
             />
 
@@ -129,7 +132,7 @@
             android:id="@+id/funds_roi_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondRoiValueTx}"
+            android:text="@{viewModel.fundsRoiValueTx}"
             tools:text="0 % p.a."
             />
 
@@ -147,7 +150,7 @@
             android:id="@+id/funds_compounding_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondCompoundingValueTx}"
+            android:text="@{viewModel.fundsCompoundingValueTx}"
             tools:text="No/Yes"
             />
 
@@ -188,7 +191,7 @@
             android:id="@+id/funds_cc_no_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondCcNoValueTx}"
+            android:text="@{viewModel.fundsCcNoValueTx}"
             tools:text="0001234"
             />
 
@@ -206,7 +209,7 @@
             android:id="@+id/funds_investor_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondInvestorPassValueTx}"
+            android:text="@{viewModel.fundsInvestorPassValueTx}"
             tools:text="2016"
             />
 
@@ -224,29 +227,24 @@
             android:id="@+id/funds_server_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.fundsSecondServerValueTx}"
+            android:text="@{viewModel.fundsServerValueTx}"
             tools:text="Server Value"
             />
 
+        <TextView
+            android:id="@+id/more_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more_info_label"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorAccent"
+            android:onClick="@{viewModel::onButtonMoreInfoClick}"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="italic"
+            />
+
       </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/moreBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/square_radius_button"
-        android:onClick="@{viewModel::onButtonMoreInfoClick}"
-        android:layout_margin="20dp"
-        android:elevation="0dp"
-        android:text="@string/more_info_label"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/funds_info_wrapper"
-        tools:targetApi="lollipop"
-        />
 
       <Button
           android:id="@+id/investBtn"
@@ -254,16 +252,64 @@
           android:layout_height="wrap_content"
           android:background="@drawable/square_radius_button"
           android:onClick="@{viewModel::onButtonInvestClick}"
-          android:layout_margin="20dp"
           android:elevation="0dp"
           android:text="@string/invest_label"
           android:textColor="@android:color/white"
+          android:layout_marginTop="10dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/moreBtn"
+          app:layout_constraintTop_toBottomOf="@id/fund_coloumn_1"
           tools:targetApi="lollipop"
           />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/paging_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/before_btn"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="@{viewModel.beforeButtonVisibility}"
+          android:focusable="@{viewModel.beforeButtonVisibility}"
+          android:onClick="@{viewModel::onButtonBeforeClick}"
+          android:visibility="@{viewModel.beforeButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          app:srcCompat="@drawable/ic_navigate_before_primary"
+          />
+
+      <TextView
+          android:id="@+id/paging_tv"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="@{viewModel.pageState}"
+          android:textStyle="bold"
+          tools:text="1/3"
+          />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/next_btn"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:clickable="@{viewModel.nextButtonVisibility}"
+          android:focusable="@{viewModel.nextButtonVisibility}"
+          android:onClick="@{viewModel::onButtonNextClick}"
+          android:visibility="@{viewModel.nextButtonVisibility ? View.VISIBLE : View.INVISIBLE}"
+          app:srcCompat="@drawable/ic_navigate_next_primary"
+          />
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="0dp"
@@ -293,5 +339,6 @@
           android:layout_gravity="center"
           />
     </FrameLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
