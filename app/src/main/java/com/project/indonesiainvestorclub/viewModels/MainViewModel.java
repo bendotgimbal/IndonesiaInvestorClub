@@ -44,6 +44,17 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   private static final String TAG = MainViewModel.class.getCanonicalName();
 
+  //public static final int HOME = 1;
+  //public static final int ABOUT = 2;
+  //public static final int LOUNGE = 3;
+  //public static final int FUNDS = 4;
+  //public static final int NETWORK = 5;
+  //public static final int AGREEMENT = 6;
+  //public static final int PROFILE = 7;
+  //public static final int TRANSACTION = 8;
+  //public static final int PORTOFOLIO = 9;
+  //public static final int COMMISION = 10;
+
   private ActivityMainBinding binding;
   private NavHeaderMainBinding navHeaderMainBinding;
   public ObservableBoolean loginState;
@@ -51,6 +62,8 @@ public class MainViewModel extends BaseViewModelWithCallback {
   public ObservableBoolean loadingState;
   public ObservableField<String> email;
   public ObservableField<String> name;
+
+  private int currentPage = R.id.nav_home;
 
   ExpandableListAdapter expandableListAdapter;
   List<MenuModel> headerList = new ArrayList<>();
@@ -71,6 +84,18 @@ public class MainViewModel extends BaseViewModelWithCallback {
     loadingState = new ObservableBoolean(false);
     email = new ObservableField<>("");
     name = new ObservableField<>("");
+  }
+
+  public int getCurrentPage() {
+    return currentPage;
+  }
+
+  public void setCurrentPage(int currentPage) {
+    this.currentPage = currentPage;
+  }
+
+  public void gotoHome(){
+    navigation(R.id.nav_home);
   }
 
   public void start() {
@@ -191,51 +216,61 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   private void loadHome() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_home));
+    setCurrentPage(R.id.nav_home);
     transactFragment(HomeFragment.newInstance());
   }
 
   private void loadAbout() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_about));
+    setCurrentPage(R.id.nav_about);
     transactFragment(AboutFragment.newInstance());
   }
 
   private void loadLounge() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_lounge));
+    setCurrentPage(R.id.nav_lounge);
     transactFragment(LoungeFragment.newInstance());
   }
 
   private void loadFunds() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_funds));
+    setCurrentPage(R.id.nav_funds);
     transactFragment(FundsFragment.newInstance());
   }
 
   private void loadNetwork() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_network));
+    setCurrentPage(R.id.nav_network);
     transactFragment(NetworkFragment.newInstance());
   }
 
   private void loadAgreement() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_agreement));
+    setCurrentPage(R.id.nav_agreement);
     transactFragment(AgreementFragment.newInstance());
   }
 
   private void loadProfile() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_profile));
+    setCurrentPage(R.id.nav_agreement);
     transactFragment(ProfileFragment.newInstance());
   }
 
   private void loadTransaction() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_transactions));
+    setCurrentPage(R.id.nav_transaction);
     transactFragment(TransactionsFragment.newInstance());
   }
 
   private void loadPortfolio() {
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_portfolio));
+    setCurrentPage(R.id.nav_portfolio);
     transactFragment(PortfolioFragment.newInstance());
   }
 
   private void loadCommission(){
     binding.appbar.toolbar.setTitle(getContext().getString(R.string.menu_commission));
+    setCurrentPage(R.id.nav_commission);
     transactFragment(CommissionFragment.newInstance());
   }
 

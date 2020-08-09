@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(binding.appbar.toolbar);
 
         initDrawerIcon();
+        viewModel.start();
     }
 
     private void initDrawerIcon() {
@@ -53,7 +54,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.start();
     }
 
     @Override
@@ -65,6 +65,9 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (viewModel.isDrawerOpen()) {
             viewModel.closeDrawer();
+            return;
+        } else if (viewModel.getCurrentPage() != R.id.nav_home){
+            viewModel.gotoHome();
             return;
         }
         super.onBackPressed();
