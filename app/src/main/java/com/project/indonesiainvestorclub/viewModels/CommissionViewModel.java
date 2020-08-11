@@ -127,7 +127,7 @@ public class CommissionViewModel extends BaseViewModelWithCallback {
         page.set(response.getPage());
         pages.set(response.getPages());
 
-        pageState.set(page+"/"+pages);
+        pageState.set(page.get()+"/"+pages.get());
 
         if (pages.get() > page.get()) nextButtonVisibility.set(true); else nextButtonVisibility.set(false);
         if (page.get() == 1) beforeButtonVisibility.set(false); else beforeButtonVisibility.set(true);
