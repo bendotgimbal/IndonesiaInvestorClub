@@ -44,17 +44,6 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   private static final String TAG = MainViewModel.class.getCanonicalName();
 
-  //public static final int HOME = 1;
-  //public static final int ABOUT = 2;
-  //public static final int LOUNGE = 3;
-  //public static final int FUNDS = 4;
-  //public static final int NETWORK = 5;
-  //public static final int AGREEMENT = 6;
-  //public static final int PROFILE = 7;
-  //public static final int TRANSACTION = 8;
-  //public static final int PORTOFOLIO = 9;
-  //public static final int COMMISION = 10;
-
   private ActivityMainBinding binding;
   private NavHeaderMainBinding navHeaderMainBinding;
   public ObservableBoolean loginState;
@@ -276,7 +265,7 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
   private void logout(){
     Intent logout = new Intent(getContext(), LogoutActivity.class);
-    context.startActivity(logout);
+    ((MainActivity)context).startActivityForResult(logout, MainActivity.REQ_LOGOUT);
   }
 
   private void transactFragment(Fragment fragment) {

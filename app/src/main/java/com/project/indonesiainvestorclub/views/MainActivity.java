@@ -1,7 +1,9 @@
 package com.project.indonesiainvestorclub.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.databinding.DataBindingUtil;
 import com.project.indonesiainvestorclub.R;
@@ -18,6 +20,7 @@ public class MainActivity extends BaseActivity {
     public static final int REQ_LOGIN = 1001;
     public static final int REQ_SIGNUP = 1002;
     public static final int FUND_MENU = 1003;
+    public static final int REQ_LOGOUT = 1004;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,4 +76,14 @@ public class MainActivity extends BaseActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQ_LOGOUT || requestCode == REQ_LOGIN || requestCode == REQ_SIGNUP){
+                viewModel.start();
+            }
+        }
+
+    }
 }
