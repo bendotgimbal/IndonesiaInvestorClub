@@ -109,18 +109,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
       String networkId = objectNetworkNew.getString("ID");
       Log.d("Debug", "Network ID " + networkId);
 
-      String usd = "";
-      String idr = "";
-
-      List<NetworkData> networkDataList = new ArrayList<>();
-
-      JSONObject dataObj = objectNetworkNew.getJSONObject("Data");
-      for (int i = 1; i <= dataObj.length(); i++) {
-        NetworkData loop = new NetworkData();
-        loop.setPhrase(dataObj.getString(i + ""));
-
-        networkDataList.add(loop);
-      }
 
       JSONObject downlineObj = objectNetworkNew.getJSONObject("Downline");
       List<NetworkDownline> downlinelist = new ArrayList<>();
@@ -143,8 +131,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
             "Commission(IDR)")) {
           networkDownlineDownline = new NetworkDownlineDownline(
               objectDownlineDownline.getString("Group")
-//              objectDownlineDownline.getString("Commission(USD)"),
-//              objectDownlineDownline.getString("Commission(IDR)")
           );
         } else {
           networkDownlineDownline = new NetworkDownlineDownline(
@@ -161,18 +147,10 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
         downlinelist.add(networkDownline);
       }
 
-//      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
-//        usd = objectNetworkNew.getString("Commission(USD)");
-//        idr = objectNetworkNew.getString("Commission(IDR)");
-//      }
-
       Network network = new Network(
           objectNetworkNew.getString("ID"),
           objectNetworkNew.getString("UplineID"),
           objectNetworkNew.getString("Name"),
-          networkDataList,
-//          usd,
-//          idr,
           downlinelist
       );
 
@@ -189,7 +167,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
     if (networkResNew == null) return;
 
     name.set(networkResNew.getNetwork().getName());
-    data.set(networkResNew.getNetwork().getNetworkData().get(0).getPhrase());
 
     downlineAdapteradapter.setModels(networkResNew.getNetwork().getNetworkDownline());
     downlineAdapteradapter.notifyDataSetChanged();
@@ -197,10 +174,6 @@ public class NetworkViewModel extends BaseViewModelWithCallback implements Actio
     if (downlineAdapteradapter.getItemCount() > 0){
       downlineAvail.set(true);
     }
-  }
-
-  public void onClickNetworkListHideShow(View view) {
-
   }
 
   @Override

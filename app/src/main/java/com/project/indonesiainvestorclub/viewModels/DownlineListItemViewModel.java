@@ -95,15 +95,6 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
       JSONObject objectNetworkNew = jsonObjectNetworkNew.getJSONObject("Networks");
       String networkId = objectNetworkNew.getString("ID");
       Log.d("Debug", "Network ID " + networkId);
-      List<NetworkData> networkDataList = new ArrayList<>();
-
-      JSONObject dataObj = objectNetworkNew.getJSONObject("Data");
-      for (int i = 1; i <= dataObj.length(); i++) {
-        NetworkData loop = new NetworkData();
-        loop.setPhrase(dataObj.getString(i + ""));
-
-        networkDataList.add(loop);
-      }
 
       List<NetworkDownline> downlinelist = new ArrayList<>();
 
@@ -130,8 +121,6 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
                 "Commission(IDR)")) {
               networkDownlineDownline = new NetworkDownlineDownline(
                   objectDownlineDownline.getString("Group")
-//                  objectDownlineDownline.getString("Commission(USD)"),
-//                  objectDownlineDownline.getString("Commission(IDR)")
               );
             } else {
               networkDownlineDownline = new NetworkDownlineDownline(
@@ -151,21 +140,11 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
         }
       }
 
-      String commissionUSD = "";
-      String commissionIDR = "";
-
-//      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
-//        commissionUSD = objectNetworkNew.getString("Commission(USD)");
-//        commissionIDR = objectNetworkNew.getString("Commission(IDR)");
-//      }
 
       Network network = new Network(
           objectNetworkNew.getString("ID"),
           objectNetworkNew.getString("UplineID"),
           objectNetworkNew.getString("Name"),
-          networkDataList,
-//          commissionUSD,
-//          commissionIDR,
           downlinelist
       );
 
