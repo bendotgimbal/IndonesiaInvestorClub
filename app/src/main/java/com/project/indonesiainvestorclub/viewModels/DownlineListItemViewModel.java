@@ -129,9 +129,9 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
             if (objectDownlineDownline.has("Commission(USD)") && objectDownlineDownline.has(
                 "Commission(IDR)")) {
               networkDownlineDownline = new NetworkDownlineDownline(
-                  objectDownlineDownline.getString("Group"),
-                  objectDownlineDownline.getString("Commission(USD)"),
-                  objectDownlineDownline.getString("Commission(IDR)")
+                  objectDownlineDownline.getString("Group")
+//                  objectDownlineDownline.getString("Commission(USD)"),
+//                  objectDownlineDownline.getString("Commission(IDR)")
               );
             } else {
               networkDownlineDownline = new NetworkDownlineDownline(
@@ -154,18 +154,18 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
       String commissionUSD = "";
       String commissionIDR = "";
 
-      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
-        commissionUSD = objectNetworkNew.getString("Commission(USD)");
-        commissionIDR = objectNetworkNew.getString("Commission(IDR)");
-      }
+//      if (objectNetworkNew.has("Commission(USD)") && objectNetworkNew.has("Commission(IDR)")){
+//        commissionUSD = objectNetworkNew.getString("Commission(USD)");
+//        commissionIDR = objectNetworkNew.getString("Commission(IDR)");
+//      }
 
       Network network = new Network(
           objectNetworkNew.getString("ID"),
           objectNetworkNew.getString("UplineID"),
           objectNetworkNew.getString("Name"),
           networkDataList,
-          commissionUSD,
-          commissionIDR,
+//          commissionUSD,
+//          commissionIDR,
           downlinelist
       );
 

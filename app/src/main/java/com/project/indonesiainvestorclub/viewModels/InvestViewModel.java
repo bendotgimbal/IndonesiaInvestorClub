@@ -202,6 +202,7 @@ public class InvestViewModel extends BaseViewModelWithCallback
     strInvestIDRValue.set(investIDRValue);
     strInvestID.set(id);
     strPages.set(pages);
+    Log.d("DEBUG","ID "+id+" || PAGES "+pages);
 
     getInvest();
   }
