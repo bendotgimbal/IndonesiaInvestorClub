@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.databinding.ObservableBoolean;
@@ -55,6 +56,7 @@ public class LogoutViewModel extends BaseViewModelWithCallback {
                 SharedPreferenceHelper.setUserName("");
 
                 hideLoading();
+                ((LogoutActivity)getContext()).setResult(Activity.RESULT_OK);
                 ((LogoutActivity)getContext()).finish();
               }
             }

@@ -1,5 +1,6 @@
 package com.project.indonesiainvestorclub.viewModels;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -77,6 +78,9 @@ public class LoginViewModel extends BaseViewModelWithCallback{
           @Override public void onNext(Response<LoginRes> loginResResponse) {
             super.onNext(loginResResponse);
             loading(false);
+            if (!loginResResponse.isSuccessful()){
+              Toast.makeText(getContext(), "Periksa kembali email dan password anda", Toast.LENGTH_SHORT).show();
+            }
           }
         });
     compositeDisposable.add(disposable);
@@ -118,6 +122,7 @@ public class LoginViewModel extends BaseViewModelWithCallback{
       }
 
       Toast.makeText(getContext(), "Selamat Anda Berhasil Masuk", Toast.LENGTH_SHORT).show();
+      ((LoginActivity)context).setResult(Activity.RESULT_OK);
       ((LoginActivity)context).finish();
     }
   }
