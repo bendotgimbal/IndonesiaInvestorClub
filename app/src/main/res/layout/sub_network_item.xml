@@ -58,7 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.name}"
-                android:textSize="16sp"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp"
                 tools:text="Name Value"
                 />
 
@@ -67,8 +68,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.data}"
-                android:textSize="16sp"
-                tools:text="IIC FX 1 Value :"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="IIC FX 1 Value : \nIIC FX 1 Value :"
                 />
 
             <TextView

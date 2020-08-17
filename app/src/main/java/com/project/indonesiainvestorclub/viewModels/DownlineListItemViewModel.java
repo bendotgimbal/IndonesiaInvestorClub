@@ -52,7 +52,7 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
 
     StringBuilder datas = new StringBuilder();
     for (int i = 0; i < downline.getNetworkData().size(); i++){
-      datas.append(downline.getNetworkData().get(i)).append("n/");
+      datas.append("- ").append(downline.getNetworkData().get(i).getPhrase()).append("\n");
     }
     data = new ObservableField<>(datas.toString());
 

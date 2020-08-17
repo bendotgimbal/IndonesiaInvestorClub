@@ -26,8 +26,10 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSupportActionBar(binding.appbar.toolbar);
+        setTitle(this.getString(R.string.menu_home));
 
         initDrawerIcon();
+
         viewModel.start();
     }
 

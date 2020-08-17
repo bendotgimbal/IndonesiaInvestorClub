@@ -144,11 +144,13 @@ public class MainViewModel extends BaseViewModelWithCallback {
 
       childList.put(user, userChildList);
 
-      if (!SharedPreferenceHelper.isUserMarketing()) {
-        MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), true, false);
-        headerList.add(network);
+      //if (!SharedPreferenceHelper.isUserMarketing()) {
+      //  MenuModel network = new MenuModel(R.id.nav_network, R.drawable.ic_network, getContext().getString(R.string.menu_network), true, false);
+      //  headerList.add(network);
+      //
+      //} else
 
-      } else {
+      if (SharedPreferenceHelper.isUserMarketing()) {
         MenuModel marketing = new MenuModel(0, R.drawable.ic_marketing, "Marketing", true, true);
         headerList.add(marketing);
 
