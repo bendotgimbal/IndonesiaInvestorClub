@@ -49,7 +49,12 @@ public class DownlineListItemViewModel extends BaseViewModelWithCallback {
     loading = new ObservableBoolean(false);
 
     name = new ObservableField<>(downline.getName());
-    data = new ObservableField<>(downline.getNetworkData().get(0).getPhrase());
+
+    StringBuilder datas = new StringBuilder();
+    for (int i = 0; i < downline.getNetworkData().size(); i++){
+      datas.append(downline.getNetworkData().get(i)).append("n/");
+    }
+    data = new ObservableField<>(datas.toString());
 
     binding.arrowIc.setImageResource(R.drawable.ic_child_user);
 
